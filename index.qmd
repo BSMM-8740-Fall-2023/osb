@@ -1,10 +1,9 @@
 ---
-title: "STA 210: Regression Analysis"
+title: "BSMM-8740: Data Analytic Methods & Algorithms"
 tbl-colwidths: [5,10,30,5,5,5,5,5,5,5]
 ---
 
-This page contains an outline of the topics, content, and assignments for the semester.
-Note that this schedule will be updated as the semester progresses, with all changes documented here.
+This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.
 
 ::: column-screen-inset-right
 |           Week            | Date        | Topic                                                                                                                     |                             Prepare                             |                                   Slides                                   |                                                       AE                                                        |                                                                                                   Lab                                                                                                   |                                                                                       HW                                                                                       |                            Exam                            |                                                                                                                                                                                                                                                                                                                       Project                                                                                                                                                                                                                                                                                                                        |
