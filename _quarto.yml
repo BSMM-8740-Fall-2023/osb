@@ -5,9 +5,9 @@ website:
   page-navigation: true
   title: "STA 210 - Spring 2022"
   description: "Homepage for STA 210 - Regression Analysis at Duke University, Spring 2022."
-  site-url: "https://sta210-s22.github.io/website/"
+  site-url: "https://bsmm-8740-fall-2023.github.io/osb/"
 
-  repo-url: https://github.com/sta210-s22/website
+  repo-url: https://github.com/bsmm-8740-fall-2023/osb
   repo-actions: [edit, issue]
 
   open-graph: true
@@ -28,7 +28,7 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/sta210-s22
+        href: https://github.com/bsmm-8740-fall-2023
         text: "GitHub organization"
       - icon: code-square
         href: https://cmgr.oit.duke.edu/containers
