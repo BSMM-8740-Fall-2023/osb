@@ -3,8 +3,8 @@ project:
 
 website:
   page-navigation: true
-  title: "STA 210 - Spring 2022"
-  description: "Homepage for STA 210 - Regression Analysis at Duke University, Spring 2022."
+  title: "BSMM-8740 - Fall 2023"
+  description: "Homepage for BSMM-8740: Data Analytic Methods & Algorithms."
   site-url: "https://bsmm-8740-fall-2023.github.io/osb/"
 
   repo-url: https://github.com/bsmm-8740-fall-2023/osb
