@@ -2,7 +2,7 @@
 title: "Syllabus"
 ---
 
-[Click here](/documents/BSMM-8740-Fall 2023.pdf "PDF of syllabus") **to download a PDF copy of the syllabus.**
+[Click here](/documents/BSMM-8740-Fall%202023.pdf "PDF of syllabus") **to download a PDF copy of the syllabus.**
 
 ## Course info
 
@@ -24,10 +24,10 @@ The general objectives of this course are to:
 
 ## Master of Management Competencies
 
-| **Program Competencies**                                                                                                                                       | **Course Competencies**                                                                                                                                        | Tested by                                             |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Lab Assessments                                       |
-| Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Quizzes, Midterm Examination, and Final Examination   |
+| **Program Competencies**                                                                                                                                       | **Course Competencies**                                                                                                                                        | Tested by                                           |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Lab Assessments                                     |
+| Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Quizzes, Midterm Examination, and Final Examination |
 
 ## Odette School Of Business Course Policies
 

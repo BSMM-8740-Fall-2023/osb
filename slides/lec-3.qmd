@@ -68,9 +68,11 @@ See the supplemental notes on [Deriving the Least-Squares Estimates for Simple L
 #| message: false
 
 # load packages
-library(tidyverse)       # for data wrangling
-library(tidymodels)      # for modeling
-library(fivethirtyeight) # for the fandango dataset
+# library(tidyverse)       # for data wrangling
+# library(tidymodels)      # for modeling
+# library(fivethirtyeight) # for the fandango dataset
+require(magrittr)
+require(ggplot2)
 
 # set default theme and larger font size for ggplot2
 ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
@@ -114,8 +116,8 @@ knitr::opts_chunk$set(
 
 ```{r data-prep}
 #| echo: true
-movie_scores <- fandango %>%
-  rename(
+movie_scores <- fivethirtyeight::fandango %>%
+  dplyr::rename(
     critics = rottentomatoes, 
     audience = rottentomatoes_user
   )
@@ -148,8 +150,8 @@ linear_reg()
 #| echo: true
 # #| code-line-numbers: "|2"
 
-linear_reg() %>%
-  set_engine("lm") # lm: linear model
+parsnip::linear_reg() %>%
+  parsnip::set_engine("lm") # lm: linear model
 ```
 
 ## Step 3: Fit model & estimate parameters
@@ -160,18 +162,18 @@ using **formula syntax**
 #| echo: true
 # #| code-line-numbers: "|3"
 
-linear_reg() %>%
-  set_engine("lm") %>%
-  fit(audience ~ critics, data = movie_scores)
+parsnip::linear_reg() %>%
+  parsnip::set_engine("lm") %>%
+  parsnip::fit(audience ~ critics, data = movie_scores)
 ```
 
 ## A closer look at model output
 
 ```{r}
 #| echo: true
-movie_fit <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(audience ~ critics, data = movie_scores)
+movie_fit <- parsnip::linear_reg() %>%
+  parsnip::set_engine("lm") %>%
+  parsnip::fit(audience ~ critics, data = movie_scores)
 
 movie_fit
 ```
@@ -190,10 +192,10 @@ We'll focus on the first column for now...
 #| echo: true
 # #| code-line-numbers: "|4"
 
-linear_reg() %>%
-  set_engine("lm") %>%
-  fit(audience ~ critics, data = movie_scores) %>%
-  tidy()
+parsnip::linear_reg() %>%
+  parsnip::set_engine("lm") %>%
+  parsnip::fit(audience ~ critics, data = movie_scores) %>%
+  broom::tidy()
 ```
 
 ## Prediction
@@ -203,10 +205,11 @@ linear_reg() %>%
 # #| code-line-numbers: "|2|5"
 
 # create a data frame for a new movie
-new_movie <- tibble(critics = 50)
+new_movie <- tibble::tibble(critics = 50)
 
 # predict the outcome for a new movie
-predict(movie_fit, new_movie)
+movie_fit %>% 
+  stats::predict(new_movie)
 ```
 
 # Application exercise
