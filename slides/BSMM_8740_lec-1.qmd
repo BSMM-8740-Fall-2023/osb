@@ -117,7 +117,6 @@ all_stations <-
 #| echo: true
 #| message: false
 #| results: false
-
 # functional programming
 airlines <- fivethirtyeight::airline_safety %>% 
   # filter rows
