@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -390,6 +424,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification">Model Specification</a></li>
   <li><a href="#bias-variance-trade-off-in-ridge-regression" id="toc-bias-variance-trade-off-in-ridge-regression" class="nav-link" data-scroll-target="#bias-variance-trade-off-in-ridge-regression">Bias-Variance Trade-Off in Ridge Regression</a></li>
+  <li><a href="#minimizing-information-criteria" id="toc-minimizing-information-criteria" class="nav-link" data-scroll-target="#minimizing-information-criteria">Minimizing Information Criteria</a></li>
+  <li><a href="#ridge-regression-r-example" id="toc-ridge-regression-r-example" class="nav-link" data-scroll-target="#ridge-regression-r-example">Ridge Regression: R example</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/supplemental/regularization-derivations.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -499,9 +535,51 @@ Note
 <section id="bias-variance-trade-off-in-ridge-regression" class="level3">
 <h3 class="anchored" data-anchor-id="bias-variance-trade-off-in-ridge-regression">Bias-Variance Trade-Off in Ridge Regression</h3>
 <p><span class="math display">\[
-\text{Bias}\left(\hat{\mathbf{\beta}}_{ridge}\right) &amp;=\lambda (X'X+\lambda I)^{-1}\beta\\
-\text{Var}\left(\hat{\mathbf{\beta}}_{ridge}\right) &amp;= \sigma^{2}(X'X+\lambda I)^{-1} X'X (X'X+\lambda I)^{-1}
+\begin{align*}
+\text{Bias}\left(\hat{\mathbf{\beta}}_{ridge}\right) &amp; =\lambda(X'X+\lambda I)^{-1}\beta\\
+\text{Var}\left(\hat{\mathbf{\beta}}_{ridge}\right) &amp; =\sigma^{2}(X'X+\lambda I)^{-1}X'X(X'X+\lambda I)^{-1}
+\end{align*}
 \]</span></p>
+<p>From there you can see that as <span class="math inline">\(\lambda\)</span> becomes larger, the variance decreases, and the bias increases. This poses the question: how much bias are we willing to accept in order to decrease the variance? Or: what is the optimal value for <span class="math inline">\(\lambda\)</span>?</p>
+<p>There are two ways we could tackle this issue. A more traditional approach would be to choose λ such that some information criterion, e.g., AIC or BIC, is the smallest. A more machine learning-like approach is to perform cross-validation and select the value of λ that minimizes the cross-validated sum of squared residuals (or some other measure). The former approach emphasizes the model’s fit to the data, while the latter is more focused on its predictive performance. Let’s discuss both.</p>
+</section>
+<section id="minimizing-information-criteria" class="level3">
+<h3 class="anchored" data-anchor-id="minimizing-information-criteria">Minimizing Information Criteria</h3>
+<p>This approach boils down to estimating the model with many different values for <span class="math inline">\(\lambda\)</span> and choosing the one that minimizes the Akaike or Bayesian Information Criterion:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{AIC}_{\text{ridge}} &amp; =\log(e'e)+2\text{df}_{\text{ridge}}\\
+\text{BIC}_{\text{ridge}} &amp; =\log(e'e)+2\text{df}_{\text{ridge}}\log n
+\end{align*}
+\]</span></p>
+<p>where <span class="math inline">\(\text{df}_{\text{ridge}}\)</span> is the number of degrees of freedom. Watch out here! The number of degrees of freedom in ridge regression is different than in the regular OLS! This is often overlooked which leads to incorrect inference. In both OLS and ridge regression, degrees of freedom are equal to the trace of the so-called hat matrix, which is a matrix that maps the vector of response values to the vector of fitted values as follows: <span class="math inline">\(\hat y = H y\)</span>.</p>
+<p>In OLS, we find that <span class="math inline">\(\text{H}_{\text{OLS}}=X(X′X)^{−1}X\)</span>, which gives <span class="math inline">\(\text{df}_{\text{OLS}}=\text{tr}\text{H}_{\text{OLS}}=m\)</span>, where <span class="math inline">\(m\)</span> is the number of predictor variables. In ridge regression, however, the formula for the hat matrix should include the regularization penalty: <span class="math inline">\(\text{H}_{\text{ridge}}=X(X′X+\lambda I)^{−1}X\)</span>, which gives <span class="math inline">\(\text{df}_{\text{ridge}}=\text{tr}\text{H}_{\text{ridge}}\)</span>, which is no longer equal to <span class="math inline">\(m\)</span>. Some ridge regression software produce information criteria based on the OLS formula. To be sure you are doing things right, it is safer to compute them manually, which is what we will do later in this tutorial.</p>
+</section>
+<section id="ridge-regression-r-example" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-regression-r-example">Ridge Regression: R example</h3>
+<p>In R, the <em>glmnet</em> package contains all you need to implement ridge regression. We will use the infamous mtcars dataset as an illustration, where the task is to predict miles per gallon based on car’s other characteristics. One more thing: <strong>ridge regression assumes the predictors are standardized and the response is centered!</strong> You will see why this assumption is needed in a moment. For now, we will just standardize before modeling.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries, get data &amp; set seed for reproducibility ---------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)    <span class="co"># seef for reproducibility</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)  <span class="co"># for ridge regression</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># for data cleaning</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)   <span class="co"># for function tr() to compute trace of a matrix</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Center y, X will be standardized in the modelling function</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> <span class="fu">select</span>(mpg) <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>mpg) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform 10-fold cross-validation to select lambda ---------------------------</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>lambdas_to_try <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting alpha = 0 implements ridge regression</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambdas_to_try,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">standardize =</span> <span class="cn">TRUE</span>, <span class="at">nfolds =</span> <span class="dv">10</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cross-validation results</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="../images/ridge-1_r4qss4.png" class="img-fluid"></p>
 <p>This document contains the mathematical details for deriving the least-squares estimates for slope (<span class="math inline">\(\beta_1\)</span>) and intercept (<span class="math inline">\(\beta_0\)</span>). We obtain the estimates, <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_0\)</span> by finding the values that minimize the sum of squared residuals, as shown in <a href="#eq-ssr">Equation&nbsp;8</a>.</p>
 <p><span id="eq-ssr"><span class="math display">\[
 SSR = \sum\limits_{i=1}^{n}[y_i - \hat{y}_i]^2 = [y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)]^2 = [y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i]^2
