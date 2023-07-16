@@ -18,7 +18,6 @@ library(knitr)
 This document provides details about the model interpretation when the predictor and/or response variables are log-transformed. For simplicity, we will discuss transformations for the simple linear regression model as shown in @eq-orig.
 
 $$
-\label{orig}
 y = \beta_0 + \beta_1 x
 $$ {#eq-orig}
 
