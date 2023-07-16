@@ -141,7 +141,7 @@ ggplot(movie_scores,
 
 ```{r}
 #| echo: true
-linear_reg()
+parsnip::linear_reg()
 ```
 
 ## Step 2: **Set model fitting *engine***
