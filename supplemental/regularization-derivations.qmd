@@ -61,14 +61,39 @@ The OLS estimator has the desired property of being unbiased. However, it can ha
 -   The predictor variables are highly correlated with each other;
 -   There are many predictors. This is reflected in the formula for variance given above: if *m* approaches *n*, the variance approaches infinity.
 
-The general solution to this is: **reduce variance at the cost of introducing some bias**. This approach is called regularization and is almost always beneficial for the predictive performance of the model. To make it sink in, let's
-take a look at the following plot.
+The general solution to this is: **reduce variance at the cost of introducing some bias**. This approach is called regularization and is almost always beneficial for the predictive performance of the model. To make it sink in, let's take a look at the following plot.
 
 ![Source: researchgate.net](/images/tradeoff_sevifm.png){fig-alt="Source: researchgate.net" fig-align="center"}
 
 As the model complexity, which in the case of linear regression can be thought of as the number of predictors, increases, estimates' variance also increases, but the bias decreases. The unbiased OLS would place us on the right-hand side of the picture, which is far from optimal. That's why we regularize: to lower the variance at the cost of some bias, thus moving left on the plot, towards the optimum.
 
-Ridge Regression
+## Ridge Regression
+
+From the discussion so far we have concluded that we would like to decrease the model complexity, that is the number of predictors. We could use the forward or backward selection for this, but that way we would not be able to tell anything about the removed variables' effect on the response. Removing predictors from the model can be seen as settings their coefficients to zero. Instead of forcing them to be exactly zero, let's penalize them if they are too far from zero, thus enforcing them to be small in a continuous way. This way, we decrease model complexity while keeping all variables in the model. This, basically, is what Ridge Regression does.
+
+### Model Specification
+
+In Ridge Regression, the OLS loss function is augmented in such a way that we not only minimize the sum of squared residuals but also penalize the size of parameter estimates, in order to shrink them towards zero:
+
+$$
+\text{L}_{ridge}\left(\hat{\beta}\right)=\sum_{i=1}^{n}\left(y_{i}-x_{i}^{'}\hat{\beta}\right)^{2} + \lambda\sum_{j=1}^{m}\hat{\beta}^2_j=\left\Vert y-X\hat{\beta}\right\Vert ^{2} + \lambda\left\Vert \hat{\beta}\right\Vert ^{2}
+$$
+
+Solving this for $\hat\beta$ gives the the ridge regression estimates $\hat\beta_{ridge} = (X'X+\lambda I)^{-1}(X'Y)$, where I denotes the identity matrix.
+
+The $\lambda$ parameter is the regularization penalty. We will talk about how to choose it in the next sections of this tutorial, but for now notice that:
+
+-   As $\lambda \rightarrow 0, \quad \hat\beta_{ridge} \rightarrow \hat\beta_{OLS}$;
+-   As $\lambda \rightarrow \infty, \quad \hat\beta_{ridge} \rightarrow 0$.
+
+So, setting $\lambda$ to 0 is the same as using the OLS, while the larger its value, the stronger is the coefficients' size penalized.
+
+### Bias-Variance Trade-Off in Ridge Regression
+
+$$
+\text{Bias}\left(\hat{\mathbf{\beta}}_{ridge}\right) &=\lambda (X'X+\lambda I)^{-1}\beta\\
+\text{Var}\left(\hat{\mathbf{\beta}}_{ridge}\right) &= \sigma^{2}(X'X+\lambda I)^{-1} X'X (X'X+\lambda I)^{-1}
+$$
 
 This document contains the mathematical details for deriving the least-squares estimates for slope ($\beta_1$) and intercept ($\beta_0$). We obtain the estimates, $\hat{\beta}_1$ and $\hat{\beta}_0$ by finding the values that minimize the sum of squared residuals, as shown in @eq-ssr.
 

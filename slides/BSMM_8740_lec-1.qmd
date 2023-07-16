@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the Todyverse"
+title: "Introduction to the Tidyverse"
 subtitle: "BSMM-8740 - Fall 2023"
 author: "Dr. L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
@@ -339,6 +339,61 @@ mtcars %>%
 :::
 
 [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
+
+## Example 5: Database functions
+
+::: panel-tabset
+## Create DB
+
+```{r}
+#| echo: true
+#| eval: false
+#| message: false
+# directly like a tibble
+db <- 
+  dbplyr::memdb_frame(
+    x = runif(100)
+    , y = runif(100)
+    , .name = 'test_tbl'
+  )
+
+# using an existing table
+mtcars_db <- dbplyr::tbl_memdb(mtcars)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| results: false
+mtcars_db <- dbplyr::tbl_memdb(mtcars)
+```
+
+## Extract SQL
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Generate SQL without executing"
+mtcars_db %>% 
+  dplyr::group_by(cyl) %>% 
+  dplyr::summarise(n = n()) %>% 
+  dplyr::show_query()
+```
+
+## Execute Query
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Execute Query on DB"
+mtcars_db %>% 
+  dplyr::group_by(cyl) %>% 
+  dplyr::summarise(n = n()) %>% 
+  dplyr::collapse()
+```
+:::
 
 # Data
 
