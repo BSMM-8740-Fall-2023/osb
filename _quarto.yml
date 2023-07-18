@@ -17,8 +17,8 @@ website:
     image: "images/twitter-card.png"
 
   page-footer:
-    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    left: "&copy; Copyright 2022, Mine Çetinkaya-Rundel"
+    right: "This page is modified from [a course](https://sta210-s22.github.io/website/) at Duke."
+    left: "&copy; Copyright 2022, Mine Çetinkaya-Rundel used under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)"
     background: "#D9E3E4"
 
   sidebar:
