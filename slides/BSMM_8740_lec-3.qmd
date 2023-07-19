@@ -1,0 +1,175 @@
+---
+title: "Linear Regression"
+subtitle: "BSMM-8740 - Fall 2023"
+author: "L.L. Odette"
+footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
+logo: "images/logo.png"
+format: 
+  revealjs: 
+    theme: slides.scss
+    multiplex: true
+    transition: fade
+    slide-number: true
+editor: visual
+execute:
+  freeze: auto
+---
+
+```{r opts, include = FALSE}
+options(width = 90)
+library(knitr)
+opts_chunk$set(comment="", 
+               digits = 3, 
+               tidy = FALSE, 
+               prompt = TRUE,
+               fig.align = 'center')
+require(magrittr)
+require(ggplot2)
+theme_set(theme_bw() + theme(legend.position = "top"))
+```
+
+## Linear regression models
+
+In the simple linear regression model, you have $n$ observations of the response variable $Y$ with a linear combination of $m$ predictor variables $\mathbf{x}$ where
+
+$$
+\pi\left(Y=y|\mathbf{x,\theta}\right)=\mathcal{N}\left(\left.y\right|\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x},\sigma^{2}\right)
+$$
+
+and where $\mathcal{N}\left(\left.y\right|\mu,\sigma^{2}\right)$ is a Normal distribution with mean $\mu$ and variance $\sigma^2$, $\theta=\left(\beta_{0},\mathbf{\mathbf{\mathbf{\beta}}},\sigma^{2}\right)$ are the *parameters* of the model and the vector of parameters $\beta_{1:D}$ are the *weights* or *regression* coefficients.
+
+## Linear regression models
+
+The mean function $f(\mathbf{x})\equiv\mu$ could be any linear function in $\mathbf{x}=(x_1,\ldots,x_m)$ in which case $\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x}$ is a linear approximation around $\beta_{0}$ per the Taylor series for $f(\mathbf{x})$. When $D=1$ the Taylor series is
+
+$$
+f(x)=f(\beta_{0})+f'(\beta_{0})(x-\beta_{0})+\frac{1}{2}f''(\beta_{0})(x-\beta_{0})^{2}+\ldots
+$$
+
+## Linear regression models
+
+When $D=2$ the Taylor series is (writing $f_{x}\equiv\frac{\partial f}{\partial x}$, $f_{y}\equiv\frac{\partial f}{\partial y}$, $f_{x,y}\equiv\frac{\partial^2 f}{\partial x,\partial x}$ and so on):
+
+$$
+\begin{align*}
+f(x,y) & =f(\alpha_{0},\beta_{0})+f_{x}(\alpha_{0},\beta_{0})(x-\alpha_{0})+f_{y}(\alpha_{0},\beta_{0})(y-\beta_{0})\\
+ & = + f_{x,x}(\alpha_{0},\beta_{0})(x-\alpha_{0})^{2}+f_{y,y}(\alpha_{0},\beta_{0})(y-\beta_{0})^{2}\\
+ & = + f_{x,y}(\alpha_{0},\beta_{0})(x-\alpha_{0})(y-\beta_{0})+\ldots
+\end{align*}
+$$
+
+## Linear regression models
+
+To fit the 1D linear regression model to $N$ data samples, we minimize the negative log-likelihood on the training set.
+
+$$
+\begin{align*}
+\text{NLL}\left(\beta,\sigma^{2}\right) & =\sum_{n=1}^{N}\log\left[\left(\frac{1}{2\pi\sigma^{2}}\right)^{\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^{2}}\left(y_{n}-\beta'x_{n}\right)^{2}\right)\right]\\
+ & =-\frac{1}{2\sigma^{2}}\sum_{n=1}^{N}\left(y_{n}-\hat{y}_{n}\right)^{2}-N\log\left(2\pi\sigma^{2}\right)
+\end{align*}
+$$
+
+where the predicted response is $\hat{y}\equiv\beta'x_{n}$.
+
+## Linear regression models
+
+Focusing on just the weights, the minimum NLL is (up to a constant) the minimum of the residual sum of squares (RSS):
+
+$$ 
+\begin{align*}\text{RSS}\left(\beta\right) & =\frac{1}{2}\sum_{n=1}^{N}\left(y_{n}-\beta'x_{n}\right)^{2}=\frac{1}{2}\left\Vert y_{n}-\beta'x_{n}\right\Vert ^{2}\\
+ & =\frac{1}{2}\left(y_{n}-\beta'x_{n}\right)'\left(y_{n}-\beta'x_{n}\right)\\
+\\
+\end{align*}
+$$
+
+## Linear regression models
+
+The minimum of the RSS is solved by (assuming $N>D$:
+
+$$
+\hat{\mathbf{\beta}}_{OLS}=\left(X'X\right)^{-1}\left(X'Y\right)
+$$
+
+There are algorithmic issues though.
+
+## Linear regression algorithms
+
+Computing the inverse of $X'X$ directly, while theoretically possible ,can be numerically unstable.
+
+In R, the $QR$ decomposition is used to solve for $\beta$. Let $X=QR$ where $Q'Q=I$ and write:
+
+$$
+\begin{align*}
+(QR)\beta & = y\\
+Q'QR\beta & = Q'y\\
+\beta & = R^{-1}(Q'y)
+\end{align*}
+$$
+
+Since $R$ is upper triangular, the last equation can be solved by backsubstitution.
+
+## Linear regression algorithms
+
+```{r}
+#| echo: true
+#| message: false
+A <- matrix(c(1,2,3, 2,4,6, 3, 3, 3), nrow=3)
+QR <- qr(A)
+```
+
+::: panel-tabset
+## Q
+
+```{r}
+#| echo: true
+#| message: false
+Q <- qr.Q(QR); Q
+```
+
+## R
+
+```{r}
+#| echo: true
+#| message: false
+R <- qr.R(QR); R
+```
+
+## A
+
+```{r}
+#| echo: true
+#| message: false
+Q %*% R
+```
+:::
+
+## Linear regression algorithms
+
+```{r}
+#| echo: true
+#| message: false
+# A linear system of equations y = Ax
+A <- matrix(c(3, 2, -1, 2, -2, .5, -1, 4, -1), nrow=3); A; cat("\n")
+
+x <- c(1, -2, -2); x; cat("\n")
+
+y <- A %*% x ; y; cat("\n")
+
+```
+
+## Linear regression algorithms
+
+```{r}
+#| echo: true
+#| message: false
+# Compute the QR decomposition of A
+QR <- qr(A)
+Q <- qr.Q(QR)
+R <- qr.R(QR)
+
+# Compute b=Q'y
+b <- crossprod(Q, y); b
+
+# Solve the upper triangular system Rx=b
+backsolve(R, b)
+```

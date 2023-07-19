@@ -549,5 +549,123 @@ e & =y-x\hat{\mathbf{\beta}}\\
 +
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $\partial\log(V)=\beta\times\partial\log(\frac{p}{p_{\text{baseline}})}$
+\end_inset
+
+ 
+\begin_inset Formula $\partial\log(V)=\beta\times\partial\log(p/p_{\text{baseline}})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{P}\left[\left.\left(K,\beta\right)\right|V\right]=\mathbb{P}\left[\left.V\right|\left(K,\beta\right)\right]\times\mathbb{P}\left[K\right]\times\mathbb{P}\left[\beta\right]\Rightarrow\;\left(\frac{p}{p_{\text{baseline}}}\right)^{\beta}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\text{Bias}\left(\hat{\mathbf{\beta}}_{ridge}\right) & =\lambda(X'X+\lambda I)^{-1}\beta\\
+\text{Var}\left(\hat{\mathbf{\beta}}_{ridge}\right) & =\sigma^{2}(X'X+\lambda I)^{-1}X'X(X'X+\lambda I)^{-1}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\pi\left(Y=y|\mathbf{x,\theta}\right)=\mathcal{N}\left(\left.y\right|\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x},\sigma^{2}\right)$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\beta_{0},\mathbf{\mathbf{\mathbf{\beta}}},\sigma^{2}\right)$
+\end_inset
+
+
+\begin_inset Formula $\left(1,x_{1},\ldots,x_{D}\right)$
+\end_inset
+
+
+\begin_inset Formula $\phi$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\text{NLL\left(\beta,\sigma^{2}\right)} & =\sum_{n=1}^{N}\log\left[\left(\frac{1}{2\pi\sigma^{2}}\right)^{\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^{2}}\left(y_{n}-\beta'x_{n}\right)^{2}\right)\right]\\
+ & =-\frac{1}{2\sigma^{2}}\sum_{n=1}^{N}\left(y_{n}-\hat{y}_{n}\right)^{2}-N\log\left(2\pi\sigma^{2}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\hat{y}\equiv\beta'x_{n}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\text{RSS}\left(\beta\right) & =\frac{1}{2}\sum_{n=1}^{N}\left(y_{n}-\beta'x_{n}\right)^{2}=\frac{1}{2}\left\Vert y_{n}-\beta'x_{n}\right\Vert ^{2}=\frac{1}{2}\left(y_{n}-\beta'x_{n}\right)'\left(y_{n}-\beta'x_{n}\right)\\
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $f_{x}\equiv\frac{\partial f}{\partial x}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathcal{N}\left(\left.y\right|\mu,\sigma^{2}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(x)=f(\beta_{0})+f'(\beta_{0})(x-\beta_{0})+\frac{1}{2}f''(\beta_{0})(x-\beta_{0})^{2}+\ldots
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+f(x,y) & =f(\alpha_{0},\beta_{0})+f_{x}(\alpha_{0},\beta_{0})(x-\alpha_{0})+f_{y}(\alpha_{0},\beta_{0})(y-\beta_{0})\\
+ & =+f_{x,x}(\alpha_{0},\beta_{0})(x-\alpha_{0})^{2}+f_{y,y}(\alpha_{0},\beta_{0})(y-\beta_{0})^{2}+f_{x,y}(\alpha_{0},\beta_{0})(x-\alpha_{0})(y-\beta_{0})
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{align*}\text{RSS}\left(\beta\right) & =\frac{1}{2}\sum_{n=1}^{N}\left(y_{n}-\beta'x_{n}\right)^{2}=\frac{1}{2}\left\Vert y_{n}-\beta'x_{n}\right\Vert ^{2}\\
+ & =\frac{1}{2}\left(y_{n}-\beta'x_{n}\right)'\left(y_{n}-\beta'x_{n}\right)\\
+\\
+\end{align*}
+$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
