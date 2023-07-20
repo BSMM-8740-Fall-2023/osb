@@ -659,9 +659,50 @@ f(x,y) & =f(\alpha_{0},\beta_{0})+f_{x}(\alpha_{0},\beta_{0})(x-\alpha_{0})+f_{y
 \begin_layout Standard
 \begin_inset Formula $\begin{align*}\text{RSS}\left(\beta\right) & =\frac{1}{2}\sum_{n=1}^{N}\left(y_{n}-\beta'x_{n}\right)^{2}=\frac{1}{2}\left\Vert y_{n}-\beta'x_{n}\right\Vert ^{2}\\
  & =\frac{1}{2}\left(y_{n}-\beta'x_{n}\right)'\left(y_{n}-\beta'x_{n}\right)\\
-\\
+ & \sqrt{b}
 \end{align*}
 $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+
+\begin_inset Formula $\mathscr{l}$
+\end_inset
+
+
+\begin_inset Formula $\ell\left(y_{n},\theta;x_{n}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\hat{\beta}=\arg\!\min\text{RSS}\left(\beta\right)+\lambda\left\Vert \beta\right\Vert _{2}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathcal{L}\left(\beta\right)=\text{NLL}+\left\Vert \beta\right\Vert _{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\mathbf{\beta}}_{ridge} & =\left(X'X-\lambda I_{D}\right)^{-1}\left(X'Y\right)\\
+ & =\left(\sum_{n}x_{n}x'_{n}+\lambda I_{D}\right)^{-1}\left(\sum_{n}y_{n}x_{n}\right)
+\end{align*}
+
 \end_inset
 
 

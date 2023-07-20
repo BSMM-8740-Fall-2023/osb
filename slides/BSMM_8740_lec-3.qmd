@@ -84,7 +84,7 @@ $$
 
 ## Linear regression models
 
-The minimum of the RSS is solved by (assuming $N>D$:
+The minimum of the RSS is solved by (assuming $N>D$):
 
 $$
 \hat{\mathbf{\beta}}_{OLS}=\left(X'X\right)^{-1}\left(X'Y\right)
@@ -94,7 +94,7 @@ There are algorithmic issues though.
 
 ## Linear regression algorithms
 
-Computing the inverse of $X'X$ directly, while theoretically possible ,can be numerically unstable.
+Computing the inverse of $X'X$ directly, while theoretically possible, can be numerically unstable.
 
 In R, the $QR$ decomposition is used to solve for $\beta$. Let $X=QR$ where $Q'Q=I$ and write:
 
@@ -172,4 +172,226 @@ b <- crossprod(Q, y); b
 
 # Solve the upper triangular system Rx=b
 backsolve(R, b)
+```
+
+## Linear regression models
+
+Minimizing the NLL by minimizing the residual sum of squares (RSS) is the same as minimizing
+
+-   the **mean squared error** $\text{MSE}\left(\beta\right) = \frac{1}{N}\text{RSS}\left(\beta\right)$
+-   the **root mean squared error** $\text{RMSE}\left(\beta\right) = \sqrt{\text{MSE}\left(\beta\right)}$
+
+::: callout-note
+The minimum NLL estimate is also the maximum likelihood estimate (MLE)
+:::
+
+## Empirical risk minimization
+
+The MLE can be generalized by replacing the NLL ($\ell\left(y_{n},\theta;x_{n}\right)=-\log\pi\left(y_n|x_n,\theta\right)$) with any other loss function to get
+
+$$
+\mathcal{L}\left(\theta\right)=\frac{1}{N}\sum_{n=1}^{N}\ell\left(y_{n},\theta;x_{n}\right)
+$$
+
+This is known as the empirical risk minimization (ERM) - the expected loss taken with respect to the empirical distribution.
+
+## Ridge Regression
+
+Ridge regression is an example of a penalized regression model; in this case the magnitude of the weights are penalized by adding the $\ell_2$ norm of the weights to the loss function. In particular, the ridge regression weights are:
+
+$$
+\hat{\beta}_{\text{ridge}}=\arg\!\min\text{RSS}\left(\beta\right)+\lambda\left\Vert \beta\right\Vert _{2}^{2}
+$$
+
+where $\lambda$ is the strength of the regularizer.
+
+## Ridge Regression
+
+The solution is:
+
+$$
+\begin{align*}
+\hat{\mathbf{\beta}}_{ridge} & =\left(X'X-\lambda I_{D}\right)^{-1}\left(X'Y\right)\\
+ & =\left(\sum_{n}x_{n}x'_{n}+\lambda I_{D}\right)^{-1}\left(\sum_{n}y_{n}x_{n}\right)
+\end{align*}
+$$
+
+## Ridge Regression
+
+As for unpenalized linear regression, using matrix inversion to solve for $\hat{\mathbf{\beta}}_{ridge}$ can be a bad idea. The QR transformation can be used here, however, ridge reression is often used when $D>N$, in which case the SVD transformation is faster.
+
+## Ridge Regression Example
+
+```{r}
+#| echo: true
+#| message: false
+#define response variable
+y <- mtcars$hp
+
+#define matrix of predictor variables
+x <- data.matrix(mtcars[, c('mpg', 'wt', 'drat', 'qsec')])
+```
+
+## Ridge Regression Example
+
+```{r}
+#| echo: true
+#| message: false
+#fit ridge regression model
+model <- glmnet::glmnet(x, y, alpha = 0)
+
+#view summary of model
+summary(model)
+```
+
+## Ridge Regression Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "glmnet example"
+#perform k-fold cross-validation to find optimal lambda value
+cv_model <- glmnet::cv.glmnet(x, y, alpha = 0)
+
+#find optimal lambda value that minimizes test MSE
+best_lambda <- cv_model$lambda.min
+
+#produce plot of test MSE by lambda value
+tibble::tibble(
+  "Mean-Squared Error" = cv_model$cvm
+  , lambda = cv_model$lambda
+  , lambda_hi = cv_model$cvup
+  , lambda_lo = cv_model$cvlo
+) %>% ggplot(aes(x=lambda, y = `Mean-Squared Error`)) +
+  geom_ribbon(aes(ymin = lambda_lo, ymax = lambda_hi), fill = "#00ABFD", alpha=0.5) +
+  geom_point() +
+  geom_vline(xintercept=best_lambda) +
+  labs(title='Ridge Regression'
+       , subtitle = 
+         stringr::str_glue(
+           "The best lambda value is {scales::number(best_lambda, accuracy=0.01)}"
+         )
+  ) +
+  ggplot2::scale_x_log10()
+```
+
+## Ridge Regression Example
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "glmnet coefficients"
+model$beta %>% 
+  as.matrix() %>% 
+  t() %>% 
+  tibble::as_tibble() %>% 
+  tibble::add_column(lambda = model$lambda, .before = 1) %>% 
+  tidyr::pivot_longer(-lambda, names_to = 'parameter') %>% 
+  ggplot(aes(x=lambda, y=value, color=parameter)) +
+  geom_line() + geom_point() +
+  xlim(0,2000) +
+  labs(title='Ridge Regression'
+       , subtitle = 
+         stringr::str_glue(
+           "Parameters as a function of lambda"
+         )
+  )
+```
+
+## Lasso Regression
+
+In the case where we want the
+
+Lasso regression is another example of a penalized regression model; in this case both the magnitude of the weights and the number of parameters are penalized by using the $\ell_1$ norm of the weights to the loss function of the lasso regression. In particular, the lasso regression weights are:
+
+$$
+\hat{\beta}_{\text{lasso}}=\arg\!\min\text{RSS}\left(\beta\right)+\lambda\left\Vert \beta\right\Vert _{1}
+$$
+
+## Lasso Regression
+
+The Lasso objective function is
+
+$$
+\mathcal{L}\left(\beta\right)=\text{NLL}+\left\Vert \beta\right\Vert _{1}
+$$
+
+## Lasso Regression Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "lasso model"
+#define response variable
+y <- mtcars$hp
+
+#define matrix of predictor variables
+x <- data.matrix(mtcars[, c('mpg', 'wt', 'drat', 'qsec')])
+
+#fit ridge regression model
+model <- glmnet::glmnet(x, y, alpha = 1)
+
+#view summary of model
+summary(model)
+```
+
+## Lasso Regression Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "lasso example"
+#perform k-fold cross-validation to find optimal lambda value
+cv_model <- glmnet::cv.glmnet(x, y, alpha = 1)
+
+#find optimal lambda value that minimizes test MSE
+best_lambda <- cv_model$lambda.min
+
+#produce plot of test MSE by lambda value
+tibble::tibble(
+  "Mean-Squared Error" = cv_model$cvm
+  , lambda = cv_model$lambda
+  , lambda_hi = cv_model$cvup
+  , lambda_lo = cv_model$cvlo
+) %>% ggplot(aes(x=lambda, y = `Mean-Squared Error`)) +
+  geom_ribbon(aes(ymin = lambda_lo, ymax = lambda_hi), fill = "#00ABFD", alpha=0.5) +
+  geom_point() +
+  geom_vline(xintercept=best_lambda) +
+  labs(title='Lasso Regression'
+       , subtitle = 
+         stringr::str_glue(
+           "The best lambda value is {scales::number(best_lambda, accuracy=0.01)}"
+         )
+  ) +
+  xlim(0,exp(4)) + ggplot2::scale_x_log10()
+```
+
+## Lasso Regression Example
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "lasso coefficients"
+model$beta %>% 
+  as.matrix() %>% 
+  t() %>% 
+  tibble::as_tibble() %>% 
+  tibble::add_column(lambda = model$lambda, .before = 1) %>% 
+  tidyr::pivot_longer(-lambda, names_to = 'parameter') %>% 
+  ggplot(aes(x=lambda, y=value, color=parameter)) +
+  geom_line() + geom_point() +
+  xlim(0,70) +
+  labs(title='Ridge Regression'
+       , subtitle = 
+         stringr::str_glue(
+           "Parameters as a function of lambda"
+         )
+  )
 ```
