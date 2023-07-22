@@ -25,7 +25,7 @@ opts_chunk$set(comment="",
                fig.align = 'center')
 require(magrittr)
 require(ggplot2)
-theme_set(theme_bw() + theme(legend.position = "top"))
+theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
 
 ## Linear regression models
@@ -316,7 +316,7 @@ $$
 The Lasso objective function is
 
 $$
-\mathcal{L}\left(\beta\right)=\text{NLL}+\left\Vert \beta\right\Vert _{1}
+\mathcal{L}\left(\beta,\lambda\right)=\text{NLL}+\lambda\left\Vert \beta\right\Vert _{1}
 $$
 
 ## Lasso Regression Example
@@ -394,4 +394,317 @@ model$beta %>%
            "Parameters as a function of lambda"
          )
   )
+```
+
+## Elastic Net Regression
+
+Elastic Net regression is a hybrid of ridge and lasso regression.
+
+The elastic net objective function is
+
+$$
+\mathcal{L}\left(\beta,\lambda,\alpha\right)=\text{NLL}+\lambda\left(\left(1-\alpha\right)\left\Vert \beta\right\Vert _{2}^{2}+\alpha\left\Vert \beta\right\Vert _{1}\right)
+$$
+
+so that $\alpha=0$ is ridge regression and $\alpha=1$ is lasso regression and $\alpha\in\left(0,1\right)$ is the general elastic net.
+
+## Elastic Net Regression Example
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "elastic net example"
+# set length of data and seed for reproducability
+n <- 50
+set.seed(2467)
+# create the dataset
+dat <- tibble::tibble(
+  a = sample(1:20, n, replace = T)/10
+  , b = sample(1:10, n, replace = T)/10
+  , c = sort(sample(1:10, n, replace = T))
+) %>% 
+  dplyr::mutate(
+    z = (a*b)/2 + c + sample(-10:10, n, replace = T)/10
+    , .before = 1
+  )
+# cross validate to get the best alpha
+alpha_dat <- tibble::tibble( alpha = seq(0.01, 0.99, 0.01) ) %>% 
+  dplyr::mutate(
+    mse =
+      purrr::map_dbl(
+        alpha
+        , (\(a){
+          cvg <- 
+           glmnet::cv.glmnet(
+             x = dat %>% dplyr::select(-z) %>% as.matrix() 
+             , y = dat$z 
+             , family = "gaussian"
+             , gamma = a
+          )
+          min(cvg$cvm)
+        })
+      )
+  ) 
+
+best_alpha <- alpha_dat %>% 
+  dplyr::filter(mse == min(mse)) %>% 
+  dplyr::pull(alpha)
+
+cat("alpha:", best_alpha)
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "elastic net example, part 2"
+elastic_cv <- 
+  glmnet::cv.glmnet(
+    x = dat %>% dplyr::select(-z) %>% as.matrix() 
+    , y = dat$z 
+    , family = "gaussian"
+    , gamma = best_alpha)
+
+best_lambda <- elastic_cv$lambda.min
+cat("lambda:", best_lambda)
+
+elastic_mod <- glmnet::glmnet(
+  x = dat %>% dplyr::select(-z) %>% as.matrix() 
+  , y = dat$z 
+  , family = "gaussian"
+  , gamma = best_alpha, lambda = best_lambda)
+
+coef(elastic_mod)
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "elastic net example, part 3"
+pred <- predict(elastic_mod, dat %>% dplyr::select(-z) %>% as.matrix())
+
+rmse <- sqrt(mean( (pred - dat$z)^2 ))
+R2 <- 1 - (sum((dat$z - pred )^2)/sum((dat$z - mean(y))^2))
+mse <- mean((dat$z - pred)^2)
+
+cat(" RMSE:", rmse, "\n", "R-squared:", R2, "\n", "MSE:", mse)
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "elastic net example, part 4"
+plot(1:n, dat$z, pch=16)
+lines(1:n, pred, type="l", col="red")
+```
+
+## Regression with trees
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat <- MASS::Boston
+```
+
+There are many methodologies for constructing regression trees but one of the oldest is known as the **c**lassification **a**nd **r**egression **t**ree (CART) approach.
+
+Basic regression trees *partition* a data set into smaller subgroups and then fit a simple *constant* for each observation in the subgroup. The partitioning is achieved by successive binary partitions (aka *recursive partitioning*) based on the different predictors. 
+
+## Regression with trees
+
+As a simple example, consider a continuous response variable $y$ with two covariates with two covariates $x_1,x_2$ and the support of $x_1,x_2$ partitioned into three regions. Then we write the tree regression model for $y$ as:
+
+$$
+\hat{y} = \hat{f}(x_1,x_2)=\sum_{i=1}^{3}c_1\times I_{(x_1,x_2)\in R_i}
+$$ Tree algorithm differ in how they grow the regression tree, i.e. partition the space of the covariates.
+
+## Regression with trees
+
+All partitioning of variables is done in a top-down, greedy fashion. This just means that a partition performed earlier in the tree will not change based on later partitions. In general the partitions are made to minimize following objective function:
+
+$$
+\text{SSE}=\left\{ \sum_{i\in R_{1}}\left(y_{i}-c_{i}\right)^{2}+\sum_{i\in R_{2}}\left(y_{i}-c_{2}\right)^{2}\right\} 
+$$
+
+## Regression with trees
+
+Having found the best split, we repeat the splitting process on each of the two regions.
+
+This process is continued until some stopping criterion is reached. What typically results is a very deep, complex tree that may produce good predictions on the training set, but is likely to overfit the data, particularly at the lower nodes.
+
+By pruning these lower level nodes, we can introduce a little bit of bias in our model that help to stabilize predictions and will tend to generalize better to new, unseen data.
+
+## Regression with trees
+
+As with penalized linear regression, we can us a complexity parameter $\alpha$ to penalize the number of terminal nodes of the tree ($T$), like the lasso $L_1$ norm penalty, and find the smallest tree with lowest penalized error, i.e. the minimizing the following objective function:
+
+$$
+\text{SSE}+\alpha\left|T\right|
+$$
+
+## Regression with trees
+
+::: columns
+::: {.column width="50%" style="font-size: 32px"}
+Strengths
+
+-   They are very interpretable.
+-   Making predictions is fast; just lookup constants in the tree.
+-   Variables importance is easy; those variables that most reduce the SSE.
+-   Tree models give a non-linear response; better if the true regression surface is not smooth.
+-   There are fast, reliable algorithms to learn these trees.
+:::
+
+::: {.column width="50%" style="font-size: 32px"}
+Weaknesses
+
+-   Single regression trees have high variance, resulting in unstable predictions (an alternative subsample of training data can significantly change the terminal nodes).
+-   Due to the high variance single regression trees have poor predictive accuracy.
+:::
+:::
+
+## Regression with trees (Bagging)
+
+As mentioned, single tree models suffer from high variance. Although pruning the tree helps reduce this variance, there are alternative methods that actually exploite the variability of single trees in a way that can significantly improve performance over and above that of single trees. ***B**ootstrap* ***agg**regat**ing*** (***bagging***) is one such approach.
+
+Bagging combines and averages multiple models. Averaging across multiple trees reduces the variability of any one tree and reduces overfitting, which improves predictive performance.
+
+## Regression with trees (Bagging)
+
+Bagging combines and averages multiple models. Averaging across multiple trees reduces the variability of any one tree and reduces overfitting, improving predictive performance.
+
+## Regression with trees (Bagging)
+
+Bagging follows three steps:
+
+-   Create $m$ [bootstrap samples](http://uc-r.github.io/bootstrapping) from the training data. Bootstrapped samples allow us to create many slightly different data sets but with the same distribution as the overall training set.
+-   For each bootstrap sample train a single, unpruned regression tree.
+-   Average individual predictions from each tree to create an overall average predicted value.
+
+## Regression with trees (Bagging)
+
+![Fig: The bagging process.](https://uc-r.github.io/public/images/analytics/regression_trees/bagging3.png)
+
+## Regression with a random forest
+
+Bagging trees introduces a random component into the tree building process that reduces the variance of a single tree's prediction and improves predictive performance. However, the trees in bagging are not completely independent of each other since all the original predictors are considered at every split of every tree.
+
+Rather, trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to underlying relationships. They are correlated.
+
+## Regression with a random forest
+
+Tree correlation prevents bagging from optimally reducing variance of the predictive values. Reducing variance further can be achieved by injecting more randomness into the tree-growing process. Random forests achieve this in two ways:
+
+::: {style="font-size: smaller"}
+1.  **Bootstrap**: similar to bagging - each tree is grown from a bootstrap resampled data set, which *somewhat* decorrelates them.
+2.  **Split-variable randomization**: each time a split is made, the search for the split variable is limited to a random subset of $m$ of the $p$ variables.
+:::
+
+## Regression with a random forest
+
+For regression trees, typical default values used in split-value randomization are $m=\frac{p}{3}$ but this should be considered a tuning parameter.
+
+When $m=p$, the randomization amounts to using only step 1 and is the same as *bagging*.
+
+## Regression with a random forest
+
+::: columns
+::: {.column width="50%" style="font-size: 32px"}
+Strengths
+
+-   Typically have very good performance
+-   Remarkably good "out-of-the box" - very little tuning required
+-   Built-in validation set - don't need to sacrifice data for extra validation
+-   No pre-processing required
+-   Robust to outliers
+:::
+
+::: {.column width="50%" style="font-size: 32px"}
+Weaknesses
+
+-   Can become slow on large data sets
+-   Although accurate, often cannot compete with advanced boosting algorithms
+-   Less interpretable
+:::
+:::
+
+## Regression with gradient boosting
+
+Gradient boosted machines (GBMs) are an extremely popular machine learning algorithm that have proven successful across many domains and is one of the leading methods for winning Kaggle competitions.
+
+## Regression with gradient boosting
+
+Whereas [random forests](http://uc-r.github.io/random_forests) build an ensemble of deep independent trees, GBMs build an ensemble of shallow and weak successive trees with each tree learning and improving on the previous. When combined, these many weak successive trees produce a powerful "committee" that are often hard to beat with other algorithms.
+
+## Regression with gradient boosting
+
+The main idea of boosting is to add new models to the ensemble sequentially. At each particular iteration, a new weak, base-learner model is trained with respect to the error of the whole ensemble learnt so far.
+
+![Sequential ensemble approach.](/images/boosted-trees-process.png)
+
+## Regression with gradient boosting
+
+Boosting is a framework that iteratively improves *any* weak learning model. Many gradient boosting applications allow you to "plug in" various classes of weak learners at your disposal. In practice however, boosted algorithms almost always use decision trees as the base-learner.
+
+## Regression with gradient boosting
+
+A weak model is one whose error rate is only slightly better than random guessing. The idea behind boosting is that each sequential model builds a simple weak model to slightly improve the remaining errors. With regards to decision trees, shallow trees represent a weak learner. Commonly, trees with only 1-6 splits are used.
+
+## Regression with gradient boosting
+
+Combining many weak models (versus strong ones) has a few benefits:
+
+::: {style="font-size: smaller"}
+-   Speed: Constructing weak models is computationally cheap.
+-   Accuracy improvement: Weak models allow the algorithm to *learn slowly*; making minor adjustments in new areas where it does not perform well. In general, statistical approaches that learn slowly tend to perform well.
+-   Avoids overfitting: Due to making only small incremental improvements with each model in the ensemble, this allows us to stop the learning process as soon as overfitting has been detected (typically by using cross-validation).
+:::
+
+## Regression with gradient boosting
+
+The algorithm for boosted regression trees is $x$ represents our features and $y$ represents our response:
+
+::: {style="font-size: smaller"}
+1.  Fit a decision tree to the data: $F_1(x)=y$,
+2.  We then fit the next decision tree to the residuals of the previous: $h_1(x)=y−F_1(x)$
+3.  Add this new tree to our algorithm: $F_2(x)=F_1(x)+h_1(x)$,
+4.  Fit the next decision tree to the residuals of $F_2: h_2(x)=y−F_2(x)$,
+5.  Add this new tree to our algorithm: $F_3(x)=F_2(x)+h_1(x)$,
+6.  Continue this process until some mechanism (i.e. cross validation) tells us to stop.
+:::
+
+## Later, maybe
+
+```{r}
+tree_fit <- rpart::rpart(medv ~ ., data = dat, method  = "anova")
+```
+
+```{r}
+new_data <- tibble::tribble(
+ ~crim, ~zn, ~indus, ~chas, ~nox, ~rm, ~age, ~dis, ~rad, ~tax, ~ptratio, ~black, ~lstat,
+ 0.03237, 0, 2.18, 0, 0.458, 6.998, 45.8, 6.0622, 3, 222, 18.7, 394.63, 2.94
+)
+predictions <- predict(tree_fit, new_data)
+print(predictions)
+```
+
+```{r}
+modeldata::ames
+```
+
+```{r}
+?MASS::Boston
+```
+
+```{r}
+ MASS::Boston
 ```
