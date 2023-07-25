@@ -200,15 +200,13 @@ prcomp_result %>%
   purrr::pluck("page_1")
 ```
 
-## Feature engineering & selection
+## Exploratory Data Analysis (EDA)
 
-Concepts
+### Post-model development
 
--   Overfitting
--   Supervised and Unsupervised Procedures
--   No Free Lunch
--   The Model versus the Modeling Process
--   Model Bias and Variance
+-   confirm assumptions of the model (e.g. Normality)
+
+-   understand origin of any systemic issues
 
 ## Feature engineering
 
@@ -250,3 +248,156 @@ Find missing values
 Handle Missing values
 
 PCA, IDA
+
+## Feature engineering & selection
+
+### Important concepts
+
+-   Overfitting (to both data and predictors)
+-   Supervised and Unsupervised Procedures
+-   No Free Lunch Theorem
+-   The Model versus the Modeling Process
+-   Model Bias and Variance (in modelling context)
+-   Data-driven vs experience-driven
+
+## Feature engineering & selection
+
+Categorical variables
+
+-   dummy variables for unordered categories
+
+-   encoding for many categories
+
+    -   \# categories \>\> \# rows
+    -   zero-variance predictors
+    -   hashing
+
+-   new categories
+
+## Feature engineering & selection
+
+Categorical variables
+
+-   supervised encoding
+
+    -   likelihood encoding (e.g. log-odds, embeddings, NN)
+
+-   encoding for ordered categories (e.g. polynomial contrast)
+
+Features from text
+
+Factors vs. dummy vars in tree models
+
+## Feature engineering & selection
+
+![](/images/category_fail.png)
+
+## Feature engineering & selection
+
+Numeric variables: issues
+
+-   different scales
+-   skewness and extreme values
+-   censored data
+-   complex functional relation to target
+-   rednundant
+
+## Feature engineering & selection
+
+Transformations:
+
+-   Box-cox: with $\tilde{x}$ the geometric mean of the (positive) predictor data
+
+$$
+x^{*} = \left\{ 
+\begin{array}{cc}
+\frac{x^{\lambda}-1}{\lambda\tilde{x}^{\lambda-1}} & \lambda\ne 0\\
+\tilde{x}\log x & \lambda=0
+\end{array}
+\right .  
+$$
+
+## Feature engineering & selection
+
+Transformations:
+
+-   logit transformation for bounded target variables (scaled to lie in $[0,1]$)
+
+$$
+\text{logit}\left(x\right)=\frac{x}{1-x}
+$$
+
+-   centering and scaling
+
+## Feature engineering & selection
+
+Transformations: when time is a predictor
+
+-   data smoothing (target or predictors)
+
+    -   running mean/median
+    -   smoothing splines
+    -   lags
+
+## Feature engineering & selection
+
+Transformations: 1:many
+
+-   orthogonal basis expansions
+    -   polynomial, fourier
+-   binning / discretization
+
+## Feature engineering & selection
+
+Transformations: many:many
+
+-   linear projection: for predictor matrix $X$, create score matrix $X^*=XA$
+    -   principal component analysis: capturing variation in a smaller number of features/scores
+        -   scores are uncorrelated
+
+## Feature engineering & selection
+
+Transformations: many:many
+
+-   non-linear projection;
+    -   kernel principle components (when target is a nonlinear function of predictors
+-   independent component analysis
+-   non-negative factorization
+-   partial least-squares
+
+## Feature engineering & selection
+
+::: columns
+::: {.column width="25%"}
+-   autoencoders
+:::
+
+::: {.column width="75%"}
+![](/images/ae.png){width="796"}
+:::
+:::
+
+## Feature engineering & selection
+
+Missing data
+
+Why?
+
+-   structural deficiencies in the data
+-   random occurrences (MCAR & MAR)
+-   specific causes
+-   censored
+
+## Feature engineering & selection
+
+Solutions:
+
+-   delete
+-   encode
+-   impute
+
+## Feature engineering & selection
+
+Profile data
+
+-   experimental unit and unit of prediction

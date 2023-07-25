@@ -733,5 +733,26 @@ $
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+x^{*} & =\left\{ \begin{array}{cc}
+\frac{x^{\lambda}-1}{\lambda\tilde{x}^{\lambda-1}} & \lambda\ne0\\
+\tilde{x}\log x & \lambda=0
+\end{array}\right.\\
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{logit}\left(x\right)=\frac{x}{1-x}$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
