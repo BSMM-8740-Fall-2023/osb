@@ -708,5 +708,30 @@ $
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $\mathcal{L}\left(\beta,\lambda,\alpha\right)=\text{NLL}+\lambda\left(\left(1-\alpha\right)\left\Vert \beta\right\Vert _{2}^{2}+\alpha\left\Vert \beta\right\Vert _{1}\right)$
+\end_inset
+
+
+\begin_inset Formula $\alpha\in\left(0,1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left\{ \sum_{i\in R_{e}}\left(y_{i}-c_{i}\right)^{2}+\sum_{i\in R_{e}}\left(y_{i}-c_{2}\right)^{2}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left|T\right|$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

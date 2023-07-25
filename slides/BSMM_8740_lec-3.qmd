@@ -682,6 +682,86 @@ The algorithm for boosted regression trees is $x$ represents our features and $y
 6.  Continue this process until some mechanism (i.e. cross validation) tells us to stop.
 :::
 
+## Regression with neural nets
+
+Architecture of a Neural Net (NN)
+
+![Single layer NN architecture](/images/single_layer_nn.png){fig-alt="credit deep learning.a"}
+
+## Regression with neural nets
+
+![Common Activation Functions](/images/activation_functions.png){fig-alt="credits - analyticsindiamag"}
+
+## Regression with neural nets
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+set.seed(500)
+  
+# Boston dataset from MASS
+data <- MASS::Boston
+
+# Normalize the data
+maxs <- data %>% dplyr::summarise_all(max) %>% as.matrix() %>% as.vector()
+mins <- data %>% dplyr::summarise_all(min) %>% as.matrix() %>% as.vector()
+data_scaled <- data %>% 
+  scale(center = mins, scale = maxs - mins) %>% 
+  tibble::as_tibble()
+  
+# Split the data into training and testing set
+data_split <- data_scaled %>% rsample::initial_split(prop = .75)
+# extracting training data and test data as two seperate dataframes
+data_train <- rsample::training(data_split)
+data_test  <- rsample::testing(data_split)
+
+nn <- data_train %>% 
+  neuralnet::neuralnet(
+    medv ~ .
+    , data = .
+    , hidden = c(5, 3)
+    , linear.output = TRUE
+  )
+  
+# Predict on test data
+pr.nn <- neuralnet::compute( nn, data_test %>% dplyr::select(-medv) )
+  
+# Compute mean squared error
+pr.nn_ <- 
+  pr.nn$net.result * 
+  (max(data$medv) - min(data$medv)) +
+  min(data$medv)
+test.r <- 
+  data_test$medv * 
+  (max(data$medv) - min(data$medv)) + 
+  min(data$medv)
+MSE.nn <- sum((test.r - pr.nn_)^2) / nrow(data_test)
+  
+# Plot the neural network
+plot(nn)
+
+# Plot regression line
+plot(data_test$medv, pr.nn$net.result, col = "red", 
+     main = 'Real vs Predicted')
+abline(0, 1, lwd = 2)
+
+tibble::tibble(test = data_test$medv, predicted = pr.nn$net.result) %>% 
+  ggplot(aes(x=test, y=predicted)) +
+  geom_point(color='red') +
+  geom_abline(intercept = 0, slope = 1, color="blue", 
+                 linetype="dashed", linewidth=1.5) +
+  labs(title='Neural Net Regression'
+     , subtitle = 
+       stringr::str_glue(
+         "Mean squared prediction error is {scales::number(MSE.nn, accuracy=0.01)}"
+       )
+  )
+  
+
+```
+
 ## Later, maybe
 
 ```{r}

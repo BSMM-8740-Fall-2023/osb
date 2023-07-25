@@ -1,0 +1,252 @@
+---
+title: "EDA & Feature Engineering"
+subtitle: "BSMM-8740 - Fall 2023"
+author: "L.L. Odette"
+footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
+logo: "images/logo.png"
+format: 
+  revealjs: 
+    theme: slides.scss
+    multiplex: true
+    transition: fade
+    slide-number: true
+editor: visual
+execute:
+  freeze: auto
+---
+
+```{r opts, include = FALSE}
+options(width = 90)
+library(knitr)
+opts_chunk$set(comment="", 
+               digits = 3, 
+               tidy = FALSE, 
+               prompt = TRUE,
+               fig.align = 'center')
+require(magrittr)
+require(ggplot2)
+theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
+```
+
+## Exploratory Data Analysis (EDA)
+
+we are going to perform EDA under two broad classifications:
+
+-   Descriptive Statistics, which includes mean, median, mode, inter-quartile range, and so on.
+-   Graphical Methods, which includes histogram, density estimation, box plots, and so on.
+
+1.  Import the data
+
+2.  Clean the data
+
+3.  Process the data
+
+4.  Visualize the data
+
+## Exploratory Data Analysis (EDA)
+
+::: {style="font-size: 32px"}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+
+dat <- forcats::gss_cat
+dat %>% dplyr::slice_head(n=10) %>% dplyr::glimpse()
+```
+:::
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::introduce() %>% dplyr::glimpse()
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::plot_intro()
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::plot_missing()
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::profile_missing() %>% gt::gt('feature') %>% gtExtras::gt_theme_espn()
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% 
+  DataExplorer::plot_density(
+    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
+  )
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% 
+  DataExplorer::plot_histogram(
+    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
+  )
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::plot_bar()
+
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::plot_correlation()
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% DataExplorer::plot_correlation( maxcat = 5)
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat %>% 
+  dplyr::select(year,age,tvhours) %>% 
+  DataExplorer::plot_scatterplot(
+    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
+    , by = 'year', nrow=5
+  )
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| code-fold: true
+#| output: false
+prcomp_result <- na.omit(airquality) %>% 
+  DataExplorer::plot_prcomp(
+    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
+    ,nrow = 2L, ncol = 2L, variance_cap=100
+  ) 
+```
+
+```{r}
+prcomp_result %>% 
+  purrr::pluck("page_0")
+```
+
+## Exploratory Data Analysis (EDA)
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+prcomp_result %>% 
+  purrr::pluck("page_1")
+```
+
+## Feature engineering & selection
+
+Concepts
+
+-   Overfitting
+-   Supervised and Unsupervised Procedures
+-   No Free Lunch
+-   The Model versus the Modeling Process
+-   Model Bias and Variance
+
+## Feature engineering
+
+Continuous variables:
+
+-   Missing data
+-   Normalization
+-   Standardization
+-   transformation (arithmetic, basis functions, polynomials, splines
+-   outliers
+-   lag variables
+-   profiling
+
+Categorical variables:
+
+-   Label encoding
+-   One-hot-encoding
+-   imbalances
+
+Date variables:
+
+-   Dates, timestamps, intervals
+
+Feature selection
+
+-   extraeneous variables increasing variance
+-   univariate selection
+
+Feature importance
+
+Convert to factors
+
+Add and Delete a column
+
+Recode continuous variable to a categorical variable (rank, q-tiles, winsorizing, capping
+
+Find missing values
+
+Handle Missing values
+
+PCA, IDA
