@@ -1,0 +1,362 @@
+---
+title: "Tidymodels"
+subtitle: "BSMM-8740 - Fall 2023"
+author: "L.L. Odette"
+footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
+logo: "images/logo.png"
+format: 
+  revealjs: 
+    theme: slides.scss
+    multiplex: true
+    transition: fade
+    slide-number: true
+editor: visual
+execute:
+  freeze: auto
+---
+
+```{r opts, include = FALSE}
+options(width = 90)
+library(knitr)
+opts_chunk$set(comment="", 
+               digits = 3, 
+               tidy = FALSE, 
+               prompt = TRUE,
+               fig.align = 'center')
+require(magrittr)
+require(ggplot2)
+theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
+```
+
+## Tidymodels
+
+-   Tidymodels is an R package that provides a unified and consistent framework for modeling and machine learning tasks.
+-   It is built on top of the tidyverse, making it easy to integrate with other tidyverse packages.
+-   Tidymodels promotes best practices, repeatability, and clear documentation in your data analysis and modeling workflow.
+
+## Tidymodels
+
+### Key Components of Tidymodels
+
+-   Model Building: tidymodels provides various modeling engines for different algorithms like lm(), glm(), randomForest(), xgboost(), etc.
+-   Preprocessing: Easy and flexible data preprocessing using recipes, allowing for seamless data transformation and feature engineering.
+
+## Tidymodels
+
+### Key Components of Tidymodels
+
+-   Resampling: Efficient methods for handling data splitting, cross-validation, bootstrapping, and more.
+-   Metrics: A wide range of evaluation metrics to assess model performance and choose the best model.
+
+## Fitting with parsnip
+
+We've seen how the form of the arguments to linear models in R can be very different.
+
+Parsnip is one of the tidymodels packages that provides a standardized interface across models
+
+We look at how to fit and predict with parsnip in the next few slides, once the data has been prepped.
+
+## Fitting with parsnip
+
+We can fit a linear regression with OLS (model spec) or penalized regression (x,y spec) using data structured specifically for the model.
+
+By contrast the tidymodels approach is more uniform.
+
+## Fitting with parsnip
+
+1.  *Specify the type of model based on its mathematical structure* (e.g., linear regression, random forest, KNN, etc).
+2.  *Specify the engine for fitting the model.* Most often this reflects the software package that should be used, like lm or **glmnet**.
+3.  *When required, declare the mode of the model.* The mode reflects the type of prediction outcome. For numeric outcomes, the mode is regression; for qualitative outcomes, it is classification.
+
+## Fitting with parsnip
+
+The specification are built without referencing the data:
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "tidymodel specification"
+
+# basic linear model
+parsnip::linear_reg() %>% parsnip::set_engine("lm")
+# basic penalized linear model
+parsnip::linear_reg() %>% parsnip::set_engine("glmnet")
+```
+
+## Fitting with parsnip
+
+The translate function can be used to see how te spec is converted to the correct syntax
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "tidymodel spec translation"
+
+# basic linear model
+parsnip::linear_reg() %>% parsnip::set_engine("lm") %>% parsnip::translate()
+# basic penalized linear model
+parsnip::linear_reg(penalty = 1) %>% parsnip::set_engine("glmnet") %>% parsnip::translate()
+```
+
+## Fitting with parsnip
+
+The translate function can be used to see how the spec is converted to the correct syntax
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# prep data
+data_split <- rsample::initial_split(modeldata::ames, strata = "Sale_Price")
+ames_train <- rsample::training(data_split)
+ames_test  <- rsample::testing(data_split)
+# spec model
+lm_model <- parsnip::linear_reg() %>% parsnip::set_engine("lm")
+# fit model
+lm_form_fit <- lm_model %>% 
+  # Recall that Sale_Price has been pre-logged
+   parsnip::fit(Sale_Price ~ Longitude + Latitude, data = ames_train)
+# fit model with data in (x,y) form
+lm_xy_fit <- 
+  lm_model %>% parsnip::fit_xy(
+    x = ames_train %>% dplyr::select(Longitude, Latitude),
+    y = ames_train %>% dplyr::pull(Sale_Price)
+  )
+```
+
+## Fitting with parsnip
+
+Model results can be extracted from the fit object
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+lm_form_fit %>% parsnip::extract_fit_engine()
+
+lm_form_fit %>% parsnip::extract_fit_engine() %>% stats::vcov()
+```
+
+## Fitting with parsnip
+
+Exercise: random forest regression
+
+A list of all parsnip-type models can be found [here](https://www.tidymodels.org/find/parsnip/).
+
+## Tidymodels
+
+If we use the term **model** to reference a a structural equation that relates some predictors to one or more outcomes, then everything before the model is fit is related to structuring the predictors and outcomes.
+
+The model workflow refers to the broader process, including any pre-processing steps, the model fit itself, as well as potential post-processing activities. Similar collections of steps are sometimes called pipelines.
+
+## Tidymodels
+
+![](/images/proper-workflow.svg)
+
+## Tidymodels basics
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# create test/trin splits
+ames <- modeldata::ames %>% dplyr::mutate( Sale_Price = log10(Sale_Price) )
+set.seed(502)
+
+ames_split <- rsample::initial_split(
+  ames, prop = 0.80, strata = "Sale_Price"
+  )
+ames_train <- rsample::training(ames_split)
+ames_test  <- rsample::testing(ames_split)
+
+# Create a linear regression model
+lm_model <- parsnip::linear_reg() %>% 
+  parsnip::set_engine("lm") 
+
+# Create a workflow: adding a parsnip model
+lm_wflow <- 
+  workflows::workflow() %>% 
+  workflows::add_model(lm_model)
+```
+
+## Tidymodels basics
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+# preprocessing not specified; a formula is sufficient
+lm_wflow %<>% 
+  workflows::add_formula(Sale_Price ~ Longitude + Latitude)
+
+# fit the model
+lm_fit <- lm_wflow %>% parsnip::fit(ames_train)
+
+# predict on the fitted workflow
+lm_fit %>% stats::predict(ames_test %>% dplyr::slice(1:3))
+
+```
+
+## Tidymodels basics
+
+In base R, the **predict** function returns results in a format that depends on the models.
+
+By contrast, **parsnip** and **workflows** conforms to the following rules:
+
+1.  The results are always a tibble.
+2.  The column names of the tibble are always predictable.
+3.  There are always as many rows in the tibble as there are in the input data set, and in the same order.
+
+## Tidymodels basics
+
+The predictable column names are
+
+::: {style="style"}
+```{r}
+#| echo: false
+#| output: asis
+#| message: false
+tibble::tibble(
+  'type value' = c('numeric','class','prob','conf_int','pred_int')
+  , 'column name(s)' = c('.pred','.pred_class','.pred_{class levels}','.pred_lower, .pred_upper'
+                         , '.pred_lower, .pred_upper')
+) %>% 
+  gt::gt() %>% 
+  gtExtras::gt_theme_espn() %>% 
+  gt::tab_options( table.font.size = gt::px(38) ) %>% 
+  gt::as_raw_html()
+```
+:::
+
+## Tidymodels basics
+
+The model and preprocessor can be removed or updated:
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+# update the formula
+lm_fit %>% workflows::update_formula(Sale_Price ~ Longitude)
+
+# remove the formula and use add_vasriables instead
+lm_wflow %<>% 
+  workflows::remove_formula() %>% 
+  workflows::add_variables(outcome = Sale_Price, predictors = c(Longitude, Latitude))
+
+```
+
+Predictors can be selected using **tidyselect** selectors, e.g. *everything()*, *ends_with()*, etc.
+
+## Tidymodels
+
+### Example 1: Linear Regression
+
+-   Prepare the data using a recipe.
+-   Create a linear regression model using linear_reg() function.
+-   Train the model using fit() and assess its performance.
+
+## Tidymodels
+
+### Example 1: Linear Regression
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# Prepare the data using a recipe
+data('mtcars', package = 'datasets')
+car_data <- mtcars %>% dplyr::select(mpg, disp, hp, wt)
+car_recipe <- car_data %>% 
+  recipes::recipe(mpg ~ .) %>% 
+  recipes::step_normalize(all_predictors())
+
+# Create a linear regression model
+linear_model <- parsnip::linear_reg() %>% 
+  parsnip::set_engine("lm") %>% 
+  parsnip::set_mode("regression")
+
+lm_wflow <- 
+  workflows::workflow() %>% 
+  workflows::add_model(linear_model)
+
+lm_wflow %<>% 
+  workflows::add_formula(mpg ~ .)
+  
+lm_fit <- car_data %>% 
+  parsnip::fit(lm_wflow, .)
+lm_fit
+
+lm_fit %>% stats::predict(car_data %>% dplyr::slice_head(n=3))
+
+# Train the model
+linear_fit <- fit(linear_model, car_recipe)
+
+# Assess model performance
+linear_metrics <- linear_fit %>% 
+  collect_metrics()
+print(linear_metrics)
+
+```
+
+## Tidymodels
+
+### Example 2: Random Forest
+
+-   Prepare the data using a recipe.
+-   Create a random forest model using rand_forest() function.
+-   Train the model using fit() and assess its performance.
+
+## Tidymodels
+
+### Cross-Validation with Tidymodels
+
+Use the vfold_cv() function for k-fold cross-validation.
+
+Extract the results and summary statistics.
+
+Compare models and choose the best one based on cross-validation metrics.
+
+## Tidymodels
+
+### Hyperparameter Tuning
+
+-   Use tune() and grid_latin_hypercube() functions for hyperparameter tuning.
+-   Find the best combination of hyperparameters that optimize model performance.
+
+## Tidymodels
+
+Model Interpretability with Tidymodels
+
+Use functions like vip() and shapley() to interpret model predictions and feature importance.
+
+## Tidymodels
+
+Putting It All Together: An End-to-End Example
+
+Load a dataset and split it into training and testing sets.
+
+Create a recipe for data preprocessing and feature engineering.
+
+Build multiple models using different algorithms.
+
+Perform hyperparameter tuning and cross-validation.
+
+Evaluate and compare model performance.
+
+Select the best model and interpret the results.
+
+## Tidymodels
+
+Conclusion
+
+Tidymodels is a versatile and user-friendly package for machine learning in R.
+
+It follows the tidyverse principles, making it easy to integrate with other tidy packages.
+
+Tidymodels empowers graduate students and researchers to perform complex machine learning tasks efficiently and effectively.
