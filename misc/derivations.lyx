@@ -751,6 +751,10 @@ x^{*} & =\left\{ \begin{array}{cc}
 \begin_inset Formula $\text{logit}\left(x\right)=\frac{x}{1-x}$
 \end_inset
 
+ 
+\begin_inset Formula $\sqrt{}$
+\end_inset
+
 
 \end_layout
 

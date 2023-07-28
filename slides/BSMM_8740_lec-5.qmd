@@ -16,7 +16,7 @@ execute:
 ---
 
 ```{r opts, include = FALSE}
-options(width = 90)
+options(width = 95)
 library(knitr)
 opts_chunk$set(comment="", 
                digits = 3, 
@@ -247,11 +247,624 @@ lm_fit %>% workflows::update_formula(Sale_Price ~ Longitude)
 # remove the formula and use add_vasriables instead
 lm_wflow %<>% 
   workflows::remove_formula() %>% 
-  workflows::add_variables(outcome = Sale_Price, predictors = c(Longitude, Latitude))
+  workflows::add_variables(
+    outcome = Sale_Price, predictors = c(Longitude, Latitude)
+  )
 
 ```
 
 Predictors can be selected using **tidyselect** selectors, e.g. *everything()*, *ends_with()*, etc.
+
+## Tidymodels: workflowsets
+
+The **workflowset**package creates combinations of workflow components. A list of preprocessors (e.g., formulas, **dplyr** selectors, or feature engineering recipe objects) can be combined with a list of model specifications, resulting in a set of workflows.
+
+## Tidymodels: workflowsets
+
+Create a set of preprocessors by formula
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# set up a list of formulas
+location <- list(
+  longitude = Sale_Price ~ Longitude,
+  latitude = Sale_Price ~ Latitude,
+  coords = Sale_Price ~ Longitude + Latitude,
+  neighborhood = Sale_Price ~ Neighborhood
+)
+
+# create a workflowset
+location_models <- 
+  workflowsets::workflow_set(
+    preproc = location, models = list(lm = lm_model)
+  )
+
+# view
+location_models$info[[1]]
+# extract
+workflowsets::extract_workflow(location_models, id = "coords_lm")
+```
+
+## Tidymodels: workflowsets
+
+Create model fits
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# reate a new calumn (fit) y mapping fit against the data in the info column
+location_models %<>%
+   dplyr::mutate(
+     fit = purrr::map(
+       info
+       , ~ parsnip::fit(.x$workflow[[1]], ames_train)
+      )
+   )
+
+# view
+location_models$fit[[1]]
+```
+
+## Tidymodels: workflowsets
+
+There is a convenience function called `last_fit()` that will *fit* the model to the entire training set and *evaluate* it with the testing set.
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+final_lm_res <- tune::last_fit(lm_wflow, ames_split)
+
+# view
+final_lm_res %>% dplyr::glimpse()
+# pull the fitted workflow
+fitted_lm_wflow <-  workflowsets::extract_workflow(final_lm_res)
+```
+
+## Tidymodels: workflowsets
+
+Similarly, **collect_metrics()** and **collect_predictions()** provide access to the performance metrics and predictions, respectively.
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+# get the fit metrics
+workflowsets::collect_metrics(final_lm_res)
+
+# get the predictions, post-fit
+workflowsets::collect_predictions(final_lm_res) %>% dplyr::slice(1:5)
+```
+
+## Tidymodels: workflowsets
+
+When using **predict(workflow, new_data)**, no model or preprocessor parameters like those from recipes are re-estimated using the values in new_data. Take centering and scaling using **step_normalize()** as an example. Using this step, the means and standard deviations from the appropriate columns are determined from the training set; new samples at prediction time are standardized using these values from training when **predict()** is invoked.
+
+## Tidymodels: workflowsets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+lm_fit %>%
+  # pull the parsnip object
+  workflows::extract_fit_parsnip() %>% 
+  # tidy up the fit results
+  yardstick::tidy() %>% 
+  # show the first n rows
+  dplyr::slice_head(n=5)
+  
+```
+
+## Tidymodels: yardstick
+
+### Performance metrics and inference
+
+An inferential model is used primarily to understand relationships, and typically emphasizes the choice (and validity) of probabilistic distributions and other generative qualities that define the model.
+
+For a model used primarily for prediction, by contrast, predictive strength is of primary importance and other concerns about underlying statistical qualities may be less important.
+
+```{r}
+#| echo: false
+#| message: false
+#| eval: false
+ames <- dplyr::mutate(modeldata::ames, Sale_Price = log10(Sale_Price))
+
+set.seed(502)
+ames_split <- rsample::initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_train <- rsample::training(ames_split)
+ames_test  <- rsample::testing(ames_split)
+
+ames_rec <- 
+  recipes::recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+           Latitude + Longitude, data = ames_train) %>%
+  recipes::step_log(Gr_Liv_Area, base = 10) %>% 
+  recipes::step_other(Neighborhood, threshold = 0.01) %>% 
+  recipes::step_dummy(
+    recipes::all_nominal_predictors()
+  ) %>% 
+  recipes::step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+  recipes::step_ns(Latitude, Longitude, deg_free = 20)
+  
+lm_model <- parsnip::linear_reg() %>% set_engine("lm")
+
+lm_wflow <- 
+  workflows::workflow() %>% 
+  workflows::add_model(lm_model) %>% 
+  workflows::add_recipe(ames_rec)
+
+lm_fit <- parsnip::fit(lm_wflow, ames_train)
+```
+
+## Tidymodels: yardstick
+
+### Regression metrics
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# fit with new data
+ames_test_res <- 
+  stats::predict(
+    lm_fit
+    , new_data = ames_test %>% dplyr::select(-Sale_Price)
+  )
+ames_test_res
+
+# compare predictions with corresponding data
+ames_test_res <- 
+  dplyr::bind_cols(
+    ames_test_res, ames_test %>% dplyr::select(Sale_Price))
+ames_test_res
+
+yardstick::rmse(ames_test_res, truth = Sale_Price, estimate = .pred)
+```
+
+## Tidymodels: yardstick
+
+### Regression metrics: numeric targets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# create metric set
+ames_metrics <- 
+  yardstick::metric_set(
+    yardstick::rmse
+    , yardstick::rsq
+    , yardstick::mae
+  )
+
+ames_metrics(ames_test_res, truth = Sale_Price, estimate = .pred)
+
+```
+
+## Tidymodels: yardstick
+
+### Classification metrics: binary class targets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# data for two-set classification
+two_class_example <- modeldata::two_class_example
+
+tibble::tibble(two_class_example)
+
+# compute the confusion matrix: 
+yardstick::conf_mat(two_class_example, truth = truth, estimate = predicted)
+
+# compute the accuracy:
+yardstick::accuracy(two_class_example, truth, predicted)
+
+# Matthews correlation coefficient:
+yardstick::mcc(two_class_example, truth, predicted)
+
+```
+
+## Tidymodels: yardstick
+
+### Classification metrics: binary class targets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+# F1 metric:
+yardstick::f_meas(two_class_example, truth, predicted)
+
+
+# Combining these three classification metrics together
+classification_metrics <- 
+  yardstick::metric_set(
+    yardstick::accuracy
+    , yardstick::mcc
+    , yardstick::f_meas
+  )
+
+classification_metrics(
+  two_class_example
+  , truth = truth
+  , estimate = predicted
+)
+
+
+```
+
+## Tidymodels: yardstick
+
+### Classification metrics: class probabilities
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+two_class_curve <- 
+  yardstick::roc_curve(
+    two_class_example
+    , truth
+    , Class1
+  )
+
+two_class_curve
+
+yardstick::roc_auc(two_class_example, truth, Class1)
+
+autoplot(two_class_curve)
+```
+
+There are other functions that use probability estimates, including **gain_curve()**, **lift_curve()**, and **pr_curve()**.
+
+## Tidymodels: yardstick
+
+### Regression metrics: multi-class targets
+
+The functions for metrics that use the discrete class predictions are identical to their binary counterparts.
+
+Metrics designed to handle outcomes with only two classes are extended for outcomes with more than two classes.
+
+## Tidymodels: yardstick
+
+### Regression metrics: multi-class targets
+
+Take sensitivity for example:
+
+::: {style="font-size: smaller"}
+-   Macro-averaging computes a set of one-versus-all metrics using the standard two-class statistics. These are averaged.
+-   Macro-weighted averaging does the same but the average is weighted by the number of samples in each class.
+-   Micro-averaging computes the contribution for each class, aggregates them, then computes a single metric from the aggregates.
+:::
+
+## Tidymodels: yardstick
+
+### Regression metrics: multi-class targets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# load the data and convert it to a tibble
+hpc_cv <- modeldata::hpc_cv %>% tibble::tibble()
+# compute accuracy (same as binary case)
+yardstick::accuracy(hpc_cv, obs, pred)
+# compute matthews correlation coefficient (same as binary case)
+yardstick::mcc(hpc_cv, obs, pred)
+
+# apply the sensitivity metrics
+yardstick::sensitivity(hpc_cv, obs, pred, estimator = "macro")
+yardstick::sensitivity(hpc_cv, obs, pred, estimator = "macro_weighted")
+yardstick::sensitivity(hpc_cv, obs, pred, estimator = "micro")
+```
+
+## Tidymodels: yardstick
+
+### Regression metrics: multi-class targets
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# multi-class estimates for probability metrics
+hpc_cv %>% yardstick::roc_auc(obs, VF, F, M, L)
+# multi-class estimates with estimator (one of "hand_till", "macro", or "macro_weighted")
+hpc_cv %>% yardstick::roc_auc(obs, VF, F, M, L, estimator = "macro_weighted")
+
+# show metrics by groups (re-sampling in this case)
+hpc_cv %>% 
+  dplyr::group_by(Resample) %>% 
+  yardstick::accuracy(obs, pred)
+
+hpc_cv %>% 
+  dplyr::group_by(Resample) %>% 
+  yardstick::roc_curve(obs, VF, F, M, L) %>% 
+  autoplot()
+```
+
+## Tidymodels: performance evaluation
+
+**Re-substitution**: comparison using same training data
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+#| code-line-numbers: false
+# create  random forest model object
+rf_model <- 
+  parsnip::rand_forest(trees = 1000) %>% 
+  parsnip::set_engine("ranger") %>% 
+  parsnip::set_mode("regression")
+
+# create a workflow using the random forest model
+rf_wflow <- 
+  workflows::workflow() %>% 
+  workflows::add_formula(
+    Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+      Latitude + Longitude) %>% 
+  workflows::add_model(rf_model) 
+
+# fit the random forest model with the ames training set
+rf_fit <- rf_wflow %>% parsnip::fit(data = ames_train)
+```
+
+## Tidymodels: performance evaluation
+
+A function to compare models
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+estimate_perf <- function(model, dat) {
+  # Capture the names of the `model` and `dat` objects
+  cl <- match.call()
+  obj_name <- as.character(cl$model)         # get the model name
+  data_name <- as.character(cl$dat)          # get the dataset name
+  data_name <- gsub("ames_", "", data_name)  # replace underlines
+  
+  # Estimate these metrics:
+  reg_metrics <- 
+    yardstick::metric_set(yardstick::rmse, yardstick::rsq)
+  
+  model %>%
+    stats::predict(dat) %>%                          # predict
+    dplyr::bind_cols(dat %>% dplyr::select(Sale_Price)) %>% 
+    reg_metrics(Sale_Price, .pred) %>%
+    dplyr::select(-.estimator) %>%
+    dplyr::mutate(object = obj_name, data = data_name)
+}
+```
+
+## Tidymodels: performance evaluation
+
+Use the function on the random forest and linear models
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+# get performance of the random forest model (train)
+estimate_perf(rf_fit, ames_train)
+
+# get performance of the linear model (train)
+estimate_perf(lm_fit, ames_train)
+
+# get performance of the linear model  (test)
+estimate_perf(rf_fit, ames_test)
+```
+
+## Tidymodels: performance evaluation
+
+Summarize and present the performance comparison
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# get performance of the random forest model (train)
+dplyr::bind_rows(
+  estimate_perf(rf_fit, ames_train)
+  , estimate_perf(lm_fit, ames_train)
+  , estimate_perf(rf_fit, ames_test)
+  , estimate_perf(lm_fit, ames_test)
+) %>% 
+  dplyr::filter(.metric == 'rmse') %>% 
+  dplyr::select(-.metric) %>% 
+  tidyr::pivot_wider(
+    names_from = data
+    , values_from = .estimate
+  ) %>% 
+  gt::gt() %>% 
+  gt::fmt_number(decimals=4) %>% 
+  gt::tab_header(title = "Performance statistics") %>% 
+  gtExtras::gt_theme_espn()
+
+```
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: iterative comparison:
+
+![](/images/resampling.svg){fig-align="right" width="494"}
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: V-fold cross validation:
+
+*In V*-fold cross-validation. The data are randomly partitioned into *V* sets of roughly equal size (called the folds).
+
+Larger *V* values result in resampling estimates with small bias but substantial variance. Smaller values of *V* have large bias but low variance. 
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+set.seed(1001)
+ames_folds <- rsample::vfold_cv(ames_train, v = 10)
+ames_folds
+# rsample::analysis() and rsample::assessment() extract samples
+ames_folds$splits[[1]] %>% rsample::analysis() %>% dim()
+```
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: cross validation variants: repeated cross validation
+
+R repetitions of V-fold cross-validation reduces variance by a factor of $1/\sqrt{\text{R}}$.
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+rsample::vfold_cv(ames_train, v = 10, repeats = 5)
+```
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: cross validation variants: LOO and MCCV
+
+-   Leave-one-out (LOO) cross-validation with a training set of $n$ rows generates fit using $n-1$ rows of the training set (`rsample::loo_cv`).
+-   Monte carlo cross validation (MCCV) uses a fixed proportion of the training set, randomly selected on each cross validation, making the assessment sets not mutually exclusive (e.g. (`rsample::mc_cv( prop=0.9, times=20 )`).
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: validation sets:
+
+Validation sets are often used when the original pool of data is very large. In this case, a single large partition may be adequate to characterize model performance without having to do multiple resampling iterations.
+
+With the **rsample** package, a validation set is like any other resampling object; this type is different only in that it has a single iteration.
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: bootstrapping:
+
+A bootstrap sample of the training set is a sample that is the same size as the training set but is drawn *with replacement.*
+
+When bootstrapping, the assessment set is often called the *out-of-bag* sample.
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+rsample::bootstraps(ames_train, times = 5)
+```
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: resampling time:
+
+When the data have a strong time component, a resampling method needs to support modeling to estimate seasonal and other temporal trends within the data. 
+
+For this type of resampling, the size of the initial analysis and assessment sets are specified and subsequent iterations are shifted in time
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: resampling time:
+
+![](/images/rolling.svg){fig-align="center"}
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: resampling time:
+
+Two different configurations of this method:
+
+-   The analysis set can cumulatively grow (as opposed to remaining the same size). After the first initial analysis set, new samples can accrue without discarding the earlier data.
+-   The resamples need not increment by one. For example, for large data sets, the incremental block could be a week or month instead of a day.
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: resampling time:
+
+For a year\'s worth of data, suppose that six sets of 30-day blocks define the analysis set. For assessment sets of 30 days with a 29-day skip, we can use the **rsample** package to specify:
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+time_slices <- 
+  tibble::tibble(x = 1:365) %>% 
+  rsample::rolling_origin(initial = 6 * 30, assess = 30, skip = 29, cumulative = FALSE)
+```
+
+## Tidymodels: performance evaluation
+
+**Re-sampling**: resampling time:
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# pull out first and last data points in the analysis dataset
+time_slices$splits %>% 
+  purrr::map_dfr( 
+    .f = 
+      ~rsample::analysis(.x) %>% 
+      dplyr::summarize(first = min(.), last = max(.))
+  )
+# pull out first and last data points in the assessment dataset
+time_slices$splits %>% 
+  purrr::map_dfr(
+    .f = ~rsample::assessment(.x) %>% 
+      dplyr::summarize(first = min(.), last = max(.))
+  )
+
+```
+
+## Tidymodels: performance evaluation
+
+**Evaluation**:
+
+1.  During resampling, the analysis set is used to preprocess the data, apply the pre-processing to itself, and use these processed data to fit the model.
+2.  The pre-processing statistics produced by the analysis set are applied to the assessment set. The predictions from the assessment set estimate performance on new data.
+
+This sequence repeats for every resample.
+
+## Tidymodels: performance evaluation
+
+**Evaluation**:
+
+The function **tune::fit_resamples** is like parsnip::fit with a resamples argment instead of a data argument:
+
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+
+model_spec %>% fit_resamples(formula,  resamples, ...)
+
+model_spec %>% fit_resamples(recipe,   resamples, ...)
+
+workflow   %>% fit_resamples(          resamples, ...)
+```
+
+## Tidymodels: performance evaluation
+
+**Evaluation**:
+
+Optional arguments are:
+
+-   **metrics**: A metric set of performance statistics to compute. By default, regression models use RMSE and R^2^ while classification models compute the area under the ROC curve and overall accuracy.
+
+-   **control**: A list created by **tune::control_resamples()** with various options.
+
+## Tidymodels: performance evaluation
+
+**Evaluation**:
+
+Control arguments are:
 
 ## Tidymodels
 
