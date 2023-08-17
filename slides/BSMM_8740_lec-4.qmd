@@ -11,6 +11,8 @@ format:
     transition: fade
     slide-number: true
 editor: visual
+menu:
+  numbers: true
 execute:
   freeze: auto
 ---

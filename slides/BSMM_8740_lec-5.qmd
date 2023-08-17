@@ -10,7 +10,10 @@ format:
     multiplex: true
     transition: fade
     slide-number: true
+    margin: 0.05
 editor: visual
+menu:
+  numbers: true
 execute:
   freeze: auto
 ---
@@ -215,7 +218,8 @@ By contrast, **parsnip** and **workflows** conforms to the following rules:
 
 The predictable column names are
 
-::: {style="style"}
+<div>
+
 ```{r}
 #| echo: false
 #| output: asis
@@ -230,7 +234,8 @@ tibble::tibble(
   gt::tab_options( table.font.size = gt::px(38) ) %>% 
   gt::as_raw_html()
 ```
-:::
+
+</div>
 
 ## Tidymodels basics
 
@@ -788,7 +793,7 @@ Two different configurations of this method:
 
 **Re-sampling**: resampling time:
 
-For a year\'s worth of data, suppose that six sets of 30-day blocks define the analysis set. For assessment sets of 30 days with a 29-day skip, we can use the **rsample** package to specify:
+For a year's worth of data, suppose that six sets of 30-day blocks define the analysis set. For assessment sets of 30 days with a 29-day skip, we can use the **rsample** package to specify:
 
 ```{r}
 #| echo: true
@@ -866,110 +871,64 @@ Optional arguments are:
 
 Control arguments are:
 
-## Tidymodels
+-   **`verbose`**: A logical for printing logging.
+-   **`extract`**: A function for retaining objects from each model iteration (discussed later).
+-   **`save_pred`**: A logical for saving the assessment set predictions.
 
-### Example 1: Linear Regression
+## Tidymodels: performance evaluation
 
--   Prepare the data using a recipe.
--   Create a linear regression model using linear_reg() function.
--   Train the model using fit() and assess its performance.
-
-## Tidymodels
-
-### Example 1: Linear Regression
+Save the predictions in order to visualize the model fit and residuals:
 
 ```{r}
 #| echo: true
 #| message: false
 #| eval: false
-# Prepare the data using a recipe
-data('mtcars', package = 'datasets')
-car_data <- mtcars %>% dplyr::select(mpg, disp, hp, wt)
-car_recipe <- car_data %>% 
-  recipes::recipe(mpg ~ .) %>% 
-  recipes::step_normalize(all_predictors())
+keep_pred <- tune::control_resamples(save_pred = TRUE, save_workflow = TRUE)
 
-# Create a linear regression model
-linear_model <- parsnip::linear_reg() %>% 
-  parsnip::set_engine("lm") %>% 
-  parsnip::set_mode("regression")
-
-lm_wflow <- 
-  workflows::workflow() %>% 
-  workflows::add_model(linear_model)
-
-lm_wflow %<>% 
-  workflows::add_formula(mpg ~ .)
-  
-lm_fit <- car_data %>% 
-  parsnip::fit(lm_wflow, .)
-lm_fit
-
-lm_fit %>% stats::predict(car_data %>% dplyr::slice_head(n=3))
-
-# Train the model
-linear_fit <- fit(linear_model, car_recipe)
-
-# Assess model performance
-linear_metrics <- linear_fit %>% 
-  collect_metrics()
-print(linear_metrics)
-
+set.seed(1003)
+rf_res <- 
+  rf_wflow %>% 
+  tune::fit_resamples(resamples = ames_folds, control = keep_pred)
+rf_res
 ```
 
-## Tidymodels
+## Tidymodels: performance evaluation
 
-### Example 2: Random Forest
+The return value is a tibble similar to the input resamples, along with some extra columns:
 
--   Prepare the data using a recipe.
--   Create a random forest model using rand_forest() function.
--   Train the model using fit() and assess its performance.
+-   `.metrics` is a list column of tibbles containing the assessment set performance statistics.
+-   `.notes` is list column of tibbles cataloging any warnings/errors generated during resampling.
+-   `.predictions` is present when `save_pred = TRUE`. This list column contains tibbles with the out-of-sample predictions.
 
-## Tidymodels
+## Tidymodels: performance evaluation
 
-### Cross-Validation with Tidymodels
+Convenience functions in tidymodels can extract and format the results produced by tuning functions, e.g.
 
-Use the vfold_cv() function for k-fold cross-validation.
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+rf_res %>% tune::collect_metrics()
 
-Extract the results and summary statistics.
+rf_res %>% tune::collect_predictions()
 
-Compare models and choose the best one based on cross-validation metrics.
+val_res %>% tune::collect_metrics()
+```
 
-## Tidymodels
+## Tidymodels: parallelism
 
-### Hyperparameter Tuning
+The models created during resampling are independent of one another and can be processed in parallel across processors on the same computer.
 
--   Use tune() and grid_latin_hypercube() functions for hyperparameter tuning.
--   Find the best combination of hyperparameters that optimize model performance.
+```{r}
+#| echo: true
+#| message: false
+#| eval: false
+# The number of physical cores in the hardware:
+parallel::detectCores(logical = FALSE)
 
-## Tidymodels
 
-Model Interpretability with Tidymodels
+# The number of possible independent processes that can 
+# be simultaneously used:  
+parallel::detectCores(logical = TRUE)
 
-Use functions like vip() and shapley() to interpret model predictions and feature importance.
-
-## Tidymodels
-
-Putting It All Together: An End-to-End Example
-
-Load a dataset and split it into training and testing sets.
-
-Create a recipe for data preprocessing and feature engineering.
-
-Build multiple models using different algorithms.
-
-Perform hyperparameter tuning and cross-validation.
-
-Evaluate and compare model performance.
-
-Select the best model and interpret the results.
-
-## Tidymodels
-
-Conclusion
-
-Tidymodels is a versatile and user-friendly package for machine learning in R.
-
-It follows the tidyverse principles, making it easy to integrate with other tidy packages.
-
-Tidymodels empowers graduate students and researchers to perform complex machine learning tasks efficiently and effectively.
+```

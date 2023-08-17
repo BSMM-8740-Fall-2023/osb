@@ -1,26 +1,18 @@
 ---
-title: "Lab 1 - Meet the toolkit"
+title: "Lab 1 - Tidy Data Wrangling"
 editor: visual
 reference-location: margin
 ---
 
 ## Introduction
 
-This lab will go through much of the same workflow we've demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.
-
-::: callout-note
-R is the name of the programming language itself and RStudio is a convenient interface.
-:::
-
-An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.
+This lab will go through much of the same workflow we've demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.
 
 ::: callout-note
 Git is a version control system (like "Track Changes" features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).
 :::
 
-As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.
-
-To make versioning simpler, this is a solo lab. In the future, you'll learn about collaborating on GitHub and producing a single lab report for your lab team, but for now, concentrate on getting the basics down.
+As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.
 
 ### Learning goals
 
@@ -33,19 +25,6 @@ By the end of the lab, you will...
 -   Be able to describe variable distributions and the relationship between multiple variables
 
 ## Getting started
-
-::: callout-important
-Your lab TA will lead you through the Getting Started section.
-:::
-
-### Log in to RStudio
-
--   Go to <https://vm-manage.oit.duke.edu/containers> and login with your Duke NetID and Password.
--   Click **STA210** to log into the Docker container. You should now see the RStudio environment.
-
-::: callout-warning
-If you haven't yet done so, you will need to reserve a container for STA210 first.
-:::
 
 ### Set up your SSH key
 
@@ -94,7 +73,7 @@ You are now ready interact with GitHub via RStudio!
 
 ### Clone the repo & start new RStudio project
 
--   Go to the course organization at [github.com/sta210-s22](https://github.com/sta210-s22 "Course GitHub organization") organization on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
+-   Go to the course organization at [github.com/BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") organization on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
 
 -   Click on the green **CODE** button, select **Use SSH** (this might already be selected by default, and if it is, you'll see the text **Clone with SSH**). Click on the clipboard icon to copy the repo URL.
 
@@ -181,30 +160,19 @@ ikea <- read_csv("data/ikea.csv")
 
 ### Data dictionary
 
-The variable definitions are as follows:
+The variable definitions are found in the help for Teams
 
-| variable            | class     | description                                                                                         |
-|---------------------|-----------|-----------------------------------------------------------------------------------------------------|
-| `item_id`           | double    | item id which can be used later to merge with other IKEA data frames                                |
-| `name`              | character | the commercial name of items                                                                        |
-| `category`          | character | the furniture category that the item belongs to (Sofas, beds, chairs, Trolleys,...)                 |
-| `sellable_online`   | logical   | Sellable online TRUE or FALSE                                                                       |
-| `link`              | character | the web link of the item                                                                            |
-| `other_colors`      | character | if other colors are available for the item, or just one color as displayed in the website (Boolean) |
-| `short_description` | character | a brief description of the item                                                                     |
-| `designer`          | character | The name of the designer who designed the item. this is extracted from the full_description column. |
-| `depth`             | double    | Depth of the item in Centimeter                                                                     |
-| `height`            | double    | Height of the item in Centimeter                                                                    |
-| `width`             | double    | Width of the item in Centimeter                                                                     |
-| `price_usd`         | double    | the current price in US dollars as it is shown in the website by 4/20/2020                          |
+```{r}
+?Teams
+```
 
 ### View the data
 
 Before doing any analysis, you may want to get quick view of the data. This is useful when you've imported data to see if your data imported correctly. We can use the `view()` function to see the entire data set in RStudio. Type the code below in the **Console** to view the entire dataset.
 
 ```{r}
-
-view(ikea)
+library(Lahman)
+dim(Teams)
 ```
 
 ## Exercises
@@ -217,52 +185,63 @@ Make sure we can read all or your code in your PDF document. This means you will
 
 ### Exercise 1
 
-The `view()` function helped us get a quick view of the dataset, but let's get more detail about its structure. Viewing a summary of the data is a useful starting point for data analysis, especially if the dataset has a large number of observations (rows) or variables (columns). Run the code below to use the `glimpse()` function to see a summary of the `ikea` dataset.
+The `view()` function helped us get a quick view of the dataset, but let's get more detail about its structure. Viewing a summary of the data is a useful starting point for data analysis, especially if the dataset has a large number of observations (rows) or variables (columns). Run the code below to use the `dplyr::glimpse()` function to see a summary of the `ikea` dataset.
 
 How many observations are in the `ikea` dataset? How many variables?
 
 ```{r}
 #| results: false
 
-glimpse(ikea)
+dplyr::glimpse(Teams)
 ```
 
 ::: callout-note
-In your `lab-1-ikea.qmd` document you'll see that we already added the code required for the exercise as well as a sentence where you can fill in the blanks to report the answer. Use this format for the remaining exercises.
+In your `lab-1.qmd` document you'll see that we already added the code required for the exercise as well as a sentence where you can fill in the blanks to report the answer. Use this format for the remaining exercises.
 
 Also note that the code chunk as a label: `glimpse-data`. It's not required, but good practice and highly encouraged to label your code chunks in this way.
 :::
 
 ### Exercise 2
 
-We begin each regression analysis with exploratory data analysis (EDA) to help us "get to know" the data and examine the variable distributions and relationships between variables. We do this by visualizing the data and calculating summary statistics to describe the variables in our dataset. In this lab, we will focus on data visualizations.
-
-Let's begin by looking at the price of Ikea furniture. Use the code below to visualize the distribution of `price_usd`, the price in US dollars.
-
-```{r}
-ggplot(data = ikea, aes(x = price_usd)) +
-  geom_histogram()
-```
-
-Use the visualization to describe the distribution of price. In your narrative, include description of the shape, approximate center, approximate spread, and any presence of outliers. Briefly explain why the median is more representative of the center of this distribution than the mean.
-
-::: callout-tip
-When using the visual editor you can insert a code chunk using the Insert menu on top or by using the catch-all `⌘ /` shortcut to insert just about anything. Just execute the shortcut then type what you want to insert. If you are at the beginning of a line you can also enter plain `/` to invoke the shortcut.
-:::
-
-### Exercise 3
-
-When we make visualizations, we want them to be clear and suitable for a professional audience. This means that, at a minimum, each visualization should have **an informative title** and **informative axis labels**. Let's modify the plot from the previous question to make it suitable for a professional audience. Complete the code below to include an informative title and informative axis labels.
+[Ben Baumer](#0) worked for the [New York Mets](#0) from 2004 to 2012. What was the team W/L record during those years? Use `filter()` and `select()` to quickly identify only those pieces of information that we care about.
 
 ```{r}
 #| eval: false
-ggplot(data = ikea, aes(x = price_usd)) +
-  geom_histogram() +
-  labs(
-    x = "_____",
-    y = "_____",
-    title = "_____"
-  )
+mets <- Teams  %>% 
+  dplyr::filter(teamID == "NYN")
+my_mets <- mets %>% 
+  dplyr::filter(_)
+my_mets %>% 
+  dplyr::select(_,_,_,_)
+```
+
+### Exercise 3
+
+We've answered the simple question of how the Mets performed during the time that Ben was there, but since we are data scientists, we are interested in deeper questions. For example, some of these seasons were subpar---the Mets had more losses than wins. Did the team just get unlucky in those seasons? Or did they actually play as badly as their record indicates?
+
+In order to answer this question, we need a model for expected winning percentage. It turns out that one of the most widely used contributions to the field of baseball analytics (courtesy of [Bill James](https://en.wikipedia.org/w/index.php?search=Bill%20James)) is exactly that. This model translates the number of runs^[4](https://mdsr-book.github.io/mdsr3e/04-dataI.html?s=03#fn4)^ that a team scores and allows over the course of an entire season into an expectation for how many games they should have won. The simplest version of this model is this:
+
+$$
+\hat{\text{W}}_{\text{pct}}=\frac{1}{1+\left(\frac{\text{RA}}{\text{RS}}\right)^{2}}
+$$
+
+where $\text{RA}$ is the number of runs the team allows to be scored, $\text{RS}$ is the number of runs that the team scores, and $\hat{\text{W}}_{\text{pct}}$ is the team's expected winning percentage. Luckily for us, the runs scored and allowed are present in the `Teams` table, so let's grab them and save them in a new data frame.
+
+```{r}
+#| eval: false
+mets_ben <- Teams |>
+  select(_, _, _, _, _, _) |>
+  filter(_ == "NYN" & _ %in% 2004:2012)
+mets_ben
+```
+
+First, note that the runs-scored variable is called `R` in the `Teams` table, but to stick with our notation we want to rename it `RS`.
+
+```{r}
+#| eval: false
+mets_ben <- mets_ben |>
+  rename(_ = _)    # new name = old name
+mets_ben
 ```
 
 ::: render-commit-push
@@ -271,44 +250,29 @@ This is a good place to fender, commit, and push changes to your remote lab-1 re
 
 ### Exercise 4
 
-Another way to visualize numeric data is using density plots. Make a density plot to visualize the distribution of `price_usd`. Be sure to include an informative title and informative axis labels.
-
-In this course, we'll be most interested in the relationship between two or more variables, so let's begin by looking at the distribution of price by category. We'll focus on the five categories in the code below, since these include commonly purchased types of furniture.
-
-Use the code below to create a new data frame that only includes the furniture categories of interest. We're assigning this data frame to an object with a new name, so we don't overwrite the original data.
-
-How many observations are in the `ikea_sub` dataset? How many variables?
+Next, we need to compute the team's actual winning percentage in each of these seasons. Thus, we need to add a new column to our data frame, and we do this with the `mutate()` command.
 
 ```{r}
-ikea_sub <- ikea %>%
-  filter(category %in% c(
-    "Tables & desks", "Beds",
-    "Bookcases & shelving units",
-    "Sofas & armchairs", "Children's furniture"
-  ))
+#| eval: false
+mets_ben <- mets_ben |>
+  mutate(WPct = _)
+mets_ben
 ```
 
-::: callout-important
-You will use this newly constructed data frame, `ikea_sub`, for the remainder of the lab.
-:::
+The expected number of wins is then equal to the product of the expected winning percentage times the number of games.
+
+```{r}
+#| eval: false
+mets_ben <- mets_ben |>
+  mutate(W_hat = _)
+mets_ben
+```
 
 ### Exercise 5
 
-Let's make a new visualization with the density curves colored by category, so we can compare the distribution of price for each category.
+In this case, the Mets\' fortunes were better than expected in three of these seasons, and worse than expected in the other six.
 
-```{r}
-ggplot(data = ikea_sub, aes(x = price_usd, fill = category)) +
-  geom_density()
-```
-
-The overlapping colors make it difficult to tell what's happening with the distributions for the categories plotted first and hence covered by categories plotted over them. We can change the transparency level of the fill color to help with this. The alpha argument takes values between 0 and 1: 0 is completely transparent and 1 is completely opaque. There is no way to tell what value will work best, so it's best to try a few.
-
-Recreate the density plot using a more suitable alpha level, so we can more easily see the distribution of all the categories. Include an informative title and informative axis labels.
-
-```{r}
-ggplot(data = ikea_sub, aes(x = price_usd, fill = category)) +
-  geom_density(alpha = 0.8)
-```
+In how many seasons were the Mets better than expected? How many were they worse than expected?
 
 ::: render-commit-push
 This is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message (e.g., "Completed exercises 4 and 5"), and push. After you push the changes, the Git pane in RStudio should be empty.
@@ -316,21 +280,41 @@ This is a good place to render, commit, and push changes to your remote lab-1 re
 
 ### Exercise 6
 
-Briefly describe why we defined the fill of the curves by mapping aesthetics of the plot (inside the `aes` function) but we defined the alpha level as a characteristic of the plotting `geom`.
+Naturally, the Mets experienced ups and downs during Ben\'s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.
+
+```{r}
+#| eval: false
+arrange(mets_ben, _)
+```
 
 ### Exercise 7
 
-Overlapping density plots are not the only way to visualize the relationship between a quantitative and categorical variable.
+In 2006, the Mets had the best record in baseball during the regular season and nearly made the [*World Series*](https://en.wikipedia.org/w/index.php?search=World%20Series). How do these seasons rank in terms of the team\'s performance relative to our model?
 
-Use a different type of plot to visualize the relationship between `price_usd` and `category`. Include an informative title and informative axis labels.
-
-::: callout-tip
-You can use the [ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/raw/main/data-visualization.pdf) and [from Data to Viz](https://www.data-to-viz.com) for inspiration.
-:::
+```{r}
+#| eval: false
+mets_ben %>% 
+  mutate(Diff = _) |>
+  arrange(_)
+```
 
 ### Exercise 8
 
-Compare and contrast your plots from the previous exercise to the overlapping density plots from [Exercise 5]. What features are apparent in the plot from the previous exercise that aren't in the overlapping density plots? What features are apparent in the overlapping density plots that aren't in the plot from the previous exercise? What features are apparent in both?
+Summarize the Mets performance
+
+```{r}
+#| eval: false
+mets_ben |>
+  summarize(
+    num_years = _, 
+    total_W = _, 
+    total_L = _, 
+    total_WPct = _, 
+    sum_resid = _
+  )
+```
+
+In these nine years, the Mets had a combined record of \_ wins and \_ losses, for an overall winning percentage of \_.
 
 ::: render-commit-push
 This is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message (e.g., "Completed exercises 6 - 8"), and push. After you push the changes, the Git pane in RStudio should be empty.
@@ -355,11 +339,47 @@ ggplot(data = _____, aes(x = width, y = _____)) +
 
 ### Exercise 10
 
-Color the points of the scatterplot by category. Describe how the relationship between price and width of Ikea furniture differs by category, if at all.
+Discretize the years into three chunks: one for each of the three general managers under whom Ben worked. [Jim Duquette](https://en.wikipedia.org/w/index.php?search=Jim%20Duquette) was the Mets\' [*general manager*](https://en.wikipedia.org/w/index.php?search=general%20manager) in 2004, [Omar Minaya](https://en.wikipedia.org/w/index.php?search=Omar%20Minaya) from 2005 to 2010, and [Sandy Alderson](https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson) from 2011 to 2012.
+
+```{r}
+mets_ben <- mets_ben %>% 
+  mutate(
+    gm = ifelse(
+      yearID == _, 
+      _, 
+      ifelse(
+        yearID >= _, 
+        _, 
+        _)
+    )
+  )
+
+```
+
+Alternatively, we use the `case_when` function
+
+```{r}
+mets_ben <- mets_ben |>
+  mutate(
+    gm = case_when(
+      yearID == _ ~ _, 
+      yearID >= _ ~ _, 
+      TRUE ~ _
+    )
+  )
+```
 
 ::: render-commit-push
 You're done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message "Done with Lab 1!" , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that **all** documents are updated in your repo on GitHub. The PDF document you submit to Gradescope should be identical to the one in your GitHub repo.
 :::
+
+### Exercise 11
+
+Use the `gm` variable to define the manager groups with the `group_by()` operator, and run the summaries again, this time across the manager groups.
+
+### Bonus
+
+Do all the analysis at once, but retain the step-by-step logic.
 
 ## Submission
 
@@ -374,7 +394,7 @@ Remember -- you must turn in a PDF file to the Gradescope page before the submis
 To submit your assignment:
 
 -   Go to [http://www.gradescope.com](http://www.gradescope.com/) and click *Log in* in the top right corner.
--   Click *School Credentials* ➡️ *Duke NetID* and log in using your NetID credentials.
+-   Click ??
 -   Click on your *STA 210* course.
 -   Click on the assignment, and you'll be prompted to submit it.
 -   Mark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be "checked").

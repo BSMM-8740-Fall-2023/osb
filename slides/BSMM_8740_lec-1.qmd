@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the Tidyverse"
+title: "Data Analytic Methods & Algorithms"
 subtitle: "BSMM-8740 - Fall 2023"
 author: "Dr. L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
@@ -11,6 +11,8 @@ format:
     transition: fade
     slide-number: true
 editor: visual
+menu:
+  numbers: true
 execute:
   freeze: auto
 ---
@@ -31,6 +33,7 @@ knitr::opts_chunk$set(
 #| message: false
 
 # load packages
+require(magrittr)        # for pipe
 library(tidyverse)       # for data wrangling
 library(tidymodels)      # for modeling
 library(fivethirtyeight) # for the fandango dataset
@@ -55,19 +58,48 @@ knitr::opts_chunk$set(
 -   If you're just joining the class, welcome! Go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) and review content you've missed, read the syllabus, and complete the *Getting to know you* survey.
 -   Lab 1 is due Friday, at 5pm, on Gradescope.
 
-## Outline
+## Course Topics
+
+<div>
+
+```{r}
+#| echo: false
+#| message: false
+tibble::tibble(
+  week = 1:11
+  , topic = 
+    c('Tidyverse', 'EDA & feature engineering', 'Recipes', 'Regression', 'Tidymodels'
+      , 'Classification', 'Time Series', 'Causality', 'Causality', 'Bayesian methods', 'Bayesian methods')
+) %>% 
+  gt::gt() %>% 
+  gtExtras::gt_theme_espn() %>% 
+  gt::tab_options( table.font.size = gt::px(28) ) %>% 
+  gt::as_raw_html()
+```
+
+</div>
+
+## Today's Outline
 
 -   Introduction to Tidy data & Tidyverse syntax
 -   Estimate the slope and intercept of the regression line using the least squares method
 -   Interpret the slope and intercept of the regression line
 
-## Tidy Data
-
-A dataset is a collection of **values**, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a **variable** and an **observation**. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.
+# Introduction to the Tidyverse
 
 ## Tidy Data
 
-In **tidy data**:
+::: {style="font-style: smaller"}
+A dataset is a collection of **values**, usually either numbers (if quantitative) or strings (if qualitative).
+
+Values are organised in two ways. Every value belongs to a **variable** and an **observation**.
+
+A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.
+:::
+
+## Tidy Data
+
+**Tidy data** in practice:
 
 -   Every column is a variable.
 -   Every row is an observation.
@@ -79,7 +111,7 @@ In **tidy data**:
 ## table 1
 
 ```{r}
-tidyr::table1
+tidyr::table3
 ```
 
 ## table 2
@@ -91,27 +123,272 @@ tidyr::table2
 ## table 3
 
 ```{r}
-tidyr::table3
+tidyr::table1
 ```
 :::
 
-## Tidyverse Principles
+## Tidyverse principles
 
 From Wickham et al. ("Welcome to the Tidyverse." *Journal of Open Source Software* 4 (43)):
 
+::: {style="font-size: smaller"}
 > "At a high level, the tidyverse is a language for solving data science challenges with R code. Its primary goal is to facilitate a conversation between a human and a computer about data. Less abstractly, the tidyverse is a collection of R packages that share a high-level design philosophy and low-level grammar and data structures, so that learning one package makes it easier to learn the next."
+:::
 
-## Principles
+## Tidyverse principles
 
 1.  Design for humans
 2.  Reuse existing data structures
 3.  Design for the pipe and functional programming
+
+## A grammar for data Wrangling
+
+The `dplyr` package gives a grammar for data wrangling, including these 5 verbs for working with data frames.
+
+::: {style="font-size: smaller"}
+-   `select()`: take a subset of the columns (i.e., features, variables)
+-   `filter()`: take a subset of the rows (i.e., observations)
+-   `mutate()`: add or modify existing columns
+-   `arrange()`: sort the rows
+-   `summarize()`: aggregate the data across rows (e.g., group it according to some criteria)
+:::
+
+## A grammar for data Wrangling
+
+Each of these functions takes a data frame as its first argument, and returns a data frame.
+
+Being able to combine these verbs with nouns (i.e., data frames) and adverbs (i.e., arguments) creates a flexible and powerful way to wrangle data.
+
+##  `filter()`
+
+The two simplest of the five verbs are `filter()` and `select()`, which return a subset of the rows or columns of a data frame, respectively.
+
+![The filter() function. At left, a data frame that contains matching entries in a certain column for only a subset of the rows. At right, the resulting data frame after filtering.](/images/filter-1.png)
+
+## `select()` 
+
+![The select() function. At left, a data frame, from which we retrieve only a few of the columns. At right, the resulting data frame after selecting those columns.](/images/select-1.png)
 
 ## Example
 
 ```{r}
 #| echo: true
 #| message: false
+ggplot2::presidential
+```
+
+## Example
+
+To get just the names and parties of these presidents, use `select()`. The first [*argument*](#0) is the data frame, followed by the column names.
+
+```{r}
+#| echo: true
+#| message: false
+dplyr::select(presidential, name, party)
+```
+
+## Example
+
+Similarly, the first argument to `filter()` is a data frame, and subsequent arguments are logical conditions that are evaluated on any involved columns. 
+
+```{r}
+#| echo: true
+#| message: false
+dplyr::filter(presidential, party == "Republican")
+```
+
+## Example
+
+Combining the `filter()` and `select()` commands enables one to drill down to very specific pieces of information.
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "2|3"
+dplyr::select(
+  dplyr::filter(
+    presidential
+    , lubridate::year(start) > 1973 & party == "Democratic"
+  )
+  , name
+)
+```
+
+## Example
+
+As written the `filter()` operation is nested inside the `select()` operation.
+
+With the pipe (`%>%`), we can write the same expression as above in a more readable syntax.
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "2|3"
+presidential %>% 
+  dplyr::filter(lubridate::year(start) > 1973 & party == "Democratic") %>%
+  dplyr::select(name)
+```
+
+## `mutate()`
+
+We might want to create, re-define, or rename some of our variables. A graphical illustration of the `mutate()` operation is shown below
+
+![The mutate() function. At right, the resulting data frame after adding a new column.](/images/mutate-1.png)
+
+## Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1|2|3"
+my_presidents <- presidential %>% 
+  dplyr::mutate( 
+    term.length = lubridate::interval(start, end) / lubridate::dyears(1) 
+  )
+my_presidents
+```
+
+## Example
+
+The `mutate()` function can be used to modify existing columns. Below we add a variable containing the year in which each president was elected assuming that every president was elected in the year before he took office.
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-line-numbers: "1|2"
+my_presidents %<>% 
+  dplyr::mutate(elected = year(start) - 1)
+```
+
+```{r}
+#| echo: false
+my_presidents %>% dplyr::slice_head(n=4)
+```
+
+## Example
+
+Some entries in this data set are wrong, because presidential elections are only held every four years, and some presidents are not elected (e.g. Johnson and Ford).
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-line-numbers: "1|2"
+my_presidents  %<>% 
+  dplyr::mutate(elected = ifelse(elected %in% c(1962, 1973), NA, elected))
+```
+
+```{r}
+#| echo: false
+my_presidents %>% dplyr::slice_head(n=6)
+```
+
+## `rename()`
+
+It is considered bad practice to use period in names (function, variables, columns) - we should change the name of the `term.length` column that we created earlier. 
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1|2"
+my_presidents %<>% 
+  dplyr::rename(term_length = term.length)
+```
+
+```{r}
+#| echo: false
+my_presidents %>% dplyr::slice_head(n=9)
+```
+
+## `arrange()`
+
+The function `sort()` will sort a vector but not a data frame. The `arrange()`function sorts a data frame: 
+
+![The arrange() function. At left, a data frame with an ordinal variable. At right, the resulting data frame after sorting the rows in descending order of that variable.](/images/arrange-1.png)
+
+## Example
+
+To use `arrange` you have to specify the data frame, and the column by which you want it to be sorted. You also have to specify the direction in which you want it to be sorted.
+
+```{r}
+#| echo: true
+#| eval: false
+#| message: false
+#| code-line-numbers: "1|2"
+my_presidents %>% 
+  dplyr::arrange(desc(term_length))
+```
+
+```{r}
+my_presidents %>% 
+  dplyr::arrange(desc(term_length)) %>% 
+  dplyr::slice_head(n=9)
+```
+
+## Example
+
+To break ties, we can further sort by other variables
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "2"
+my_presidents |>
+  dplyr::arrange(desc(term_length), party, elected)
+```
+
+## **`summarize()` with `group_by()`**
+
+The `summarize` verb is usually used with `group_by`
+
+![The summarize() function. At left, a data frame. At right, the resulting data frame after aggregating four of the columns.](/images/summarize-1.png)
+
+## Example
+
+When used alone, `summarize()` collapses a data frame into a single row.
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "2|3|4|5|6|7|8"
+my_presidents %>% 
+  dplyr::summarize(
+    N = n(), 
+    first_year = min(year(start)), 
+    last_year = max(year(end)), 
+    num_dems = sum(party == "Democratic"), 
+    years = sum(term_length), 
+    avg_term_length = mean(term_length)
+  )
+```
+
+## Example
+
+To make comparisons, we can first group then summarize, giving us one summary row for each group.
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "2|3|4|5|6|7|8|9"
+my_presidents %>% 
+  dplyr::group_by(party) %>% 
+  dplyr::summarize(
+    N = n(), 
+    first_year = min(year(start)), 
+    last_year = max(year(end)), 
+    num_dems = sum(party == "Democratic"), 
+    years = sum(term_length), 
+    avg_term_length = mean(term_length)
+  )
+```
+
+## Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "8-9|10-11|12-14|15-17"
 # attach package magrittr
 require(magrittr)
 
@@ -121,7 +398,7 @@ url <-
 all_stations <- 
   # Step 1: Read in the data.
   readr::read_csv(url) %>% 
-  # Step 2: filter columns and rename stationname
+  # Step 2: select columns and rename stationname
   dplyr::select(station = stationname, date, rides) %>% 
   # Step 3: Convert the character date field to a date encoding.
   # Also, put the data in units of 1K rides
@@ -151,6 +428,7 @@ all_stations <-
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1-4|6-9|11-16"
 # functional programming
 airlines <- fivethirtyeight::airline_safety %>% 
   # filter rows
@@ -175,10 +453,12 @@ airlines %T>%
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1-5|7-8|10-11|13-14"
 # named function
 is_awesome <- function(x = 'Bob') {
   paste(x, 'is awesome!')
 }
+is_awesome('Keith')
 
 # anonymous function
 (function (x) {paste(x, 'is awesome!')})('Keith')
@@ -190,14 +470,24 @@ is_awesome <- function(x = 'Bob') {
 c('Bob','Ted') %>% purrr::map_chr(~paste(.x, 'is awesome!'))
 ```
 
-# Data Wrangling
+# Tidy Data Wrangling
 
-## Example 1a: mutate
+## Data Wrangling
+
+The Tidyverse offers a consistent and efficient framework for manipulating, transforming, and cleaning datasets.
+
+Functions like `filter()`, `select()`, `mutate()`, and `group_by()` allow users to easily subset, reorganize, add, and aggregate data, and the pipe (`%>%`) enables a sequential and readable flow of operations.
+
+## Example 1: mutate
+
+::: panel-tabset
+## mutate
 
 ```{r}
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "2|3-6|7|8-12|13-17"
 openintro::email %>%
   dplyr::select(-from, -sent_email) %>%
   dplyr::mutate(
@@ -206,7 +496,7 @@ openintro::email %>%
   ) %>%
   dplyr::select(-time) %>%
   dplyr::mutate(
-    cc     = cut(cc, breaks = c(0, 1))        # discretize cc
+    cc       = cut(cc, breaks = c(0, 1))      # discretize cc
     , attach = cut(attach, breaks = c(0, 1))  # discretize attach
     , dollar = cut(dollar, breaks = c(0, 1))  # discretize dollar
   ) %>%
@@ -217,12 +507,13 @@ openintro::email %>%
   )
 ```
 
-## Example 1b: mutate across
+## mutate across
 
 ```{r}
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1-2|4-5|6-11|13-17"
 iris %>%
   dplyr::mutate(across(c(Sepal.Length, Sepal.Width), round))
 
@@ -240,8 +531,8 @@ iris %>%
   dplyr::summarise(
     across( starts_with("Sepal"), ~ mean(.x, na.rm = TRUE) )
   )
-
 ```
+:::
 
 ## Example 2: rowwise operations
 
@@ -254,6 +545,7 @@ The verb ***rowwise*** creates a special type of grouping where each group consi
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1-2|3-7|8"
 iris %>%
   dplyr::rowwise() %>%
   dplyr::mutate( 
@@ -270,6 +562,7 @@ iris %>%
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1-2|3-9|10"
 iris %>%
   dplyr::rowwise() %>%
   dplyr::mutate( 
@@ -293,6 +586,7 @@ iris %>%
 #| message: false
 #| code-fold: true
 #| code-summary: "create a list-column of data frames"
+#| code-line-numbers: "2|3-7"
 (df1 <- tibble::tibble(
   g = c(1, 2, 3),
   data = list(
@@ -310,6 +604,7 @@ iris %>%
 #| message: false
 #| code-fold: true
 #| code-summary: "nest groups by continent, country"
+#| code-line-numbers: "1-2|3"
 (gapminder_nest <- gapminder::gapminder %>% 
   dplyr::mutate(year1950 = year - 1950) %>% 
   dplyr::group_nest(continent, country)
@@ -323,6 +618,7 @@ iris %>%
 #| message: false
 #| code-fold: true
 #| code-summary: "Fit a linear model for each country:"
+#| code-line-numbers: "3|4|5|6"
 (gapminder_model <- gapminder_nest %>% 
   dplyr::mutate(
     model = 
@@ -361,7 +657,7 @@ stringr::str_split(x, ",")              # splits up a string
 #| echo: true
 #| message: false
 #| results: false
-
+#| code-line-numbers: "2|3|4|6|7"
 mtcars %>% 
   tibble::rownames_to_column(var = "car") %>% 
   tibble::as_tibble() %T>% 
@@ -383,6 +679,7 @@ mtcars %>%
 #| echo: true
 #| eval: false
 #| message: false
+#| code-line-numbers: "3-7|10"
 # directly like a tibble
 db <- 
   dbplyr::memdb_frame(
@@ -409,6 +706,7 @@ mtcars_db <- dbplyr::tbl_memdb(mtcars)
 #| message: false
 #| code-fold: true
 #| code-summary: "Generate SQL without executing"
+#| code-line-numbers: "1-3|4"
 mtcars_db %>% 
   dplyr::group_by(cyl) %>% 
   dplyr::summarise(n = n()) %>% 
@@ -422,6 +720,7 @@ mtcars_db %>%
 #| message: false
 #| code-fold: true
 #| code-summary: "Execute Query on DB"
+#| code-line-numbers: "1-3|4"
 mtcars_db %>% 
   dplyr::group_by(cyl) %>% 
   dplyr::summarise(n = n()) %>% 
@@ -483,9 +782,80 @@ tidyr::table2 %>%
 :::
 :::
 
+## Relational data[^1]
+
+[^1]: based on material [here](https://r4ds.had.co.nz/relational-data.html)
+
+We can join related tables in a variety of ways:
+
+![](/images/join-venn.png)
+
 ## Relational data
 
-see: [relational data](https://r4ds.had.co.nz/relational-data.html)
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "example tables"
+x <- tibble::tibble(key=1:3, val_x= paste0('x',1:3))
+y <- tibble::tibble(key=c(1,2,4), val_y= paste0('y',1:3))
+```
+
+::: panel-tabset
+## inner join
+
+```{r}
+#| echo: true
+#| message: false
+x %>% dplyr::inner_join(y, by = "key")
+```
+
+## full join
+
+```{r}
+#| echo: true
+#| message: false
+x %>% dplyr::full_join(y, by = "key")
+```
+
+## left join
+
+```{r}
+#| echo: true
+#| message: false
+x %>% dplyr::left_join(y, by = "key")
+```
+
+## right join
+
+```{r}
+#| echo: true
+#| message: false
+x %>% dplyr::right_join(y, by = "key")
+```
+:::
+
+## Relational data
+
+### Keys used in the join:
+
+-   **default (e.g. by=NULL)**: all variables that appear in both tables
+-   **a character vector (e.g. by = "x")** uses only the common variables named
+-   **a named character vector (e.g. by = c("a" = "b"))** matches variable 'a' in x with variable 'b' in y.
+
+## Relational data
+
+### Filtering Joins:
+
+-   `semi_join(x, y)` **keeps** all observations in `x` that have a match in `y`.
+-   `anti_join(x, y)` **drops** all observations in `x` that have a match in `y`.
+
+## Set operations
+
+When tidy dataset x and y have the same variables, set operations work as expected:
+
+-   `intersect(x, y)`: return only observations in both `x` and `y`.
+-   `union(x, y)`: return unique observations in `x` and `y`.
+-   `setdiff(x, y)`: return observations in `x`, but not in `y`.
 
 # Exercises in data wrangling
 
