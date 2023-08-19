@@ -560,7 +560,7 @@ Note
 <section id="clone-the-repo-start-new-rstudio-project" class="level3">
 <h3 class="anchored" data-anchor-id="clone-the-repo-start-new-rstudio-project">Clone the repo &amp; start new RStudio project</h3>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">github.com/BSMM-8740-Fall-2023</a> organization on GitHub. Click on the repo with the prefix <strong>lab-1</strong>. It contains the starter documents you need to complete the lab.</p></li>
+<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-1</strong>. It contains the starter documents you need to complete the lab.</p></li>
 <li><p>Click on the green <strong>CODE</strong> button, select <strong>Use SSH</strong> (this might already be selected by default, and if it is, you’ll see the text <strong>Clone with SSH</strong>). Click on the clipboard icon to copy the repo URL.</p></li>
 <li><p>In RStudio, go to <em>File</em> ➛ <em>New Project</em> ➛<em>Version Control</em> ➛ <em>Git</em>.</p></li>
 <li><p>Copy and paste the URL of your assignment repo into the dialog box <em>Repository URL</em>. Again, please make sure to have <em>SSH</em> highlighted under <em>Clone</em> when you copy the address.</p></li>
@@ -760,7 +760,7 @@ Note
 </section>
 <section id="exercise-5" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-5">Exercise 5</h3>
-<p>In this case, the Mets' fortunes were better than expected in three of these seasons, and worse than expected in the other six.</p>
+<p>In this case, the Mets’ fortunes were better than expected in three of these seasons, and worse than expected in the other six.</p>
 <p>In how many seasons were the Mets better than expected? How many were they worse than expected?</p>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g.,&nbsp;“Completed exercises 4 and 5”), and push. After you push the changes, the Git pane in RStudio should be empty.</p>
@@ -768,14 +768,14 @@ Note
 </section>
 <section id="exercise-6" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
-<p>Naturally, the Mets experienced ups and downs during Ben's time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.</p>
+<p>Naturally, the Mets experienced ups and downs during Ben’s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(mets_ben, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-7" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
-<p>In 2006, the Mets had the best record in baseball during the regular season and nearly made the&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=World%20Series"><em>World Series</em></a>. How do these seasons rank in terms of the team's performance relative to our model?</p>
+<p>In 2006, the Mets had the best record in baseball during the regular season and nearly made the&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=World%20Series"><em>World Series</em></a>. How do these seasons rank in terms of the team’s performance relative to our model?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Diff =</span> _) <span class="sc">|&gt;</span></span>
@@ -816,7 +816,7 @@ Note
 </section>
 <section id="exercise-10" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-10">Exercise 10</h3>
-<p>Discretize the years into three chunks: one for each of the three general managers under whom Ben worked.&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Jim%20Duquette">Jim Duquette</a>&nbsp;was the Mets'&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=general%20manager"><em>general manager</em></a>&nbsp;in 2004,&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Omar%20Minaya">Omar Minaya</a>&nbsp;from 2005 to 2010, and&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson">Sandy Alderson</a>&nbsp;from 2011 to 2012.</p>
+<p>Discretize the years into three chunks: one for each of the three general managers under whom Ben worked.&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Jim%20Duquette">Jim Duquette</a>&nbsp;was the Mets’&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=general%20manager"><em>general manager</em></a>&nbsp;in 2004,&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Omar%20Minaya">Omar Minaya</a>&nbsp;from 2005 to 2010, and&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson">Sandy Alderson</a>&nbsp;from 2011 to 2012.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
