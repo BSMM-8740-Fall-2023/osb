@@ -17,6 +17,7 @@ This kernel is intended to analyze the main features of Tate dataset. The idea i
 # Exploratory analysis
 
 ```{r, message = FALSE}
+#| eval: false
 the_tate <- readr::read_delim("labs/data/the-tate-collection.csv", ";", escape_double = FALSE, trim_ws = TRUE)
 the_tate_artists <- readr::read_csv("labs/data/the-tate-artists.csv")
 ```
@@ -24,6 +25,7 @@ the_tate_artists <- readr::read_csv("labs/data/the-tate-artists.csv")
 ## A short summary of the dataset
 
 ```{r}
+#| eval: false
 the_tate %>% DataExplorer::introduce() %>% dplyr::glimpse()
 the_tate %>% DataExplorer::plot_missing()
 ```
@@ -37,6 +39,7 @@ First of all, let's analyze the entire dataset as it is. We have 69201 observati
 -   `summary(the_tate$acquisitionYear)` gives us the period of time in which Tate has acquired artworks (1823 - 2013).
 
 ```{r}
+#| eval: false
 the_tate %>% 
   dplyr::summarize(
     artists = unique(artist) %>% length()
@@ -46,6 +49,7 @@ the_tate %>%
 ```
 
 ```{r, message = FALSE}
+#| eval: false
 # the_tate_area <- the_tate[!is.na(the_tate$width) & !is.na(the_tate$height),]
 # area <- the_tate_area$width * the_tate_area$height
 # the_tate_area <- cbind(the_tate_area, area)
@@ -75,6 +79,7 @@ We can create a variable `area` by multiplying `width` and `height` and then we 
 And what about the artists? If we group the dataset according to artist name (or artist ID) and we count rows, we obtain a table (that we order descending) with the number of artworks for each artist. It is easy to see that more than half of the artworks are by *Joseph Mallord William Turner*.
 
 ```{r, message = FALSE}
+#| eval: false
 the_tate_by_artist <- the_tate %>%
   dplyr::group_by(artist) %>%
   dplyr::summarize(count = n())
@@ -109,6 +114,7 @@ If we want to have a naive idea of what are the artworks about, we can analyze t
 First of all, we have to open the libraries needed: *tm*, *SnowballC* and *wordcloud*.
 
 ```{r, message = FALSE}
+#| eval: false
 library(tm)
 library(SnowballC)
 library(wordcloud)
@@ -117,6 +123,7 @@ library(wordcloud)
 After that, we need to prepare a useful dataset for the task: in this case we have to remove all the observation that do not have a title. Pay attention to the fact that in this dataset the artworks without a title are not indicated with a `NA`, so we need to take out all the observations that has as title *Untitled*, *Blank* or one of the expression beginning with *\[*. Then we have to transform the vector of titles into an analyzable corpus.
 
 ```{r, message = FALSE}
+#| eval: false
 the_tate_titles <- the_tate[substr(the_tate$title,1,1) != "[" & the_tate$title != "Untitled" & the_tate$title != "Blank",]
 titleCorpus <- Corpus(VectorSource(the_tate_titles$title))
 ```
@@ -132,6 +139,7 @@ Now we have to transform the text in order to create the tag cloud. Some conside
 -   `stripWhitespace` remove extra spaces created by previous operations.
 
 ```{r, message = FALSE}
+#| eval: false
 # define a function to remove strange characters
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 
@@ -149,6 +157,7 @@ titleCorpus <- tm_map(titleCorpus, stripWhitespace) # remove extra white space
 Finally, it's time to create the tag cloud! We can set the number of words we want to show (in the example, 150) and some other parameters for the appearance of the cloud. As you can see, some the image explains quite clearly the main subjects of the artworks: castles, views, rivers and mountains, mostly.
 
 ```{r, message = FALSE}
+#| eval: false
 wordcloud(titleCorpus, max.words = 150, random.order = FALSE)
 ```
 
@@ -157,12 +166,14 @@ wordcloud(titleCorpus, max.words = 150, random.order = FALSE)
 The Tate gives some open data, including a dataset with the basic data about artists. We will join these data with the artworks dataset.
 
 ```{r, message = FALSE}
+#| eval: false
 the_tate_artists <- readr::read_csv("labs/data/the-tate-artists.csv")
 the_tate %<>% dplyr::left_join(the_tate_artists, by = c("artistId" = "id"))
 summary(the_tate)
 ```
 
 ```{r}
+#| eval: false
 the_tate %>% tidyr::drop_na(gender, acquisitionYear) %>% 
   dplyr::select(gender, acquisitionYear) %>% 
   dplyr::arrange(gender, acquisitionYear) %>% 
@@ -173,6 +184,7 @@ the_tate %>% tidyr::drop_na(gender, acquisitionYear) %>%
 ```
 
 ```{r}
+#| eval: false
 the_tate %>% tidyr::drop_na(gender, acquisitionYear) %>%
   dplyr::group_by(acquisitionYear, gender) %>%
   dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
@@ -184,6 +196,7 @@ the_tate %>% tidyr::drop_na(gender, acquisitionYear) %>%
 Considering this extended dataset, some more analysis are allowed. First of all, let's analyze gender gap in acquisition: we consider acquisitions through time according to gender (so, first of all, we need to create the two sub-datasets of male and female artists) e we show the trends. We will consider only the XX and XXI centuries.
 
 ```{r}
+#| eval: false
 # the_tate_male \<- the_tate\[the_tate$gender == "Male",] the_tate_female <- the_tate[the_tate$gender == "Female",\]
 # 
 # count_by_year_male \<- the_tate_male %\>% group_by(acquisitionYear) %\>% summarize(count = n()) count_by_year_male \<- count_by_year_male\[count_by_year_male\$acquisitionYear \>= 1900,\]
@@ -195,6 +208,7 @@ Considering this extended dataset, some more analysis are allowed. First of all,
 
 
 ```{r}
+#| eval: false
 spx_data <- readr::read_csv("labs/data/SPX_HistoricalData_1692322132002.csv", show_col_types = FALSE)
 
 spx_summary <- spx_data %>% dplyr::mutate(
@@ -214,6 +228,7 @@ spx_summary
 nmmnmnmn
 
 ```{r}
+#| eval: false
 #| echo: true
 spx_summary %>% 
   gt::gt('year') %>% 

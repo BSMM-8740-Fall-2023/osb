@@ -342,6 +342,7 @@ ggplot(data = _____, aes(x = width, y = _____)) +
 Discretize the years into three chunks: one for each of the three general managers under whom Ben worked. [Jim Duquette](https://en.wikipedia.org/w/index.php?search=Jim%20Duquette) was the Mets' [*general manager*](https://en.wikipedia.org/w/index.php?search=general%20manager) in 2004, [Omar Minaya](https://en.wikipedia.org/w/index.php?search=Omar%20Minaya) from 2005 to 2010, and [Sandy Alderson](https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson) from 2011 to 2012.
 
 ```{r}
+#| eval: false
 mets_ben <- mets_ben %>% 
   mutate(
     gm = ifelse(
@@ -359,6 +360,7 @@ mets_ben <- mets_ben %>%
 Alternatively, we use the `case_when` function
 
 ```{r}
+#| eval: false
 mets_ben <- mets_ben |>
   mutate(
     gm = case_when(
