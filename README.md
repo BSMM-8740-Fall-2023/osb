@@ -1,4 +1,4 @@
-# Website for BSMM 8740 at The UNiversity of Windsor (Fall 2023)
+# Website for BSMM 8740 at The University of Windsor (Fall 2023)
 
 🔗 https://bsmm-8740-fall-2023.github.io/osb/
 

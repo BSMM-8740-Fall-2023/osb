@@ -249,7 +249,7 @@ The model and preprocessor can be removed or updated:
 # update the formula
 lm_fit %>% workflows::update_formula(Sale_Price ~ Longitude)
 
-# remove the formula and use add_vasriables instead
+# remove the formula and use add_variables instead
 lm_wflow %<>% 
   workflows::remove_formula() %>% 
   workflows::add_variables(

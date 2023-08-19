@@ -73,7 +73,7 @@ You are now ready interact with GitHub via RStudio!
 
 ### Clone the repo & start new RStudio project
 
--   Go to the course organization at [github.com/BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") organization on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
+-   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
 
 -   Click on the green **CODE** button, select **Use SSH** (this might already be selected by default, and if it is, you'll see the text **Clone with SSH**). Click on the clipboard icon to copy the repo URL.
 
@@ -270,7 +270,7 @@ mets_ben
 
 ### Exercise 5
 
-In this case, the Mets\' fortunes were better than expected in three of these seasons, and worse than expected in the other six.
+In this case, the Mets' fortunes were better than expected in three of these seasons, and worse than expected in the other six.
 
 In how many seasons were the Mets better than expected? How many were they worse than expected?
 
@@ -280,7 +280,7 @@ This is a good place to render, commit, and push changes to your remote lab-1 re
 
 ### Exercise 6
 
-Naturally, the Mets experienced ups and downs during Ben\'s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.
+Naturally, the Mets experienced ups and downs during Ben's time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.
 
 ```{r}
 #| eval: false
@@ -289,7 +289,7 @@ arrange(mets_ben, _)
 
 ### Exercise 7
 
-In 2006, the Mets had the best record in baseball during the regular season and nearly made the [*World Series*](https://en.wikipedia.org/w/index.php?search=World%20Series). How do these seasons rank in terms of the team\'s performance relative to our model?
+In 2006, the Mets had the best record in baseball during the regular season and nearly made the [*World Series*](https://en.wikipedia.org/w/index.php?search=World%20Series). How do these seasons rank in terms of the team's performance relative to our model?
 
 ```{r}
 #| eval: false
@@ -339,10 +339,9 @@ ggplot(data = _____, aes(x = width, y = _____)) +
 
 ### Exercise 10
 
-Discretize the years into three chunks: one for each of the three general managers under whom Ben worked. [Jim Duquette](https://en.wikipedia.org/w/index.php?search=Jim%20Duquette) was the Mets\' [*general manager*](https://en.wikipedia.org/w/index.php?search=general%20manager) in 2004, [Omar Minaya](https://en.wikipedia.org/w/index.php?search=Omar%20Minaya) from 2005 to 2010, and [Sandy Alderson](https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson) from 2011 to 2012.
+Discretize the years into three chunks: one for each of the three general managers under whom Ben worked. [Jim Duquette](https://en.wikipedia.org/w/index.php?search=Jim%20Duquette) was the Mets' [*general manager*](https://en.wikipedia.org/w/index.php?search=general%20manager) in 2004, [Omar Minaya](https://en.wikipedia.org/w/index.php?search=Omar%20Minaya) from 2005 to 2010, and [Sandy Alderson](https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson) from 2011 to 2012.
 
 ```{r}
-#| eval: false
 mets_ben <- mets_ben %>% 
   mutate(
     gm = ifelse(
@@ -360,7 +359,6 @@ mets_ben <- mets_ben %>%
 Alternatively, we use the `case_when` function
 
 ```{r}
-#| eval: false
 mets_ben <- mets_ben |>
   mutate(
     gm = case_when(

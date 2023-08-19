@@ -1,0 +1,139 @@
+---
+title: "Lab 2 - EDA and Feature Engineering"
+editor: visual
+reference-location: margin
+---
+
+## Introduction
+
+In today's lab, you'll explore several data sets in the EDA process and practice some feature engineering.
+
+### Learning goals
+
+By the end of the lab you will...
+
+-   Be able to use the `DataExplorer` package to perform EDA
+-   Be able to perform basic feature engineering.
+
+## Getting started
+
+-   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-2**. It contains the starter documents you need to complete the lab.
+
+-   Clone the repo and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+
+## Packages
+
+We will use the following package in today's lab.
+
+```{r}
+#| message: false
+
+library(tidyverse)  # for data wrangling + visualization
+library(tidymodels) # for modeling
+library(knitr)      # for pretty printing of tables
+```
+
+## Data: The Tate Collection
+
+Tate is an institution that houses the United Kingdom's national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.
+
+This dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.
+
+The metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.
+
+This dataset contains the following information for each artwork:
+
+|                  |                    |
+|------------------|--------------------|
+| Id               | acquisitionYear    |
+| accession_number | dimensions         |
+| artist           | width              |
+| artistRole       | height             |
+| artistId         | depth              |
+| title            | units              |
+| dateText         | inscription        |
+| medium           | thumbnailCopyright |
+| creditLine       | thumbnailUr        |
+| year             | url                |
+
+Use the code below to load the Tate Collection data sets.
+
+```{r}
+#| message: false
+the_tate <- readr::read_delim("data/the-tate-collection.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+the_tate_artists <- readr::read_csv("data/the-tate-artists.csv")
+```
+
+## Exercises
+
+### Exercise 1
+
+First of all, let's analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate's acquisition year. Generate some general observations about the dataset using `dplyr::summarize`, including the number of *unique artists* represented in the collection, the *period* represented in the collection and the *acquisition period* over which the collection was created.
+
+Next use `DataExplorer::introduce` and `DataExplorer::plot_missing()` to examine the scope of missing data.
+
+### Exercise 2
+
+Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.
+
+### Exercise 3
+
+Modify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using `gt::gt` with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the `gtExtras` package to the formatted table.
+
+::: render-commit-push
+This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+:::
+
+### Exercise 4
+
+Similar to exercises 2 and 3, in this exercise take the raw data (`the_tate`) and add a column with the area of each artwork in $\text{cm}^2$. Next select the artist, title and the area and remove NA values using `tidyr::drop_na`, then order the works by area. Use `dplyr::slice_head` and `dplyr::slice_tail` to find the largest and smallest artworks in the collection.
+
+### Exercise 5
+
+Join the tables `the_tate` and `the_tate_artists` using `dplyr::left_join`, assigning the result to the variable `the_tate` . Drop rows with `NA` gender values and then group by gender
+
+### Exercise 6
+
+Read the historical price data in the file `SPX_HistoricalData_1692322132002.csv` and add a column for the year of the transaction and the daily return $r_d$, using the formula
+
+$$
+r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
+$$ You will likely need `dplyr::lead` or `dplyr::lead`. Add an additional column for the daily return variance $\text{var}_d = \text{r}_d^2$.
+
+Finally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument `.groups = "drop"` to the summarize function to drop the grouping after the summary is created.
+
+### Exercise 7
+
+Take the table from the last exercise and use the `gt::` package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).
+
+::: render-commit-push
+This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+:::
+
+## Submission
+
+::: callout-warning
+Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
+
+Remember -- you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.
+:::
+
+To submit your assignment:
+
+-   Go to [http://www.gradescope.com](http://www.gradescope.com/) and click *Log in* in the top right corner.
+-   Click *School Credentials* ➡️ *Duke NetID* and log in using your NetID credentials.
+-   Click on your *STA 210* course.
+-   Click on the assignment, and you'll be prompted to submit it.
+-   Mark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be "checked").
+-   Select the first page of your PDF submission to be associated with the *"Workflow & formatting"* section.
+
+## Grading
+
+Total points available: 50 points.
+
+| Component             | Points |
+|-----------------------|--------|
+| Ex 1 - 10             | 45     |
+| Workflow & formatting | 5[^1]  |
+
+[^1]: The "Workflow & formatting" grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.

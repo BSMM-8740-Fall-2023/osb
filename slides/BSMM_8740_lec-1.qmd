@@ -159,13 +159,13 @@ Each of these functions takes a data frame as its first argument, and returns a 
 
 Being able to combine these verbs with nouns (i.e., data frames) and adverbs (i.e., arguments) creates a flexible and powerful way to wrangle data.
 
-##  `filter()`
+## `filter()`
 
 The two simplest of the five verbs are `filter()` and `select()`, which return a subset of the rows or columns of a data frame, respectively.
 
 ![The filter() function. At left, a data frame that contains matching entries in a certain column for only a subset of the rows. At right, the resulting data frame after filtering.](/images/filter-1.png)
 
-## `select()` 
+## `select()`
 
 ![The select() function. At left, a data frame, from which we retrieve only a few of the columns. At right, the resulting data frame after selecting those columns.](/images/select-1.png)
 
@@ -727,6 +727,34 @@ mtcars_db %>%
   dplyr::collapse()
 ```
 :::
+
+## Extract SQL Example
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-summary: "Execute Query on DB"
+#| code-line-numbers: "1-2|4|5-11|12"
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:")
+dplyr::copy_to(con, tibble::tibble(x = 1:100), "temp_table")
+
+dplyr::tbl(con, "temp_table") %>% 
+  dplyr::count(
+    x_bin = cut(
+      x
+      , breaks = c(0, 33, 66, 100)
+      , labels = c("low", "mid", "high")
+    )
+  ) %>% 
+  dplyr::show_query()
+```
+
+```{r}
+#| echo: false
+#| message: false
+DBI::dbDisconnect(con) 
+```
 
 ## Pivoting
 
