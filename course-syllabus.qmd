@@ -6,12 +6,10 @@ title: "BSMM 8740 Syllabus"
 
 ## Course info
 
-|           | Day    | Time              | Location                       |
-|-----------|--------|-------------------|--------------------------------|
-| Lectures  | Monday | 1:00 pm - 4:00 pm | Reuben-Cooke Building 130      |
-| Section 1 | Mon    | 1:45 pm - 3:00 pm | Perkins LINK 087 (Classroom 3) |
-| Section 2 | Mon    | 3:30 pm - 4:45 pm | Old Chemistry 003              |
-| Section 3 | Mon    | 5:15 pm - 6:30 pm | Social Sciences 311            |
+|          | Day    | Time              | Location                  |
+|----------|--------|-------------------|---------------------------|
+| Lectures | Monday | 1:00 pm - 4:00 pm | Odette Building 507       |
+
 
 ## Learning objectives
 
@@ -25,7 +23,7 @@ The general objectives of this course are to:
 ## Master of Management Competencies
 
 | **Program Competencies**                                                                                                                                       | **Course Competencies**                                                                                                                                        | Tested by                                           |
-|----------------------------|----------------------------|----------------|
+|---------------------------|---------------------------|------------------|
 | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Lab Assessments                                     |
 | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Quizzes, Midterm Examination, and Final Examination |
 
