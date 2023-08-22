@@ -1,0 +1,164 @@
+---
+title: "Lab 3 - Recipes"
+editor: visual
+reference-location: margin
+---
+
+## Introduction
+
+In today's lab, you'll explore several data sets practice pre-processing and feature engineering with `recipes`.
+
+### Learning goals
+
+By the end of the lab you will...
+
+-   Be able to use the `recipes` package to prepare a train and test datasets for analysis/modeling
+
+## Getting started
+
+-   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-3**. It contains the starter documents you need to complete the lab.
+
+-   Clone the repo and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+
+## Packages
+
+We will use the following package in today's lab.
+
+```{r}
+#| message: false
+
+library(tidyverse)  # for data wrangling + visualization
+library(tidymodels) # for modeling
+library(knitr)      # for pretty printing of tables
+```
+
+## Data: The Boston Cocktail Recipes
+
+The Boston Cocktail Recipes dataset appeared in a TidyTuesday posting. TidyTuesday is a weekly data project in R.
+
+The dataset is derived from the [Mr. Boston Bartender's Guide](http://swizzle.ru/uploads/article_file/17/mr_boston.pdf), together with a dataset that was web-scraped as part of a hackathon.
+
+This dataset contains the following information for each cocktail:
+
+| variable          | class     | description                      |
+|-------------------|-----------|----------------------------------|
+| name              | character | Name of cocktail                 |
+| category          | character | Category of cocktail             |
+| row_id            | integer   | Drink identifier                 |
+| ingredient_number | integer   | Ingredient number                |
+| ingredient        | character | Ingredient                       |
+| measure           | character | Measurement/volume of ingredient |
+| measure_number    | real      | measure as a number              |
+
+Use the code below to load the Boston Cocktail Recipes data set.
+
+```{r}
+#| message: false
+boston_cocktails <- readr::read_csv('data/boston_cocktails.csv')
+```
+
+## Exercises
+
+### Exercise 1
+
+First `DataExplorer::introduce` to assess the quality of the data set.
+
+Next prepare a summary. What is the median measure number across cocktail recipes?
+
+### Exercise 2
+
+From the boston_cocktails dataset select the name, category, ingredient, and measure_number columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.
+
+Since the names of the new columns may contain space, clean then using the `janitor::clean_names()`. Finally drop any rows with NA values and save this new dataset in a variable.
+
+How much gin is in the cocktail called **Leap Frog Highball**?
+
+### Exercise 3
+
+Prepare a recipes::recipe object without a target but give name and category as 'id' roles. Add steps to normalize the predictors and perform PCA. Finally `prep` the data and save it in a variable.
+
+How many predictor variables are prepped by the recipe?
+
+::: render-commit-push
+This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+:::
+
+### Exercise 4
+
+Apply the `recipes::tidy` verb to the prepped recipe in the last exercise. The result is a table identifying the information generated and stored by each step in the recipe from the input data.
+
+To see the values calculated for normalization, apply the `recipes::tidy` verb as before, but with second argument = 1.
+
+What ingredient is the most used, on average?
+
+### Exercise 5
+
+Now look at the result of the PCA, applying the `recipes::tidy` verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting component column so that the values are factors, ordering them in the order they appear using the `forcats::fct_inorder` verb.
+
+Plot this data using `ggplot2` and the code below
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(aes(value, terms, fill = terms)) +
+geom_col(show.legend = FALSE) +
+facet_wrap(~component, nrow = 1) +
+labs(y = NULL) +
+theme(axis.text=element_text(size=7),
+      axis.title=element_text(size=14,face="bold"))
+```
+
+How would you describe the drinks represented by PC1?
+
+### Exercise 6
+
+As in the last exercise, use the variable with the tidied PCA data and use only PCA components PC1 to PC4. Take/slice the top 8 ingedients by component, ordered by their absolute value using the verb `dplyr::slice_max`. Next, generate a grouped table using gt::gt, colouring the cell backgrounds (i.e. fill) with green for values $\ge0$ and red for values $<0$.
+
+What is the characteristic alcoholic beverage of each of the first 4 principle components.
+
+### Exercise 7
+
+For this exercise, bake the prepped PCA recipe using `recipes::bake` on the original data and plot each cocktail by its PC1, PC2 component, using
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(aes(PC1, PC2, label = name)) +
+  geom_point(aes(color = category), alpha = 0.7, size = 2) +
+  geom_text(check_overlap = TRUE, hjust = "inward") + 
+  labs(color = NULL)
+```
+
+Can you create an interpretation of the PCA analysis?
+
+::: render-commit-push
+This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+:::
+
+## Submission
+
+::: callout-warning
+Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
+
+Remember -- you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.
+:::
+
+To submit your assignment:
+
+-   Go to [http://www.gradescope.com](http://www.gradescope.com/) and click *Log in* in the top right corner.
+-   Click *School Credentials* ➡️ *Duke NetID* and log in using your NetID credentials.
+-   Click on your *STA 210* course.
+-   Click on the assignment, and you'll be prompted to submit it.
+-   Mark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be "checked").
+-   Select the first page of your PDF submission to be associated with the *"Workflow & formatting"* section.
+
+## Grading
+
+Total points available: 50 points.
+
+| Component             | Points |
+|-----------------------|--------|
+| Ex 1 - 10             | 45     |
+| Workflow & formatting | 5[^1]  |
+
+[^1]: The "Workflow & formatting" grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.

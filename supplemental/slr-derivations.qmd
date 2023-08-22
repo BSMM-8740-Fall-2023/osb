@@ -3,21 +3,16 @@ title: "Deriving the Least-Squares Estimates for Simple Linear Regression"
 ---
 
 ::: callout-note
-The following supplemental notes were created by [Dr. Maria Tackett](https://www.mariatackett.net/) for STA 210.
-They are provided for students who want to dive deeper into the mathematics behind regression and reflect some of the material covered in STA 211: Mathematics of Regression.
-Additional supplemental notes will be added throughout the semester.
+The following supplemental notes were created by [Dr. Maria Tackett](https://www.mariatackett.net/) for STA 210. They are provided for students who want to dive deeper into the mathematics behind regression and reflect some of the material covered in STA 211: Mathematics of Regression. Additional supplemental notes will be added throughout the semester.
 :::
 
-This document contains the mathematical details for deriving the least-squares estimates for slope ($\beta_1$) and intercept ($\beta_0$).
-We obtain the estimates, $\hat{\beta}_1$ and $\hat{\beta}_0$ by finding the values that minimize the sum of squared residuals, as shown in @eq-ssr.
+This document contains the mathematical details for deriving the least-squares estimates for slope ($\beta_1$) and intercept ($\beta_0$). We obtain the estimates, $\hat{\beta}_1$ and $\hat{\beta}_0$ by finding the values that minimize the sum of squared residuals, as shown in @eq-ssr.
 
 $$
 SSR = \sum\limits_{i=1}^{n}[y_i - \hat{y}_i]^2 = [y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)]^2 = [y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i]^2
 $$ {#eq-ssr}
 
-Recall that we can find the values of $\hat{\beta}_1$ and $\hat{\beta}_0$ that minimize /eq-ssr by taking the partial derivatives of @eq-ssr and setting them to 0.
-Thus, the values of $\hat{\beta}_1$ and $\hat{\beta}_0$ that minimize the respective partial derivative also minimize the sum of squared residuals.
-The partial derivatives are shown in @eq-par-deriv.
+Recall that we can find the values of $\hat{\beta}_1$ and $\hat{\beta}_0$ that minimize /eq-ssr by taking the partial derivatives of @eq-ssr and setting them to 0. Thus, the values of $\hat{\beta}_1$ and $\hat{\beta}_0$ that minimize the respective partial derivative also minimize the sum of squared residuals. The partial derivatives are shown in @eq-par-deriv.
 
 $$
 \begin{aligned}
@@ -56,9 +51,7 @@ $$
 \begin{aligned}\hat{\beta}_1 &= \frac{\sum\limits_{i=1}^{n}x_iy_i - n\bar{y}\bar{x}}{\sum\limits_{i=1}^{n}x_i^2 -n\bar{x}^2} \\&= \frac{\sum\limits_{i=1}^{n}(x-\bar{x})(y-\bar{y})}{\sum\limits_{i=1}^{n}(x-\bar{x})^2}\\&= \frac{(n-1)\text{Cov}(x,y)}{(n-1)s_x^2}\\&= \frac{\text{Cov}(x,y)}{s_x^2}\end{aligned}
 $$ {#eq-est-beta1-pt2}
 
-The correlation between $x$ and $y$ is $r = \frac{\text{Cov}(x,y)}{s_x s_y}$.
-Thus, $\text{Cov}(x,y) = r s_xs_y$.
-Plugging this into @eq-est-beta1-pt2, we have
+The correlation between $x$ and $y$ is $r = \frac{\text{Cov}(x,y)}{s_x s_y}$. Thus, $\text{Cov}(x,y) = r s_xs_y$. Plugging this into @eq-est-beta1-pt2, we have
 
 $$
 \hat{\beta}_1 = \frac{\text{Cov}(x,y)}{s_x^2} = r\frac{s_ys_x}{s_x^2} = r\frac{s_y}{s_x}

@@ -1,5 +1,5 @@
 ---
-title: "Creating and Preprocessing a Design Matrix with Recipes"
+title: "Design Matrices with Recipes"
 subtitle: "BSMM-8740 - Fall 2023"
 author: "derived from Max Kuhn (RStudio)"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
@@ -36,6 +36,11 @@ library(lattice)
 theme_set(theme_bw() + theme(legend.position = "top"))
 ```
 
+## Today's Outline
+
+-   Introduction to data pre-processing and design/model matrix generation with the `Recipes` package
+-   \-
+
 ## R Model Formulas
 
 A simple formula in a linear model to predict house prices:
@@ -44,6 +49,7 @@ A simple formula in a linear model to predict house prices:
 #| echo: true
 #| message: false
 #| results: false
+#| code-line-numbers: "1|2|3|4"
 mod1 <- stats::lm(
   log(price) ~ type + sqft
   , data = Sacramento
@@ -62,15 +68,74 @@ The purpose of this code chunk:
 
 The first two steps create the *design matrix*.
 
+## Example design matrix
+
+```{r}
+#| echo: true
+#| message: false
+#| results: false
+#| code-line-numbers: "1|2|3"
+ mm <- model.matrix(
+   log(price) ~ type + sqft
+   , data = Sacramento
+)
+```
+
+```{r}
+#| echo: false
+mm %>% head(14)
+```
+
 ## Summary: Model Formula Method
 
 -   Model formulas are very expressive in that they can represent model terms easily
 -   The formula/terms framework does some elegant functional programming
 -   Functions can be embedded inline to do fairly complex things (on single variables) and these can be applied to new data sets.
 
+## Model formula examples
+
+::: panel-tabset
+## leave out
+
+```{r}
+#| echo: true
+model.matrix(log(price) ~ -1 + type + sqft, data = Sacramento) %>% head()
+```
+
+## interaction
+
+```{r}
+#| echo: true
+model.matrix(log(price) ~ type : sqft, data = Sacramento) %>% head()
+```
+
+## crossing
+
+```{r}
+#| echo: true
+model.matrix(log(price) ~ type * sqft, data = Sacramento) %>% head()
+```
+
+## nesting
+
+```{r}
+#| echo: true
+model.matrix(log(price) ~ type %in% sqft, data = Sacramento) %>% head()
+```
+
+## as-is
+
+```{r}
+#| echo: true
+model.matrix(log(price) ~ type + sqft + I(sqft^2), data = Sacramento) %>% head()
+```
+
+contrast with log(price) \~ type + sqft + sqft\^2
+:::
+
 ## Summary: Model Formula Method
 
-*However*, there are significant limitations to what this framework can do and, in some cases, it can be very inefficient.
+There are significant limitations to what this framework can do and, in some cases, it can be very inefficient.
 
 This is mostly due of being written well before large scale modeling and machine learning were commonplace.
 
@@ -96,6 +161,7 @@ Formulas have been re-implemented in different packages for a variety of differe
 #| message: false
 #| results: false
 #| eval: false
+#| code-line-numbers: "3|8-10|14-16"
 # ?lme4::lmer
 # Subjects need to be in the data but are not part of the model
 lme4::lmer(Reaction ~ Days + (Days | Subject), data = lme4::sleepstudy)
@@ -104,8 +170,8 @@ lme4::lmer(Reaction ~ Days + (Days | Subject), data = lme4::sleepstudy)
 # We want to make the outcomes to be a function of a 
 # competitor-specific function of reach 
 BradleyTerry2::BTm(outcome = 1, player1 = winner, player2 = loser,
-    formula = ~ SVL[..] + (1|..), 
-    data = BradleyTerry2::flatlizards)
+    formula = ~ reach[..] + (1|..), 
+    data = boxers)
 
 # modeltools::ModelEnvFormula (using the modeltools package for formulas)
 # mob
@@ -117,9 +183,9 @@ modeltools::ModelEnvFormula(diabetes ~ glucose | pregnant + mass +  age,
 
 ## Variable Roles
 
-::: {style="font-size: 80%"}
-A general list of possible variables roles could be
+A general list of possible variable roles could be:
 
+::: {style="font-size: 75%"}
 -   outcomes
 -   predictors
 -   stratification
@@ -148,7 +214,7 @@ A recipe is a specification of *intent*.
 
 One issue with the formula method is that it couples the specification for your predictors along with the implementation.
 
-Recipes, as you'll see, separates the *planning* from the *doing*.
+Recipes separate the *planning* from the *doing*.
 
 Website: [`https://topepo.github.io/recipes`](https://topepo.github.io/recipes)
 
@@ -159,6 +225,7 @@ A *recipe* can be trained then applied to any data.
 ```{r rec_basic}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|4-6|9|11"
 ## Create an initial recipe with only predictors and outcome
 rec <- recipes::recipe(price ~ type + sqft, data = Sacramento)
 
@@ -166,8 +233,9 @@ rec <- rec %>%
   recipes::step_log(price) %>%
   recipes::step_dummy(type)
 
+# estimate any parameters
 rec_trained <- recipes::prep(rec, training = Sacramento, retain = TRUE)
-
+# apply the computations to new_data
 design_mat  <- recipes::bake(rec_trained, new_data = Sacramento)
 ```
 
@@ -199,24 +267,94 @@ rec %>%
 
 Variables can be selected by name, role, data type, or any [combination of these](https://recipes.tidymodels.org/articles/Selecting_Variables.html).
 
-## Extending
+## Example
 
-Need to add more preprocessing or other operations?
+::: panel-tabset
+## data
 
-```{r rec_add}
+```{r}
 #| echo: true
 #| message: false
-#| results: false
-standardized <- rec_trained %>%
-  recipes::step_center(recipes::all_numeric()) %>%
-  recipes::step_scale(recipes::all_numeric()) %>%
-  recipes::step_pca(recipes::all_numeric())
-          
-## Only estimate the new parts:
-standardized <- recipes::prep(standardized)
+#| code-line-numbers: "1|4-5|8-9"
+data(biomass, package = "modeldata")
+
+# training set
+biomass_tr <- biomass %>% tibble::as_tibble() %>% 
+  dplyr::filter(dataset == 'Training')
+
+# testing set
+biomass_te <- biomass %>% tibble::as_tibble() %>% 
+  dplyr::filter(dataset == 'Testing')
 ```
 
-If an initial step is computationally expensive, you don't have to redo those operations to add more.
+## recipe
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1-4|6-9|11|13"
+rec <- recipe(
+  HHV ~ carbon + hydrogen + oxygen + nitrogen + sulfur,
+  data = biomass_tr
+)
+
+ss_trans <- rec %>%
+  step_center(carbon, hydrogen) %>%
+  step_scale(carbon, hydrogen) %>%
+  step_spatialsign(carbon, hydrogen)
+# estimate any parameters
+ss_obj <- prep(ss_trans, training = biomass_tr)
+# apply the computations to new_data
+transformed_te <- bake(ss_obj, biomass_te)
+```
+
+## results
+
+```{r}
+transformed_te
+```
+
+
+## use case
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+#| code-line-numbers: "1-4|6-12|14-17|19-26"
+#| layout-ncol: 2
+#| fig-subcap: 
+#|   - "Raw data, with outliers"
+#|   - "Transformed data"
+set.seed(1); n <- 10000
+tmp <- tibble::tibble(
+  x = c(rnorm(n, 0, 0.02), -1, 1, 0.5)
+  , y = c(rnorm(n, 0, 0.2), -1, 1, -2))
+
+tmp %>% dplyr::slice_head(n=-3) %>%
+  ggplot(aes(x=x, y=y)) + 
+  geom_point() + 
+  geom_point(data=(tmp %>% dplyr::slice_tail(n=3))[1,], color="red", size=5) +
+  geom_point(data=(tmp %>% dplyr::slice_tail(n=2))[1,], color="blue", size=5) +
+  geom_point(data=(tmp %>% dplyr::slice_tail(n=1))[1,], color="green", size=5) +
+  theme_bw(base_size = 32)
+
+rec <- recipe(y ~ x, data = tmp) %>% 
+  step_spatialsign(y, x) %>% 
+  prep(training = tmp) %>% 
+  bake(tmp) 
+
+rec %>% 
+  dplyr::slice_head(n=-3) %>%
+  ggplot(aes(x=x, y=y)) + 
+  geom_point() + 
+  geom_point(data=(rec %>% dplyr::slice_tail(n=3))[1,], color="red", size=5) +
+  geom_point(data=(rec %>% dplyr::slice_tail(n=2))[1,], color="blue", size=5) +
+  geom_point(data=(rec %>% dplyr::slice_tail(n=1))[1,], color="green", size=5) +
+  theme_bw(base_size = 32)
+```
+:::
 
 ## Available Steps
 
@@ -238,11 +376,31 @@ One of the [package vignettes](https://www.tidymodels.org/learn/develop/recipes/
 
 ## Extending
 
+Need to add more pre-processing or other operations?
+
+```{r rec_add}
+#| echo: true
+#| message: false
+#| results: false
+standardized <- rec_trained %>%
+  recipes::step_center(recipes::all_numeric()) %>%
+  recipes::step_scale(recipes::all_numeric()) %>%
+  recipes::step_pca(recipes::all_numeric())
+          
+## Only estimate the new parts:
+standardized <- recipes::prep(standardized)
+```
+
+If an initial step is computationally expensive, you don't have to redo those operations to add more.
+
+## Extending
+
 Recipes can also be created with different roles manually
 
 ```{r rec_man, eval = FALSE}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|3|4|5"
 rec <- 
   recipes::recipe(x  = Sacramento) %>%
   recipes::update_role(price, new_role = "outcome") %>%
@@ -250,7 +408,7 @@ rec <-
   recipes::update_role(zip, new_role = "strata")
 ```
 
-Also, the sequential nature of steps means that they don't have to be R operations and could call other compute engines (e.g. Weka, scikit-learn, Tensorflow, etc. )
+Also, the sequential nature of steps means that there don't have to be R operations and could call other compute engines (e.g. Weka, scikit-learn, Tensorflow, etc. )
 
 ## Extending
 
@@ -259,6 +417,7 @@ We can create wrappers to work with recipes too:
 ```{r lm}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|3-6"
 lin_reg.recipe <- function(rec, data, ...) {
   trained <- recipes::prep(rec, training = data)
   lm.fit(
@@ -275,9 +434,12 @@ lin_reg.recipe <- function(rec, data, ...) {
 
 ## An Example
 
+The `segmentationData` dataset has 61 columns
+
 ```{r image_load}
 #| echo: true
 #| message: false
+#| code-line-numbers: "1|3-5|7-9"
 data(segmentationData, package = "caret")
 
 seg_train <- segmentationData %>% 
@@ -294,6 +456,7 @@ seg_test  <- segmentationData %>%
 ```{r image_rec}
 #| echo: true
 #| message: false
+#| code-line-numbers: "1|3-8|10-17"
 rec <- recipes::recipe(Class  ~ ., data = seg_train)
 
 basic <- rec %>%
@@ -313,17 +476,24 @@ basic <-
   )  
 ```
 
-## Principal Component Analysis
+## Principal Component Analysis[^1]
+
+[^1]: A pretty good description of PCA can be found [here](https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd).
 
 ```{r image_pca}
 #| echo: true
 #| message: false
+#| code-fold: true
+#| code-line-numbers: "1|3-8|10-17"
 pca <- basic %>% 
   recipes::step_pca(
     recipes::all_predictors()
     , threshold = .9
   )
+```
 
+```{r}
+#| echo: false
 summary(pca)
 ```
 
@@ -333,8 +503,11 @@ summary(pca)
 #| echo: true
 #| message: false
 pca %<>% recipes::prep() 
+```
 
-pca %>% summary()
+```{r}
+#| echo: false
+pca %>% summary() %>% dplyr::slice_head(n=12)
 ```
 
 ## Principal Component Analysis
@@ -342,10 +515,10 @@ pca %>% summary()
 ```{r}
 #| echo: true
 #| message: false
-pca <-
+#| code-line-numbers: "2|3|4"
+pca %<>% 
   recipes::bake(
-    pca
-    , new_data = seg_test
+    new_data = seg_test
     , everything()
   )
 pca[1:4, 1:8]
@@ -353,27 +526,35 @@ pca[1:4, 1:8]
 
 ## Principal Component Analysis
 
-```{r image_pca_plot, fig.width = 5.5, fig.height = 5.6}
+```{r image_pca_plot}
 #| echo: true
 #| message: false
 #| code-fold: true
 #| code-summary: "PCA1"
+#| width: "80%"
 ggplot(pca, aes(x = PC01, y = PC02, color = Class)) + 
-  geom_point(alpha = .4)
+  geom_point(alpha = .4) +
+  theme_bw(base_size = 25)
 ```
 
-## Principal Component Analysis
+## PCA use case
 
-```{r image_pca_fig, fig.width = 5.5, fig.height = 5.6}
-#| echo: true
-#| message: false
-#| code-fold: true
-#| code-summary: "PCA2"
-rngs <- extendrange(c(pca$PC01, pca$PC02))
-ggplot(pca, aes(x = PC01, y = PC02, color = Class)) + 
-  geom_point(alpha = .4) + 
-  xlim(rngs) + ylim(rngs) + 
-  theme(legend.position = "top")
+```{r}
+#load data
+data("USArrests")
+
+#view first six rows of data
+head(USArrests)
+
+#calculate principal components
+results <- prcomp(USArrests, scale = TRUE)
+
+#reverse the signs
+results$rotation <- -1*results$rotation
+
+#display principal components
+results$rotation
+
 ```
 
 ## Kernel Principal Component Analysis
