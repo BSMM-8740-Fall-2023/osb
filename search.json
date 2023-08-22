@@ -4375,74 +4375,109 @@
     "text": "Submission\nSubmit the reflection as a PDF under the HW 5 - Statistics Experience assignment on Gradescope by Fri, Apr 15 at 5 pm ET. It must be submitted by the deadline on Gradescope to be considered for grading."
   },
   {
-    "objectID": "weeks/BSMM_8470_week-10.html",
-    "href": "weeks/BSMM_8470_week-10.html",
-    "title": "Week 10",
+    "objectID": "weeks/BSMM_8740_week_3.html",
+    "href": "weeks/BSMM_8740_week_3.html",
+    "title": "Recipes",
     "section": "",
-    "text": "Important\n\n\n\nDue date: Project proposal due Fri, Mar 18 at 5:00 pm."
+    "text": "📖 Read Introduction to Modern Statistics, Sec 24.1: Case study: Sandwich store\n📖 Read Introduction to Modern Statistics, Sec 24.2: Randomization test for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.3: Bootstrap confidence interval for the slope"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-10.html#prepare",
-    "href": "weeks/BSMM_8470_week-10.html#prepare",
-    "title": "Week 10",
-    "section": "Prepare",
-    "text": "Prepare\n📖 Read Introduction to Modern Statistics, Chp 9: Logistic regression"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-10.html#participate",
-    "href": "weeks/BSMM_8470_week-10.html#participate",
-    "title": "Week 10",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 10 - MonteCarlo methods"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-10.html#practice",
-    "href": "weeks/BSMM_8470_week-10.html#practice",
-    "title": "Week 10",
-    "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 9 - Odds"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-10.html#perform",
-    "href": "weeks/BSMM_8470_week-10.html#perform",
-    "title": "Week 10",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 10 - MonteCarlo methods\n✍️ HW 3 - Logistic regression and log transformation\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-9.html",
-    "href": "weeks/BSMM_8470_week-9.html",
-    "title": "Week 9",
+    "objectID": "weeks/BSMM_8740_week_3.html#prepare",
+    "href": "weeks/BSMM_8740_week_3.html#prepare",
+    "title": "Recipes",
     "section": "",
-    "text": "Important\n\n\n\nDue date: Exam 1 released on Fri, Feb 35, due Mon, Feb 28 at 11:59pm"
+    "text": "📖 Read Introduction to Modern Statistics, Sec 24.1: Case study: Sandwich store\n📖 Read Introduction to Modern Statistics, Sec 24.2: Randomization test for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.3: Bootstrap confidence interval for the slope"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-9.html#prepare",
-    "href": "weeks/BSMM_8470_week-9.html#prepare",
-    "title": "Week 9",
-    "section": "Prepare",
-    "text": "Prepare\nNo readings this week."
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-9.html#participate",
-    "href": "weeks/BSMM_8470_week-9.html#participate",
-    "title": "Week 9",
+    "objectID": "weeks/BSMM_8740_week_3.html#participate",
+    "href": "weeks/BSMM_8740_week_3.html#participate",
+    "title": "Recipes",
     "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 09 - Causality: effects"
+    "text": "Participate\n🖥️ Lecture 3 - Recipes"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-9.html#practice",
-    "href": "weeks/BSMM_8470_week-9.html#practice",
-    "title": "Week 9",
+    "objectID": "weeks/BSMM_8740_week_3.html#practice",
+    "href": "weeks/BSMM_8740_week_3.html#practice",
+    "title": "Recipes",
     "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 8 - Rail Trail"
+    "text": "Practice\n📋 Application Exercise 2 - Bike rentals in DC"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-9.html#perform",
-    "href": "weeks/BSMM_8470_week-9.html#perform",
-    "title": "Week 9",
+    "objectID": "weeks/BSMM_8740_week_3.html#perform",
+    "href": "weeks/BSMM_8740_week_3.html#perform",
+    "title": "Recipes",
     "section": "Perform",
-    "text": "Perform\n⌨️ Lab 9 - Causality: effects\n✅ Exam 2\n\n\nBack to course schedule ⏎"
+    "text": "Perform\n⌨️ Lab 3 - Recipes\n\n\nBack to course schedule ⏎"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_6.html",
+    "href": "weeks/BSMM_8740_week_6.html",
+    "title": "Week 6",
+    "section": "",
+    "text": "Important\n\n\n\nDue dates: Exam 1 - Mon, Feb 7 at 11:59pm"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_6.html#prepare",
+    "href": "weeks/BSMM_8740_week_6.html#prepare",
+    "title": "Week 6",
+    "section": "Prepare",
+    "text": "Prepare\nNo reading (take a break after the exam! 😴)"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_6.html#participate",
+    "href": "weeks/BSMM_8740_week_6.html#participate",
+    "title": "Week 6",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 6 - Classification methods"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_6.html#practice",
+    "href": "weeks/BSMM_8740_week_6.html#practice",
+    "title": "Week 6",
+    "section": "Practice",
+    "text": "Practice\nNo application exercises"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_6.html#perform",
+    "href": "weeks/BSMM_8740_week_6.html#perform",
+    "title": "Week 6",
+    "section": "Perform",
+    "text": "Perform\n⌨️ Lab 6 - Classification\n✅ Exam 1\n\n\nBack to course schedule ⏎"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_5.html",
+    "href": "weeks/BSMM_8740_week_5.html",
+    "title": "Week 5",
+    "section": "",
+    "text": "Important\n\n\n\n\nDue date: Lab 2 - Fri, Feb 4, 5pm ET\nExam 1 released on Fri, Feb 4, due Mon, Feb 7 at 11:59pm"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_5.html#prepare",
+    "href": "weeks/BSMM_8740_week_5.html#prepare",
+    "title": "Week 5",
+    "section": "Prepare",
+    "text": "Prepare\n📖 Read Introduction to Modern Statistics, Sec 8.1: Indicator and categorical predictors\n📖 Read Introduction to Modern Statistics, Sec 8.2: Many predictors in a model\n📖 Read Introduction to Modern Statistics, Sec 8.3: Adjusted R-squared"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_5.html#participate",
+    "href": "weeks/BSMM_8740_week_5.html#participate",
+    "title": "Week 5",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 5 - Models"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_5.html#practice",
+    "href": "weeks/BSMM_8740_week_5.html#practice",
+    "title": "Week 5",
+    "section": "Practice",
+    "text": "Practice\n📋 Application Exercise 4 - Exam 1 Review"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_5.html#perform",
+    "href": "weeks/BSMM_8740_week_5.html#perform",
+    "title": "Week 5",
+    "section": "Perform",
+    "text": "Perform\n⌨️ Lab 5 - Models\n✅ Exam 1\n\n\nBack to course schedule ⏎"
   },
   {
     "objectID": "weeks/week-14.html",
@@ -4541,6 +4576,41 @@
     "title": "Week 12",
     "section": "Perform",
     "text": "Perform\n✍️ HW 4 - Multinomial logistic regression\n\n\nBack to course schedule ⏎"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_10.html",
+    "href": "weeks/BSMM_8740_week_10.html",
+    "title": "Week 10",
+    "section": "",
+    "text": "Important\n\n\n\nDue date: Project proposal due Fri, Mar 18 at 5:00 pm."
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_10.html#prepare",
+    "href": "weeks/BSMM_8740_week_10.html#prepare",
+    "title": "Week 10",
+    "section": "Prepare",
+    "text": "Prepare\n📖 Read Introduction to Modern Statistics, Chp 9: Logistic regression"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_10.html#participate",
+    "href": "weeks/BSMM_8740_week_10.html#participate",
+    "title": "Week 10",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 10 - MonteCarlo methods"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_10.html#practice",
+    "href": "weeks/BSMM_8740_week_10.html#practice",
+    "title": "Week 10",
+    "section": "Practice",
+    "text": "Practice\n📋 Application Exercise 9 - Odds"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_10.html#perform",
+    "href": "weeks/BSMM_8740_week_10.html#perform",
+    "title": "Week 10",
+    "section": "Perform",
+    "text": "Perform\n⌨️ Lab 10 - MonteCarlo methods\n✍️ HW 3 - Logistic regression and log transformation\n\n\nBack to course schedule ⏎"
   },
   {
     "objectID": "weeks/week-11.html",
@@ -4718,109 +4788,39 @@
     "text": "Perform\nNo lab\n✅ Exam 1\n\n\nBack to course schedule ⏎"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-6.html",
-    "href": "weeks/BSMM_8470_week-6.html",
-    "title": "Week 6",
+    "objectID": "weeks/BSMM_8740_week_8.html",
+    "href": "weeks/BSMM_8740_week_8.html",
+    "title": "Week 8",
     "section": "",
-    "text": "Important\n\n\n\nDue dates: Exam 1 - Mon, Feb 7 at 11:59pm"
+    "text": "📖 Read Tidy Modeling in R Chp 10: Resampling for evaluating performance"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-6.html#prepare",
-    "href": "weeks/BSMM_8470_week-6.html#prepare",
-    "title": "Week 6",
-    "section": "Prepare",
-    "text": "Prepare\nNo reading (take a break after the exam! 😴)"
+    "objectID": "weeks/BSMM_8740_week_8.html#prepare",
+    "href": "weeks/BSMM_8740_week_8.html#prepare",
+    "title": "Week 8",
+    "section": "",
+    "text": "📖 Read Tidy Modeling in R Chp 10: Resampling for evaluating performance"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-6.html#participate",
-    "href": "weeks/BSMM_8470_week-6.html#participate",
-    "title": "Week 6",
+    "objectID": "weeks/BSMM_8740_week_8.html#participate",
+    "href": "weeks/BSMM_8740_week_8.html#participate",
+    "title": "Week 8",
     "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 6 - Classification methods"
+    "text": "Participate\n🖥️ Lecture 8 - Causality: DAGs"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-6.html#practice",
-    "href": "weeks/BSMM_8470_week-6.html#practice",
-    "title": "Week 6",
+    "objectID": "weeks/BSMM_8740_week_8.html#practice",
+    "href": "weeks/BSMM_8740_week_8.html#practice",
+    "title": "Week 8",
     "section": "Practice",
-    "text": "Practice\nNo application exercises"
+    "text": "Practice\nApplication Exercise 6 - The office - CV\nApplication Exercise 7 - Exam 2 Review"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-6.html#perform",
-    "href": "weeks/BSMM_8470_week-6.html#perform",
-    "title": "Week 6",
+    "objectID": "weeks/BSMM_8740_week_8.html#perform",
+    "href": "weeks/BSMM_8740_week_8.html#perform",
+    "title": "Week 8",
     "section": "Perform",
-    "text": "Perform\n⌨️ Lab 6 - Classification\n✅ Exam 1\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-5.html",
-    "href": "weeks/BSMM_8470_week-5.html",
-    "title": "Week 5",
-    "section": "",
-    "text": "Important\n\n\n\n\nDue date: Lab 2 - Fri, Feb 4, 5pm ET\nExam 1 released on Fri, Feb 4, due Mon, Feb 7 at 11:59pm"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-5.html#prepare",
-    "href": "weeks/BSMM_8470_week-5.html#prepare",
-    "title": "Week 5",
-    "section": "Prepare",
-    "text": "Prepare\n📖 Read Introduction to Modern Statistics, Sec 8.1: Indicator and categorical predictors\n📖 Read Introduction to Modern Statistics, Sec 8.2: Many predictors in a model\n📖 Read Introduction to Modern Statistics, Sec 8.3: Adjusted R-squared"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-5.html#participate",
-    "href": "weeks/BSMM_8470_week-5.html#participate",
-    "title": "Week 5",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 5 - Models"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-5.html#practice",
-    "href": "weeks/BSMM_8470_week-5.html#practice",
-    "title": "Week 5",
-    "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 4 - Exam 1 Review"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-5.html#perform",
-    "href": "weeks/BSMM_8470_week-5.html#perform",
-    "title": "Week 5",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 5 - Models\n✅ Exam 1\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-3.html",
-    "href": "weeks/BSMM_8470_week-3.html",
-    "title": "Recipes",
-    "section": "",
-    "text": "📖 Read Introduction to Modern Statistics, Sec 24.1: Case study: Sandwich store\n📖 Read Introduction to Modern Statistics, Sec 24.2: Randomization test for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.3: Bootstrap confidence interval for the slope"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-3.html#prepare",
-    "href": "weeks/BSMM_8470_week-3.html#prepare",
-    "title": "Recipes",
-    "section": "",
-    "text": "📖 Read Introduction to Modern Statistics, Sec 24.1: Case study: Sandwich store\n📖 Read Introduction to Modern Statistics, Sec 24.2: Randomization test for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.3: Bootstrap confidence interval for the slope"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-3.html#participate",
-    "href": "weeks/BSMM_8470_week-3.html#participate",
-    "title": "Recipes",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 3 - Recipes"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-3.html#practice",
-    "href": "weeks/BSMM_8470_week-3.html#practice",
-    "title": "Recipes",
-    "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 2 - Bike rentals in DC"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-3.html#perform",
-    "href": "weeks/BSMM_8470_week-3.html#perform",
-    "title": "Recipes",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 3 - Recipes\n\n\nBack to course schedule ⏎"
+    "text": "Perform\n⌨️ Lab 8 - Causality: DAGs\n\n\nBack to course schedule ⏎"
   },
   {
     "objectID": "course-links.html",
@@ -4830,123 +4830,186 @@
     "text": "RStudio containers\n🔗 on Duke Container Manager\n\n\nCourse GitHub organization\n🔗 on GitHub\n\n\nDiscussion forum\n🔗 on Sakai\n\n\nLecture streaming and recordings\n🔗 on Panopto\n\n\nGradebook\n🔗 on Sakai\n\n\nVirtual meetings\n🔗 on Sakai"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html",
-    "href": "labs/BSMM_8740_lab-2.html",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html",
+    "href": "labs/BSMM_8740_lab_3.html",
+    "title": "Lab 3 - Recipes",
     "section": "",
-    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
+    "text": "In today’s lab, you’ll explore several data sets practice pre-processing and feature engineering with recipes.\n\n\nBy the end of the lab you will…\n\nBe able to use the recipes package to prepare a train and test datasets for analysis/modeling"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#introduction",
-    "href": "labs/BSMM_8740_lab-2.html#introduction",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#introduction",
+    "href": "labs/BSMM_8740_lab_3.html#introduction",
+    "title": "Lab 3 - Recipes",
     "section": "",
-    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
+    "text": "In today’s lab, you’ll explore several data sets practice pre-processing and feature engineering with recipes.\n\n\nBy the end of the lab you will…\n\nBe able to use the recipes package to prepare a train and test datasets for analysis/modeling"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#getting-started",
-    "href": "labs/BSMM_8740_lab-2.html#getting-started",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#getting-started",
+    "href": "labs/BSMM_8740_lab_3.html#getting-started",
+    "title": "Lab 3 - Recipes",
     "section": "Getting started",
-    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-2. It contains the starter documents you need to complete the lab.\nClone the repo and start a new project in RStudio. See the Lab 1 instructions for details on cloning a repo, starting a new R project and configuring git."
+    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-3. It contains the starter documents you need to complete the lab.\nClone the repo and start a new project in RStudio. See the Lab 1 instructions for details on cloning a repo, starting a new R project and configuring git."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#packages",
-    "href": "labs/BSMM_8740_lab-2.html#packages",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#packages",
+    "href": "labs/BSMM_8740_lab_3.html#packages",
+    "title": "Lab 3 - Recipes",
     "section": "Packages",
     "text": "Packages\nWe will use the following package in today’s lab.\n\nlibrary(tidyverse)  # for data wrangling + visualization\nlibrary(tidymodels) # for modeling\nlibrary(knitr)      # for pretty printing of tables"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#data-the-tate-collection",
-    "href": "labs/BSMM_8740_lab-2.html#data-the-tate-collection",
-    "title": "Lab 2 - EDA and Feature Engineering",
-    "section": "Data: The Tate Collection",
-    "text": "Data: The Tate Collection\nTate is an institution that houses the United Kingdom’s national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.\nThis dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.\nThe metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.\nThis dataset contains the following information for each artwork:\n\n\n\nId\nacquisitionYear\n\n\naccession_number\ndimensions\n\n\nartist\nwidth\n\n\nartistRole\nheight\n\n\nartistId\ndepth\n\n\ntitle\nunits\n\n\ndateText\ninscription\n\n\nmedium\nthumbnailCopyright\n\n\ncreditLine\nthumbnailUr\n\n\nyear\nurl\n\n\n\nUse the code below to load the Tate Collection data sets.\n\nthe_tate &lt;- readr::read_delim(\"data/the-tate-collection.csv\", \";\", escape_double = FALSE, trim_ws = TRUE)\nthe_tate_artists &lt;- readr::read_csv(\"data/the-tate-artists.csv\")"
+    "objectID": "labs/BSMM_8740_lab_3.html#data-the-boston-cocktail-recipes",
+    "href": "labs/BSMM_8740_lab_3.html#data-the-boston-cocktail-recipes",
+    "title": "Lab 3 - Recipes",
+    "section": "Data: The Boston Cocktail Recipes",
+    "text": "Data: The Boston Cocktail Recipes\nThe Boston Cocktail Recipes dataset appeared in a TidyTuesday posting. TidyTuesday is a weekly data project in R.\nThe dataset is derived from the Mr. Boston Bartender’s Guide, together with a dataset that was web-scraped as part of a hackathon.\nThis dataset contains the following information for each cocktail:\n\n\n\nvariable\nclass\ndescription\n\n\n\n\nname\ncharacter\nName of cocktail\n\n\ncategory\ncharacter\nCategory of cocktail\n\n\nrow_id\ninteger\nDrink identifier\n\n\ningredient_number\ninteger\nIngredient number\n\n\ningredient\ncharacter\nIngredient\n\n\nmeasure\ncharacter\nMeasurement/volume of ingredient\n\n\nmeasure_number\nreal\nmeasure as a number\n\n\n\nUse the code below to load the Boston Cocktail Recipes data set.\n\nboston_cocktails &lt;- readr::read_csv('data/boston_cocktails.csv')"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#exercises",
-    "href": "labs/BSMM_8740_lab-2.html#exercises",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#exercises",
+    "href": "labs/BSMM_8740_lab_3.html#exercises",
+    "title": "Lab 3 - Recipes",
     "section": "Exercises",
-    "text": "Exercises\n\nExercise 1\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Generate some general observations about the dataset using dplyr::summarize, including the number of unique artists represented in the collection, the period represented in the collection and the acquisition period over which the collection was created.\nNext use DataExplorer::introduce and DataExplorer::plot_missing() to examine the scope of missing data.\n\n\nExercise 2\nPrepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.\n\n\nExercise 3\nModify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using gt::gt with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the gtExtras package to the formatted table.\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nSimilar to exercises 2 and 3, in this exercise take the raw data (the_tate) and add a column with the area of each artwork in \\(\\text{cm}^2\\). Next select the artist, title and the area and remove NA values using tidyr::drop_na, then order the works by area. Use dplyr::slice_head and dplyr::slice_tail to find the largest and smallest artworks in the collection.\n\n\nExercise 5\nJoin the tables the_tate and the_tate_artists using dplyr::left_join, assigning the result to the variable the_tate . Drop rows with NA gender values and then group by gender\n\n\nExercise 6\nRead the historical price data in the file SPX_HistoricalData_1692322132002.csv and add a column for the year of the transaction and the daily return \\(r_d\\), using the formula\n\\[\nr_d\\equiv \\log \\frac{\\text{Close/Last}_{t=i}}{\\text{Close/Last}_{t=i-1}}\n\\] You will likely need dplyr::lead or dplyr::lead. Add an additional column for the daily return variance \\(\\text{var}_d = \\text{r}_d^2\\).\nFinally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument .groups = \"drop\" to the summarize function to drop the grouping after the summary is created.\n\n\nExercise 7\nTake the table from the last exercise and use the gt:: package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
+    "text": "Exercises\n\nExercise 1\nFirst DataExplorer::introduce to assess the quality of the data set.\nNext prepare a summary. What is the median measure number across cocktail recipes?\n\n\nExercise 2\nFrom the boston_cocktails dataset select the name, category, ingredient, and measure_number columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.\nSince the names of the new columns may contain space, clean then using the janitor::clean_names(). Finally drop any rows with NA values and save this new dataset in a variable.\nHow much gin is in the cocktail called Leap Frog Highball?\n\n\nExercise 3\nPrepare a recipes::recipe object without a target but give name and category as ‘id’ roles. Add steps to normalize the predictors and perform PCA. Finally prep the data and save it in a variable.\nHow many predictor variables are prepped by the recipe?\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nApply the recipes::tidy verb to the prepped recipe in the last exercise. The result is a table identifying the information generated and stored by each step in the recipe from the input data.\nTo see the values calculated for normalization, apply the recipes::tidy verb as before, but with second argument = 1.\nWhat ingredient is the most used, on average?\n\n\nExercise 5\nNow look at the result of the PCA, applying the recipes::tidy verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting component column so that the values are factors, ordering them in the order they appear using the forcats::fct_inorder verb.\nPlot this data using ggplot2 and the code below\n\nggplot(aes(value, terms, fill = terms)) +\ngeom_col(show.legend = FALSE) +\nfacet_wrap(~component, nrow = 1) +\nlabs(y = NULL) +\ntheme(axis.text=element_text(size=7),\n      axis.title=element_text(size=14,face=\"bold\"))\n\nHow would you describe the drinks represented by PC1?\n\n\nExercise 6\nAs in the last exercise, use the variable with the tidied PCA data and use only PCA components PC1 to PC4. Take/slice the top 8 ingedients by component, ordered by their absolute value using the verb dplyr::slice_max. Next, generate a grouped table using gt::gt, colouring the cell backgrounds (i.e. fill) with green for values \\(\\ge0\\) and red for values \\(&lt;0\\).\nWhat is the characteristic alcoholic beverage of each of the first 4 principle components.\n\n\nExercise 7\nFor this exercise, bake the prepped PCA recipe using recipes::bake on the original data and plot each cocktail by its PC1, PC2 component, using\n\nggplot(aes(PC1, PC2, label = name)) +\n  geom_point(aes(color = category), alpha = 0.7, size = 2) +\n  geom_text(check_overlap = TRUE, hjust = \"inward\") + \n  labs(color = NULL)\n\nCan you create an interpretation of the PCA analysis?\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#submission",
-    "href": "labs/BSMM_8740_lab-2.html#submission",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#submission",
+    "href": "labs/BSMM_8740_lab_3.html#submission",
+    "title": "Lab 3 - Recipes",
     "section": "Submission",
     "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-2.html#grading",
-    "href": "labs/BSMM_8740_lab-2.html#grading",
-    "title": "Lab 2 - EDA and Feature Engineering",
+    "objectID": "labs/BSMM_8740_lab_3.html#grading",
+    "href": "labs/BSMM_8740_lab_3.html#grading",
+    "title": "Lab 3 - Recipes",
     "section": "Grading",
     "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51\n\n\n\n\n\n1 The “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html",
-    "href": "labs/BSMM_8740_lab-1.html",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html",
+    "href": "labs/lab-6.html",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "",
-    "text": "This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.\n\n\n\n\n\n\nNote\n\n\n\nGit is a version control system (like “Track Changes” features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).\n\n\nAs the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.\n\n\nBy the end of the lab, you will…\n\nBe familiar with the workflow using R, RStudio, Git, and GitHub\nGain practice writing a reproducible report using RMarkdown\nPractice version control using GitHub\nBe able to create data visualizations using ggplot2\nBe able to describe variable distributions and the relationship between multiple variables"
+    "text": "In today’s lab you will analyze data from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”.\n\n\nBy the end of the lab you will be able to…\n\nConduct exploratory data analysis for multinomial logistic regression.\nFit and interpret coefficients of the multinomial logistic regression model.\nUse the multinomial logistic regression model for prediction."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#introduction",
-    "href": "labs/BSMM_8740_lab-1.html#introduction",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#introduction",
+    "href": "labs/lab-6.html#introduction",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "",
-    "text": "This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.\n\n\n\n\n\n\nNote\n\n\n\nGit is a version control system (like “Track Changes” features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).\n\n\nAs the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.\n\n\nBy the end of the lab, you will…\n\nBe familiar with the workflow using R, RStudio, Git, and GitHub\nGain practice writing a reproducible report using RMarkdown\nPractice version control using GitHub\nBe able to create data visualizations using ggplot2\nBe able to describe variable distributions and the relationship between multiple variables"
+    "text": "In today’s lab you will analyze data from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”.\n\n\nBy the end of the lab you will be able to…\n\nConduct exploratory data analysis for multinomial logistic regression.\nFit and interpret coefficients of the multinomial logistic regression model.\nUse the multinomial logistic regression model for prediction."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#getting-started",
-    "href": "labs/BSMM_8740_lab-1.html#getting-started",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#getting-started",
+    "href": "labs/lab-6.html#getting-started",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "Getting started",
-    "text": "Getting started\n\nSet up your SSH key\nYou will authenticate GitHub using SSH. Below are an outline of the authentication steps; you are encouraged to follow along as your TA demonstrates the steps.\n\n\n\n\n\n\nNote\n\n\n\nYou only need to do this authentication process one time on a single system.\n\n\n\nType credentials::ssh_setup_github() into your console.\nR will ask “No SSH key found. Generate one now?” You should click 1 for yes.\nYou will generate a key. It will begin with “ssh-rsa….” R will then ask “Would you like to open a browser now?” You should click 1 for yes.\nYou may be asked to provide your GitHub username and password to log into GitHub. After entering this information, you should paste the key in and give it a name. You might name it in a way that indicates where the key will be used, e.g., sta210).\n\nYou can find more detailed instructions here if you’re interested.\n\n\nConfigure Git\nThere is one more thing we need to do before getting started on the assignment. Specifically, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your name and email address.\nTo do so, you will use the use_git_config() function from the usethis package.\nType the following lines of code in the console in RStudio filling in your name and the email address associated with your GitHub account.\n\nusethis::use_git_config(\n  user.name = \"GitHub username\", \n  user.email = \"Email associated with your GitHub account\"\n  )\n\nFor example, mine would be\n\nusethis::use_git_config(\n  user.name = \"mine-cetinkaya-rundel\", \n  user.email = \"cetinkaya.mine@gmail.com\"\n  )\n\nYou are now ready interact with GitHub via RStudio!\n\n\nClone the repo & start new RStudio project\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-1. It contains the starter documents you need to complete the lab.\nClick on the green CODE button, select Use SSH (this might already be selected by default, and if it is, you’ll see the text Clone with SSH). Click on the clipboard icon to copy the repo URL.\nIn RStudio, go to File ➛ New Project ➛Version Control ➛ Git.\nCopy and paste the URL of your assignment repo into the dialog box Repository URL. Again, please make sure to have SSH highlighted under Clone when you copy the address.\nClick Create Project, and the files from your GitHub repo will be displayed in the Files pane in RStudio.\nClick lab-1-ikea.qmd to open the template R Markdown file. This is where you will write up your code and narrative for the lab.\n\n\n\nR and R Studio\nBelow are the components of the RStudio IDE.\n\nBelow are the components of a Quarto (.qmd) file.\n\n\n\nYAML\nThe top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.\n\n\n\n\n\n\nImportant\n\n\n\nOpen the Quarto (`.qmd`) file in your project, change the author name to your name, and render the document. Examine the rendered document.\n\n\n\n\nCommitting changes\nNow, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.\nIf you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on Diff. This shows you the difference between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.\nIf you’re happy with these changes, we’ll prepare the changes to be pushed to your remote repository. First, stage your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, “updated author name”) in the Commit message box. Finally, click Commit. Note that every commit needs to have a commit message associated with it.\nYou don’t have to commit after every change, as this would get quite tedious. You should commit states that are meaningful to you for inspection, comparison, or restoration.\nIn the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.\nNow let’s make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you’re good to go!\n\n\nPush changes\nNow that you have made an update and committed this change, it’s time to push these changes to your repo on GitHub.\nIn order to push your changes to GitHub, you must have staged your commit to be pushed. click on Push."
+    "text": "Getting started\n\nA repository has already been created for you and your teammates. Everyone in your team has access to the same repo.\nGo to the sta210-s22 organization on GitHub. Click on the repo with the prefix lab-6. It contains the starter documents you need to complete the lab.\nEach person on the team should clone the repository and open a new project in RStudio. Throughout the lab, each person should get a chance to make commits and push to the repo."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#packages",
-    "href": "labs/BSMM_8740_lab-1.html#packages",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#packages",
+    "href": "labs/lab-6.html#packages",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "Packages",
-    "text": "Packages\nWe will use the following package in today’s lab.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the \u001b]8;;http://conflicted.r-lib.org/\u0007conflicted package\u001b]8;;\u0007 to force all conflicts to become errors\n\n\nThe tidyverse is a meta-package. When you load it you get eight packages loaded for you:\n\nggplot2: for data visualization\ndplyr: for data wrangling\ntidyr: for data tidying and rectangling\nreadr: for reading and writing data\ntibble: for modern, tidy data frames\nstringr: for string manipulation\nforcats: for dealing with factors\npurrr: for iteration with functional programming\n\nThe message that’s printed when you load the package tells you which versions of these packages are loaded as well as any conflicts they may have introduced, e.g., the filter() function from dplyr has now masked (overwritten) the filter() function available in base R (and that’s ok, we’ll use dplyr::filter() anyway).\nWe’ll be using functionality from all of these packages throughout the semester, though we’ll always load them all at once with library(tidyverse). You can find out more about the tidyverse and each of the packages that make it up here."
+    "text": "Packages\nThe following packages are used in the lab.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(knitr)"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#data-ikea-furniture",
-    "href": "labs/BSMM_8740_lab-1.html#data-ikea-furniture",
-    "title": "Lab 1 - Tidy Data Wrangling",
-    "section": "Data: Ikea furniture",
-    "text": "Data: Ikea furniture\nToday’s data is all about Ikea furniture. The data was obtained from the TidyTuesday data collection.\nUse the code below to read in the data.\n\nikea &lt;- read_csv(\"data/ikea.csv\")\n\n\nData dictionary\nThe variable definitions are found in the help for Teams\n\n?Teams\n\nNo documentation for 'Teams' in specified packages and libraries:\nyou could try '??Teams'\n\n\n\n\nView the data\nBefore doing any analysis, you may want to get quick view of the data. This is useful when you’ve imported data to see if your data imported correctly. We can use the view() function to see the entire data set in RStudio. Type the code below in the Console to view the entire dataset.\n\nlibrary(Lahman)\ndim(Teams)\n\n[1] 3015   48"
+    "objectID": "labs/lab-6.html#data-five-thirty-eight",
+    "href": "labs/lab-6.html#data-five-thirty-eight",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "section": "Data: Five Thirty Eight",
+    "text": "Data: Five Thirty Eight\nThe data for this assignment comes from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”. You can read more about the survey design and respondents in the README of the GitHub repo for the data.\nRespondents were asked a variety of questions about their political beliefs, thoughts on multiple issues, and voting behavior. We will focus on using the demographic variables and someone’s party identification to understand whether a person is a probable voter.\nThe variables we’ll focus on are (definitions from the codebook in data set GitHub repo):\n\nppage: Age of respondent\neduc: Highest educational attainment category.\nrace: Race of respondent, census categories. Note: all categories except Hispanic are non-Hispanic.\ngender: Gender of respondent\nincome_cat: Household income category of respondent\nQ30: Response to the question “Generally speaking, do you think of yourself as a…”\n\n1: Republican\n2: Democrat\n3: Independent\n4: Another party, please specify\n5: No preference\n-1: No response\n\nvoter_category: past voting behavior:\n\nalways: respondent voted in all or all-but-one of the elections they were eligible in\nsporadic: respondent voted in at least two, but fewer than all-but-one of the elections they were eligible in\nrarely/never: respondent voted in 0 or 1 of the elections they were eligible in\n\n\nYou can read in the data directly from the GitHub repo:\n\nvoters &lt;- read_csv(\"https://raw.githubusercontent.com/fivethirtyeight/data/master/non-voters/nonvoters_data.csv\")\n\nNote that the authors use weighting to make the final sample more representative on the US population for their article. We will not use weighting in this assignment, so we should treat the sample as a convenience sample rather than a random sample of the population."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#exercises",
-    "href": "labs/BSMM_8740_lab-1.html#exercises",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#exercises",
+    "href": "labs/lab-6.html#exercises",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "Exercises",
-    "text": "Exercises\nWrite all code and narrative in your R Markdown file. Write all narrative in complete sentences. Throughout the assignment, you should periodically Render your Quarto document to produce the updated PDF, commit the changes in the Git pane, and push the updated files to GitHub.\n\n\n\n\n\n\nTip\n\n\n\nMake sure we can read all or your code in your PDF document. This means you will need to break up long lines of code. One way to help avoid long lines of code is is start a new line after every pipe (%&gt;%) and plus sign (+).\n\n\n\nExercise 1\nThe view() function helped us get a quick view of the dataset, but let’s get more detail about its structure. Viewing a summary of the data is a useful starting point for data analysis, especially if the dataset has a large number of observations (rows) or variables (columns). Run the code below to use the dplyr::glimpse() function to see a summary of the ikea dataset.\nHow many observations are in the ikea dataset? How many variables?\n\ndplyr::glimpse(Teams)\n\n\n\n\n\n\n\nNote\n\n\n\nIn your lab-1.qmd document you’ll see that we already added the code required for the exercise as well as a sentence where you can fill in the blanks to report the answer. Use this format for the remaining exercises.\nAlso note that the code chunk as a label: glimpse-data. It’s not required, but good practice and highly encouraged to label your code chunks in this way.\n\n\n\n\nExercise 2\nBen Baumer worked for the New York Mets from 2004 to 2012. What was the team W/L record during those years? Use filter() and select() to quickly identify only those pieces of information that we care about.\n\nmets &lt;- Teams  %&gt;% \n  dplyr::filter(teamID == \"NYN\")\nmy_mets &lt;- mets %&gt;% \n  dplyr::filter(_)\nmy_mets %&gt;% \n  dplyr::select(_,_,_,_)\n\n\n\nExercise 3\nWe’ve answered the simple question of how the Mets performed during the time that Ben was there, but since we are data scientists, we are interested in deeper questions. For example, some of these seasons were subpar—the Mets had more losses than wins. Did the team just get unlucky in those seasons? Or did they actually play as badly as their record indicates?\nIn order to answer this question, we need a model for expected winning percentage. It turns out that one of the most widely used contributions to the field of baseball analytics (courtesy of Bill James) is exactly that. This model translates the number of runs4 that a team scores and allows over the course of an entire season into an expectation for how many games they should have won. The simplest version of this model is this:\n\\[\n\\hat{\\text{W}}_{\\text{pct}}=\\frac{1}{1+\\left(\\frac{\\text{RA}}{\\text{RS}}\\right)^{2}}\n\\]\nwhere \\(\\text{RA}\\) is the number of runs the team allows to be scored, \\(\\text{RS}\\) is the number of runs that the team scores, and \\(\\hat{\\text{W}}_{\\text{pct}}\\) is the team’s expected winning percentage. Luckily for us, the runs scored and allowed are present in the Teams table, so let’s grab them and save them in a new data frame.\n\nmets_ben &lt;- Teams |&gt;\n  select(_, _, _, _, _, _) |&gt;\n  filter(_ == \"NYN\" & _ %in% 2004:2012)\nmets_ben\n\nFirst, note that the runs-scored variable is called R in the Teams table, but to stick with our notation we want to rename it RS.\n\nmets_ben &lt;- mets_ben |&gt;\n  rename(_ = _)    # new name = old name\nmets_ben\n\n\nThis is a good place to fender, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 1 - 3”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nNext, we need to compute the team’s actual winning percentage in each of these seasons. Thus, we need to add a new column to our data frame, and we do this with the mutate() command.\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(WPct = _)\nmets_ben\n\nThe expected number of wins is then equal to the product of the expected winning percentage times the number of games.\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(W_hat = _)\nmets_ben\n\n\n\nExercise 5\nIn this case, the Mets’ fortunes were better than expected in three of these seasons, and worse than expected in the other six.\nIn how many seasons were the Mets better than expected? How many were they worse than expected?\n\nThis is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 4 and 5”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 6\nNaturally, the Mets experienced ups and downs during Ben’s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.\n\narrange(mets_ben, _)\n\n\n\nExercise 7\nIn 2006, the Mets had the best record in baseball during the regular season and nearly made the World Series. How do these seasons rank in terms of the team’s performance relative to our model?\n\nmets_ben %&gt;% \n  mutate(Diff = _) |&gt;\n  arrange(_)\n\n\n\nExercise 8\nSummarize the Mets performance\n\nmets_ben |&gt;\n  summarize(\n    num_years = _, \n    total_W = _, \n    total_L = _, \n    total_WPct = _, \n    sum_resid = _\n  )\n\nIn these nine years, the Mets had a combined record of _ wins and _ losses, for an overall winning percentage of _.\n\nThis is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 6 - 8”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 9\nNext, let’s look at the relationship between the price and width of Ikea furniture. Fill in the code below to visualize the relationship between the two variables using a scatterplot.\nThen, use your visualization to describe the relationship between the width and price of Ikea furniture.\n\nggplot(data = _____, aes(x = width, y = _____)) +\n  geom_point() + \n  labs(\n    x = \"_____\", \n    y = \"_____\", \n    title = \"_____\"\n    )\n\n\n\nExercise 10\nDiscretize the years into three chunks: one for each of the three general managers under whom Ben worked. Jim Duquette was the Mets’ general manager in 2004, Omar Minaya from 2005 to 2010, and Sandy Alderson from 2011 to 2012.\n\nmets_ben &lt;- mets_ben %&gt;% \n  mutate(\n    gm = ifelse(\n      yearID == _, \n      _, \n      ifelse(\n        yearID &gt;= _, \n        _, \n        _)\n    )\n  )\n\nAlternatively, we use the case_when function\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(\n    gm = case_when(\n      yearID == _ ~ _, \n      yearID &gt;= _ ~ _, \n      TRUE ~ _\n    )\n  )\n\n\nYou’re done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message “Done with Lab 1!” , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that all documents are updated in your repo on GitHub. The PDF document you submit to Gradescope should be identical to the one in your GitHub repo.\n\n\n\nExercise 11\nUse the gm variable to define the manager groups with the group_by() operator, and run the summaries again, this time across the manager groups.\n\n\nBonus\nDo all the analysis at once, but retain the step-by-step logic."
+    "text": "Exercises\n\nWhy do you think the authors chose to only include data from people who were eligible to vote for at least four election cycles?\nLet’s prepare the data for analysis and modeling.\n\nThe variable Q30 contains the respondent’s political party identification. Make a new variable that simplifies Q30 into four categories: “Democrat”, “Republican”, “Independent”, “Other” (“Other” also includes respondents who did not answer the question).\nThe variable voter_category identifies the respondent’s past voter behavior. Relevel the variable to make rarely/never the baseline level, followed by sporadic, then always.\n\nIn the FiveThirtyEight article, the authors include visualizations of the relationship between the voter category and demographic variables such as race, age, education, etc. Select two demographic variables. For each variable, interpret the plot to describe its relationship with voter category.\nFit a model using mean-centered age, race, gender, income, and education to predict voter category. Show the code used to fit the model, but do not display the model output.\n\nNext, we want to determine whether party identification be added to the model. In order to do this we need to compare two nested models.\n\nThe reduced model is the one we fit so far, including the predictors mean-centered age, race, gender, income, and education.\nThe full model is the one that includes, in addition to these predictors, party identification.\n\n\nShould party identification be added to the model? Use a drop-in-deviance test to determine if party identification should be added to the model. Include the hypotheses in mathematical notation, the output from the test, and the conclusion in the context of the data. Then, neatly display the model you selected.\n\nUse the model you select for the remainder of the assignment.\n\nInterpret the following coefficients in the context of the data in terms of the odds of voting sporadically versus rarely/never.\n\nInterpret the intercept in the context of the data. Use actual values in the interpretation.\nInterpret the effect of age in the context of the data.\nInterpret the effect of party ID in the context of the data. Include discussion about which level(s) differ from the baseline.\n\nIn the article, the authors write\n\n“Nonvoters were more likely to have lower incomes; to be young; to have lower levels of education; and to say they don’t belong to either political party, which are all traits that square with what we know about people less likely to engage with the political system.”\n\nDoes your model support this statement? Briefly explain why or why not.\nLet’s use the model to predict the voting categories. Obtain the predicted voter category for each observation.\n\nCreate a table of the actual versus predicted voter categories and a visualization of the association between the two.\nHow well did the model perform? Briefly assess the model performance using 2 - 3 observations from the table and/or visualization to support your response."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#submission",
-    "href": "labs/BSMM_8740_lab-1.html#submission",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#submission",
+    "href": "labs/lab-6.html#submission",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "Submission",
-    "text": "Submission\nIn this class, we’ll be submitting PDF documents to Gradescope.\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick ??\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
+    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#grading",
-    "href": "labs/BSMM_8740_lab-1.html#grading",
-    "title": "Lab 1 - Tidy Data Wrangling",
+    "objectID": "labs/lab-6.html#grading",
+    "href": "labs/lab-6.html#grading",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
     "section": "Grading",
-    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51\n\n\n\n1 The “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML."
+    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-1.html#resources-for-additional-practice-optional",
-    "href": "labs/BSMM_8740_lab-1.html#resources-for-additional-practice-optional",
-    "title": "Lab 1 - Tidy Data Wrangling",
-    "section": "Resources for additional practice (optional)",
-    "text": "Resources for additional practice (optional)\n\nChapter 2: Get Started Data Visualization by Kieran Healy\nChapter 3: Data visualization in R for Data Science by Hadley Wickham\nRStudio Cloud Primers\n\nVisualization Basics: https://rstudio.cloud/learn/primers/1.1\nWork with Data: https://rstudio.cloud/learn/primers/2\nVisualize Data: https://rstudio.cloud/learn/primers/3"
+    "objectID": "labs/lab-6.html#footnotes",
+    "href": "labs/lab-6.html#footnotes",
+    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThe “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.↩︎"
+  },
+  {
+    "objectID": "labs/lab-5.html",
+    "href": "labs/lab-5.html",
+    "title": "Lab 5 - General Social Survey",
+    "section": "",
+    "text": "In today’s lab you will analyze data from the General Social Survey.\n\n\nBy the end of the lab you will be able to…\n\nUse logistic regression to explore the relationship between a binary response variable and multiple predictor variables\nConduct exploratory data analysis for logistic regression\nInterpret coefficients of logistic regression model"
+  },
+  {
+    "objectID": "labs/lab-5.html#introduction",
+    "href": "labs/lab-5.html#introduction",
+    "title": "Lab 5 - General Social Survey",
+    "section": "",
+    "text": "In today’s lab you will analyze data from the General Social Survey.\n\n\nBy the end of the lab you will be able to…\n\nUse logistic regression to explore the relationship between a binary response variable and multiple predictor variables\nConduct exploratory data analysis for logistic regression\nInterpret coefficients of logistic regression model"
+  },
+  {
+    "objectID": "labs/lab-5.html#getting-started",
+    "href": "labs/lab-5.html#getting-started",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Getting started",
+    "text": "Getting started\n\nA repository has already been created for you and your teammates. Everyone in your team has access to the same repo.\nGo to the sta210-s22 organization on GitHub. Click on the repo with the prefix lab-5. It contains the starter documents you need to complete the lab.\nEach person on the team should clone the repository and open a new project in RStudio. Throughout the lab, each person should get a chance to make commits and push to the repo."
+  },
+  {
+    "objectID": "labs/lab-5.html#packages",
+    "href": "labs/lab-5.html#packages",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Packages",
+    "text": "Packages\nThe following packages are used in the lab.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(knitr)"
+  },
+  {
+    "objectID": "labs/lab-5.html#data-general-social-survey",
+    "href": "labs/lab-5.html#data-general-social-survey",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Data: General Social Survey",
+    "text": "Data: General Social Survey\nThe General Social Survey (GSS) has been used to measure trends in attitudes and behaviors in American society since 1972. In addition to collecting demographic information, the survey includes questions used to gauge attitudes about government spending priorities, confidence in institutions, lifestyle, and many other topics. A full description of the survey may be found here.\nThe data for this lab are from the 2016 General Social Survey. The original data set contains 2867 observations and 935 variables. We will use and abbreviated data set that includes the following variables:\n\nnatmass: Respondent’s answer to the following prompt:\n“We are faced with many problems in this country, none of which can be solved easily or inexpensively. I’m going to name some of these problems, and for each one I’d like you to tell me whether you think we’re spending too much money on it, too little money, or about the right amount…are we spending too much, too little, or about the right amount on mass transportation?”\nage: Age in years.\nsex: Sex recorded as male or female\nsei10: Socioeconomic index from 0 to 100\nregion: Region where interview took place\npolviews: Respondent’s answer to the following prompt:\n“We hear a lot of talk these days about liberals and conservatives. I’m going to show you a seven-point scale on which the political views that people might hold are arranged from extremely liberal - point 1 - to extremely conservative - point 7. Where would you place yourself on this scale?”\n\nThe data are in gss2016.csv in the data folder."
+  },
+  {
+    "objectID": "labs/lab-5.html#exercises",
+    "href": "labs/lab-5.html#exercises",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Exercises",
+    "text": "Exercises\nThe goal of today’s lab is to use the GSS to examine the relationship between US adults’ political views and attitudes towards government spending on mass transportation projects.\n\nPart I: Exploratory data analysis\n\nLet’s begin by making a binary variable for respondents’ views on spending on mass transportation. Create a new variable that is equal to “1” if a respondent said spending on mass transportation is about right and “0” otherwise. Then make a plot of the new variable, using informative labels for each category.\nRecode polviews so it is a factor with levels that are in an order that is consistent with question on the survey. Note how the categories are spelled in the data.\n\nMake a plot of the distribution of polviews.\nWhich political view occurs most frequently in this data set?\n\nMake a plot displaying the relationship between satisfaction with mass transportation spending and political views. Use the plot to describe the relationship the two variables.\nWe’d like to use age as a quantitative variable in your model; however, it is currently a character data type because some observations are coded as \"89 or older\".\n\nRecode age so that is a numeric variable. Note: Before making the variable numeric, you will need to replace the values \"89 or older\" with a single value.\nThen plot the distribution of age.\n\n\n\n\nPart II: Logistic regression model\n\nBriefly explain why we should use a logistic regression model to predict the odds a randomly selected person is satisfied with spending on mass transportation.\nLet’s start by fitting a model using the demographic factors - age, sex, sei10, and region - to predict the odds a person is satisfied with spending on mass transportation. Make any necessary adjustments to the variables so the intercept will have a meaningful interpretation. Neatly display the model.\nInterpret the intercept in the context of the data.\nConsider the relationship between age and one’s opinion about spending on mass transportation. Interpret the coefficient of age in terms of the odds of being satisfied with spending on mass transportation."
+  },
+  {
+    "objectID": "labs/lab-5.html#submission",
+    "href": "labs/lab-5.html#submission",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Submission",
+    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
+  },
+  {
+    "objectID": "labs/lab-5.html#grading",
+    "href": "labs/lab-5.html#grading",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Grading",
+    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51"
+  },
+  {
+    "objectID": "labs/lab-5.html#footnotes",
+    "href": "labs/lab-5.html#footnotes",
+    "title": "Lab 5 - General Social Survey",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThe “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.↩︎"
   },
   {
     "objectID": "labs/lab-4.html",
@@ -5278,186 +5341,123 @@
     "text": "Artworks acquisition and gender gap\nConsidering this extended dataset, some more analysis are allowed. First of all, let’s analyze gender gap in acquisition: we consider acquisitions through time according to gender (so, first of all, we need to create the two sub-datasets of male and female artists) e we show the trends. We will consider only the XX and XXI centuries.\n\n# the_tate_male \\&lt;- the_tate\\[the_tate$gender == \"Male\",] the_tate_female &lt;- the_tate[the_tate$gender == \"Female\",\\]\n# \n# count_by_year_male \\&lt;- the_tate_male %\\&gt;% group_by(acquisitionYear) %\\&gt;% summarize(count = n()) count_by_year_male \\&lt;- count_by_year_male\\[count_by_year_male\\$acquisitionYear \\&gt;= 1900,\\]\n# \n# count_by_year_female \\&lt;- the_tate_female %\\&gt;% group_by(acquisitionYear) %\\&gt;% summarize(count = n()) count_by_year_female \\&lt;- count_by_year_female\\[count_by_year_female\\$acquisitionYear \\&gt;= 1900,\\]\n# \n# plot(count_by_year_male$acquisitionYear, count_by_year_male$count, type = \"l\", col = \"blue\", main = \"Gender gap analysis on acquisitions\", xlab = \"Years\", ylab = \"Number of acquired artworks\") lines(count_by_year_female$acquisitionYear, count_by_year_female$count, col = \"pink\")\n\n\nspx_data &lt;- readr::read_csv(\"labs/data/SPX_HistoricalData_1692322132002.csv\", show_col_types = FALSE)\n\nspx_summary &lt;- spx_data %&gt;% dplyr::mutate(\n  Date = lubridate::mdy(Date)\n  , year = lubridate::year(Date)\n  , return = log(`Close/Last`/dplyr::lead(`Close/Last`)) \n  , var = return^2 \n  ) %&gt;% \n  dplyr::group_by(year) %&gt;% \n  dplyr::summarize(\n    return = sum(return, na.rm = TRUE)\n    , volatility = sum(var, na.rm = TRUE) %&gt;% sqrt()\n    , .groups = \"drop\"\n  ) \nspx_summary\n\nnmmnmnmn\n\nspx_summary %&gt;% \n  gt::gt('year') %&gt;% \n  gt::fmt_percent(columns = c(return,   volatility), decimals=1, force_sign=TRUE) %&gt;% \n  gt:: grand_summary_rows(\n    columns = return\n    , fns = list(label=\"period return\", fn=\"sum\") \n    , fmt = ~ gt::fmt_percent(., decimals = 1, force_sign=TRUE)\n  ) %&gt;% \n  gt:: grand_summary_rows(\n    columns = volatility\n    , fns = list(`period volatility` = ~sqrt(sum(.*.)) )\n    , fmt = ~ gt::fmt_percent(., decimals = 1, force_sign=TRUE)\n  ) %&gt;% \n  gtExtras::gt_theme_espn()"
   },
   {
-    "objectID": "labs/lab-5.html",
-    "href": "labs/lab-5.html",
-    "title": "Lab 5 - General Social Survey",
+    "objectID": "labs/BSMM_8740_lab_2.html",
+    "href": "labs/BSMM_8740_lab_2.html",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "",
-    "text": "In today’s lab you will analyze data from the General Social Survey.\n\n\nBy the end of the lab you will be able to…\n\nUse logistic regression to explore the relationship between a binary response variable and multiple predictor variables\nConduct exploratory data analysis for logistic regression\nInterpret coefficients of logistic regression model"
+    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
   },
   {
-    "objectID": "labs/lab-5.html#introduction",
-    "href": "labs/lab-5.html#introduction",
-    "title": "Lab 5 - General Social Survey",
+    "objectID": "labs/BSMM_8740_lab_2.html#introduction",
+    "href": "labs/BSMM_8740_lab_2.html#introduction",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "",
-    "text": "In today’s lab you will analyze data from the General Social Survey.\n\n\nBy the end of the lab you will be able to…\n\nUse logistic regression to explore the relationship between a binary response variable and multiple predictor variables\nConduct exploratory data analysis for logistic regression\nInterpret coefficients of logistic regression model"
+    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
   },
   {
-    "objectID": "labs/lab-5.html#getting-started",
-    "href": "labs/lab-5.html#getting-started",
-    "title": "Lab 5 - General Social Survey",
+    "objectID": "labs/BSMM_8740_lab_2.html#getting-started",
+    "href": "labs/BSMM_8740_lab_2.html#getting-started",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Getting started",
-    "text": "Getting started\n\nA repository has already been created for you and your teammates. Everyone in your team has access to the same repo.\nGo to the sta210-s22 organization on GitHub. Click on the repo with the prefix lab-5. It contains the starter documents you need to complete the lab.\nEach person on the team should clone the repository and open a new project in RStudio. Throughout the lab, each person should get a chance to make commits and push to the repo."
+    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-2. It contains the starter documents you need to complete the lab.\nClone the repo and start a new project in RStudio. See the Lab 1 instructions for details on cloning a repo, starting a new R project and configuring git."
   },
   {
-    "objectID": "labs/lab-5.html#packages",
-    "href": "labs/lab-5.html#packages",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Packages",
-    "text": "Packages\nThe following packages are used in the lab.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(knitr)"
-  },
-  {
-    "objectID": "labs/lab-5.html#data-general-social-survey",
-    "href": "labs/lab-5.html#data-general-social-survey",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Data: General Social Survey",
-    "text": "Data: General Social Survey\nThe General Social Survey (GSS) has been used to measure trends in attitudes and behaviors in American society since 1972. In addition to collecting demographic information, the survey includes questions used to gauge attitudes about government spending priorities, confidence in institutions, lifestyle, and many other topics. A full description of the survey may be found here.\nThe data for this lab are from the 2016 General Social Survey. The original data set contains 2867 observations and 935 variables. We will use and abbreviated data set that includes the following variables:\n\nnatmass: Respondent’s answer to the following prompt:\n“We are faced with many problems in this country, none of which can be solved easily or inexpensively. I’m going to name some of these problems, and for each one I’d like you to tell me whether you think we’re spending too much money on it, too little money, or about the right amount…are we spending too much, too little, or about the right amount on mass transportation?”\nage: Age in years.\nsex: Sex recorded as male or female\nsei10: Socioeconomic index from 0 to 100\nregion: Region where interview took place\npolviews: Respondent’s answer to the following prompt:\n“We hear a lot of talk these days about liberals and conservatives. I’m going to show you a seven-point scale on which the political views that people might hold are arranged from extremely liberal - point 1 - to extremely conservative - point 7. Where would you place yourself on this scale?”\n\nThe data are in gss2016.csv in the data folder."
-  },
-  {
-    "objectID": "labs/lab-5.html#exercises",
-    "href": "labs/lab-5.html#exercises",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Exercises",
-    "text": "Exercises\nThe goal of today’s lab is to use the GSS to examine the relationship between US adults’ political views and attitudes towards government spending on mass transportation projects.\n\nPart I: Exploratory data analysis\n\nLet’s begin by making a binary variable for respondents’ views on spending on mass transportation. Create a new variable that is equal to “1” if a respondent said spending on mass transportation is about right and “0” otherwise. Then make a plot of the new variable, using informative labels for each category.\nRecode polviews so it is a factor with levels that are in an order that is consistent with question on the survey. Note how the categories are spelled in the data.\n\nMake a plot of the distribution of polviews.\nWhich political view occurs most frequently in this data set?\n\nMake a plot displaying the relationship between satisfaction with mass transportation spending and political views. Use the plot to describe the relationship the two variables.\nWe’d like to use age as a quantitative variable in your model; however, it is currently a character data type because some observations are coded as \"89 or older\".\n\nRecode age so that is a numeric variable. Note: Before making the variable numeric, you will need to replace the values \"89 or older\" with a single value.\nThen plot the distribution of age.\n\n\n\n\nPart II: Logistic regression model\n\nBriefly explain why we should use a logistic regression model to predict the odds a randomly selected person is satisfied with spending on mass transportation.\nLet’s start by fitting a model using the demographic factors - age, sex, sei10, and region - to predict the odds a person is satisfied with spending on mass transportation. Make any necessary adjustments to the variables so the intercept will have a meaningful interpretation. Neatly display the model.\nInterpret the intercept in the context of the data.\nConsider the relationship between age and one’s opinion about spending on mass transportation. Interpret the coefficient of age in terms of the odds of being satisfied with spending on mass transportation."
-  },
-  {
-    "objectID": "labs/lab-5.html#submission",
-    "href": "labs/lab-5.html#submission",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Submission",
-    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
-  },
-  {
-    "objectID": "labs/lab-5.html#grading",
-    "href": "labs/lab-5.html#grading",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Grading",
-    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51"
-  },
-  {
-    "objectID": "labs/lab-5.html#footnotes",
-    "href": "labs/lab-5.html#footnotes",
-    "title": "Lab 5 - General Social Survey",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThe “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.↩︎"
-  },
-  {
-    "objectID": "labs/BSMM_8740_lab-3.html",
-    "href": "labs/BSMM_8740_lab-3.html",
-    "title": "Lab 3 - Recipes",
-    "section": "",
-    "text": "In today’s lab, you’ll explore several data sets practice pre-processing and feature engineering with recipes.\n\n\nBy the end of the lab you will…\n\nBe able to use the recipes package to prepare a train and test datasets for analysis/modeling"
-  },
-  {
-    "objectID": "labs/BSMM_8740_lab-3.html#introduction",
-    "href": "labs/BSMM_8740_lab-3.html#introduction",
-    "title": "Lab 3 - Recipes",
-    "section": "",
-    "text": "In today’s lab, you’ll explore several data sets practice pre-processing and feature engineering with recipes.\n\n\nBy the end of the lab you will…\n\nBe able to use the recipes package to prepare a train and test datasets for analysis/modeling"
-  },
-  {
-    "objectID": "labs/BSMM_8740_lab-3.html#getting-started",
-    "href": "labs/BSMM_8740_lab-3.html#getting-started",
-    "title": "Lab 3 - Recipes",
-    "section": "Getting started",
-    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-3. It contains the starter documents you need to complete the lab.\nClone the repo and start a new project in RStudio. See the Lab 1 instructions for details on cloning a repo, starting a new R project and configuring git."
-  },
-  {
-    "objectID": "labs/BSMM_8740_lab-3.html#packages",
-    "href": "labs/BSMM_8740_lab-3.html#packages",
-    "title": "Lab 3 - Recipes",
+    "objectID": "labs/BSMM_8740_lab_2.html#packages",
+    "href": "labs/BSMM_8740_lab_2.html#packages",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Packages",
     "text": "Packages\nWe will use the following package in today’s lab.\n\nlibrary(tidyverse)  # for data wrangling + visualization\nlibrary(tidymodels) # for modeling\nlibrary(knitr)      # for pretty printing of tables"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-3.html#data-the-boston-cocktail-recipes",
-    "href": "labs/BSMM_8740_lab-3.html#data-the-boston-cocktail-recipes",
-    "title": "Lab 3 - Recipes",
-    "section": "Data: The Boston Cocktail Recipes",
-    "text": "Data: The Boston Cocktail Recipes\nThe Boston Cocktail Recipes dataset appeared in a TidyTuesday posting. TidyTuesday is a weekly data project in R.\nThe dataset is derived from the Mr. Boston Bartender’s Guide, together with a dataset that was web-scraped as part of a hackathon.\nThis dataset contains the following information for each cocktail:\n\n\n\nvariable\nclass\ndescription\n\n\n\n\nname\ncharacter\nName of cocktail\n\n\ncategory\ncharacter\nCategory of cocktail\n\n\nrow_id\ninteger\nDrink identifier\n\n\ningredient_number\ninteger\nIngredient number\n\n\ningredient\ncharacter\nIngredient\n\n\nmeasure\ncharacter\nMeasurement/volume of ingredient\n\n\nmeasure_number\nreal\nmeasure as a number\n\n\n\nUse the code below to load the Boston Cocktail Recipes data set.\n\nboston_cocktails &lt;- readr::read_csv('data/boston_cocktails.csv')"
+    "objectID": "labs/BSMM_8740_lab_2.html#data-the-tate-collection",
+    "href": "labs/BSMM_8740_lab_2.html#data-the-tate-collection",
+    "title": "Lab 2 - EDA and Feature Engineering",
+    "section": "Data: The Tate Collection",
+    "text": "Data: The Tate Collection\nTate is an institution that houses the United Kingdom’s national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.\nThis dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.\nThe metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.\nThis dataset contains the following information for each artwork:\n\n\n\nId\nacquisitionYear\n\n\naccession_number\ndimensions\n\n\nartist\nwidth\n\n\nartistRole\nheight\n\n\nartistId\ndepth\n\n\ntitle\nunits\n\n\ndateText\ninscription\n\n\nmedium\nthumbnailCopyright\n\n\ncreditLine\nthumbnailUr\n\n\nyear\nurl\n\n\n\nUse the code below to load the Tate Collection data sets.\n\nthe_tate &lt;- readr::read_delim(\"data/the-tate-collection.csv\", \";\", escape_double = FALSE, trim_ws = TRUE)\nthe_tate_artists &lt;- readr::read_csv(\"data/the-tate-artists.csv\")"
   },
   {
-    "objectID": "labs/BSMM_8740_lab-3.html#exercises",
-    "href": "labs/BSMM_8740_lab-3.html#exercises",
-    "title": "Lab 3 - Recipes",
+    "objectID": "labs/BSMM_8740_lab_2.html#exercises",
+    "href": "labs/BSMM_8740_lab_2.html#exercises",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Exercises",
-    "text": "Exercises\n\nExercise 1\nFirst DataExplorer::introduce to assess the quality of the data set.\nNext prepare a summary. What is the median measure number across cocktail recipes?\n\n\nExercise 2\nFrom the boston_cocktails dataset select the name, category, ingredient, and measure_number columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.\nSince the names of the new columns may contain space, clean then using the janitor::clean_names(). Finally drop any rows with NA values and save this new dataset in a variable.\nHow much gin is in the cocktail called Leap Frog Highball?\n\n\nExercise 3\nPrepare a recipes::recipe object without a target but give name and category as ‘id’ roles. Add steps to normalize the predictors and perform PCA. Finally prep the data and save it in a variable.\nHow many predictor variables are prepped by the recipe?\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nApply the recipes::tidy verb to the prepped recipe in the last exercise. The result is a table identifying the information generated and stored by each step in the recipe from the input data.\nTo see the values calculated for normalization, apply the recipes::tidy verb as before, but with second argument = 1.\nWhat ingredient is the most used, on average?\n\n\nExercise 5\nNow look at the result of the PCA, applying the recipes::tidy verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting component column so that the values are factors, ordering them in the order they appear using the forcats::fct_inorder verb.\nPlot this data using ggplot2 and the code below\n\nggplot(aes(value, terms, fill = terms)) +\ngeom_col(show.legend = FALSE) +\nfacet_wrap(~component, nrow = 1) +\nlabs(y = NULL) +\ntheme(axis.text=element_text(size=7),\n      axis.title=element_text(size=14,face=\"bold\"))\n\nHow would you describe the drinks represented by PC1?\n\n\nExercise 6\nAs in the last exercise, use the variable with the tidied PCA data and use only PCA components PC1 to PC4. Take/slice the top 8 ingedients by component, ordered by their absolute value using the verb dplyr::slice_max. Next, generate a grouped table using gt::gt, colouring the cell backgrounds (i.e. fill) with green for values \\(\\ge0\\) and red for values \\(&lt;0\\).\nWhat is the characteristic alcoholic beverage of each of the first 4 principle components.\n\n\nExercise 7\nFor this exercise, bake the prepped PCA recipe using recipes::bake on the original data and plot each cocktail by its PC1, PC2 component, using\n\nggplot(aes(PC1, PC2, label = name)) +\n  geom_point(aes(color = category), alpha = 0.7, size = 2) +\n  geom_text(check_overlap = TRUE, hjust = \"inward\") + \n  labs(color = NULL)\n\nCan you create an interpretation of the PCA analysis?\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
+    "text": "Exercises\n\nExercise 1\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Generate some general observations about the dataset using dplyr::summarize, including the number of unique artists represented in the collection, the period represented in the collection and the acquisition period over which the collection was created.\nNext use DataExplorer::introduce and DataExplorer::plot_missing() to examine the scope of missing data.\n\n\nExercise 2\nPrepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.\n\n\nExercise 3\nModify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using gt::gt with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the gtExtras package to the formatted table.\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nSimilar to exercises 2 and 3, in this exercise take the raw data (the_tate) and add a column with the area of each artwork in \\(\\text{cm}^2\\). Next select the artist, title and the area and remove NA values using tidyr::drop_na, then order the works by area. Use dplyr::slice_head and dplyr::slice_tail to find the largest and smallest artworks in the collection.\n\n\nExercise 5\nJoin the tables the_tate and the_tate_artists using dplyr::left_join, assigning the result to the variable the_tate . Drop rows with NA gender values and then group by gender\n\n\nExercise 6\nRead the historical price data in the file SPX_HistoricalData_1692322132002.csv and add a column for the year of the transaction and the daily return \\(r_d\\), using the formula\n\\[\nr_d\\equiv \\log \\frac{\\text{Close/Last}_{t=i}}{\\text{Close/Last}_{t=i-1}}\n\\] You will likely need dplyr::lead or dplyr::lead. Add an additional column for the daily return variance \\(\\text{var}_d = \\text{r}_d^2\\).\nFinally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument .groups = \"drop\" to the summarize function to drop the grouping after the summary is created.\n\n\nExercise 7\nTake the table from the last exercise and use the gt:: package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-3.html#submission",
-    "href": "labs/BSMM_8740_lab-3.html#submission",
-    "title": "Lab 3 - Recipes",
+    "objectID": "labs/BSMM_8740_lab_2.html#submission",
+    "href": "labs/BSMM_8740_lab_2.html#submission",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Submission",
     "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
   },
   {
-    "objectID": "labs/BSMM_8740_lab-3.html#grading",
-    "href": "labs/BSMM_8740_lab-3.html#grading",
-    "title": "Lab 3 - Recipes",
+    "objectID": "labs/BSMM_8740_lab_2.html#grading",
+    "href": "labs/BSMM_8740_lab_2.html#grading",
+    "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Grading",
     "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51\n\n\n\n\n\n1 The “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML."
   },
   {
-    "objectID": "labs/lab-6.html",
-    "href": "labs/lab-6.html",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html",
+    "href": "labs/BSMM_8740_lab_1.html",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "",
-    "text": "In today’s lab you will analyze data from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”.\n\n\nBy the end of the lab you will be able to…\n\nConduct exploratory data analysis for multinomial logistic regression.\nFit and interpret coefficients of the multinomial logistic regression model.\nUse the multinomial logistic regression model for prediction."
+    "text": "This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.\n\n\n\n\n\n\nNote\n\n\n\nGit is a version control system (like “Track Changes” features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).\n\n\nAs the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.\n\n\nBy the end of the lab, you will…\n\nBe familiar with the workflow using R, RStudio, Git, and GitHub\nGain practice writing a reproducible report using RMarkdown\nPractice version control using GitHub\nBe able to create data visualizations using ggplot2\nBe able to describe variable distributions and the relationship between multiple variables"
   },
   {
-    "objectID": "labs/lab-6.html#introduction",
-    "href": "labs/lab-6.html#introduction",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#introduction",
+    "href": "labs/BSMM_8740_lab_1.html#introduction",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "",
-    "text": "In today’s lab you will analyze data from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”.\n\n\nBy the end of the lab you will be able to…\n\nConduct exploratory data analysis for multinomial logistic regression.\nFit and interpret coefficients of the multinomial logistic regression model.\nUse the multinomial logistic regression model for prediction."
+    "text": "This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.\n\n\n\n\n\n\nNote\n\n\n\nGit is a version control system (like “Track Changes” features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).\n\n\nAs the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.\n\n\nBy the end of the lab, you will…\n\nBe familiar with the workflow using R, RStudio, Git, and GitHub\nGain practice writing a reproducible report using RMarkdown\nPractice version control using GitHub\nBe able to create data visualizations using ggplot2\nBe able to describe variable distributions and the relationship between multiple variables"
   },
   {
-    "objectID": "labs/lab-6.html#getting-started",
-    "href": "labs/lab-6.html#getting-started",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#getting-started",
+    "href": "labs/BSMM_8740_lab_1.html#getting-started",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Getting started",
-    "text": "Getting started\n\nA repository has already been created for you and your teammates. Everyone in your team has access to the same repo.\nGo to the sta210-s22 organization on GitHub. Click on the repo with the prefix lab-6. It contains the starter documents you need to complete the lab.\nEach person on the team should clone the repository and open a new project in RStudio. Throughout the lab, each person should get a chance to make commits and push to the repo."
+    "text": "Getting started\n\nSet up your SSH key\nYou will authenticate GitHub using SSH. Below are an outline of the authentication steps; you are encouraged to follow along as your TA demonstrates the steps.\n\n\n\n\n\n\nNote\n\n\n\nYou only need to do this authentication process one time on a single system.\n\n\n\nType credentials::ssh_setup_github() into your console.\nR will ask “No SSH key found. Generate one now?” You should click 1 for yes.\nYou will generate a key. It will begin with “ssh-rsa….” R will then ask “Would you like to open a browser now?” You should click 1 for yes.\nYou may be asked to provide your GitHub username and password to log into GitHub. After entering this information, you should paste the key in and give it a name. You might name it in a way that indicates where the key will be used, e.g., sta210).\n\nYou can find more detailed instructions here if you’re interested.\n\n\nConfigure Git\nThere is one more thing we need to do before getting started on the assignment. Specifically, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your name and email address.\nTo do so, you will use the use_git_config() function from the usethis package.\nType the following lines of code in the console in RStudio filling in your name and the email address associated with your GitHub account.\n\nusethis::use_git_config(\n  user.name = \"GitHub username\", \n  user.email = \"Email associated with your GitHub account\"\n  )\n\nFor example, mine would be\n\nusethis::use_git_config(\n  user.name = \"mine-cetinkaya-rundel\", \n  user.email = \"cetinkaya.mine@gmail.com\"\n  )\n\nYou are now ready interact with GitHub via RStudio!\n\n\nClone the repo & start new RStudio project\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-1. It contains the starter documents you need to complete the lab.\nClick on the green CODE button, select Use SSH (this might already be selected by default, and if it is, you’ll see the text Clone with SSH). Click on the clipboard icon to copy the repo URL.\nIn RStudio, go to File ➛ New Project ➛Version Control ➛ Git.\nCopy and paste the URL of your assignment repo into the dialog box Repository URL. Again, please make sure to have SSH highlighted under Clone when you copy the address.\nClick Create Project, and the files from your GitHub repo will be displayed in the Files pane in RStudio.\nClick lab-1-ikea.qmd to open the template R Markdown file. This is where you will write up your code and narrative for the lab.\n\n\n\nR and R Studio\nBelow are the components of the RStudio IDE.\n\nBelow are the components of a Quarto (.qmd) file.\n\n\n\nYAML\nThe top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.\n\n\n\n\n\n\nImportant\n\n\n\nOpen the Quarto (`.qmd`) file in your project, change the author name to your name, and render the document. Examine the rendered document.\n\n\n\n\nCommitting changes\nNow, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.\nIf you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on Diff. This shows you the difference between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.\nIf you’re happy with these changes, we’ll prepare the changes to be pushed to your remote repository. First, stage your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, “updated author name”) in the Commit message box. Finally, click Commit. Note that every commit needs to have a commit message associated with it.\nYou don’t have to commit after every change, as this would get quite tedious. You should commit states that are meaningful to you for inspection, comparison, or restoration.\nIn the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.\nNow let’s make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you’re good to go!\n\n\nPush changes\nNow that you have made an update and committed this change, it’s time to push these changes to your repo on GitHub.\nIn order to push your changes to GitHub, you must have staged your commit to be pushed. click on Push."
   },
   {
-    "objectID": "labs/lab-6.html#packages",
-    "href": "labs/lab-6.html#packages",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#packages",
+    "href": "labs/BSMM_8740_lab_1.html#packages",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Packages",
-    "text": "Packages\nThe following packages are used in the lab.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(knitr)"
+    "text": "Packages\nWe will use the following package in today’s lab.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the \u001b]8;;http://conflicted.r-lib.org/\u0007conflicted package\u001b]8;;\u0007 to force all conflicts to become errors\n\n\nThe tidyverse is a meta-package. When you load it you get eight packages loaded for you:\n\nggplot2: for data visualization\ndplyr: for data wrangling\ntidyr: for data tidying and rectangling\nreadr: for reading and writing data\ntibble: for modern, tidy data frames\nstringr: for string manipulation\nforcats: for dealing with factors\npurrr: for iteration with functional programming\n\nThe message that’s printed when you load the package tells you which versions of these packages are loaded as well as any conflicts they may have introduced, e.g., the filter() function from dplyr has now masked (overwritten) the filter() function available in base R (and that’s ok, we’ll use dplyr::filter() anyway).\nWe’ll be using functionality from all of these packages throughout the semester, though we’ll always load them all at once with library(tidyverse). You can find out more about the tidyverse and each of the packages that make it up here."
   },
   {
-    "objectID": "labs/lab-6.html#data-five-thirty-eight",
-    "href": "labs/lab-6.html#data-five-thirty-eight",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
-    "section": "Data: Five Thirty Eight",
-    "text": "Data: Five Thirty Eight\nThe data for this assignment comes from an online Ipsos survey that was conducted for the FiveThirtyEight article “Why Many Americans Don’t Vote”. You can read more about the survey design and respondents in the README of the GitHub repo for the data.\nRespondents were asked a variety of questions about their political beliefs, thoughts on multiple issues, and voting behavior. We will focus on using the demographic variables and someone’s party identification to understand whether a person is a probable voter.\nThe variables we’ll focus on are (definitions from the codebook in data set GitHub repo):\n\nppage: Age of respondent\neduc: Highest educational attainment category.\nrace: Race of respondent, census categories. Note: all categories except Hispanic are non-Hispanic.\ngender: Gender of respondent\nincome_cat: Household income category of respondent\nQ30: Response to the question “Generally speaking, do you think of yourself as a…”\n\n1: Republican\n2: Democrat\n3: Independent\n4: Another party, please specify\n5: No preference\n-1: No response\n\nvoter_category: past voting behavior:\n\nalways: respondent voted in all or all-but-one of the elections they were eligible in\nsporadic: respondent voted in at least two, but fewer than all-but-one of the elections they were eligible in\nrarely/never: respondent voted in 0 or 1 of the elections they were eligible in\n\n\nYou can read in the data directly from the GitHub repo:\n\nvoters &lt;- read_csv(\"https://raw.githubusercontent.com/fivethirtyeight/data/master/non-voters/nonvoters_data.csv\")\n\nNote that the authors use weighting to make the final sample more representative on the US population for their article. We will not use weighting in this assignment, so we should treat the sample as a convenience sample rather than a random sample of the population."
+    "objectID": "labs/BSMM_8740_lab_1.html#data-ikea-furniture",
+    "href": "labs/BSMM_8740_lab_1.html#data-ikea-furniture",
+    "title": "Lab 1 - Tidy Data Wrangling",
+    "section": "Data: Ikea furniture",
+    "text": "Data: Ikea furniture\nToday’s data is all about Ikea furniture. The data was obtained from the TidyTuesday data collection.\nUse the code below to read in the data.\n\nikea &lt;- read_csv(\"data/ikea.csv\")\n\n\nData dictionary\nThe variable definitions are found in the help for Teams\n\n?Teams\n\nNo documentation for 'Teams' in specified packages and libraries:\nyou could try '??Teams'\n\n\n\n\nView the data\nBefore doing any analysis, you may want to get quick view of the data. This is useful when you’ve imported data to see if your data imported correctly. We can use the view() function to see the entire data set in RStudio. Type the code below in the Console to view the entire dataset.\n\nlibrary(Lahman)\ndim(Teams)\n\n[1] 3015   48"
   },
   {
-    "objectID": "labs/lab-6.html#exercises",
-    "href": "labs/lab-6.html#exercises",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#exercises",
+    "href": "labs/BSMM_8740_lab_1.html#exercises",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Exercises",
-    "text": "Exercises\n\nWhy do you think the authors chose to only include data from people who were eligible to vote for at least four election cycles?\nLet’s prepare the data for analysis and modeling.\n\nThe variable Q30 contains the respondent’s political party identification. Make a new variable that simplifies Q30 into four categories: “Democrat”, “Republican”, “Independent”, “Other” (“Other” also includes respondents who did not answer the question).\nThe variable voter_category identifies the respondent’s past voter behavior. Relevel the variable to make rarely/never the baseline level, followed by sporadic, then always.\n\nIn the FiveThirtyEight article, the authors include visualizations of the relationship between the voter category and demographic variables such as race, age, education, etc. Select two demographic variables. For each variable, interpret the plot to describe its relationship with voter category.\nFit a model using mean-centered age, race, gender, income, and education to predict voter category. Show the code used to fit the model, but do not display the model output.\n\nNext, we want to determine whether party identification be added to the model. In order to do this we need to compare two nested models.\n\nThe reduced model is the one we fit so far, including the predictors mean-centered age, race, gender, income, and education.\nThe full model is the one that includes, in addition to these predictors, party identification.\n\n\nShould party identification be added to the model? Use a drop-in-deviance test to determine if party identification should be added to the model. Include the hypotheses in mathematical notation, the output from the test, and the conclusion in the context of the data. Then, neatly display the model you selected.\n\nUse the model you select for the remainder of the assignment.\n\nInterpret the following coefficients in the context of the data in terms of the odds of voting sporadically versus rarely/never.\n\nInterpret the intercept in the context of the data. Use actual values in the interpretation.\nInterpret the effect of age in the context of the data.\nInterpret the effect of party ID in the context of the data. Include discussion about which level(s) differ from the baseline.\n\nIn the article, the authors write\n\n“Nonvoters were more likely to have lower incomes; to be young; to have lower levels of education; and to say they don’t belong to either political party, which are all traits that square with what we know about people less likely to engage with the political system.”\n\nDoes your model support this statement? Briefly explain why or why not.\nLet’s use the model to predict the voting categories. Obtain the predicted voter category for each observation.\n\nCreate a table of the actual versus predicted voter categories and a visualization of the association between the two.\nHow well did the model perform? Briefly assess the model performance using 2 - 3 observations from the table and/or visualization to support your response."
+    "text": "Exercises\nWrite all code and narrative in your R Markdown file. Write all narrative in complete sentences. Throughout the assignment, you should periodically Render your Quarto document to produce the updated PDF, commit the changes in the Git pane, and push the updated files to GitHub.\n\n\n\n\n\n\nTip\n\n\n\nMake sure we can read all or your code in your PDF document. This means you will need to break up long lines of code. One way to help avoid long lines of code is is start a new line after every pipe (%&gt;%) and plus sign (+).\n\n\n\nExercise 1\nThe view() function helped us get a quick view of the dataset, but let’s get more detail about its structure. Viewing a summary of the data is a useful starting point for data analysis, especially if the dataset has a large number of observations (rows) or variables (columns). Run the code below to use the dplyr::glimpse() function to see a summary of the ikea dataset.\nHow many observations are in the ikea dataset? How many variables?\n\ndplyr::glimpse(Teams)\n\n\n\n\n\n\n\nNote\n\n\n\nIn your lab-1.qmd document you’ll see that we already added the code required for the exercise as well as a sentence where you can fill in the blanks to report the answer. Use this format for the remaining exercises.\nAlso note that the code chunk as a label: glimpse-data. It’s not required, but good practice and highly encouraged to label your code chunks in this way.\n\n\n\n\nExercise 2\nBen Baumer worked for the New York Mets from 2004 to 2012. What was the team W/L record during those years? Use filter() and select() to quickly identify only those pieces of information that we care about.\n\nmets &lt;- Teams  %&gt;% \n  dplyr::filter(teamID == \"NYN\")\nmy_mets &lt;- mets %&gt;% \n  dplyr::filter(_)\nmy_mets %&gt;% \n  dplyr::select(_,_,_,_)\n\n\n\nExercise 3\nWe’ve answered the simple question of how the Mets performed during the time that Ben was there, but since we are data scientists, we are interested in deeper questions. For example, some of these seasons were subpar—the Mets had more losses than wins. Did the team just get unlucky in those seasons? Or did they actually play as badly as their record indicates?\nIn order to answer this question, we need a model for expected winning percentage. It turns out that one of the most widely used contributions to the field of baseball analytics (courtesy of Bill James) is exactly that. This model translates the number of runs4 that a team scores and allows over the course of an entire season into an expectation for how many games they should have won. The simplest version of this model is this:\n\\[\n\\hat{\\text{W}}_{\\text{pct}}=\\frac{1}{1+\\left(\\frac{\\text{RA}}{\\text{RS}}\\right)^{2}}\n\\]\nwhere \\(\\text{RA}\\) is the number of runs the team allows to be scored, \\(\\text{RS}\\) is the number of runs that the team scores, and \\(\\hat{\\text{W}}_{\\text{pct}}\\) is the team’s expected winning percentage. Luckily for us, the runs scored and allowed are present in the Teams table, so let’s grab them and save them in a new data frame.\n\nmets_ben &lt;- Teams |&gt;\n  select(_, _, _, _, _, _) |&gt;\n  filter(_ == \"NYN\" & _ %in% 2004:2012)\nmets_ben\n\nFirst, note that the runs-scored variable is called R in the Teams table, but to stick with our notation we want to rename it RS.\n\nmets_ben &lt;- mets_ben |&gt;\n  rename(_ = _)    # new name = old name\nmets_ben\n\n\nThis is a good place to fender, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 1 - 3”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nNext, we need to compute the team’s actual winning percentage in each of these seasons. Thus, we need to add a new column to our data frame, and we do this with the mutate() command.\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(WPct = _)\nmets_ben\n\nThe expected number of wins is then equal to the product of the expected winning percentage times the number of games.\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(W_hat = _)\nmets_ben\n\n\n\nExercise 5\nIn this case, the Mets’ fortunes were better than expected in three of these seasons, and worse than expected in the other six.\nIn how many seasons were the Mets better than expected? How many were they worse than expected?\n\nThis is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 4 and 5”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 6\nNaturally, the Mets experienced ups and downs during Ben’s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.\n\narrange(mets_ben, _)\n\n\n\nExercise 7\nIn 2006, the Mets had the best record in baseball during the regular season and nearly made the World Series. How do these seasons rank in terms of the team’s performance relative to our model?\n\nmets_ben %&gt;% \n  mutate(Diff = _) |&gt;\n  arrange(_)\n\n\n\nExercise 8\nSummarize the Mets performance\n\nmets_ben |&gt;\n  summarize(\n    num_years = _, \n    total_W = _, \n    total_L = _, \n    total_WPct = _, \n    sum_resid = _\n  )\n\nIn these nine years, the Mets had a combined record of _ wins and _ losses, for an overall winning percentage of _.\n\nThis is a good place to render, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g., “Completed exercises 6 - 8”), and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 9\nNext, let’s look at the relationship between the price and width of Ikea furniture. Fill in the code below to visualize the relationship between the two variables using a scatterplot.\nThen, use your visualization to describe the relationship between the width and price of Ikea furniture.\n\nggplot(data = _____, aes(x = width, y = _____)) +\n  geom_point() + \n  labs(\n    x = \"_____\", \n    y = \"_____\", \n    title = \"_____\"\n    )\n\n\n\nExercise 10\nDiscretize the years into three chunks: one for each of the three general managers under whom Ben worked. Jim Duquette was the Mets’ general manager in 2004, Omar Minaya from 2005 to 2010, and Sandy Alderson from 2011 to 2012.\n\nmets_ben &lt;- mets_ben %&gt;% \n  mutate(\n    gm = ifelse(\n      yearID == _, \n      _, \n      ifelse(\n        yearID &gt;= _, \n        _, \n        _)\n    )\n  )\n\nAlternatively, we use the case_when function\n\nmets_ben &lt;- mets_ben |&gt;\n  mutate(\n    gm = case_when(\n      yearID == _ ~ _, \n      yearID &gt;= _ ~ _, \n      TRUE ~ _\n    )\n  )\n\n\nYou’re done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message “Done with Lab 1!” , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that all documents are updated in your repo on GitHub. The PDF document you submit to Gradescope should be identical to the one in your GitHub repo.\n\n\n\nExercise 11\nUse the gm variable to define the manager groups with the group_by() operator, and run the summaries again, this time across the manager groups.\n\n\nBonus\nDo all the analysis at once, but retain the step-by-step logic."
   },
   {
-    "objectID": "labs/lab-6.html#submission",
-    "href": "labs/lab-6.html#submission",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#submission",
+    "href": "labs/BSMM_8740_lab_1.html#submission",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Submission",
-    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick School Credentials ➡️ Duke NetID and log in using your NetID credentials.\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
+    "text": "Submission\nIn this class, we’ll be submitting PDF documents to Gradescope.\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nGo to http://www.gradescope.com and click Log in in the top right corner.\nClick ??\nClick on your STA 210 course.\nClick on the assignment, and you’ll be prompted to submit it.\nMark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be “checked”).\nSelect the first page of your PDF submission to be associated with the “Workflow & formatting” section."
   },
   {
-    "objectID": "labs/lab-6.html#grading",
-    "href": "labs/lab-6.html#grading",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
+    "objectID": "labs/BSMM_8740_lab_1.html#grading",
+    "href": "labs/BSMM_8740_lab_1.html#grading",
+    "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Grading",
-    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51"
+    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51\n\n\n\n1 The “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML."
   },
   {
-    "objectID": "labs/lab-6.html#footnotes",
-    "href": "labs/lab-6.html#footnotes",
-    "title": "Lab 6 - Why Many Americans Don’t Vote",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThe “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.↩︎"
+    "objectID": "labs/BSMM_8740_lab_1.html#resources-for-additional-practice-optional",
+    "href": "labs/BSMM_8740_lab_1.html#resources-for-additional-practice-optional",
+    "title": "Lab 1 - Tidy Data Wrangling",
+    "section": "Resources for additional practice (optional)",
+    "text": "Resources for additional practice (optional)\n\nChapter 2: Get Started Data Visualization by Kieran Healy\nChapter 3: Data visualization in R for Data Science by Hadley Wickham\nRStudio Cloud Primers\n\nVisualization Basics: https://rstudio.cloud/learn/primers/1.1\nWork with Data: https://rstudio.cloud/learn/primers/2\nVisualize Data: https://rstudio.cloud/learn/primers/3"
   },
   {
     "objectID": "LICENSE.html#creative-commons-attribution-sharealike-4.0-international-public-license",
@@ -5467,109 +5467,39 @@
     "text": "Creative Commons Attribution-ShareAlike 4.0 International Public License\nBy exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-ShareAlike 4.0 International Public License (“Public License”). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.\n\nSection 1 – Definitions.\n\nAdapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor. For purposes of this Public License, where the Licensed Material is a musical work, performance, or sound recording, Adapted Material is always produced where the Licensed Material is synched in timed relation with a moving image.\nAdapter’s License means the license You apply to Your Copyright and Similar Rights in Your contributions to Adapted Material in accordance with the terms and conditions of this Public License.\nBY-SA Compatible License means a license listed at creativecommons.org/compatiblelicenses, approved by Creative Commons as essentially the equivalent of this Public License.\nCopyright and Similar Rights means copyright and/or similar rights closely related to copyright including, without limitation, performance, broadcast, sound recording, and Sui Generis Database Rights, without regard to how the rights are labeled or categorized. For purposes of this Public License, the rights specified in Section 2(b)(1)-(2) are not Copyright and Similar Rights.\nEffective Technological Measures means those measures that, in the absence of proper authority, may not be circumvented under laws fulfilling obligations under Article 11 of the WIPO Copyright Treaty adopted on December 20, 1996, and/or similar international agreements.\nExceptions and Limitations means fair use, fair dealing, and/or any other exception or limitation to Copyright and Similar Rights that applies to Your use of the Licensed Material.\nLicense Elements means the license attributes listed in the name of a Creative Commons Public License. The License Elements of this Public License are Attribution and ShareAlike.\nLicensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.\nLicensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.\nLicensor means the individual(s) or entity(ies) granting rights under this Public License.\nShare means to provide material to the public by any means or process that requires permission under the Licensed Rights, such as reproduction, public display, public performance, distribution, dissemination, communication, or importation, and to make material available to the public including in ways that members of the public may access the material from a place and at a time individually chosen by them.\nSui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.\nYou means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.\n\n\n\nSection 2 – Scope.\n\nLicense grant.\n\nSubject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:\nA. reproduce and Share the Licensed Material, in whole or in part; and\nB. produce, reproduce, and Share Adapted Material.\nExceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.\nTerm. The term of this Public License is specified in Section 6(a).\nMedia and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.\nDownstream recipients.\nA. Offer from the Licensor – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.\nB. Additional offer from the Licensor – Adapted Material. Every recipient of Adapted Material from You automatically receives an offer from the Licensor to exercise the Licensed Rights in the Adapted Material under the conditions of the Adapter’s License You apply.\nC. No downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.\nNo endorsement. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).\n\nOther rights.\n\nMoral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.\nPatent and trademark rights are not licensed under this Public License.\nTo the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties.\n\n\n\n\nSection 3 – License Conditions.\nYour exercise of the Licensed Rights is expressly made subject to the following conditions.\n\nAttribution.\n\nIf You Share the Licensed Material (including in modified form), You must:\nA. retain the following if it is supplied by the Licensor with the Licensed Material:\n\nidentification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);\na copyright notice;\na notice that refers to this Public License;\na notice that refers to the disclaimer of warranties;\na URI or hyperlink to the Licensed Material to the extent reasonably practicable;\n\nB. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and\nC. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.\nYou may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.\nIf requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.\n\nShareAlike.\n\nIn addition to the conditions in Section 3(a), if You Share Adapted Material You produce, the following conditions also apply.\n\nThe Adapter’s License You apply must be a Creative Commons license with the same License Elements, this version or later, or a BY-SA Compatible License.\nYou must include the text of, or the URI or hyperlink to, the Adapter’s License You apply. You may satisfy this condition in any reasonable manner based on the medium, means, and context in which You Share Adapted Material.\nYou may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, Adapted Material that restrict exercise of the rights granted under the Adapter’s License You apply.\n\n\n\nSection 4 – Sui Generis Database Rights.\nWhere the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:\n\nfor the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database;\nif You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material, including for purposes of Section 3(b); and\nYou must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.\n\nFor the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.\n\n\nSection 5 – Disclaimer of Warranties and Limitation of Liability.\n\nUnless otherwise separately undertaken by the Licensor, to the extent possible, the Licensor offers the Licensed Material as-is and as-available, and makes no representations or warranties of any kind concerning the Licensed Material, whether express, implied, statutory, or other. This includes, without limitation, warranties of title, merchantability, fitness for a particular purpose, non-infringement, absence of latent or other defects, accuracy, or the presence or absence of errors, whether or not known or discoverable. Where disclaimers of warranties are not allowed in full or in part, this disclaimer may not apply to You.\nTo the extent possible, in no event will the Licensor be liable to You on any legal theory (including, without limitation, negligence) or otherwise for any direct, special, indirect, incidental, consequential, punitive, exemplary, or other losses, costs, expenses, or damages arising out of this Public License or use of the Licensed Material, even if the Licensor has been advised of the possibility of such losses, costs, expenses, or damages. Where a limitation of liability is not allowed in full or in part, this limitation may not apply to You.\nThe disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.\n\n\n\nSection 6 – Term and Termination.\n\nThis Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this Public License, then Your rights under this Public License terminate automatically.\nWhere Your right to use the Licensed Material has terminated under Section 6(a), it reinstates:\n\nautomatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or\nupon express reinstatement by the Licensor.\n\nFor the avoidance of doubt, this Section 6(b) does not affect any right the Licensor may have to seek remedies for Your violations of this Public License.\nFor the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.\nSections 1, 5, 6, 7, and 8 survive termination of this Public License.\n\n\n\nSection 7 – Other Terms and Conditions.\n\nThe Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.\nAny arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.\n\n\n\nSection 8 – Interpretation.\n\nFor the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.\nTo the extent possible, if any provision of this Public License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this Public License without affecting the enforceability of the remaining terms and conditions.\nNo term or condition of this Public License will be waived and no failure to comply consented to unless expressly agreed to by the Licensor.\nNothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.\n\n\nCreative Commons is not a party to its public licenses. Notwithstanding, Creative Commons may elect to apply one of its public licenses to material it publishes and in those instances will be considered the “Licensor.” The text of the Creative Commons public licenses is dedicated to the public domain under the CC0 Public Domain Dedication. Except for the limited purpose of indicating that material is shared under a Creative Commons public license or as otherwise permitted by the Creative Commons policies published at creativecommons.org/policies, Creative Commons does not authorize the use of the trademark “Creative Commons” or any other trademark or logo of Creative Commons without its prior written consent including, without limitation, in connection with any unauthorized modifications to any of its public licenses or any other arrangements, understandings, or agreements concerning use of licensed material. For the avoidance of doubt, this paragraph does not form part of the public licenses.\nCreative Commons may be contacted at creativecommons.org."
   },
   {
-    "objectID": "weeks/BSMM_8470_week-1.html",
-    "href": "weeks/BSMM_8470_week-1.html",
-    "title": "Week 1",
+    "objectID": "weeks/BSMM_8740_week_9.html",
+    "href": "weeks/BSMM_8740_week_9.html",
+    "title": "Week 9",
     "section": "",
-    "text": "Important\n\n\n\nClasses are virtual this week. Find Zoom links here."
+    "text": "Important\n\n\n\nDue date: Exam 1 released on Fri, Feb 35, due Mon, Feb 28 at 11:59pm"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-1.html#prepare",
-    "href": "weeks/BSMM_8470_week-1.html#prepare",
-    "title": "Week 1",
+    "objectID": "weeks/BSMM_8740_week_9.html#prepare",
+    "href": "weeks/BSMM_8740_week_9.html#prepare",
+    "title": "Week 9",
     "section": "Prepare",
-    "text": "Prepare\n📖 Read the syllabus\n📖 Read the support resources"
+    "text": "Prepare\nNo readings this week."
   },
   {
-    "objectID": "weeks/BSMM_8470_week-1.html#participate",
-    "href": "weeks/BSMM_8470_week-1.html#participate",
-    "title": "Week 1",
+    "objectID": "weeks/BSMM_8740_week_9.html#participate",
+    "href": "weeks/BSMM_8740_week_9.html#participate",
+    "title": "Week 9",
     "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 1 - The tidyverse"
+    "text": "Participate\n🖥️ Lecture 09 - Causality: effects"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-1.html#practice",
-    "href": "weeks/BSMM_8470_week-1.html#practice",
-    "title": "Week 1",
+    "objectID": "weeks/BSMM_8740_week_9.html#practice",
+    "href": "weeks/BSMM_8740_week_9.html#practice",
+    "title": "Week 9",
     "section": "Practice",
-    "text": "Practice\n📋 AE 0 - Movies"
+    "text": "Practice\n📋 Application Exercise 8 - Rail Trail"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-1.html#perform",
-    "href": "weeks/BSMM_8470_week-1.html#perform",
-    "title": "Week 1",
+    "objectID": "weeks/BSMM_8740_week_9.html#perform",
+    "href": "weeks/BSMM_8740_week_9.html#perform",
+    "title": "Week 9",
     "section": "Perform",
-    "text": "Perform\n⌨️ Lab 1 - Git & the tidyverse\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-4.html",
-    "href": "weeks/BSMM_8470_week-4.html",
-    "title": "Week 4",
-    "section": "",
-    "text": "📖 Read Introduction to Modern Statistics, Sec 24.4: Mathematical model for testing the slope\n📖 Read Introduction to Modern Statistics, Sec 24.5: Mathematical model, interval for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.6: Checking model conditions\n📖 Read Introduction to Modern Statistics, Sec 24.7: Chapter review"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-4.html#prepare",
-    "href": "weeks/BSMM_8470_week-4.html#prepare",
-    "title": "Week 4",
-    "section": "",
-    "text": "📖 Read Introduction to Modern Statistics, Sec 24.4: Mathematical model for testing the slope\n📖 Read Introduction to Modern Statistics, Sec 24.5: Mathematical model, interval for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.6: Checking model conditions\n📖 Read Introduction to Modern Statistics, Sec 24.7: Chapter review"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-4.html#participate",
-    "href": "weeks/BSMM_8470_week-4.html#participate",
-    "title": "Week 4",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 4 - Regression methods"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-4.html#practice",
-    "href": "weeks/BSMM_8470_week-4.html#practice",
-    "title": "Week 4",
-    "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 3 - Checking model conditions"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-4.html#perform",
-    "href": "weeks/BSMM_8470_week-4.html#perform",
-    "title": "Week 4",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 4 - Regression methods\n✍️ HW 1 - In-person voting trends\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-7.html",
-    "href": "weeks/BSMM_8470_week-7.html",
-    "title": "Week 7",
-    "section": "",
-    "text": "📖 Read Tidy Modeling in R Chp 8: Feature engineering with recipes"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-7.html#prepare",
-    "href": "weeks/BSMM_8470_week-7.html#prepare",
-    "title": "Week 7",
-    "section": "",
-    "text": "📖 Read Tidy Modeling in R Chp 8: Feature engineering with recipes"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-7.html#participate",
-    "href": "weeks/BSMM_8470_week-7.html#participate",
-    "title": "Week 7",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 7 - Time series methods"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-7.html#practice",
-    "href": "weeks/BSMM_8470_week-7.html#practice",
-    "title": "Week 7",
-    "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 5 - The Office"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-7.html#perform",
-    "href": "weeks/BSMM_8470_week-7.html#perform",
-    "title": "Week 7",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 7 -Time series\n\n\nBack to course schedule ⏎"
+    "text": "Perform\n⌨️ Lab 9 - Causality: effects\n✅ Exam 2\n\n\nBack to course schedule ⏎"
   },
   {
     "objectID": "weeks/week-7.html",
@@ -5740,6 +5670,41 @@
     "text": "Perform\n✍️ HW 4 - Multinomial logistic regression\n💻 Lab 6 - Why Many Americans Don’t Vote\n\n\nBack to course schedule ⏎"
   },
   {
+    "objectID": "weeks/BSMM_8740_week_11.html",
+    "href": "weeks/BSMM_8740_week_11.html",
+    "title": "Week 11",
+    "section": "",
+    "text": "No additional readings this week. Catch up with previously assigned readings if you’ve fallen behind."
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_11.html#prepare",
+    "href": "weeks/BSMM_8740_week_11.html#prepare",
+    "title": "Week 11",
+    "section": "",
+    "text": "No additional readings this week. Catch up with previously assigned readings if you’ve fallen behind."
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_11.html#participate",
+    "href": "weeks/BSMM_8740_week_11.html#participate",
+    "title": "Week 11",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 11 - Bayesian methods"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_11.html#practice",
+    "href": "weeks/BSMM_8740_week_11.html#practice",
+    "title": "Week 11",
+    "section": "Practice",
+    "text": "Practice\n📋 Application Exercise 10 - Flight delays"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_11.html#perform",
+    "href": "weeks/BSMM_8740_week_11.html#perform",
+    "title": "Week 11",
+    "section": "Perform",
+    "text": "Perform\n✍️ HW 3 - Logistic regression and log transformation\n⌨️ Lab 11 - Bayesian methods\n\n\nBack to course schedule ⏎"
+  },
+  {
     "objectID": "weeks/week-9.html",
     "href": "weeks/week-9.html",
     "title": "Week 9",
@@ -5803,109 +5768,144 @@
     "text": "Perform\n✍️ HW 5 - Statistics experience\n\n\nBack to course schedule ⏎"
   },
   {
-    "objectID": "weeks/BSMM_8740_week-2.html",
-    "href": "weeks/BSMM_8740_week-2.html",
+    "objectID": "weeks/BSMM_8740_week_4.html",
+    "href": "weeks/BSMM_8740_week_4.html",
+    "title": "Week 4",
+    "section": "",
+    "text": "📖 Read Introduction to Modern Statistics, Sec 24.4: Mathematical model for testing the slope\n📖 Read Introduction to Modern Statistics, Sec 24.5: Mathematical model, interval for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.6: Checking model conditions\n📖 Read Introduction to Modern Statistics, Sec 24.7: Chapter review"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_4.html#prepare",
+    "href": "weeks/BSMM_8740_week_4.html#prepare",
+    "title": "Week 4",
+    "section": "",
+    "text": "📖 Read Introduction to Modern Statistics, Sec 24.4: Mathematical model for testing the slope\n📖 Read Introduction to Modern Statistics, Sec 24.5: Mathematical model, interval for the slope\n📖 Read Introduction to Modern Statistics, Sec 24.6: Checking model conditions\n📖 Read Introduction to Modern Statistics, Sec 24.7: Chapter review"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_4.html#participate",
+    "href": "weeks/BSMM_8740_week_4.html#participate",
+    "title": "Week 4",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 4 - Regression methods"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_4.html#practice",
+    "href": "weeks/BSMM_8740_week_4.html#practice",
+    "title": "Week 4",
+    "section": "Practice",
+    "text": "Practice\n📋 Application Exercise 3 - Checking model conditions"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_4.html#perform",
+    "href": "weeks/BSMM_8740_week_4.html#perform",
+    "title": "Week 4",
+    "section": "Perform",
+    "text": "Perform\n⌨️ Lab 4 - Regression methods\n✍️ HW 1 - In-person voting trends\n\n\nBack to course schedule ⏎"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_7.html",
+    "href": "weeks/BSMM_8740_week_7.html",
+    "title": "Week 7",
+    "section": "",
+    "text": "📖 Read Tidy Modeling in R Chp 8: Feature engineering with recipes"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_7.html#prepare",
+    "href": "weeks/BSMM_8740_week_7.html#prepare",
+    "title": "Week 7",
+    "section": "",
+    "text": "📖 Read Tidy Modeling in R Chp 8: Feature engineering with recipes"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_7.html#participate",
+    "href": "weeks/BSMM_8740_week_7.html#participate",
+    "title": "Week 7",
+    "section": "Participate",
+    "text": "Participate\n🖥️ Lecture 7 - Time series methods"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_7.html#practice",
+    "href": "weeks/BSMM_8740_week_7.html#practice",
+    "title": "Week 7",
+    "section": "Practice",
+    "text": "Practice\n📋 Application Exercise 5 - The Office"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_7.html#perform",
+    "href": "weeks/BSMM_8740_week_7.html#perform",
+    "title": "Week 7",
+    "section": "Perform",
+    "text": "Perform\n⌨️ Lab 7 -Time series\n\n\nBack to course schedule ⏎"
+  },
+  {
+    "objectID": "weeks/BSMM_8740_week_2.html",
+    "href": "weeks/BSMM_8740_week_2.html",
     "title": "Feature Engineering",
     "section": "",
     "text": "📖 Read Introduction to Modern Statistics, Chp 7: Linear regression with a single predictor"
   },
   {
-    "objectID": "weeks/BSMM_8740_week-2.html#prepare",
-    "href": "weeks/BSMM_8740_week-2.html#prepare",
+    "objectID": "weeks/BSMM_8740_week_2.html#prepare",
+    "href": "weeks/BSMM_8740_week_2.html#prepare",
     "title": "Feature Engineering",
     "section": "",
     "text": "📖 Read Introduction to Modern Statistics, Chp 7: Linear regression with a single predictor"
   },
   {
-    "objectID": "weeks/BSMM_8740_week-2.html#participate",
-    "href": "weeks/BSMM_8740_week-2.html#participate",
+    "objectID": "weeks/BSMM_8740_week_2.html#participate",
+    "href": "weeks/BSMM_8740_week_2.html#participate",
     "title": "Feature Engineering",
     "section": "Participate",
     "text": "Participate\n🖥️ Lecture 2 -Feature engineering"
   },
   {
-    "objectID": "weeks/BSMM_8740_week-2.html#practice",
-    "href": "weeks/BSMM_8740_week-2.html#practice",
+    "objectID": "weeks/BSMM_8740_week_2.html#practice",
+    "href": "weeks/BSMM_8740_week_2.html#practice",
     "title": "Feature Engineering",
     "section": "Practice",
     "text": "Practice\n📋 Application Exercise 1 - Bike rentals in DC (Post-class note: complete only Part 1 - Daily counts and temperature)"
   },
   {
-    "objectID": "weeks/BSMM_8740_week-2.html#perform",
-    "href": "weeks/BSMM_8740_week-2.html#perform",
+    "objectID": "weeks/BSMM_8740_week_2.html#perform",
+    "href": "weeks/BSMM_8740_week_2.html#perform",
     "title": "Feature Engineering",
     "section": "Perform",
     "text": "Perform\n⌨️ Lab 2 - Feature Engineering\n\n\nBack to course schedule ⏎"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-11.html",
-    "href": "weeks/BSMM_8470_week-11.html",
-    "title": "Week 11",
+    "objectID": "weeks/BSMM_8740_week_1.html",
+    "href": "weeks/BSMM_8740_week_1.html",
+    "title": "Week 1",
     "section": "",
-    "text": "No additional readings this week. Catch up with previously assigned readings if you’ve fallen behind."
+    "text": "Important\n\n\n\nClasses are virtual this week. Find Zoom links here."
   },
   {
-    "objectID": "weeks/BSMM_8470_week-11.html#prepare",
-    "href": "weeks/BSMM_8470_week-11.html#prepare",
-    "title": "Week 11",
-    "section": "",
-    "text": "No additional readings this week. Catch up with previously assigned readings if you’ve fallen behind."
+    "objectID": "weeks/BSMM_8740_week_1.html#prepare",
+    "href": "weeks/BSMM_8740_week_1.html#prepare",
+    "title": "Week 1",
+    "section": "Prepare",
+    "text": "Prepare\n📖 Read the syllabus\n📖 Read the support resources"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-11.html#participate",
-    "href": "weeks/BSMM_8470_week-11.html#participate",
-    "title": "Week 11",
+    "objectID": "weeks/BSMM_8740_week_1.html#participate",
+    "href": "weeks/BSMM_8740_week_1.html#participate",
+    "title": "Week 1",
     "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 11 - Bayesian methods"
+    "text": "Participate\n🖥️ Lecture 1 - The tidyverse"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-11.html#practice",
-    "href": "weeks/BSMM_8470_week-11.html#practice",
-    "title": "Week 11",
+    "objectID": "weeks/BSMM_8740_week_1.html#practice",
+    "href": "weeks/BSMM_8740_week_1.html#practice",
+    "title": "Week 1",
     "section": "Practice",
-    "text": "Practice\n📋 Application Exercise 10 - Flight delays"
+    "text": "Practice\n📋 AE 0 - Movies"
   },
   {
-    "objectID": "weeks/BSMM_8470_week-11.html#perform",
-    "href": "weeks/BSMM_8470_week-11.html#perform",
-    "title": "Week 11",
+    "objectID": "weeks/BSMM_8740_week_1.html#perform",
+    "href": "weeks/BSMM_8740_week_1.html#perform",
+    "title": "Week 1",
     "section": "Perform",
-    "text": "Perform\n✍️ HW 3 - Logistic regression and log transformation\n⌨️ Lab 11 - Bayesian methods\n\n\nBack to course schedule ⏎"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-8.html",
-    "href": "weeks/BSMM_8470_week-8.html",
-    "title": "Week 8",
-    "section": "",
-    "text": "📖 Read Tidy Modeling in R Chp 10: Resampling for evaluating performance"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-8.html#prepare",
-    "href": "weeks/BSMM_8470_week-8.html#prepare",
-    "title": "Week 8",
-    "section": "",
-    "text": "📖 Read Tidy Modeling in R Chp 10: Resampling for evaluating performance"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-8.html#participate",
-    "href": "weeks/BSMM_8470_week-8.html#participate",
-    "title": "Week 8",
-    "section": "Participate",
-    "text": "Participate\n🖥️ Lecture 8 - Causality: DAGs"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-8.html#practice",
-    "href": "weeks/BSMM_8470_week-8.html#practice",
-    "title": "Week 8",
-    "section": "Practice",
-    "text": "Practice\nApplication Exercise 6 - The office - CV\nApplication Exercise 7 - Exam 2 Review"
-  },
-  {
-    "objectID": "weeks/BSMM_8470_week-8.html#perform",
-    "href": "weeks/BSMM_8470_week-8.html#perform",
-    "title": "Week 8",
-    "section": "Perform",
-    "text": "Perform\n⌨️ Lab 8 - Causality: DAGs\n\n\nBack to course schedule ⏎"
+    "text": "Perform\n⌨️ Lab 1 - Git & the tidyverse\n\n\nBack to course schedule ⏎"
   },
   {
     "objectID": "hw/hw-4.html",
