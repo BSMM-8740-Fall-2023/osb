@@ -4,16 +4,15 @@ title: "Teaching team"
 
 ## Instructor
 
-![](images/team/mine.png){style="float:right;padding: 0 0 0 10px;" fig-alt="Headshot of Dr. Mine Çetinkaya-Rundel" width="200"}
+![](images/team/llo.png){fig-alt="Headshot of Dr. Mine Çetinkaya-Rundel" style="float:right;padding: 0 0 0 10px;" width="195"}
 
-[**Dr. Mine Çetinkaya-Rundel**](http://mine-cr.com/) (she/her) is Professor of the Practice and Director of Undergraduate Studies at the Department of Statistical Science at Duke University.
-Mine's work focuses on innovation in statistics and data science pedagogy, with an emphasis on computing, reproducible research, student-centered learning, and open-source education as well as pedagogical approaches for enhancing retention of women and under-represented minorities in STEM.
-Mine also works with RStudio as a Developer Educator.
+Dr. Louis (Lou) L. Odette was most recently Head of Advanced Analytics at Greenergy Retail Canada. Prior to joining Greenery, Lou was Vice President of Quantitative Modeling & Research at AIG in Boston with responsibilities for review and validation of existing risk models and risk metrics, in addition to modeling and assessment of alternative asset class risks. He holds a PhD in Electrical Engineering from MIT and an MSc in Mathematics from Oxford University. **Spoiler alert**: the picture to the right was taken over 40 years ago.
 
-| Office hours                  | Location                                                                                                                  |
-|-------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Mondays 10:30 am - 11:30 am   | [Zoom](https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/page/d5eef508-07a4-4c6d-b7bd-4614a9631562) |
-| Thursdays 11:00 am - 12:00 pm | Old Chem 213                                                                                                              |
++-----------------------------+---------------------------------------------+
+| Office hours                | Location                                    |
++=============================+=============================================+
+| Thursdays 2:30 pm - 3:30 pm | [Zoom](404.html)                            |
++-----------------------------+---------------------------------------------+
 
 If these times don't work for you or you'd like to schedule a one-on-one meeting, you can do so at [bit.ly/meet-mine](https://bit.ly/meet-mine).
 

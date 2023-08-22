@@ -1,0 +1,35 @@
+---
+title: "Week 4"
+subtitle: "Regression methods"
+editor: visual
+---
+
+## Prepare
+
+📖 Read Introduction to Modern Statistics, Sec 24.4: [Mathematical model for testing the slope](https://openintro-ims.netlify.app/inf-model-slr.html#mathslope)
+
+📖 Read Introduction to Modern Statistics, Sec 24.5: [Mathematical model, interval for the slope](https://openintro-ims.netlify.app/inf-model-slr.html#mathematical-model-interval-for-the-slope)
+
+📖 Read Introduction to Modern Statistics, Sec 24.6: [Checking model conditions](https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod)
+
+📖 Read Introduction to Modern Statistics, Sec 24.7: [Chapter review](https://openintro-ims.netlify.app/inf-model-slr.html#chp24-review)
+
+## Participate
+
+🖥️ [Lecture 4 - Regression methods](/slides/BSMM_8740_lec-04.html)
+
+## Practice
+
+📋 [Application Exercise 3 - Checking model conditions](/ae/ae-3-duke-forest.html)
+
+## Perform
+
+⌨️ [Lab 4 - Regression methods](/labs/BSMM_8740_lab-4.html "Lab instructions")
+
+✍️ [HW 1 - In-person voting trends](/hw/hw-1.html)
+
+<br><br>
+
+::: {style="font-size: 0.875em;"}
+Back to [course schedule](/ "Course schedule") ⏎
+:::
