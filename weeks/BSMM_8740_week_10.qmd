@@ -14,7 +14,7 @@ Due date: Project proposal due Fri, Mar 18 at 5:00 pm.
 
 ## Participate
 
-🖥️ [Lecture 10 - MonteCarlo methods](/slides/BSM_8470_lec-10.html)
+🖥️ [Lecture 10 - MonteCarlo methods](/slides/BSM_8740_lec_10.html)
 
 ## Practice
 
@@ -22,7 +22,7 @@ Due date: Project proposal due Fri, Mar 18 at 5:00 pm.
 
 ## Perform
 
-⌨️ [Lab 10 - MonteCarlo methods](labs/BSMM_8470_lab-10.html)
+⌨️ [Lab 10 - MonteCarlo methods](labs/BSMM_8740_lab_10.html)
 
 ✍️ [HW 3 - Logistic regression and log transformation](/hw/hw-3.html)
 

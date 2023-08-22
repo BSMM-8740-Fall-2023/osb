@@ -14,7 +14,7 @@ No readings this week.
 
 ## Participate
 
-🖥️ [Lecture 09 - Causality: effects](/slides/BSMM_8470_lec-09.html)
+🖥️ [Lecture 09 - Causality: effects](/slides/BSMM_8740_lec_09.html)
 
 ## Practice
 
@@ -22,7 +22,7 @@ No readings this week.
 
 ## Perform
 
-⌨️ [Lab 9 - Causality: effects](labs/BSMM_8470_lab-9.html)
+⌨️ [Lab 9 - Causality: effects](labs/BSMM_8740_lab_9.html)
 
 ✅ [Exam 2](/exams/exam-2.html)
 

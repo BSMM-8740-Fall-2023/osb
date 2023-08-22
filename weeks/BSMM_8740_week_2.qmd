@@ -10,7 +10,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 2 -Feature engineering](/slides/BSMM_8740_lec-02.html)
+🖥️ [Lecture 2 -Feature engineering](/slides/BSMM_8740_lec_02.html)
 
 ## Practice
 
@@ -18,7 +18,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 2 - Feature Engineering](/labs/BSMM_8740_lab-2.html "Lab instructions")
+⌨️ [Lab 2 - Feature Engineering](/labs/BSMM_8740_lab_2.html "Lab instructions")
 
 <br><br>
 

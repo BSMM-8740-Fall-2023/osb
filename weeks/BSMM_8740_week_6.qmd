@@ -14,7 +14,7 @@ No reading (take a break after the exam! 😴)
 
 ## Participate
 
-🖥️ [Lecture 6 - Classification methods](/slides/BSMM_8740_lec-06.html)
+🖥️ [Lecture 6 - Classification methods](/slides/BSMM_8740_lec_06.html)
 
 ## Practice
 
@@ -22,7 +22,7 @@ No application exercises
 
 ## Perform
 
-⌨️ [Lab 6 - Classification](labs/BSMM_8470_lab-6.html)
+⌨️ [Lab 6 - Classification](labs/BSMM_8740_lab_6.html)
 
 ✅ [Exam 1](/exams/exam-1.html)
 

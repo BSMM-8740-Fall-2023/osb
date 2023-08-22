@@ -1,14 +1,9 @@
 ---
-title: "Week 3"
+title: "Recipes"
 subtitle: "TBA"
 editor: visual
 ---
 
-::: callout-important
--   We're back to in person classes this week! See [here](/course-syllabus.html#course-info) for class locations. And don't forget to wear your mask! 😷
--   Due dates:
-    -   AE 2: Fri, Jan 21, 11:59pm ET
-:::
 
 ## Prepare
 
@@ -20,9 +15,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 4 - SLR: Prediction + model evaluation](/slides/lec-4.html)
-
-🖥️ [Lecture 5 - SLR: Simulation-based inference](/slides/lec-5.html)
+🖥️ [Lecture 3 - Recipes](/slides/BSMM_8740_lec-03.html)
 
 ## Practice
 
@@ -30,7 +23,7 @@ editor: visual
 
 ## Perform
 
-None.
+⌨️ [Lab 3 - Recipes](/labs/bssm-8740_lab-3.html "Lab instructions")
 
 <br><br>
 

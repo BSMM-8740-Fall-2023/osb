@@ -14,7 +14,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 3 - Recipes](/slides/BSMM_8740_lec-03.html)
+🖥️ [Lecture 3 - Recipes](/slides/BSMM_8740_lec_03.html)
 
 ## Practice
 
@@ -22,7 +22,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 3 - Recipes](/labs/BSMM_8740_lab-3.html "Lab instructions")
+⌨️ [Lab 3 - Recipes](/labs/BSMM_8740_lab_3.html "Lab instructions")
 
 <br><br>
 

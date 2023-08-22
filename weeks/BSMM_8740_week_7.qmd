@@ -10,7 +10,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 7 - Time series methods](/slides/BSMM_8470_lec-07.html)
+🖥️ [Lecture 7 - Time series methods](/slides/BSMM_8740_lec_07.html)
 
 ## Practice
 
@@ -18,7 +18,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 7 -Time series](labs/BSSM_8740_lab-7.html)
+⌨️ [Lab 7 -Time series](labs/BSSM_8740_lab_7.html)
 
 <br><br>
 

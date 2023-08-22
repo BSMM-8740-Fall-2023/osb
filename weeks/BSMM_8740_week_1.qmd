@@ -16,7 +16,7 @@ Classes are virtual this week. Find Zoom links [here](https://sakai.duke.edu/por
 
 ## Participate
 
-🖥️ [Lecture 1 - The tidyverse](/slides/BSMM_8740_lec-01.html)
+🖥️ [Lecture 1 - The tidyverse](/slides/BSMM_8740_lec_01.html)
 
 ## Practice
 
@@ -24,7 +24,7 @@ Classes are virtual this week. Find Zoom links [here](https://sakai.duke.edu/por
 
 ## Perform
 
-⌨️ [Lab 1 - Git & the tidyverse](/labs/BSMM_8740_lab-1.html)
+⌨️ [Lab 1 - Git & the tidyverse](/labs/BSMM_8740_lab_1.html)
 
 <br><br>
 

@@ -16,7 +16,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 4 - Regression methods](/slides/BSMM_8740_lec-04.html)
+🖥️ [Lecture 4 - Regression methods](/slides/BSMM_8740_lec_04.html)
 
 ## Practice
 
@@ -24,7 +24,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 4 - Regression methods](/labs/BSMM_8740_lab-4.html "Lab instructions")
+⌨️ [Lab 4 - Regression methods](/labs/BSMM_8740_lab_4.html "Lab instructions")
 
 ✍️ [HW 1 - In-person voting trends](/hw/hw-1.html)
 

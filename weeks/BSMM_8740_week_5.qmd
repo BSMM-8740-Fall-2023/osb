@@ -19,7 +19,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 5 - Models](/slides/BSMM_8740_lec-05.html)
+🖥️ [Lecture 5 - Models](/slides/BSMM_8740_lec_05.html)
 
 ## Practice
 
@@ -27,7 +27,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 5 - Models](labs/BSMM_8740_lab-5.html)
+⌨️ [Lab 5 - Models](labs/BSMM_8740_lab_5.html)
 
 ✅ [Exam 1](/exams/exam-1.html)
 

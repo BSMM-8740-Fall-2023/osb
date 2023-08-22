@@ -10,7 +10,7 @@ editor: visual
 
 ## Participate
 
-🖥️ [Lecture 8 - Causality: DAGs](/slides/BSMM_8470_lec-08.html)
+🖥️ [Lecture 8 - Causality: DAGs](/slides/BSMM_8740_lec_08.html)
 
 ## Practice
 
@@ -20,7 +20,7 @@ editor: visual
 
 ## Perform
 
-⌨️ [Lab 8 - Causality: DAGs](labs/BSMM_8470_lab-8.html)
+⌨️ [Lab 8 - Causality: DAGs](labs/BSMM_8740_lab_8.html)
 
 <br><br>
 

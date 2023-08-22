@@ -10,7 +10,7 @@ No additional readings this week. Catch up with previously assigned readings if 
 
 ## Participate
 
-🖥️ [Lecture 11 - Bayesian methods](/slides/BSMM_8470_lec-11.html)
+🖥️ [Lecture 11 - Bayesian methods](/slides/BSMM_8740_lec_11.html)
 
 ## Practice
 
@@ -20,7 +20,7 @@ No additional readings this week. Catch up with previously assigned readings if 
 
 ✍️ [HW 3 - Logistic regression and log transformation](/hw/hw-3.html)
 
-⌨️ [Lab 11 - Bayesian methods](labs/BSMM_8470_lab-11.html)
+⌨️ [Lab 11 - Bayesian methods](labs/BSMM_8740_lab_11.html)
 
 <br><br>
 
