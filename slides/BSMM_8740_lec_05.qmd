@@ -31,6 +31,16 @@ require(ggplot2)
 theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
 
+## Recap of last week
+
+-   Last week we looked at several regression models that are useful for predictions
+
+-   However, these models have different conventions on how they accept data and describe the model
+
+-   Today we look at the tidymodels package which will give us a workflow to describe, fit and compare models, using the same approach across methods.
+
+# Tidymodels
+
 ## Tidymodels
 
 -   Tidymodels is an R package that provides a unified and consistent framework for modeling and machine learning tasks.
@@ -80,7 +90,7 @@ The specification are built without referencing the data:
 #| message: false
 #| code-fold: true
 #| code-summary: "tidymodel specification"
-
+#| code-line-numbers: "2|4"
 # basic linear model
 parsnip::linear_reg() %>% parsnip::set_engine("lm")
 # basic penalized linear model
@@ -89,14 +99,14 @@ parsnip::linear_reg() %>% parsnip::set_engine("glmnet")
 
 ## Fitting with parsnip
 
-The translate function can be used to see how te spec is converted to the correct syntax
+The translate function can be used to see how the spec is converted to the correct syntax for different methods
 
 ```{r}
 #| echo: true
 #| message: false
 #| code-fold: true
 #| code-summary: "tidymodel spec translation"
-
+#| code-line-numbers: "2|4"
 # basic linear model
 parsnip::linear_reg() %>% parsnip::set_engine("lm") %>% parsnip::translate()
 # basic penalized linear model
@@ -111,6 +121,7 @@ The translate function can be used to see how the spec is converted to the corre
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2-4|6|8-10|12-16"
 # prep data
 data_split <- rsample::initial_split(modeldata::ames, strata = "Sale_Price")
 ames_train <- rsample::training(data_split)
@@ -137,6 +148,7 @@ Model results can be extracted from the fit object
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2|4"
 
 lm_form_fit %>% parsnip::extract_fit_engine()
 
@@ -165,10 +177,11 @@ The model workflow refers to the broader process, including any pre-processing s
 #| echo: true
 #| message: false
 #| eval: false
-# create test/trin splits
+#| code-line-numbers: "2|4-9|11-13|15-18"
+# create test/train splits
 ames <- modeldata::ames %>% dplyr::mutate( Sale_Price = log10(Sale_Price) )
-set.seed(502)
 
+set.seed(502)
 ames_split <- rsample::initial_split(
   ames, prop = 0.80, strata = "Sale_Price"
   )
@@ -191,6 +204,7 @@ lm_wflow <-
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2-4|6-7|9-10"
 
 # preprocessing not specified; a formula is sufficient
 lm_wflow %<>% 
@@ -245,6 +259,7 @@ The model and preprocessor can be removed or updated:
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2-3|5-10"
 
 # update the formula
 lm_fit %>% workflows::update_formula(Sale_Price ~ Longitude)
@@ -260,9 +275,11 @@ lm_wflow %<>%
 
 Predictors can be selected using **tidyselect** selectors, e.g. *everything()*, *ends_with()*, etc.
 
+# Workflowsets
+
 ## Tidymodels: workflowsets
 
-The **workflowset**package creates combinations of workflow components. A list of preprocessors (e.g., formulas, **dplyr** selectors, or feature engineering recipe objects) can be combined with a list of model specifications, resulting in a set of workflows.
+The `workflowset`package creates combinations of workflow components. A list of preprocessors (e.g., formulas, `dplyr` selectors, or feature engineering recipe objects) can be combined with a list of model specifications, resulting in a set of workflows.
 
 ## Tidymodels: workflowsets
 
@@ -272,6 +289,7 @@ Create a set of preprocessors by formula
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-7|9-13|15-18"
 # set up a list of formulas
 location <- list(
   longitude = Sale_Price ~ Longitude,
@@ -300,7 +318,8 @@ Create model fits
 #| echo: true
 #| message: false
 #| eval: false
-# reate a new calumn (fit) y mapping fit against the data in the info column
+#| code-line-numbers: "1-8|10-11"
+# create a new column (fit) by mapping fit against the data in the info column
 location_models %<>%
    dplyr::mutate(
      fit = purrr::map(
@@ -315,12 +334,13 @@ location_models$fit[[1]]
 
 ## Tidymodels: workflowsets
 
-There is a convenience function called `last_fit()` that will *fit* the model to the entire training set and *evaluate* it with the testing set.
+There is a convenience function called `last_fit()` that will *fit* the model to the entire training set and *evaluate* it with the testing set.
 
 ```{r}
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2|4-7"
 
 final_lm_res <- tune::last_fit(lm_wflow, ames_split)
 
@@ -338,6 +358,7 @@ Similarly, **collect_metrics()** and **collect_predictions()** provide access to
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2-3|5-6"
 
 # get the fit metrics
 workflowsets::collect_metrics(final_lm_res)
@@ -364,8 +385,9 @@ lm_fit %>%
   yardstick::tidy() %>% 
   # show the first n rows
   dplyr::slice_head(n=5)
-  
 ```
+
+# Yardstick
 
 ## Tidymodels: yardstick
 
@@ -375,10 +397,16 @@ An inferential model is used primarily to understand relationships, and typicall
 
 For a model used primarily for prediction, by contrast, predictive strength is of primary importance and other concerns about underlying statistical qualities may be less important.
 
+# Yardstick
+
+## Tidymodels: yardstick
+
 ```{r}
 #| echo: false
 #| message: false
 #| eval: false
+#| code-fold: true
+#| code-line-numbers: "1-6|8-17|19-26"
 ames <- dplyr::mutate(modeldata::ames, Sale_Price = log10(Sale_Price))
 
 set.seed(502)
@@ -415,6 +443,7 @@ lm_fit <- parsnip::fit(lm_wflow, ames_train)
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2-7|9-13|15"
 # fit with new data
 ames_test_res <- 
   stats::predict(
@@ -440,6 +469,7 @@ yardstick::rmse(ames_test_res, truth = Sale_Price, estimate = .pred)
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-7|9"
 # create metric set
 ames_metrics <- 
   yardstick::metric_set(
@@ -460,6 +490,7 @@ ames_metrics(ames_test_res, truth = Sale_Price, estimate = .pred)
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: ""
 # data for two-set classification
 two_class_example <- modeldata::two_class_example
 
@@ -484,10 +515,9 @@ yardstick::mcc(two_class_example, truth, predicted)
 #| echo: true
 #| message: false
 #| eval: false
-
+#| code-line-numbers: "1-2|3-10|12-16"
 # F1 metric:
 yardstick::f_meas(two_class_example, truth, predicted)
-
 
 # Combining these three classification metrics together
 classification_metrics <- 
@@ -502,8 +532,6 @@ classification_metrics(
   , truth = truth
   , estimate = predicted
 )
-
-
 ```
 
 ## Tidymodels: yardstick
@@ -514,6 +542,7 @@ classification_metrics(
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-6|8|10|12"
 two_class_curve <- 
   yardstick::roc_curve(
     two_class_example
@@ -525,18 +554,17 @@ two_class_curve
 
 yardstick::roc_auc(two_class_example, truth, Class1)
 
-autoplot(two_class_curve)
+parsnip::autoplot(two_class_curve)
 ```
 
-There are other functions that use probability estimates, including **gain_curve()**, **lift_curve()**, and **pr_curve()**.
+There are other functions that use probability estimates, including `gain_curve`, `lift_curve`, and pr_curve.
 
 ## Tidymodels: yardstick
 
 ### Regression metrics: multi-class targets
 
-The functions for metrics that use the discrete class predictions are identical to their binary counterparts.
-
-Metrics designed to handle outcomes with only two classes are extended for outcomes with more than two classes.
+-   The functions for metrics that use the discrete class predictions are identical to their binary counterparts.
+-   Metrics designed to handle outcomes with only two classes are extended for outcomes with more than two classes.
 
 ## Tidymodels: yardstick
 
@@ -558,6 +586,7 @@ Take sensitivity for example:
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-6|8-11"
 # load the data and convert it to a tibble
 hpc_cv <- modeldata::hpc_cv %>% tibble::tibble()
 # compute accuracy (same as binary case)
@@ -579,6 +608,7 @@ yardstick::sensitivity(hpc_cv, obs, pred, estimator = "micro")
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-4|7-9|11-14"
 # multi-class estimates for probability metrics
 hpc_cv %>% yardstick::roc_auc(obs, VF, F, M, L)
 # multi-class estimates with estimator (one of "hand_till", "macro", or "macro_weighted")
@@ -603,7 +633,7 @@ hpc_cv %>%
 #| echo: true
 #| message: false
 #| eval: false
-#| code-line-numbers: false
+#| code-line-numbers: "1-5|7-13|15-16"
 # create  random forest model object
 rf_model <- 
   parsnip::rand_forest(trees = 1000) %>% 
@@ -630,7 +660,7 @@ A function to compare models
 #| echo: true
 #| message: false
 #| eval: false
-
+#| code-line-numbers: "3-6|8-10|12-18"
 estimate_perf <- function(model, dat) {
   # Capture the names of the `model` and `dat` objects
   cl <- match.call()
@@ -659,7 +689,7 @@ Use the function on the random forest and linear models
 #| echo: true
 #| message: false
 #| eval: false
-
+#| code-line-numbers: "1-2|4-5|6-7"
 # get performance of the random forest model (train)
 estimate_perf(rf_fit, ames_train)
 
@@ -678,6 +708,8 @@ Summarize and present the performance comparison
 #| echo: true
 #| message: false
 #| eval: false
+#| code-fold: true
+#| code-line-numbers: "3-6|8-9|10-12|"
 # get performance of the random forest model (train)
 dplyr::bind_rows(
   estimate_perf(rf_fit, ames_train)
@@ -702,7 +734,7 @@ dplyr::bind_rows(
 
 **Re-sampling**: iterative comparison:
 
-![](/images/resampling.svg){fig-align="right" width="494"}
+![](/images/resampling.svg){fig-align="center" width="494"}
 
 ## Tidymodels: performance evaluation
 
@@ -716,6 +748,7 @@ Larger *V* values result in resampling estimates with small bias but substantial
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-3-6|4-5"
 set.seed(1001)
 ames_folds <- rsample::vfold_cv(ames_train, v = 10)
 ames_folds
@@ -799,6 +832,7 @@ For a year's worth of data, suppose that six sets of 30-day blocks define the an
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2|3"
 time_slices <- 
   tibble::tibble(x = 1:365) %>% 
   rsample::rolling_origin(initial = 6 * 30, assess = 30, skip = 29, cumulative = FALSE)
@@ -812,6 +846,7 @@ time_slices <-
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2|3-7|9-13"
 # pull out first and last data points in the analysis dataset
 time_slices$splits %>% 
   purrr::map_dfr( 
@@ -847,6 +882,7 @@ The function **tune::fit_resamples** is like parsnip::fit with a resamples argme
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "2|4|6"
 
 model_spec %>% fit_resamples(formula,  resamples, ...)
 
@@ -883,6 +919,7 @@ Save the predictions in order to visualize the model fit and residuals:
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1|3-6"
 keep_pred <- tune::control_resamples(save_pred = TRUE, save_workflow = TRUE)
 
 set.seed(1003)
@@ -908,6 +945,7 @@ Convenience functions in tidymodels can extract and format the results produced 
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1|3|5"
 rf_res %>% tune::collect_metrics()
 
 rf_res %>% tune::collect_predictions()
@@ -923,12 +961,18 @@ The models created during resampling are independent of one another and can be p
 #| echo: true
 #| message: false
 #| eval: false
+#| code-line-numbers: "1-2|4-6"
 # The number of physical cores in the hardware:
 parallel::detectCores(logical = FALSE)
-
 
 # The number of possible independent processes that can 
 # be simultaneously used:  
 parallel::detectCores(logical = TRUE)
 
 ```
+
+## Recap
+
+-   In this section we have worked with the `tidymodels` package to build a workflow that facilitates building and evaluating multiple models.
+
+-   Combined with the recipes package we now have a complete data modeling framework.

@@ -36,10 +36,14 @@ library(lattice)
 theme_set(theme_bw() + theme(legend.position = "top"))
 ```
 
+## Recap of last lecture
+
+Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.
+
 ## Today's Outline
 
--   Introduction to data pre-processing and design/model matrix generation with the `Recipes` package
--   \-
+-   Introduction to data pre-processing and design/model matrix generation with the `Recipes` package.
+-   Using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g. train and test as well as cross-validation sets)
 
 ## R Model Formulas
 
@@ -314,7 +318,6 @@ transformed_te <- bake(ss_obj, biomass_te)
 transformed_te
 ```
 
-
 ## use case
 
 ```{r}
@@ -532,29 +535,9 @@ pca[1:4, 1:8]
 #| code-fold: true
 #| code-summary: "PCA1"
 #| width: "80%"
-ggplot(pca, aes(x = PC01, y = PC02, color = Class)) + 
+pca %>% ggplot(aes(x = PC01, y = PC02, color = Class)) + 
   geom_point(alpha = .4) +
   theme_bw(base_size = 25)
-```
-
-## PCA use case
-
-```{r}
-#load data
-data("USArrests")
-
-#view first six rows of data
-head(USArrests)
-
-#calculate principal components
-results <- prcomp(USArrests, scale = TRUE)
-
-#reverse the signs
-results$rotation <- -1*results$rotation
-
-#display principal components
-results$rotation
-
 ```
 
 ## Kernel Principal Component Analysis
@@ -562,6 +545,7 @@ results$rotation
 ```{r kpca}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|3-9|12|13"
 kern_pca <- basic %>% 
   recipes::step_kpca(
     recipes::all_predictors()
@@ -574,22 +558,23 @@ kern_pca <- basic %>%
   )
 
 kern_pca <- recipes::prep(kern_pca)
-
 kern_pca <- recipes::bake(kern_pca, new_data = seg_test, everything())
 ```
 
 ## Kernel Principal Component Analysis
 
-```{r image_kpca_fig, fig.width = 5.5, fig.height = 5.6}
+```{r image_kpca_fig}
 #| echo: true
 #| message: false
 #| code-fold: true
 #| code-summary: "Kernel PCA"
-rngs <- extendrange(c(kern_pca$kPC1, kern_pca$kPC2))
-ggplot(kern_pca, aes(x = kPC1, y = kPC2, color = Class)) + 
+#| width: "80%"
+rngs <- grDevices::extendrange(c(kern_pca$kPC1, kern_pca$kPC2))
+kern_pca %>% ggplot(aes(x = kPC1, y = kPC2, color = Class)) + 
   geom_point(alpha = .4) + 
   xlim(rngs) + ylim(rngs) + 
-  theme(legend.position = "top")
+  # theme(legend.position = "top") +
+  theme_bw(base_size = 25)
 ```
 
 ## Distance to Each Class Centroid
@@ -613,36 +598,28 @@ dist_to_classes
 
 ## Distance to Each Class
 
-```{r image_dists_fig, fig.width = 5.5, fig.height = 5.6}
+```{r image_dists_fig}
 #| echo: true
 #| message: false
 #| code-fold: true
 #| code-summary: "Kernel PCA - distance to each class"
+#| width: "80%"
 rngs <- extendrange(c(dist_to_classes$classdist_PS, dist_to_classes$classdist_WS))
 ggplot(dist_to_classes, aes(x = classdist_PS, y = classdist_WS, color = Class)) + 
   geom_point(alpha = .4) + 
   xlim(rngs) + ylim(rngs) + 
-  theme(legend.position = "top") + 
+  # theme(legend.position = "top") + 
+  theme_bw(base_size = 16) +
   xlab("Distance to PS Centroid (log scale)") + 
   ylab("Distance to WS Centroid (log scale)")
 ```
 
-## Next Steps
+## Recap
 
--   Get it on CRAN once `tidyselect` is on CRAN
--   Add more steps
--   `caret` methods for recipes (instead of using `preProcess`):
-
-``` r
-model1 <- train(recipe, data = data, method, ...)
-```
-
-as an alternative to
-
-``` r
-model2 <- train(x, y, method, preProcess, ...) # or
-model3 <- train(y ~ x1 + x2, data = data, method, preProcess, ...)
-```
+-   We've used the Recipes package to create a workflow for data pre-processing and feature engineering
+-   The verb `recipe` defines the pre-processing and feature engineering steps
+-   using the recipe object, the verb `prep` prepares the data on a training set, storing the metaparameters.
+-   the verb bake applies the prepped recipe to new data, using the metaparameters.
 
 ------------------------------------------------------------------------
 

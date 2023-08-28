@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression"
+title: "Regression Methods"
 subtitle: "BSMM-8740 - Fall 2023"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
@@ -29,6 +29,14 @@ require(magrittr)
 require(ggplot2)
 theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
+
+## Recap of last lecture
+
+-   Last time we worked with the `recipes` package to develop workflows for pre-processing our data
+
+-   Today we look at regression methods we might apply to our data
+
+# Linear regression
 
 ## Linear regression models
 
@@ -89,7 +97,7 @@ $$
 The minimum of the RSS is solved by (assuming $N>D$):
 
 $$
-\hat{\mathbf{\beta}}_{OLS}=\left(X'X\right)^{-1}\left(X'Y\right)
+\hat{\mathbf{\beta}}_{OLS}=\left(X'X\right)^{-1}\left(X'Y\right) = \frac{\text{cov}(X,Y)}{\text{var}(X)}
 $$
 
 There are algorithmic issues though.
@@ -108,13 +116,14 @@ Q'QR\beta & = Q'y\\
 \end{align*}
 $$
 
-Since $R$ is upper triangular, the last equation can be solved by backsubstitution.
+Since $R$ is upper triangular, the last equation can be solved by back-substitution.
 
 ## Linear regression algorithms
 
 ```{r}
 #| echo: true
 #| message: false
+#| code-line-numbers: "1|2"
 A <- matrix(c(1,2,3, 2,4,6, 3, 3, 3), nrow=3)
 QR <- qr(A)
 ```
@@ -150,13 +159,13 @@ Q %*% R
 ```{r}
 #| echo: true
 #| message: false
+#| code-line-numbers: "1|3|5"
 # A linear system of equations y = Ax
 A <- matrix(c(3, 2, -1, 2, -2, .5, -1, 4, -1), nrow=3); A; cat("\n")
 
 x <- c(1, -2, -2); x; cat("\n")
 
 y <- A %*% x ; y; cat("\n")
-
 ```
 
 ## Linear regression algorithms
@@ -164,6 +173,7 @@ y <- A %*% x ; y; cat("\n")
 ```{r}
 #| echo: true
 #| message: false
+#| code-line-numbers: "1-3|6|9"
 # Compute the QR decomposition of A
 QR <- qr(A)
 Q <- qr.Q(QR)
@@ -205,7 +215,7 @@ $$
 \hat{\beta}_{\text{ridge}}=\arg\!\min\text{RSS}\left(\beta\right)+\lambda\left\Vert \beta\right\Vert _{2}^{2}
 $$
 
-where $\lambda$ is the strength of the regularizer.
+where $\lambda$ is the strength of the regularizer term.
 
 ## Ridge Regression
 
@@ -220,18 +230,19 @@ $$
 
 ## Ridge Regression
 
-As for unpenalized linear regression, using matrix inversion to solve for $\hat{\mathbf{\beta}}_{ridge}$ can be a bad idea. The QR transformation can be used here, however, ridge reression is often used when $D>N$, in which case the SVD transformation is faster.
+As for un-penalized linear regression, using matrix inversion to solve for $\hat{\mathbf{\beta}}_{ridge}$ can be a bad idea. The QR transformation can be used here, however, ridge regression is often used when $D>N$, in which case the SVD transformation is faster.
 
 ## Ridge Regression Example
 
 ```{r}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|5"
 #define response variable
-y <- mtcars$hp
+y <- mtcars %>% dplyr::pull(hp)
 
 #define matrix of predictor variables
-x <- data.matrix(mtcars[, c('mpg', 'wt', 'drat', 'qsec')])
+x <- mtcars %>% dplyr::select(mpg, wt, drat, qsec) %>% data.matrix()
 ```
 
 ## Ridge Regression Example
@@ -239,6 +250,7 @@ x <- data.matrix(mtcars[, c('mpg', 'wt', 'drat', 'qsec')])
 ```{r}
 #| echo: true
 #| message: false
+#| code-line-numbers: "2|5"
 #fit ridge regression model
 model <- glmnet::glmnet(x, y, alpha = 0)
 
@@ -253,6 +265,7 @@ summary(model)
 #| message: false
 #| code-fold: true
 #| code-summary: "glmnet example"
+#| code-line-numbers: "2|5|8|9|10|11|12"
 #perform k-fold cross-validation to find optimal lambda value
 cv_model <- glmnet::cv.glmnet(x, y, alpha = 0)
 
@@ -260,13 +273,9 @@ cv_model <- glmnet::cv.glmnet(x, y, alpha = 0)
 best_lambda <- cv_model$lambda.min
 
 #produce plot of test MSE by lambda value
-tibble::tibble(
-  "Mean-Squared Error" = cv_model$cvm
-  , lambda = cv_model$lambda
-  , lambda_hi = cv_model$cvup
-  , lambda_lo = cv_model$cvlo
-) %>% ggplot(aes(x=lambda, y = `Mean-Squared Error`)) +
-  geom_ribbon(aes(ymin = lambda_lo, ymax = lambda_hi), fill = "#00ABFD", alpha=0.5) +
+cv_model %>% broom::tidy() %>% 
+ggplot(aes(x=lambda, y = estimate)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "#00ABFD", alpha=0.5) +
   geom_point() +
   geom_vline(xintercept=best_lambda) +
   labs(title='Ridge Regression'
@@ -303,9 +312,34 @@ model$beta %>%
   )
 ```
 
-## Lasso Regression
+## Informal Quiz
 
-In the case where we want the
+Can we re-write the glm coefficient plot code with only tidyverse verbs? ::: panel-tabset \## as written
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-fold: true
+dat <- model$beta %>% 
+  as.matrix() %>% 
+  t() %>% 
+  tibble::as_tibble() %>% 
+  tibble::add_column(lambda = model$lambda, .before = 1) 
+```
+
+```{r}
+#| echo: false
+dat %>% dplyr::slice_head(n=8)
+```
+
+## tidy version
+
+?
+
+:::
+
+## Lasso Regression
 
 Lasso regression is another example of a penalized regression model; in this case both the magnitude of the weights and the number of parameters are penalized by using the $\ell_1$ norm of the weights to the loss function of the lasso regression. In particular, the lasso regression weights are:
 
@@ -329,10 +363,10 @@ $$
 #| code-fold: true
 #| code-summary: "lasso model"
 #define response variable
-y <- mtcars$hp
+y <- mtcars %>% dplyr::pull(hp)
 
 #define matrix of predictor variables
-x <- data.matrix(mtcars[, c('mpg', 'wt', 'drat', 'qsec')])
+x <- mtcars %>% dplyr::select(mpg, wt, drat, qsec) %>% data.matrix()
 
 #fit ridge regression model
 model <- glmnet::glmnet(x, y, alpha = 1)
@@ -348,6 +382,7 @@ summary(model)
 #| message: false
 #| code-fold: true
 #| code-summary: "lasso example"
+#| code-line-numbers: "2|5|8|9|10|11|12"
 #perform k-fold cross-validation to find optimal lambda value
 cv_model <- glmnet::cv.glmnet(x, y, alpha = 1)
 
@@ -355,13 +390,9 @@ cv_model <- glmnet::cv.glmnet(x, y, alpha = 1)
 best_lambda <- cv_model$lambda.min
 
 #produce plot of test MSE by lambda value
-tibble::tibble(
-  "Mean-Squared Error" = cv_model$cvm
-  , lambda = cv_model$lambda
-  , lambda_hi = cv_model$cvup
-  , lambda_lo = cv_model$cvlo
-) %>% ggplot(aes(x=lambda, y = `Mean-Squared Error`)) +
-  geom_ribbon(aes(ymin = lambda_lo, ymax = lambda_hi), fill = "#00ABFD", alpha=0.5) +
+cv_model %>% broom::tidy() %>% 
+ggplot(aes(x=lambda, y = estimate)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "#00ABFD", alpha=0.5) +
   geom_point() +
   geom_vline(xintercept=best_lambda) +
   labs(title='Lasso Regression'
@@ -381,11 +412,11 @@ tibble::tibble(
 #| message: false
 #| code-fold: true
 #| code-summary: "lasso coefficients"
-model$beta %>% 
-  as.matrix() %>% 
-  t() %>% 
-  tibble::as_tibble() %>% 
-  tibble::add_column(lambda = model$lambda, .before = 1) %>% 
+model %>%
+  broom::tidy() %>%
+  tidyr::pivot_wider(names_from=term, values_from=estimate) %>%
+  dplyr::select(-c(step,dev.ratio, `(Intercept)`)) %>%
+  dplyr::mutate_all(dplyr::coalesce, 0) %>% 
   tidyr::pivot_longer(-lambda, names_to = 'parameter') %>% 
   ggplot(aes(x=lambda, y=value, color=parameter)) +
   geom_line() + geom_point() +
@@ -418,6 +449,7 @@ so that $\alpha=0$ is ridge regression and $\alpha=1$ is lasso regression and $\
 #| message: false
 #| code-fold: true
 #| code-summary: "elastic net example"
+#| code-line-numbers: "5-9|10-13|15|16-17|18-29|33-35"
 # set length of data and seed for reproducability
 n <- 50
 set.seed(2467)
@@ -454,7 +486,7 @@ best_alpha <- alpha_dat %>%
   dplyr::filter(mse == min(mse)) %>% 
   dplyr::pull(alpha)
 
-cat("alpha:", best_alpha)
+cat("best alpha:", best_alpha)
 ```
 
 ```{r}
@@ -462,6 +494,7 @@ cat("alpha:", best_alpha)
 #| warning: false
 #| message: false
 #| code-fold: true
+#| code-line-numbers: "1-6|8-9|11-15"
 #| code-summary: "elastic net example, part 2"
 elastic_cv <- 
   glmnet::cv.glmnet(
@@ -471,7 +504,7 @@ elastic_cv <-
     , gamma = best_alpha)
 
 best_lambda <- elastic_cv$lambda.min
-cat("lambda:", best_lambda)
+cat("best lambda:", best_lambda)
 
 elastic_mod <- glmnet::glmnet(
   x = dat %>% dplyr::select(-z) %>% as.matrix() 
@@ -479,14 +512,17 @@ elastic_mod <- glmnet::glmnet(
   , family = "gaussian"
   , gamma = best_alpha, lambda = best_lambda)
 
-coef(elastic_mod)
+elastic_mod %>% broom::tidy()
 ```
+
+## Elastic Net Regression Example
 
 ```{r}
 #| echo: true
 #| warning: false
 #| message: false
 #| code-fold: true
+#| code-line-numbers: "1|3-5|7"
 #| code-summary: "elastic net example, part 3"
 pred <- predict(elastic_mod, dat %>% dplyr::select(-z) %>% as.matrix())
 
@@ -503,9 +539,16 @@ cat(" RMSE:", rmse, "\n", "R-squared:", R2, "\n", "MSE:", mse)
 #| message: false
 #| code-fold: true
 #| code-summary: "elastic net example, part 4"
-plot(1:n, dat$z, pch=16)
-lines(1:n, pred, type="l", col="red")
+dat %>% 
+  tibble::as_tibble() %>% 
+  tibble::add_column(pred = pred[,1]) %>% 
+  tibble::rowid_to_column("ID") %>% 
+  ggplot(aes(x=ID, y=z)) +
+  geom_point() +
+  geom_line(aes(y=pred),color='red')
 ```
+
+# Tree regression
 
 ## Regression with trees
 
@@ -517,13 +560,13 @@ lines(1:n, pred, type="l", col="red")
 dat <- MASS::Boston
 ```
 
-There are many methodologies for constructing regression trees but one of the oldest is known as the **c**lassification **a**nd **r**egression **t**ree (CART) approach.
+There are many methodologies for constructing regression trees but one of the oldest is known as the **c**lassification **a**nd **r**egression **t**ree (CART) approach.
 
-Basic regression trees *partition* a data set into smaller subgroups and then fit a simple *constant* for each observation in the subgroup. The partitioning is achieved by successive binary partitions (aka *recursive partitioning*) based on the different predictors. 
+Basic regression trees *partition* a data set into smaller subgroups and then fit a simple *constant* for each observation in the subgroup. The partitioning is achieved by successive binary partitions (aka *recursive partitioning*) based on the different predictors.
 
 ## Regression with trees
 
-As a simple example, consider a continuous response variable $y$ with two covariates with two covariates $x_1,x_2$ and the support of $x_1,x_2$ partitioned into three regions. Then we write the tree regression model for $y$ as:
+As a simple example, consider a continuous response variable $y$ with two covariates $x_1,x_2$ and the support of $x_1,x_2$ partitioned into three regions. Then we write the tree regression model for $y$ as:
 
 $$
 \hat{y} = \hat{f}(x_1,x_2)=\sum_{i=1}^{3}c_1\times I_{(x_1,x_2)\in R_i}
@@ -531,10 +574,10 @@ $$ Tree algorithm differ in how they grow the regression tree, i.e. partition th
 
 ## Regression with trees
 
-All partitioning of variables is done in a top-down, greedy fashion. This just means that a partition performed earlier in the tree will not change based on later partitions. In general the partitions are made to minimize following objective function:
+All partitioning of variables is done in a top-down, greedy fashion. This just means that a partition performed earlier in the tree will not change based on later partitions. In general the partitions are made to minimize following objective function (support initially partitioned into 2 regions, i.e. a binary tree):
 
 $$
-\text{SSE}=\left\{ \sum_{i\in R_{1}}\left(y_{i}-c_{i}\right)^{2}+\sum_{i\in R_{2}}\left(y_{i}-c_{2}\right)^{2}\right\} 
+\text{SSE}=\left\{ \sum_{i\in R_{1}}\left(y_{i}-c_{i}\right)^{2}+\sum_{i\in R_{2}}\left(y_{i}-c_{i}\right)^{2}\right\} 
 $$
 
 ## Regression with trees
@@ -600,11 +643,11 @@ Bagging follows three steps:
 
 Bagging trees introduces a random component into the tree building process that reduces the variance of a single tree's prediction and improves predictive performance. However, the trees in bagging are not completely independent of each other since all the original predictors are considered at every split of every tree.
 
-Rather, trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to underlying relationships. They are correlated.
+So trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to underlying relationships. They are correlated.
 
 ## Regression with a random forest
 
-Tree correlation prevents bagging from optimally reducing variance of the predictive values. Reducing variance further can be achieved by injecting more randomness into the tree-growing process. Random forests achieve this in two ways:
+Tree correlation prevents bagging from optimally reducing the variance of the predictive values. Reducing variance further can be achieved by injecting more randomness into the tree-growing process. Random forests achieve this in two ways:
 
 ::: {style="font-size: smaller"}
 1.  **Bootstrap**: similar to bagging - each tree is grown from a bootstrap resampled data set, which *somewhat* decorrelates them.
@@ -673,7 +716,7 @@ Combining many weak models (versus strong ones) has a few benefits:
 
 ## Regression with gradient boosting
 
-The algorithm for boosted regression trees is $x$ represents our features and $y$ represents our response:
+Here is the algorithm for boosted regression trees with features $x$ and response $y$:
 
 ::: {style="font-size: smaller"}
 1.  Fit a decision tree to the data: $F_1(x)=y$,
@@ -683,6 +726,14 @@ The algorithm for boosted regression trees is $x$ represents our features and $y
 5.  Add this new tree to our algorithm: $F_3(x)=F_2(x)+h_1(x)$,
 6.  Continue this process until some mechanism (i.e. cross validation) tells us to stop.
 :::
+
+## XGBoost Example
+
+**XGBoost** is short for e**X**treme **G**radient **Boost**ing package.
+
+While the `XGBoost` model often achieves higher accuracy than a single decision tree, it sacrifices the intrinsic interpretability of decision trees. For example, following the path that a decision tree takes to make its decision is trivial and self-explained, but following the paths of hundreds or thousands of trees is much harder.
+
+We will work with `XGBoost` in today's lab.
 
 ## Regression with neural nets
 
@@ -764,7 +815,13 @@ tibble::tibble(test = data_test$medv, predicted = pr.nn$net.result) %>%
 
 ```
 
-## Later, maybe
+## Recap
+
+-   Today we worked though a few regression methods that are useful for predicting a value given a set of covariates
+
+-   Next week we will look at the `tidymodels` package which will give a way to develop a workflow for fitting and comparing our models
+
+## rpart trees
 
 ```{r}
 tree_fit <- rpart::rpart(medv ~ ., data = dat, method  = "anova")

@@ -108,6 +108,10 @@ website:
             text: Log transformations
           - href: supplemental/model-selection-criteria.qmd
             text: Model selection criteria
+          - href: https://www.cs.cmu.edu/~10715-f18/lectures/pca-2018.pdf
+            text: PCA, KPCA, and ICA
+          - href: https://towardsdatascience.com/qr-matrix-factorization-15bae43a6b2
+            text: QR decomposition
 
 format:
   html:
