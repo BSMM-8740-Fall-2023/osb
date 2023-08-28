@@ -410,11 +410,15 @@ derived from Max Kuhn (RStudio)
 </div>
 
 </section>
+<section id="recap-of-last-lecture" class="slide level2">
+<h2>Recap of last lecture</h2>
+<p>Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.</p>
+</section>
 <section id="todays-outline" class="slide level2">
 <h2>Today’s Outline</h2>
 <ul>
-<li>Introduction to data pre-processing and design/model matrix generation with the <code>Recipes</code> package</li>
-<li>-</li>
+<li>Introduction to data pre-processing and design/model matrix generation with the <code>Recipes</code> package.</li>
+<li>Using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g.&nbsp;train and test as well as cross-validation sets)</li>
 </ul>
 </section>
 <section id="r-model-formulas" class="slide level2">
@@ -972,95 +976,61 @@ derived from Max Kuhn (RStudio)
 <div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>PCA1</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(pca, <span class="fu">aes</span>(<span class="at">x =</span> PC01, <span class="at">y =</span> PC02, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC01, <span class="at">y =</span> PC02, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb33-3"><a href="#cb33-3"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
 <img data-src="BSMM_8740_lec_03_files/figure-html/image_pca_plot-1.png" width="672" class="r-stretch quarto-figure-center"></section>
-<section id="pca-use-case" class="slide level2">
-<h2>PCA use case</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> <span class="co">#load data</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="er">&gt;</span> <span class="fu">data</span>(<span class="st">"USArrests"</span>)</span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="sc">&gt;</span> </span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="er">&gt;</span> <span class="co">#view first six rows of data</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="er">&gt;</span> <span class="fu">head</span>(USArrests)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           Murder Assault UrbanPop Rape
-Alabama      13.2     236       58 21.2
-Alaska       10.0     263       48 44.5
-Arizona       8.1     294       80 31.0
-Arkansas      8.8     190       50 19.5
-California    9.0     276       91 40.6
-Colorado      7.9     204       78 38.7</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> <span class="co">#calculate principal components</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="er">&gt;</span> results <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(USArrests, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="sc">&gt;</span> </span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="er">&gt;</span> <span class="co">#reverse the signs</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="er">&gt;</span> results<span class="sc">$</span>rotation <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>results<span class="sc">$</span>rotation</span>
-<span id="cb36-6"><a href="#cb36-6"></a><span class="sc">&gt;</span> </span>
-<span id="cb36-7"><a href="#cb36-7"></a><span class="er">&gt;</span> <span class="co">#display principal components</span></span>
-<span id="cb36-8"><a href="#cb36-8"></a><span class="er">&gt;</span> results<span class="sc">$</span>rotation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>               PC1        PC2        PC3         PC4
-Murder   0.5358995 -0.4181809  0.3412327 -0.64922780
-Assault  0.5831836 -0.1879856  0.2681484  0.74340748
-UrbanPop 0.2781909  0.8728062  0.3780158 -0.13387773
-Rape     0.5434321  0.1673186 -0.8177779 -0.08902432</code></pre>
-</div>
-</div>
-</section>
 <section id="kernel-principal-component-analysis" class="slide level2">
 <h2>Kernel Principal Component Analysis</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_kpca</span>(</span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="sc">+</span>     , <span class="at">num_comp =</span> <span class="dv">2</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="sc">+</span>     , <span class="at">options =</span> </span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="sc">+</span>       <span class="fu">list</span>(</span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="sc">+</span>         <span class="at">kernel =</span> <span class="st">"rbfdot"</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="sc">+</span>         , <span class="at">kpar =</span> <span class="fu">list</span>(<span class="at">sigma =</span> <span class="fl">0.05</span>)</span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="sc">+</span>       )</span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="sc">+</span>   )</span>
-<span id="cb38-11"><a href="#cb38-11"></a><span class="sc">&gt;</span> </span>
-<span id="cb38-12"><a href="#cb38-12"></a><span class="er">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(kern_pca)</span>
-<span id="cb38-13"><a href="#cb38-13"></a><span class="sc">&gt;</span> </span>
-<span id="cb38-14"><a href="#cb38-14"></a><span class="er">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(kern_pca, <span class="at">new_data =</span> seg_test, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2|3-9|12|13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_kpca</span>(</span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="sc">+</span>     , <span class="at">num_comp =</span> <span class="dv">2</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="sc">+</span>     , <span class="at">options =</span> </span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="sc">+</span>       <span class="fu">list</span>(</span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="sc">+</span>         <span class="at">kernel =</span> <span class="st">"rbfdot"</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="sc">+</span>         , <span class="at">kpar =</span> <span class="fu">list</span>(<span class="at">sigma =</span> <span class="fl">0.05</span>)</span>
+<span id="cb34-9"><a href="#cb34-9"></a><span class="sc">+</span>       )</span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="sc">+</span>   )</span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="sc">&gt;</span> </span>
+<span id="cb34-12"><a href="#cb34-12"></a><span class="er">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(kern_pca)</span>
+<span id="cb34-13"><a href="#cb34-13"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(kern_pca, <span class="at">new_data =</span> seg_test, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="kernel-principal-component-analysis-1" class="slide level2">
 <h2>Kernel Principal Component Analysis</h2>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>Kernel PCA</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(<span class="fu">c</span>(kern_pca<span class="sc">$</span>kPC1, kern_pca<span class="sc">$</span>kPC2))</span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(kern_pca, <span class="fu">aes</span>(<span class="at">x =</span> kPC1, <span class="at">y =</span> kPC2, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
-<span id="cb39-5"><a href="#cb39-5"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> grDevices<span class="sc">::</span><span class="fu">extendrange</span>(<span class="fu">c</span>(kern_pca<span class="sc">$</span>kPC1, kern_pca<span class="sc">$</span>kPC2))</span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="sc">&gt;</span> kern_pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> kPC1, <span class="at">y =</span> kPC2, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") +</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_03_files/figure-html/image_kpca_fig-1.png" width="528" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_03_files/figure-html/image_kpca_fig-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="distance-to-each-class-centroid" class="slide level2">
 <h2>Distance to Each Class Centroid</h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Kernel PCA - distance to each centroid</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="sc">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_classdist</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>(), <span class="at">class =</span> <span class="st">"Class"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="sc">+</span>   <span class="co"># Take log of the new distance features</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">starts_with</span>(<span class="st">"classdist"</span>))</span>
-<span id="cb40-5"><a href="#cb40-5"></a><span class="sc">&gt;</span> </span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(dist_to_classes, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb40-7"><a href="#cb40-7"></a><span class="sc">&gt;</span> </span>
-<span id="cb40-8"><a href="#cb40-8"></a><span class="er">&gt;</span> <span class="co"># All variables are retained plus an additional one for each class</span></span>
-<span id="cb40-9"><a href="#cb40-9"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(dist_to_classes, <span class="at">new_data =</span> seg_test, <span class="fu">matches</span>(<span class="st">"[Cc]lass"</span>))</span>
-<span id="cb40-10"><a href="#cb40-10"></a><span class="sc">&gt;</span> dist_to_classes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_classdist</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>(), <span class="at">class =</span> <span class="st">"Class"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="sc">+</span>   <span class="co"># Take log of the new distance features</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">starts_with</span>(<span class="st">"classdist"</span>))</span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="sc">&gt;</span> </span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(dist_to_classes, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="sc">&gt;</span> </span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="er">&gt;</span> <span class="co"># All variables are retained plus an additional one for each class</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(dist_to_classes, <span class="at">new_data =</span> seg_test, <span class="fu">matches</span>(<span class="st">"[Cc]lass"</span>))</span>
+<span id="cb36-10"><a href="#cb36-10"></a><span class="sc">&gt;</span> dist_to_classes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,010 × 3
@@ -1082,31 +1052,29 @@ Rape     0.5434321  0.1673186 -0.8177779 -0.08902432</code></pre>
 </section>
 <section id="distance-to-each-class" class="slide level2">
 <h2>Distance to Each Class</h2>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>Kernel PCA - distance to each class</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(<span class="fu">c</span>(dist_to_classes<span class="sc">$</span>classdist_PS, dist_to_classes<span class="sc">$</span>classdist_WS))</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(dist_to_classes, <span class="fu">aes</span>(<span class="at">x =</span> classdist_PS, <span class="at">y =</span> classdist_WS, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
-<span id="cb42-5"><a href="#cb42-5"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span> </span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="sc">+</span>   <span class="fu">xlab</span>(<span class="st">"Distance to PS Centroid (log scale)"</span>) <span class="sc">+</span> </span>
-<span id="cb42-7"><a href="#cb42-7"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="st">"Distance to WS Centroid (log scale)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(<span class="fu">c</span>(dist_to_classes<span class="sc">$</span>classdist_PS, dist_to_classes<span class="sc">$</span>classdist_WS))</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(dist_to_classes, <span class="fu">aes</span>(<span class="at">x =</span> classdist_PS, <span class="at">y =</span> classdist_WS, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") + </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="sc">+</span>   <span class="fu">xlab</span>(<span class="st">"Distance to PS Centroid (log scale)"</span>) <span class="sc">+</span> </span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="st">"Distance to WS Centroid (log scale)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_03_files/figure-html/image_dists_fig-1.png" width="528" class="r-stretch quarto-figure-center"></section>
-<section id="next-steps" class="slide level2">
-<h2>Next Steps</h2>
+<img data-src="BSMM_8740_lec_03_files/figure-html/image_dists_fig-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
 <ul>
-<li>Get it on CRAN once <code>tidyselect</code> is on CRAN</li>
-<li>Add more steps</li>
-<li><code>caret</code> methods for recipes (instead of using <code>preProcess</code>):</li>
+<li>We’ve used the Recipes package to create a workflow for data pre-processing and feature engineering</li>
+<li>The verb <code>recipe</code> defines the pre-processing and feature engineering steps</li>
+<li>using the recipe object, the verb <code>prep</code> prepares the data on a training set, storing the metaparameters.</li>
+<li>the verb bake applies the prepped recipe to new data, using the metaparameters.</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">train</span>(recipe, <span class="at">data =</span> data, method, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>as an alternative to</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">train</span>(x, y, method, preProcess, ...) <span class="co"># or</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a>model3 <span class="ot">&lt;-</span> <span class="fu">train</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> data, method, preProcess, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
@@ -1128,7 +1096,7 @@ attached base packages:
 
 other attached packages:
 [1] recipes_1.0.6   dplyr_1.1.2     caret_6.0-94    lattice_0.20-45 mlbench_2.1-3.1
-[6] ggplot2_3.4.1   magrittr_2.0.3  knitr_1.42     
+[6] ggplot2_3.4.3   magrittr_2.0.3  knitr_1.42     
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.10          lubridate_1.9.2      listenv_0.9.0        class_7.3-21        

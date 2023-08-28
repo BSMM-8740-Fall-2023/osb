@@ -410,7 +410,20 @@ L.L. Odette
 </div>
 
 </section>
-<section id="tidymodels" class="slide level2">
+<section id="recap-of-last-week" class="slide level2">
+<h2>Recap of last week</h2>
+<ul>
+<li><p>Last week we looked at several regression models that are useful for predictions</p></li>
+<li><p>However, these models have different conventions on how they accept data and describe the model</p></li>
+<li><p>Today we look at the tidymodels package which will give us a workflow to describe, fit and compare models, using the same approach across methods.</p></li>
+</ul>
+</section>
+<section>
+<section id="tidymodels" class="title-slide slide level1 center">
+<h1>Tidymodels</h1>
+
+</section>
+<section id="tidymodels-1" class="slide level2">
 <h2>Tidymodels</h2>
 <ul>
 <li>Tidymodels is an R package that provides a unified and consistent framework for modeling and machine learning tasks.</li>
@@ -418,7 +431,7 @@ L.L. Odette
 <li>Tidymodels promotes best practices, repeatability, and clear documentation in your data analysis and modeling workflow.</li>
 </ul>
 </section>
-<section id="tidymodels-1" class="slide level2">
+<section id="tidymodels-2" class="slide level2">
 <h2>Tidymodels</h2>
 <h3 id="key-components-of-tidymodels">Key Components of Tidymodels</h3>
 <ul>
@@ -426,7 +439,7 @@ L.L. Odette
 <li>Preprocessing: Easy and flexible data preprocessing using recipes, allowing for seamless data transformation and feature engineering.</li>
 </ul>
 </section>
-<section id="tidymodels-2" class="slide level2">
+<section id="tidymodels-3" class="slide level2">
 <h2>Tidymodels</h2>
 <h3 id="key-components-of-tidymodels-1">Key Components of Tidymodels</h3>
 <ul>
@@ -459,7 +472,7 @@ L.L. Odette
 <div class="cell" data-layout-align="center">
 <details>
 <summary>tidymodel specification</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="sc">&gt;</span> <span class="co"># basic linear model</span></span>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="sc">&gt;</span> <span class="co"># basic linear model</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="er">&gt;</span> parsnip<span class="sc">::</span><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -469,7 +482,7 @@ Computational engine: lm </code></pre>
 </div>
 <details>
 <summary>tidymodel specification</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="sc">&gt;</span> <span class="co"># basic penalized linear model</span></span>
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="sc">&gt;</span> <span class="co"># basic penalized linear model</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="er">&gt;</span> parsnip<span class="sc">::</span><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"glmnet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -481,11 +494,11 @@ Computational engine: glmnet </code></pre>
 </section>
 <section id="fitting-with-parsnip-4" class="slide level2">
 <h2>Fitting with parsnip</h2>
-<p>The translate function can be used to see how te spec is converted to the correct syntax</p>
+<p>The translate function can be used to see how the spec is converted to the correct syntax for different methods</p>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>tidymodel spec translation</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="sc">&gt;</span> <span class="co"># basic linear model</span></span>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="sc">&gt;</span> <span class="co"># basic linear model</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="er">&gt;</span> parsnip<span class="sc">::</span><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">translate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -498,7 +511,7 @@ stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg()
 </div>
 <details>
 <summary>tidymodel spec translation</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="sc">&gt;</span> <span class="co"># basic penalized linear model</span></span>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="sc">&gt;</span> <span class="co"># basic penalized linear model</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="er">&gt;</span> parsnip<span class="sc">::</span><span class="fu">linear_reg</span>(<span class="at">penalty =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"glmnet"</span>) <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">translate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -519,7 +532,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Fitting with parsnip</h2>
 <p>The translate function can be used to see how the spec is converted to the correct syntax</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="sc">&gt;</span> <span class="co"># prep data</span></span>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="2-4|6|8-10|12-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="sc">&gt;</span> <span class="co"># prep data</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="er">&gt;</span> data_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(modeldata<span class="sc">::</span>ames, <span class="at">strata =</span> <span class="st">"Sale_Price"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="sc">&gt;</span> ames_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(data_split)</span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="sc">&gt;</span> ames_test  <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(data_split)</span>
@@ -541,7 +554,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Fitting with parsnip</h2>
 <p>Model results can be extracted from the fit object</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="sc">&gt;</span> lm_form_fit <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">extract_fit_engine</span>()</span>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="sc">&gt;</span> lm_form_fit <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">extract_fit_engine</span>()</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="er">&gt;</span> lm_form_fit <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> stats<span class="sc">::</span><span class="fu">vcov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -551,23 +564,23 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <p>Exercise: random forest regression</p>
 <p>A list of all parsnip-type models can be found <a href="https://www.tidymodels.org/find/parsnip/">here</a>.</p>
 </section>
-<section id="tidymodels-3" class="slide level2">
+<section id="tidymodels-4" class="slide level2">
 <h2>Tidymodels</h2>
 <p>If we use the term <strong>model</strong> to reference a a structural equation that relates some predictors to one or more outcomes, then everything before the model is fit is related to structuring the predictors and outcomes.</p>
 <p>The model workflow refers to the broader process, including any pre-processing steps, the model fit itself, as well as potential post-processing activities. Similar collections of steps are sometimes called pipelines.</p>
 </section>
-<section id="tidymodels-4" class="slide level2">
+<section id="tidymodels-5" class="slide level2">
 <h2>Tidymodels</h2>
 
 <img data-src="../images/proper-workflow.svg" class="r-stretch"></section>
 <section id="tidymodels-basics" class="slide level2">
 <h2>Tidymodels basics</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="sc">&gt;</span> <span class="co"># create test/trin splits</span></span>
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="2|4-9|11-13|15-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="sc">&gt;</span> <span class="co"># create test/train splits</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="er">&gt;</span> ames <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>ames <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="at">Sale_Price =</span> <span class="fu">log10</span>(Sale_Price) )</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="sc">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">502</span>)</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="er">&gt;</span> ames_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="er">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">502</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="sc">&gt;</span> ames_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(</span>
 <span id="cb11-6"><a href="#cb11-6"></a><span class="sc">+</span>   ames, <span class="at">prop =</span> <span class="fl">0.80</span>, <span class="at">strata =</span> <span class="st">"Sale_Price"</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a><span class="sc">+</span>   )</span>
 <span id="cb11-8"><a href="#cb11-8"></a><span class="sc">&gt;</span> ames_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(ames_split)</span>
@@ -586,7 +599,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <section id="tidymodels-basics-1" class="slide level2">
 <h2>Tidymodels basics</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> <span class="co"># preprocessing not specified; a formula is sufficient</span></span>
+<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="2-4|6-7|9-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> <span class="co"># preprocessing not specified; a formula is sufficient</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="er">&gt;</span> lm_wflow <span class="sc">%&lt;&gt;%</span> </span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_formula</span>(Sale_Price <span class="sc">~</span> Longitude <span class="sc">+</span> Latitude)</span>
 <span id="cb12-4"><a href="#cb12-4"></a><span class="sc">&gt;</span> </span>
@@ -614,7 +627,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
-<div id="yqqbaktfmm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="axzgusbrno" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 38px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #FFFFFF; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
@@ -648,7 +661,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels basics</h2>
 <p>The model and preprocessor can be removed or updated:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="co"># update the formula</span></span>
+<div class="sourceCode cell-code" id="cb13" data-code-line-numbers="2-3|5-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="co"># update the formula</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="er">&gt;</span> lm_fit <span class="sc">%&gt;%</span> workflows<span class="sc">::</span><span class="fu">update_formula</span>(Sale_Price <span class="sc">~</span> Longitude)</span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="sc">&gt;</span> </span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="er">&gt;</span> <span class="co"># remove the formula and use add_variables instead</span></span>
@@ -659,16 +672,21 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb13-9"><a href="#cb13-9"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Predictors can be selected using <strong>tidyselect</strong> selectors, e.g.&nbsp;<em>everything()</em>, <em>ends_with()</em>, etc.</p>
+</section></section>
+<section>
+<section id="workflowsets" class="title-slide slide level1 center">
+<h1>Workflowsets</h1>
+
 </section>
 <section id="tidymodels-workflowsets" class="slide level2">
 <h2>Tidymodels: workflowsets</h2>
-<p>The <strong>workflowset</strong>package creates combinations of workflow components. A list of preprocessors (e.g., formulas, <strong>dplyr</strong> selectors, or feature engineering recipe objects) can be combined with a list of model specifications, resulting in a set of workflows.</p>
+<p>The <code>workflowset</code>package creates combinations of workflow components. A list of preprocessors (e.g., formulas, <code>dplyr</code> selectors, or feature engineering recipe objects) can be combined with a list of model specifications, resulting in a set of workflows.</p>
 </section>
 <section id="tidymodels-workflowsets-1" class="slide level2">
 <h2>Tidymodels: workflowsets</h2>
 <p>Create a set of preprocessors by formula</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="sc">&gt;</span> <span class="co"># set up a list of formulas</span></span>
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="1-7|9-13|15-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="sc">&gt;</span> <span class="co"># set up a list of formulas</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="er">&gt;</span> location <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="sc">+</span>   <span class="at">longitude =</span> Sale_Price <span class="sc">~</span> Longitude,</span>
 <span id="cb14-4"><a href="#cb14-4"></a><span class="sc">+</span>   <span class="at">latitude =</span> Sale_Price <span class="sc">~</span> Latitude,</span>
@@ -692,7 +710,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: workflowsets</h2>
 <p>Create model fits</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="co"># reate a new calumn (fit) y mapping fit against the data in the info column</span></span>
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="1-8|10-11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="co"># create a new column (fit) by mapping fit against the data in the info column</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="er">&gt;</span> location_models <span class="sc">%&lt;&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="sc">+</span>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
 <span id="cb15-4"><a href="#cb15-4"></a><span class="sc">+</span>      <span class="at">fit =</span> purrr<span class="sc">::</span><span class="fu">map</span>(</span>
@@ -707,9 +725,9 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 </section>
 <section id="tidymodels-workflowsets-3" class="slide level2">
 <h2>Tidymodels: workflowsets</h2>
-<p>There is a convenience function called&nbsp;<code>last_fit()</code>&nbsp;that will&nbsp;<em>fit</em>&nbsp;the model to the entire training set and&nbsp;<em>evaluate</em>&nbsp;it with the testing set.</p>
+<p>There is a convenience function called&nbsp;<code>last_fit()</code>&nbsp;that will <em>fit</em> the model to the entire training set and <em>evaluate</em> it with the testing set.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> final_lm_res <span class="ot">&lt;-</span> tune<span class="sc">::</span><span class="fu">last_fit</span>(lm_wflow, ames_split)</span>
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2|4-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> final_lm_res <span class="ot">&lt;-</span> tune<span class="sc">::</span><span class="fu">last_fit</span>(lm_wflow, ames_split)</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb16-3"><a href="#cb16-3"></a><span class="er">&gt;</span> <span class="co"># view</span></span>
 <span id="cb16-4"><a href="#cb16-4"></a><span class="er">&gt;</span> final_lm_res <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span>
@@ -721,7 +739,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: workflowsets</h2>
 <p>Similarly, <strong>collect_metrics()</strong> and <strong>collect_predictions()</strong> provide access to the performance metrics and predictions, respectively.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="sc">&gt;</span> <span class="co"># get the fit metrics</span></span>
+<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="2-3|5-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="sc">&gt;</span> <span class="co"># get the fit metrics</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="er">&gt;</span> workflowsets<span class="sc">::</span><span class="fu">collect_metrics</span>(final_lm_res)</span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="sc">&gt;</span> </span>
 <span id="cb17-4"><a href="#cb17-4"></a><span class="er">&gt;</span> <span class="co"># get the predictions, post-fit</span></span>
@@ -743,18 +761,31 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb18-6"><a href="#cb18-6"></a><span class="sc">+</span>   <span class="co"># show the first n rows</span></span>
 <span id="cb18-7"><a href="#cb18-7"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section></section>
+<section>
+<section id="yardstick" class="title-slide slide level1 center">
+<h1>Yardstick</h1>
+
 </section>
 <section id="tidymodels-yardstick" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="performance-metrics-and-inference">Performance metrics and inference</h3>
 <p>An inferential model is used primarily to understand relationships, and typically emphasizes the choice (and validity) of probabilistic distributions and other generative qualities that define the model.</p>
 <p>For a model used primarily for prediction, by contrast, predictive strength is of primary importance and other concerns about underlying statistical qualities may be less important.</p>
+</section></section>
+<section>
+<section id="yardstick-1" class="title-slide slide level1 center">
+<h1>Yardstick</h1>
+
 </section>
 <section id="tidymodels-yardstick-1" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
+</section>
+<section id="tidymodels-yardstick-2" class="slide level2">
+<h2>Tidymodels: yardstick</h2>
 <h3 id="regression-metrics">Regression metrics</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="sc">&gt;</span> <span class="co"># fit with new data</span></span>
+<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="2-7|9-13|15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="sc">&gt;</span> <span class="co"># fit with new data</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="er">&gt;</span> ames_test_res <span class="ot">&lt;-</span> </span>
 <span id="cb19-3"><a href="#cb19-3"></a><span class="sc">+</span>   stats<span class="sc">::</span><span class="fu">predict</span>(</span>
 <span id="cb19-4"><a href="#cb19-4"></a><span class="sc">+</span>     lm_fit</span>
@@ -771,11 +802,11 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb19-15"><a href="#cb19-15"></a><span class="er">&gt;</span> yardstick<span class="sc">::</span><span class="fu">rmse</span>(ames_test_res, <span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tidymodels-yardstick-2" class="slide level2">
+<section id="tidymodels-yardstick-3" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="regression-metrics-numeric-targets">Regression metrics: numeric targets</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="sc">&gt;</span> <span class="co"># create metric set</span></span>
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="1-7|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="sc">&gt;</span> <span class="co"># create metric set</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="er">&gt;</span> ames_metrics <span class="ot">&lt;-</span> </span>
 <span id="cb20-3"><a href="#cb20-3"></a><span class="sc">+</span>   yardstick<span class="sc">::</span><span class="fu">metric_set</span>(</span>
 <span id="cb20-4"><a href="#cb20-4"></a><span class="sc">+</span>     yardstick<span class="sc">::</span>rmse</span>
@@ -786,11 +817,11 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb20-9"><a href="#cb20-9"></a><span class="er">&gt;</span> <span class="fu">ames_metrics</span>(ames_test_res, <span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tidymodels-yardstick-3" class="slide level2">
+<section id="tidymodels-yardstick-4" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="classification-metrics-binary-class-targets">Classification metrics: binary class targets</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="sc">&gt;</span> <span class="co"># data for two-set classification</span></span>
+<div class="sourceCode cell-code" id="cb21" data-code-line-numbers=""><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="sc">&gt;</span> <span class="co"># data for two-set classification</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="er">&gt;</span> two_class_example <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>two_class_example</span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="sc">&gt;</span> </span>
 <span id="cb21-4"><a href="#cb21-4"></a><span class="er">&gt;</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(two_class_example)</span>
@@ -805,34 +836,33 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb21-13"><a href="#cb21-13"></a><span class="er">&gt;</span> yardstick<span class="sc">::</span><span class="fu">mcc</span>(two_class_example, truth, predicted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tidymodels-yardstick-4" class="slide level2">
+<section id="tidymodels-yardstick-5" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="classification-metrics-binary-class-targets-1">Classification metrics: binary class targets</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="sc">&gt;</span> <span class="co"># F1 metric:</span></span>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="1-2|3-10|12-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="sc">&gt;</span> <span class="co"># F1 metric:</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="er">&gt;</span> yardstick<span class="sc">::</span><span class="fu">f_meas</span>(two_class_example, truth, predicted)</span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="sc">&gt;</span> </span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="er">&gt;</span> </span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="er">&gt;</span> <span class="co"># Combining these three classification metrics together</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="er">&gt;</span> classification_metrics <span class="ot">&lt;-</span> </span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="sc">+</span>   yardstick<span class="sc">::</span><span class="fu">metric_set</span>(</span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="sc">+</span>     yardstick<span class="sc">::</span>accuracy</span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="sc">+</span>     , yardstick<span class="sc">::</span>mcc</span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="sc">+</span>     , yardstick<span class="sc">::</span>f_meas</span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="sc">+</span>   )</span>
-<span id="cb22-12"><a href="#cb22-12"></a><span class="sc">&gt;</span> </span>
-<span id="cb22-13"><a href="#cb22-13"></a><span class="er">&gt;</span> <span class="fu">classification_metrics</span>(</span>
-<span id="cb22-14"><a href="#cb22-14"></a><span class="sc">+</span>   two_class_example</span>
-<span id="cb22-15"><a href="#cb22-15"></a><span class="sc">+</span>   , <span class="at">truth =</span> truth</span>
-<span id="cb22-16"><a href="#cb22-16"></a><span class="sc">+</span>   , <span class="at">estimate =</span> predicted</span>
-<span id="cb22-17"><a href="#cb22-17"></a><span class="sc">+</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="er">&gt;</span> <span class="co"># Combining these three classification metrics together</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="er">&gt;</span> classification_metrics <span class="ot">&lt;-</span> </span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="sc">+</span>   yardstick<span class="sc">::</span><span class="fu">metric_set</span>(</span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="sc">+</span>     yardstick<span class="sc">::</span>accuracy</span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="sc">+</span>     , yardstick<span class="sc">::</span>mcc</span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="sc">+</span>     , yardstick<span class="sc">::</span>f_meas</span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="sc">+</span>   )</span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="sc">&gt;</span> </span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="er">&gt;</span> <span class="fu">classification_metrics</span>(</span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="sc">+</span>   two_class_example</span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="sc">+</span>   , <span class="at">truth =</span> truth</span>
+<span id="cb22-15"><a href="#cb22-15"></a><span class="sc">+</span>   , <span class="at">estimate =</span> predicted</span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="sc">+</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tidymodels-yardstick-5" class="slide level2">
+<section id="tidymodels-yardstick-6" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="classification-metrics-class-probabilities">Classification metrics: class probabilities</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> two_class_curve <span class="ot">&lt;-</span> </span>
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="1-6|8|10|12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> two_class_curve <span class="ot">&lt;-</span> </span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="sc">+</span>   yardstick<span class="sc">::</span><span class="fu">roc_curve</span>(</span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="sc">+</span>     two_class_example</span>
 <span id="cb23-4"><a href="#cb23-4"></a><span class="sc">+</span>     , truth</span>
@@ -843,17 +873,19 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb23-9"><a href="#cb23-9"></a><span class="sc">&gt;</span> </span>
 <span id="cb23-10"><a href="#cb23-10"></a><span class="er">&gt;</span> yardstick<span class="sc">::</span><span class="fu">roc_auc</span>(two_class_example, truth, Class1)</span>
 <span id="cb23-11"><a href="#cb23-11"></a><span class="sc">&gt;</span> </span>
-<span id="cb23-12"><a href="#cb23-12"></a><span class="er">&gt;</span> <span class="fu">autoplot</span>(two_class_curve)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="er">&gt;</span> parsnip<span class="sc">::</span><span class="fu">autoplot</span>(two_class_curve)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>There are other functions that use probability estimates, including <strong>gain_curve()</strong>, <strong>lift_curve()</strong>, and <strong>pr_curve()</strong>.</p>
-</section>
-<section id="tidymodels-yardstick-6" class="slide level2">
-<h2>Tidymodels: yardstick</h2>
-<h3 id="regression-metrics-multi-class-targets">Regression metrics: multi-class targets</h3>
-<p>The functions for metrics that use the discrete class predictions are identical to their binary counterparts.</p>
-<p>Metrics designed to handle outcomes with only two classes are extended for outcomes with more than two classes.</p>
+<p>There are other functions that use probability estimates, including <code>gain_curve</code>, <code>lift_curve</code>, and pr_curve.</p>
 </section>
 <section id="tidymodels-yardstick-7" class="slide level2">
+<h2>Tidymodels: yardstick</h2>
+<h3 id="regression-metrics-multi-class-targets">Regression metrics: multi-class targets</h3>
+<ul>
+<li>The functions for metrics that use the discrete class predictions are identical to their binary counterparts.</li>
+<li>Metrics designed to handle outcomes with only two classes are extended for outcomes with more than two classes.</li>
+</ul>
+</section>
+<section id="tidymodels-yardstick-8" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="regression-metrics-multi-class-targets-1">Regression metrics: multi-class targets</h3>
 <p>Take sensitivity for example:</p>
@@ -865,11 +897,11 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 </ul>
 </div>
 </section>
-<section id="tidymodels-yardstick-8" class="slide level2">
+<section id="tidymodels-yardstick-9" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="regression-metrics-multi-class-targets-2">Regression metrics: multi-class targets</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> <span class="co"># load the data and convert it to a tibble</span></span>
+<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="1-6|8-11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> <span class="co"># load the data and convert it to a tibble</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="er">&gt;</span> hpc_cv <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>hpc_cv <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">tibble</span>()</span>
 <span id="cb24-3"><a href="#cb24-3"></a><span class="sc">&gt;</span> <span class="co"># compute accuracy (same as binary case)</span></span>
 <span id="cb24-4"><a href="#cb24-4"></a><span class="er">&gt;</span> yardstick<span class="sc">::</span><span class="fu">accuracy</span>(hpc_cv, obs, pred)</span>
@@ -882,11 +914,11 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb24-11"><a href="#cb24-11"></a><span class="sc">&gt;</span> yardstick<span class="sc">::</span><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"micro"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tidymodels-yardstick-9" class="slide level2">
+<section id="tidymodels-yardstick-10" class="slide level2">
 <h2>Tidymodels: yardstick</h2>
 <h3 id="regression-metrics-multi-class-targets-3">Regression metrics: multi-class targets</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="sc">&gt;</span> <span class="co"># multi-class estimates for probability metrics</span></span>
+<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="1-4|7-9|11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="sc">&gt;</span> <span class="co"># multi-class estimates for probability metrics</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="er">&gt;</span> hpc_cv <span class="sc">%&gt;%</span> yardstick<span class="sc">::</span><span class="fu">roc_auc</span>(obs, VF, F, M, L)</span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="sc">&gt;</span> <span class="co"># multi-class estimates with estimator (one of "hand_till", "macro", or "macro_weighted")</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a><span class="er">&gt;</span> hpc_cv <span class="sc">%&gt;%</span> yardstick<span class="sc">::</span><span class="fu">roc_auc</span>(obs, VF, F, M, L, <span class="at">estimator =</span> <span class="st">"macro_weighted"</span>)</span>
@@ -906,29 +938,29 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p><strong>Re-substitution</strong>: comparison using same training data</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># create  random forest model object</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> rf_model <span class="ot">&lt;-</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># create a workflow using the random forest model</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> rf_wflow <span class="ot">&lt;-</span> </span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_formula</span>(</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>       Latitude <span class="sc">+</span> Longitude) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_model</span>(rf_model) </span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># fit the random forest model with the ames training set</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> rf_fit <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1-5|7-13|15-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="sc">&gt;</span> <span class="co"># create  random forest model object</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="er">&gt;</span> rf_model <span class="ot">&lt;-</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="sc">&gt;</span> </span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="er">&gt;</span> <span class="co"># create a workflow using the random forest model</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="er">&gt;</span> rf_wflow <span class="ot">&lt;-</span> </span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_formula</span>(</span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="sc">+</span>     Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="sc">+</span>       Latitude <span class="sc">+</span> Longitude) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_model</span>(rf_model) </span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="sc">&gt;</span> </span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="er">&gt;</span> <span class="co"># fit the random forest model with the ames training set</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="er">&gt;</span> rf_fit <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidymodels-performance-evaluation-1" class="slide level2">
 <h2>Tidymodels: performance evaluation</h2>
 <p>A function to compare models</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="sc">&gt;</span> estimate_perf <span class="ot">&lt;-</span> <span class="cf">function</span>(model, dat) {</span>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="3-6|8-10|12-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="sc">&gt;</span> estimate_perf <span class="ot">&lt;-</span> <span class="cf">function</span>(model, dat) {</span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="sc">+</span>   <span class="co"># Capture the names of the `model` and `dat` objects</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="sc">+</span>   cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
 <span id="cb27-4"><a href="#cb27-4"></a><span class="sc">+</span>   obj_name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cl<span class="sc">$</span>model)         <span class="co"># get the model name</span></span>
@@ -952,7 +984,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p>Use the function on the random forest and linear models</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="sc">&gt;</span> <span class="co"># get performance of the random forest model (train)</span></span>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="1-2|4-5|6-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="sc">&gt;</span> <span class="co"># get performance of the random forest model (train)</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a><span class="er">&gt;</span> <span class="fu">estimate_perf</span>(rf_fit, ames_train)</span>
 <span id="cb28-3"><a href="#cb28-3"></a><span class="sc">&gt;</span> </span>
 <span id="cb28-4"><a href="#cb28-4"></a><span class="er">&gt;</span> <span class="co"># get performance of the linear model (train)</span></span>
@@ -966,7 +998,9 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p>Summarize and present the performance comparison</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="sc">&gt;</span> <span class="co"># get performance of the random forest model (train)</span></span>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="3-6|8-9|10-12|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="sc">&gt;</span> <span class="co"># get performance of the random forest model (train)</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a><span class="er">&gt;</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
 <span id="cb29-3"><a href="#cb29-3"></a><span class="sc">+</span>   <span class="fu">estimate_perf</span>(rf_fit, ames_train)</span>
 <span id="cb29-4"><a href="#cb29-4"></a><span class="sc">+</span>   , <span class="fu">estimate_perf</span>(lm_fit, ames_train)</span>
@@ -983,20 +1017,21 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <span id="cb29-15"><a href="#cb29-15"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">fmt_number</span>(<span class="at">decimals=</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb29-16"><a href="#cb29-16"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Performance statistics"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb29-17"><a href="#cb29-17"></a><span class="sc">+</span>   gtExtras<span class="sc">::</span><span class="fu">gt_theme_espn</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="tidymodels-performance-evaluation-4" class="slide level2">
 <h2>Tidymodels: performance evaluation</h2>
 <p><strong>Re-sampling</strong>: iterative comparison:</p>
 
-<img data-src="../images/resampling.svg" width="494" class="r-stretch quarto-figure-right"></section>
+<img data-src="../images/resampling.svg" width="494" class="r-stretch quarto-figure-center"></section>
 <section id="tidymodels-performance-evaluation-5" class="slide level2">
 <h2>Tidymodels: performance evaluation</h2>
 <p><strong>Re-sampling</strong>: V-fold cross validation:</p>
 <p><em>In V</em>-fold cross-validation. The data are randomly partitioned into&nbsp;<em>V</em>&nbsp;sets of roughly equal size (called the folds).</p>
 <p>Larger <em>V</em> values result in resampling estimates with small bias but substantial variance. Smaller values of <em>V</em> have large bias but low variance.&nbsp;</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="sc">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="1-3-6|4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="sc">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
 <span id="cb30-2"><a href="#cb30-2"></a><span class="sc">&gt;</span> ames_folds <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">vfold_cv</span>(ames_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
 <span id="cb30-3"><a href="#cb30-3"></a><span class="sc">&gt;</span> ames_folds</span>
 <span id="cb30-4"><a href="#cb30-4"></a><span class="sc">&gt;</span> <span class="co"># rsample::analysis() and rsample::assessment() extract samples</span></span>
@@ -1059,7 +1094,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <p><strong>Re-sampling</strong>: resampling time:</p>
 <p>For a year’s worth of data, suppose that six sets of 30-day blocks define the analysis set. For assessment sets of 30 days with a 29-day skip, we can use the&nbsp;<strong>rsample</strong>&nbsp;package to specify:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="sc">&gt;</span> time_slices <span class="ot">&lt;-</span> </span>
+<div class="sourceCode cell-code" id="cb33" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="sc">&gt;</span> time_slices <span class="ot">&lt;-</span> </span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="sc">+</span>   tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb33-3"><a href="#cb33-3"></a><span class="sc">+</span>   rsample<span class="sc">::</span><span class="fu">rolling_origin</span>(<span class="at">initial =</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">30</span>, <span class="at">assess =</span> <span class="dv">30</span>, <span class="at">skip =</span> <span class="dv">29</span>, <span class="at">cumulative =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1068,7 +1103,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p><strong>Re-sampling</strong>: resampling time:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> <span class="co"># pull out first and last data points in the analysis dataset</span></span>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2|3-7|9-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> <span class="co"># pull out first and last data points in the analysis dataset</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a><span class="er">&gt;</span> time_slices<span class="sc">$</span>splits <span class="sc">%&gt;%</span> </span>
 <span id="cb34-3"><a href="#cb34-3"></a><span class="sc">+</span>   purrr<span class="sc">::</span><span class="fu">map_dfr</span>( </span>
 <span id="cb34-4"><a href="#cb34-4"></a><span class="sc">+</span>     <span class="at">.f =</span> </span>
@@ -1097,7 +1132,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <p><strong>Evaluation</strong>:</p>
 <p>The function <strong>tune::fit_resamples</strong> is like parsnip::fit with a resamples argment instead of a data argument:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="sc">&gt;</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(formula,  resamples, ...)</span>
+<div class="sourceCode cell-code" id="cb35" data-code-line-numbers="2|4|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="sc">&gt;</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(formula,  resamples, ...)</span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb35-3"><a href="#cb35-3"></a><span class="er">&gt;</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(recipe,   resamples, ...)</span>
 <span id="cb35-4"><a href="#cb35-4"></a><span class="sc">&gt;</span> </span>
@@ -1127,7 +1162,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p>Save the predictions in order to visualize the model fit and residuals:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> keep_pred <span class="ot">&lt;-</span> tune<span class="sc">::</span><span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
+<div class="sourceCode cell-code" id="cb36" data-code-line-numbers="1|3-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> keep_pred <span class="ot">&lt;-</span> tune<span class="sc">::</span><span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb36-3"><a href="#cb36-3"></a><span class="er">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
 <span id="cb36-4"><a href="#cb36-4"></a><span class="sc">&gt;</span> rf_res <span class="ot">&lt;-</span> </span>
@@ -1149,7 +1184,7 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: performance evaluation</h2>
 <p>Convenience functions in tidymodels can extract and format the results produced by tuning functions, e.g.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="sc">&gt;</span> rf_res <span class="sc">%&gt;%</span> tune<span class="sc">::</span><span class="fu">collect_metrics</span>()</span>
+<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="1|3|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="sc">&gt;</span> rf_res <span class="sc">%&gt;%</span> tune<span class="sc">::</span><span class="fu">collect_metrics</span>()</span>
 <span id="cb37-2"><a href="#cb37-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb37-3"><a href="#cb37-3"></a><span class="er">&gt;</span> rf_res <span class="sc">%&gt;%</span> tune<span class="sc">::</span><span class="fu">collect_predictions</span>()</span>
 <span id="cb37-4"><a href="#cb37-4"></a><span class="sc">&gt;</span> </span>
@@ -1160,20 +1195,26 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <h2>Tidymodels: parallelism</h2>
 <p>The models created during resampling are independent of one another and can be processed in parallel across processors on the same computer.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> <span class="co"># The number of physical cores in the hardware:</span></span>
+<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="1-2|4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> <span class="co"># The number of physical cores in the hardware:</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a><span class="er">&gt;</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb38-3"><a href="#cb38-3"></a><span class="sc">&gt;</span> </span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="er">&gt;</span> </span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="er">&gt;</span> <span class="co"># The number of possible independent processes that can </span></span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="er">&gt;</span> <span class="co"># be simultaneously used:  </span></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="er">&gt;</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="er">&gt;</span> <span class="co"># The number of possible independent processes that can </span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="er">&gt;</span> <span class="co"># be simultaneously used:  </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="er">&gt;</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<ul>
+<li><p>In this section we have worked with the <code>tidymodels</code> package to build a workflow that facilitates building and evaluating multiple models.</p></li>
+<li><p>Combined with the recipes package we now have a complete data modeling framework.</p></li>
+</ul>
 
 
 <img src="images/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://bsmm-8740-fall-2023.github.io/osb/">bsmm-8740-fall-2023.github.io/osb</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

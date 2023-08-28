@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BSMM-8740 - Fall 2023 - Lab 3 - Recipes</title>
+<title>BSMM-8740 - Fall 2023 - Lab 4 - Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,13 +95,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Lab 3 - Recipes">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - Lab 4 - Regression">
 <meta property="og:description" content="">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Lab 3 - Recipes">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Lab 4 - Regression">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/labs/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
@@ -117,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lab 3 - Recipes</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lab 4 - Regression</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -411,28 +409,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#data-the-boston-cocktail-recipes" id="toc-data-the-boston-cocktail-recipes" class="nav-link" data-scroll-target="#data-the-boston-cocktail-recipes">Data: The Boston Cocktail Recipes</a></li>
+  <li><a href="#data-boston-house-values" id="toc-data-boston-house-values" class="nav-link" data-scroll-target="#data-boston-house-values">Data: Boston House Values</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise 3</a></li>
   <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise 4</a></li>
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a></li>
+  </ul></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a>
+  <ul class="collapse">
   <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6">Exercise 6</a></li>
   <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7">Exercise 7</a></li>
+  <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise 8</a></li>
   </ul></li>
+  <li><a href="#exercise-9" id="toc-exercise-9" class="nav-link" data-scroll-target="#exercise-9">Exercise 9</a></li>
+  <li><a href="#exercise-10" id="toc-exercise-10" class="nav-link" data-scroll-target="#exercise-10">Exercise 10</a></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/BSMM_8740_lab_3.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/BSMM_8740_lab_4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 3 - Recipes</h1>
+<h1 class="title">Lab 4 - Regression</h1>
 </div>
 
 
@@ -449,19 +452,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In today’s lab, you’ll explore several data sets practice pre-processing and feature engineering with <code>recipes</code>.</p>
+<p>In today’s lab, you’ll explore several data sets and practice building and evaluating regression models.</p>
 <section id="learning-goals" class="level3">
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab you will…</p>
 <ul>
-<li>Be able to use the <code>recipes</code> package to prepare a train and test datasets for analysis/modeling</li>
+<li>Be able to use different regression models to predict a response/target as a function of a set of variates.</li>
 </ul>
 </section>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-3</strong>. It contains the starter documents you need to complete the lab.</p></li>
+<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-4</strong>. It contains the starter documents you need to complete the lab.</p></li>
 <li><p>Clone the repo and start a new project in RStudio. See the <a href="labs/bsmm-8740_lab-1.html">Lab 1 instructions</a> for details on cloning a repo, starting a new R project and configuring git.</p></li>
 </ul>
 </section>
@@ -474,122 +477,252 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)      <span class="co"># for pretty printing of tables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-the-boston-cocktail-recipes" class="level2">
-<h2 class="anchored" data-anchor-id="data-the-boston-cocktail-recipes">Data: The Boston Cocktail Recipes</h2>
-<p>The Boston Cocktail Recipes dataset appeared in a TidyTuesday posting. TidyTuesday is a weekly data project in R.</p>
-<p>The dataset is derived from the <a href="http://swizzle.ru/uploads/article_file/17/mr_boston.pdf">Mr.&nbsp;Boston Bartender’s Guide</a>, together with a dataset that was web-scraped as part of a hackathon.</p>
+<section id="data-boston-house-values" class="level2">
+<h2 class="anchored" data-anchor-id="data-boston-house-values">Data: Boston House Values</h2>
+<p>The Boston House Values dataset (usually referred to as the Boston dataset) appears in several R packages in different versions and is based on economic studies published in the late 1970’s.</p>
 <p>This dataset contains the following information for each cocktail:</p>
 <table class="table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>variable</th>
-<th>class</th>
 <th>description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>name</td>
-<td>character</td>
-<td>Name of cocktail</td>
+<td>crim</td>
+<td>per capita crime rate by town.</td>
 </tr>
 <tr class="even">
-<td>category</td>
-<td>character</td>
-<td>Category of cocktail</td>
+<td>zn</td>
+<td>proportion of residential land zoned for lots over 25,000 sq.ft.</td>
 </tr>
 <tr class="odd">
-<td>row_id</td>
-<td>integer</td>
-<td>Drink identifier</td>
+<td>indus</td>
+<td>proportion of non-retail business acres per town.</td>
 </tr>
 <tr class="even">
-<td>ingredient_number</td>
-<td>integer</td>
-<td>Ingredient number</td>
+<td>chas</td>
+<td>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).</td>
 </tr>
 <tr class="odd">
-<td>ingredient</td>
-<td>character</td>
-<td>Ingredient</td>
+<td>nox</td>
+<td>nitrogen oxides concentration (parts per 10 million).</td>
 </tr>
 <tr class="even">
-<td>measure</td>
-<td>character</td>
-<td>Measurement/volume of ingredient</td>
+<td>rm</td>
+<td>average number of rooms per dwelling.</td>
 </tr>
 <tr class="odd">
-<td>measure_number</td>
-<td>real</td>
-<td>measure as a number</td>
+<td>age</td>
+<td>proportion of owner-occupied units built prior to 1940.</td>
+</tr>
+<tr class="even">
+<td>dis</td>
+<td>weighted mean of distances to five Boston employment centres.</td>
+</tr>
+<tr class="odd">
+<td>rad</td>
+<td>index of accessibility to radial highways.</td>
+</tr>
+<tr class="even">
+<td>tax</td>
+<td>full-value property-tax rate per $10,000.</td>
+</tr>
+<tr class="odd">
+<td>ptratio</td>
+<td>pupil-teacher ratio by town.</td>
+</tr>
+<tr class="even">
+<td>lstat</td>
+<td>lower status of the population (percent).</td>
+</tr>
+<tr class="odd">
+<td>medv</td>
+<td>median value of owner-occupied homes in $1000s.</td>
 </tr>
 </tbody>
 </table>
 <p>Use the code below to load the Boston Cocktail Recipes data set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>boston_cocktails <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'data/boston_cocktails.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>boston <span class="ot">&lt;-</span> ISLR2<span class="sc">::</span>Boston</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
 <section id="exercise-1" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
-<p>First <code>DataExplorer::introduce</code> to assess the quality of the data set.</p>
-<p>Next prepare a summary. What is the median measure number across cocktail recipes?</p>
+<p>Plot the median value of owner-occupied homes (<code>medv</code>) vs the percentage of houses with lower socioeconomic status (<code>lstat</code>) then use <code>lm</code> to model <code>medv ~ lstat</code> and save the result in a variable for use later.</p>
+<p>Next prepare a summary of the model. What is the intercept and the coefficient of <code>lstat</code> in this model?</p>
 </section>
 <section id="exercise-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
-<p>From the boston_cocktails dataset select the name, category, ingredient, and measure_number columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.</p>
-<p>Since the names of the new columns may contain space, clean then using the <code>janitor::clean_names()</code>. Finally drop any rows with NA values and save this new dataset in a variable.</p>
-<p>How much gin is in the cocktail called <strong>Leap Frog Highball</strong>?</p>
+<p>Using the result from Exercise 1, and the data below, use the predict function (<code>stats::predict.lm</code> or just <code>predict</code>) with the argument interval = “confidence” to prepare a summary table with columns lstat, fit, lwr, upr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">lstat =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, use your model to plot some performance checks using the <code>performance::check_model</code> function with arguments <code>check=c("linearity","qq","homogeneity", "outliers")</code>.</p>
+<p>Are there any overly influential observations in this dataset?</p>
 </section>
 <section id="exercise-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
-<p>Prepare a recipes::recipe object without a target but give name and category as ‘id’ roles. Add steps to normalize the predictors and perform PCA. Finally <code>prep</code> the data and save it in a variable.</p>
-<p>How many predictor variables are prepped by the recipe?</p>
+<p>Fit <code>medv</code> to all predictors in the dataset and use the <code>performance::check_collinearity</code> function on the resulting model to check if any predictors are redundant.</p>
+<p>The variance inflation factor is a measure to analyze the magnitude of multicollinearity of model terms. A VIF less than 5 indicates a low correlation of that predictor with other predictors. A value between 5 and 10 indicates a moderate correlation, while VIF values larger than 10 are a sign for high, not tolerable correlation of model predictors.</p>
+<p>Which predictors in this dataset might be redundant for predicting <code>medv</code>?</p>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
 </div>
 </section>
 <section id="exercise-4" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
-<p>Apply the <code>recipes::tidy</code> verb to the prepped recipe in the last exercise. The result is a table identifying the information generated and stored by each step in the recipe from the input data.</p>
-<p>To see the values calculated for normalization, apply the <code>recipes::tidy</code> verb as before, but with second argument = 1.</p>
-<p>What ingredient is the most used, on average?</p>
-</section>
-<section id="exercise-5" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-5">Exercise 5</h3>
-<p>Now look at the result of the PCA, applying the <code>recipes::tidy</code> verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting component column so that the values are factors, ordering them in the order they appear using the <code>forcats::fct_inorder</code> verb.</p>
-<p>Plot this data using <code>ggplot2</code> and the code below</p>
+<p>In this exercise you will compare and interpret the results of linear regression on two similar datasets.</p>
+<p>The first dataset (<code>dat0</code> - generated below) has <code>demand0</code> and <code>price0</code> variables along with an unobserved variable (<code>unobserved0</code> - so not in our dataset) that doesn’t change the values of <code>demand0</code> and <code>price0</code>. Use lm to build a model to predict <code>demand0</code> from <code>price0</code> . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset <code>dat0</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(value, terms, <span class="at">fill =</span> terms)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>component, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">7</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>,<span class="at">face=</span><span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">price0 =</span> <span class="dv">10</span><span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand0 =</span> <span class="dv">30</span><span class="sc">-</span>(price0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  , <span class="at">unobserved0 =</span> <span class="fl">0.45</span><span class="sc">*</span>price0 <span class="sc">+</span> <span class="fl">0.77</span><span class="sc">*</span>demand0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>How would you describe the drinks represented by PC1?</p>
+<p>The second dataset (<code>dat1</code> - generated below) has <code>demand1</code> and <code>price1</code> variables, along with a variable <code>unobserved1</code> that is completely random and is not observed, so it isn’t in our dataset. Use lm to build a model to predict <code>demand1</code> from <code>price1</code> . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset <code>dat1</code>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">unobserved1 =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">price1 =</span> <span class="dv">10</span> <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand1 =</span> <span class="dv">23</span> <span class="sc">-</span>(<span class="fl">0.5</span><span class="sc">*</span>price1 <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
 </section>
+</section>
+<section id="exercise-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
+<p>Now repeat the modeling of exercise, but assuming that the formerly unobservable variables are now observable, and so can be included in the linear regression models.</p>
+<p>Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
+<p>What can you conclude from these two exercises.</p>
 <section id="exercise-6" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
-<p>As in the last exercise, use the variable with the tidied PCA data and use only PCA components PC1 to PC4. Take/slice the top 8 ingedients by component, ordered by their absolute value using the verb <code>dplyr::slice_max</code>. Next, generate a grouped table using gt::gt, colouring the cell backgrounds (i.e.&nbsp;fill) with green for values <span class="math inline">\(\ge0\)</span> and red for values <span class="math inline">\(&lt;0\)</span>.</p>
-<p>What is the characteristic alcoholic beverage of each of the first 4 principle components.</p>
+<p>For the next several exercises, we’ll work with a new dataset. This dataset is taken from an <a href="https://www.fueleconomy.gov/feg/download.shtml">EPA</a> site on fuel economy, in particular the fuel economy dataset for 2023.</p>
+<p>Use the code below to load the FE Guide data set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">"data/2023 FE Guide for DOE-release dates before 7-28-2023.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From the raw data in <code>dat</code>, we’ll make a smaller dataset, and we’ll need to do some cleaning to make it useable.</p>
+<p>First select the columns “Comb FE (Guide) - Conventional Fuel”, “Eng Displ”,‘# Cyl’, Transmission , “# Gears”, “Air Aspiration Method Desc”, “Regen Braking Type Desc”, “Batt Energy Capacity (Amp-hrs)” , “Drive Desc”, “Fuel Usage Desc - Conventional Fuel”, “Cyl Deact?”, and “Var Valve Lift?” and then clean the column names using janitor::janitor::clean_names(). Assign the revised data to the variable <code>cars_23</code>.</p>
+<p>Perform a quick check of the data using <code>DataExplorer::introduce()</code> and <code>DataExplorer::plot_missing()</code> and modify the data as follows</p>
+<ul>
+<li>mutate the columns <code>comb_fe_guide_conventional_fuel</code>, <code>number_cyl</code>, and <code>number_gears</code> to ensure that they contain integers values, not doubles.</li>
+<li>use <code>tidyr::replace_na</code> to replace any missing values in <code>batt_energy_capacity_amp_hrs</code> column with zeros, and replace and missing values in <code>regen_braking_type_desc</code> with empty strings (““).</li>
+<li>finally, mutate the columns ‘transmission’,‘air_aspiration_method_desc’,‘regen_braking_type_desc’,‘drive_desc’ ,‘fuel_usage_desc_conventional_fuel’,‘cyl_deact’,‘var_valve_lift’ so their values are factors.</li>
+</ul>
+<p>Prepare a recipe to process <code>cars_23</code> ahead of modelling, using <code>comb_fe_guide_conventional_fuel</code> as the outcome, with the following steps.</p>
+<ul>
+<li>Centering for: recipes::all_numeric()</li>
+<li>Scaling for: recipes::all_numeric()</li>
+<li>Dummy variables from: recipes::all_factor()</li>
+</ul>
+<p>How many predictor variables are there in <code>cars_23</code> ?</p>
 </section>
 <section id="exercise-7" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
-<p>For this exercise, bake the prepped PCA recipe using <code>recipes::bake</code> on the original data and plot each cocktail by its PC1, PC2 component, using</p>
+<p>For this exercise, set a sample size equal to 75% of the observations of <code>cars_23</code> and split the data as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> name)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> category), <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">check_overlap =</span> <span class="cn">TRUE</span>, <span class="at">hjust =</span> <span class="st">"inward"</span>) <span class="sc">+</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> cars_23 <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">anti_join</span>(cars_23 <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>), XXtrain, <span class="at">by =</span> <span class="st">'ID'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID); test <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Can you create an interpretation of the PCA analysis?</p>
+<p>Next prep the recipe created in the last exercise using <code>recipes::prep</code> on the training data, and then use the result of the prep step to <code>recipes::bake</code> with the training and test data. Save the baked data in separate variables for use later.</p>
+<p>After these two steps how many columns are in the data? Why does this differ from the last step?</p>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
 </div>
 </section>
+<section id="exercise-8" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-8">Exercise 8</h3>
+<p>In this exercise we will run xgboost::xgboost to evaluate the regression.</p>
+<p>First run fit the model with default meta-parameters for <code>max_depth</code> and <code>eta</code>, using the training data per the code below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>untuned_xgb <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  xgboost<span class="sc">::</span><span class="fu">xgboost</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> <span class="dv">6</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> .<span class="dv">25</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    , <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next use the fitted model using the test data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  untuned_xgb</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  , cars_23_test <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>() </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cars_23_test <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>() </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">postResample</span>(yhat, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, pull out the <code>comb_fe_guide_conventional_fuel</code> column from the test data, convert it to a matrix and then use <code>caret::postResample</code> with arguments <code>yhat</code> and <code>y</code> to evaluate how well the model fits.</p>
+<p>What is the RMSE for the un-tuned model?</p>
+</section>
+</section>
+<section id="exercise-9" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
+<p>In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.</p>
+<p>Finally, we select the best parameters by least RMSE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create hyperparameter grid</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hyper_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">max_depth =</span> <span class="fu">seq</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">1</span>), <span class="at">eta =</span> <span class="fu">seq</span>(.<span class="dv">2</span>, .<span class="dv">35</span>, .<span class="dv">01</span>))  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>xgb_train_rmse <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>xgb_test_rmse  <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hyper_grid)) {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  m_xgb_untuned <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.cv</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">nfold =</span> <span class="dv">5</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> hyper_grid<span class="sc">$</span>max_depth[j],</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> hyper_grid<span class="sc">$</span>eta[j],</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  xgb_train_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>train_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  xgb_test_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>test_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}    </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>best <span class="ot">&lt;-</span> hyper_grid[<span class="fu">which</span>(xgb_test_rmse <span class="sc">==</span> <span class="fu">min</span>(xgb_test_rmse)),]; best</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>re-run the code from the last exercise and evaluated the fit using the best tuning parameters.</p>
+<p>Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).</p>
+</section>
+<section id="exercise-10" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-10">Exercise 10</h2>
+<p>Using <code>xgboost::xgb.importance</code> rank the importance of each predictor in the model. Finally, take the top 10 predictors by importance and plot them using <code>xgboost::xgb.plot.importance</code>.</p>
+<p>Per this model, what is the most important feature for predicting fuel efficiency?</p>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>
