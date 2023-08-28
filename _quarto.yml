@@ -56,22 +56,8 @@ website:
             text: Teaching team
           - href: index.qmd
             text: Schedule
-          - href: course-links.qmd
-            text: Useful links
           - href: course-faq.qmd
             text: FAQ
-      - section: "Computing"
-        contents:
-          - href: computing-access.qmd
-            text: Access
-          - href: computing-troubleshooting.qmd
-            text: Troubleshooting
-      - section: "Project"
-        contents:
-          - href: project-description.qmd
-            text: Description
-          - href: project-tips-resources.qmd
-            text: Tips + resources
       - section: "Weekly materials"
         contents:
           - href: weeks/BSMM_8740_week_1.qmd
