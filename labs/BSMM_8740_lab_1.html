@@ -100,10 +100,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <meta property="og:title" content="BSMM-8740 - Fall 2023 - Lab 1 - Tidy Data Wrangling">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://bsmm-8740-fall-2023.github.io/osb/labs/images/lab-1/rstudio.png">
+<meta property="og:image" content="https://bsmm-8740-fall-2023.github.io/osb/images/git_workflow.jpeg">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta property="og:image:height" content="1832">
-<meta property="og:image:width" content="3064">
 <meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Lab 1 - Tidy Data Wrangling">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/labs/images/twitter-card.png">
@@ -140,21 +138,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/bsmm-8740-fall-2023" rel="" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Sakai" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
+      <a href="" title="Brightspace" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Brightspace"><i class="bi bi-person-fill"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/tool/13b6446a-a6c6-4222-8cfb-c36d1f70802b">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://brightspace.uwindsor.ca/d2l/le/144921/discussions/List">
             Discussion forum
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/page/aec742dc-2972-4f02-a35b-1dd3315af889">
-            Gradescope
+            <a class="dropdown-item sidebar-tools-main-item" href="https://brightspace.uwindsor.ca/d2l/lms/dropbox/admin/folders_manage.d2l?ou=144921">
+            Assignments
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/tool/69078433-67a6-4054-a2e7-9e6c202ecdc3/">
-            Gradebook
+            <a class="dropdown-item sidebar-tools-main-item" href="https://brightspace.uwindsor.ca/d2l/home/144921">
+            Home
             </a>
           </li>
       </ul>
@@ -360,10 +358,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals">Learning goals</a></li>
   </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a>
+  <li><a href="#lets-git-started" id="toc-lets-git-started" class="nav-link" data-scroll-target="#lets-git-started">Let’s Git Started</a>
   <ul class="collapse">
-  <li><a href="#set-up-your-ssh-key" id="toc-set-up-your-ssh-key" class="nav-link" data-scroll-target="#set-up-your-ssh-key">Set up your SSH key</a></li>
-  <li><a href="#configure-git" id="toc-configure-git" class="nav-link" data-scroll-target="#configure-git">Configure Git</a></li>
+  <li><a href="#register-a-github-account" id="toc-register-a-github-account" class="nav-link" data-scroll-target="#register-a-github-account">1. Register a Github account</a></li>
+  <li><a href="#git-already-installed" id="toc-git-already-installed" class="nav-link" data-scroll-target="#git-already-installed">2. Git already installed?</a></li>
+  <li><a href="#introduce-yourself-to-git" id="toc-introduce-yourself-to-git" class="nav-link" data-scroll-target="#introduce-yourself-to-git">3. Introduce yourself to Git</a></li>
+  <li><a href="#set-up-personal-access-tokens-for-https" id="toc-set-up-personal-access-tokens-for-https" class="nav-link" data-scroll-target="#set-up-personal-access-tokens-for-https">4. Set up personal access tokens for HTTPS</a></li>
+  <li><a href="#how-git-works" id="toc-how-git-works" class="nav-link" data-scroll-target="#how-git-works">5. How Git works</a></li>
   <li><a href="#clone-the-repo-start-new-rstudio-project" id="toc-clone-the-repo-start-new-rstudio-project" class="nav-link" data-scroll-target="#clone-the-repo-start-new-rstudio-project">Clone the repo &amp; start new RStudio project</a></li>
   <li><a href="#r-and-r-studio" id="toc-r-and-r-studio" class="nav-link" data-scroll-target="#r-and-r-studio">R and R Studio</a></li>
   <li><a href="#yaml" id="toc-yaml" class="nav-link" data-scroll-target="#yaml">YAML</a></li>
@@ -419,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.</p>
+<p>This lab will go through much of the same workflow we’ve demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions. An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -438,19 +439,55 @@ Note
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab, you will…</p>
 <ul>
+<li>Have practiced version control using GitHub</li>
 <li>Be familiar with the workflow using R, RStudio, Git, and GitHub</li>
-<li>Gain practice writing a reproducible report using RMarkdown</li>
-<li>Practice version control using GitHub</li>
-<li>Be able to create data visualizations using <code>ggplot2</code></li>
-<li>Be able to describe variable distributions and the relationship between multiple variables</li>
 </ul>
 </section>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<section id="set-up-your-ssh-key" class="level3">
-<h3 class="anchored" data-anchor-id="set-up-your-ssh-key">Set up your SSH key</h3>
-<p>You will authenticate GitHub using SSH. Below are an outline of the authentication steps; you are encouraged to follow along as your TA demonstrates the steps.</p>
+<section id="lets-git-started" class="level2">
+<h2 class="anchored" data-anchor-id="lets-git-started">Let’s Git Started</h2>
+<section id="register-a-github-account" class="level3">
+<h3 class="anchored" data-anchor-id="register-a-github-account">1. Register a Github account</h3>
+<p>Register an account with GitHub. It’s free!</p>
+<ul>
+<li><a href="https://github.com" class="uri">https://github.com</a></li>
+</ul>
+<section id="username-advice" class="level4">
+<h4 class="anchored" data-anchor-id="username-advice">Username advice</h4>
+<ul>
+<li>Incorporate your actual name! People like to know who they’re dealing with. Also makes your username easier for people to guess or remember.</li>
+<li>Shorter is better than longer.</li>
+<li>Make it timeless. Don’t highlight your current university, employer, or place of residence, e.g.&nbsp;JennyFromTheBlock.</li>
+</ul>
+<p>You can change your username later, but better to get this right the first time.</p>
+<ul>
+<li><p><a href="https://help.github.com/articles/changing-your-github-username/" class="uri">https://help.github.com/articles/changing-your-github-username/</a></p></li>
+<li><p><a href="https://help.github.com/articles/what-happens-when-i-change-my-username/" class="uri">https://help.github.com/articles/what-happens-when-i-change-my-username/</a></p></li>
+</ul>
+</section>
+</section>
+<section id="git-already-installed" class="level3">
+<h3 class="anchored" data-anchor-id="git-already-installed">2. Git already installed?</h3>
+<p>Go to the terminal tab in RStudio and enter <code>which git</code> to request the path to your Git executable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>which git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and <code>git --version</code> to see its version:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>git <span class="sc">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="introduce-yourself-to-git" class="level3">
+<h3 class="anchored" data-anchor-id="introduce-yourself-to-git">3. Introduce yourself to Git</h3>
+<p>You can set your Git user name and email from within R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># user.name does not have to be your GitHub user name</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.name =</span> <span class="st">"Jane Doe"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># user.email MUST be the email associated with your GitHub account.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">user.email =</span> <span class="st">"jane@example.org"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -461,34 +498,54 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You only need to do this authentication process one time on a single system.</p>
+<p>Your commits will be labelled with this user name, so make it informative to potential collaborators and future you.</p>
 </div>
 </div>
-<ul>
-<li>Type <code>credentials::ssh_setup_github()</code> into your console.</li>
-<li>R will ask “No SSH key found. Generate one now?” You should click 1 for yes.</li>
-<li>You will generate a key. It will begin with “ssh-rsa….” R will then ask “Would you like to open a browser now?” You should click 1 for yes.</li>
-<li>You may be asked to provide your GitHub username and password to log into GitHub. After entering this information, you should paste the key in and give it a name. You might name it in a way that indicates where the key will be used, e.g., <code>sta210</code>).</li>
-</ul>
-<p>You can find more detailed instructions <a href="https://github.com/DukeStatSci/github_auth_guide">here</a> if you’re interested.</p>
 </section>
-<section id="configure-git" class="level3">
-<h3 class="anchored" data-anchor-id="configure-git">Configure Git</h3>
-<p>There is one more thing we need to do before getting started on the assignment. Specifically, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your name and email address.</p>
-<p>To do so, you will use the <code>use_git_config()</code> function from the <code>usethis</code> package.</p>
-<p>Type the following lines of code in the <strong>console</strong> in RStudio filling in your name and the email address associated with your GitHub account.</p>
+<section id="set-up-personal-access-tokens-for-https" class="level3">
+<h3 class="anchored" data-anchor-id="set-up-personal-access-tokens-for-https">4. Set up personal access tokens for HTTPS</h3>
+<p>The password that you use to login to GitHub’s website is NOT an acceptable credential when talking to GitHub as a Git server. You can learn more in their blog post <a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">Token authentication requirements for Git operations</a>.</p>
+<p>The recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.name =</span> <span class="st">"GitHub username"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.email =</span> <span class="st">"Email associated with your GitHub account"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For example, mine would be</p>
+<p>The <code>usethis</code> approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking “Generate token”.</p>
+<p>It is a very good idea to describe the token’s purpose in the <em>Note</em> field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g.&nbsp;“personal-macbook-air” or “vm-for-project-xyz”. In the future, you will find yourself staring at this list of tokens, because inevitably you’ll need to re-generate or delete one of them. Make it easy to figure out which token you’ve come here to fiddle with.</p>
+<section id="click-generate-token." class="level5">
+<h5 class="anchored" data-anchor-id="click-generate-token."><strong>4.1 Click “Generate token”</strong>.</h5>
+<p>You won’t be able to see this token again, so don’t close or navigate away from this browser window until you store the PAT. Copy the PAT to the clipboard or a text file in RStudio.</p>
+<p>Treat this PAT like a password! Do not ever hard-wire your PAT into your code! A PAT should always be retrieved implicitly, for example, from the Git credential store, a safe place, where command line Git, RStudio, and R packages can discover it.</p>
+</section>
+<section id="save-your-pat" class="level5">
+<h5 class="anchored" data-anchor-id="save-your-pat">4.2 Save your PAT</h5>
+<ul>
+<li>Copy the generated PAT to a secure, long-term system for storing secrets, like 1Password or LastPass.</li>
+<li>email it to yourself</li>
+<li>??</li>
+</ul>
+</section>
+<section id="store-your-pat-in-the-git-credential-store" class="level5">
+<h5 class="anchored" data-anchor-id="store-your-pat-in-the-git-credential-store">4.3 Store your PAT in the Git credential store</h5>
+<p>Finally, we store the PAT in a safe place where command line Git, RStudio, and R packages can discover it. To do this call <code>gitcreds::gitcreds_set()</code>. If you don’t have a PAT stored already, it will prompt you to enter your PAT. Paste!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.name =</span> <span class="st">"mine-cetinkaya-rundel"</span>, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.email =</span> <span class="st">"cetinkaya.mine@gmail.com"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Instead of saving your PAT you could just <a href="https://happygitwithr.com/https-pat#regenerate-pat">re-generate the PAT each lab session and re-store it</a>. If you accept the default 30-day expiration period, this is a workflow you’ll be using often anyway.</p>
+<p>On github.com, assuming you’re signed in, you can manage your personal access tokens from <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>, also reachable via <em>Settings &gt; Developer settings &gt; Personal access tokens</em>.</p>
+</section>
+</section>
+<section id="how-git-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-git-works">5. How Git works</h3>
+<p>Git has three storages locally: a Working directory, Staging Area, and a Local repository.</p>
+<p>𝟭. 𝗪𝗼𝗿𝗸𝗶𝗻𝗴 𝗗𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 - is where you work, and your files live (“untracked”). GIT is not aware of these files.</p>
+<p>𝟮. 𝗦𝘁𝗮𝗴𝗶𝗻𝗴 𝗔𝗿𝗲𝗮 - When you stage your changes, GIT will start tracking and saving your changes with files. These changes are stored in the .git directory.</p>
+<p>𝟯. 𝗟𝗼𝗰𝗮𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝘆 - is the area where everything is saved (commits) in the .git directory. So, when you want to move your files from Staging Area to Local Repository, you can use the git commit command. After this, your Staging area will be empty. If you want to see what is in the Local repository, try git log.</p>
+<p>The workflow looks like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/git_workflow.jpeg" class="img-fluid figure-img" width="374"></p>
+<figcaption class="figure-caption">Git workflow</figcaption>
+</figure>
 </div>
 <p>You are now ready interact with GitHub via RStudio!</p>
 </section>
@@ -496,7 +553,7 @@ Note
 <h3 class="anchored" data-anchor-id="clone-the-repo-start-new-rstudio-project">Clone the repo &amp; start new RStudio project</h3>
 <ul>
 <li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-1</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Click on the green <strong>CODE</strong> button, select <strong>Use SSH</strong> (this might already be selected by default, and if it is, you’ll see the text <strong>Clone with SSH</strong>). Click on the clipboard icon to copy the repo URL.</p></li>
+<li><p>Click on the green <strong>CODE</strong> button, select <strong>Use HTTPS</strong> (this might already be selected by default, and if it is, you’ll see the text <strong>Clone with HTTPS</strong>). Click on the clipboard icon to copy the repo URL.</p></li>
 <li><p>In RStudio, go to <em>File</em> ➛ <em>New Project</em> ➛<em>Version Control</em> ➛ <em>Git</em>.</p></li>
 <li><p>Copy and paste the URL of your assignment repo into the dialog box <em>Repository URL</em>. Again, please make sure to have <em>SSH</em> highlighted under <em>Clone</em> when you copy the address.</p></li>
 <li><p>Click <em>Create Project</em>, and the files from your GitHub repo will be displayed in the <em>Files</em> pane in RStudio.</p></li>
@@ -546,18 +603,18 @@ Important
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
 <p>We will use the following package in today’s lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.1     ✔ tibble    3.2.1
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
+✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
 <p>The tidyverse is a meta-package. When you load it you get eight packages loaded for you:</p>
@@ -579,13 +636,13 @@ Important
 <p>Today’s data is all about <a href="https://www.ikea.com/">Ikea</a> furniture. The data was obtained from the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-11-03/readme.md">TidyTuesday</a> data collection.</p>
 <p>Use the code below to read in the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ikea <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ikea.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ikea <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ikea.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="data-dictionary" class="level3">
 <h3 class="anchored" data-anchor-id="data-dictionary">Data dictionary</h3>
 <p>The variable definitions are found in the help for Teams</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>?Teams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>?Teams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No documentation for 'Teams' in specified packages and libraries:
 you could try '??Teams'</code></pre>
@@ -596,8 +653,8 @@ you could try '??Teams'</code></pre>
 <h3 class="anchored" data-anchor-id="view-the-data">View the data</h3>
 <p>Before doing any analysis, you may want to get quick view of the data. This is useful when you’ve imported data to see if your data imported correctly. We can use the <code>view()</code> function to see the entire data set in RStudio. Type the code below in the <strong>Console</strong> to view the entire dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Lahman)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Teams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Lahman)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Teams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3015   48</code></pre>
 </div>
@@ -625,7 +682,7 @@ Tip
 <p>The <code>view()</code> function helped us get a quick view of the dataset, but let’s get more detail about its structure. Viewing a summary of the data is a useful starting point for data analysis, especially if the dataset has a large number of observations (rows) or variables (columns). Run the code below to use the <code>dplyr::glimpse()</code> function to see a summary of the <code>ikea</code> dataset.</p>
 <p>How many observations are in the <code>ikea</code> dataset? How many variables?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(Teams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(Teams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -646,12 +703,12 @@ Note
 <h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
 <p><a href="#0">Ben Baumer</a>&nbsp;worked for the&nbsp;<a href="#0">New York Mets</a>&nbsp;from 2004 to 2012. What was the team W/L record during those years? Use <code>filter()</code> and <code>select()</code> to quickly identify only those pieces of information that we care about.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mets <span class="ot">&lt;-</span> Teams  <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(teamID <span class="sc">==</span> <span class="st">"NYN"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>my_mets <span class="ot">&lt;-</span> mets <span class="sc">%&gt;%</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(_)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>my_mets <span class="sc">%&gt;%</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(_,_,_,_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mets <span class="ot">&lt;-</span> Teams  <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(teamID <span class="sc">==</span> <span class="st">"NYN"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>my_mets <span class="ot">&lt;-</span> mets <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(_)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>my_mets <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(_,_,_,_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-3" class="level3">
@@ -663,16 +720,16 @@ Note
 \]</span></p>
 <p>where <span class="math inline">\(\text{RA}\)</span> is the number of runs the team allows to be scored, <span class="math inline">\(\text{RS}\)</span> is the number of runs that the team scores, and <span class="math inline">\(\hat{\text{W}}_{\text{pct}}\)</span> is the team’s expected winning percentage. Luckily for us, the runs scored and allowed are present in the <code>Teams</code> table, so let’s grab them and save them in a new data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> Teams <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(_, _, _, _, _, _) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(_ <span class="sc">==</span> <span class="st">"NYN"</span> <span class="sc">&amp;</span> _ <span class="sc">%in%</span> <span class="dv">2004</span><span class="sc">:</span><span class="dv">2012</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> Teams <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(_, _, _, _, _, _) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(_ <span class="sc">==</span> <span class="st">"NYN"</span> <span class="sc">&amp;</span> _ <span class="sc">%in%</span> <span class="dv">2004</span><span class="sc">:</span><span class="dv">2012</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>First, note that the runs-scored variable is called&nbsp;<code>R</code>&nbsp;in the&nbsp;<code>Teams</code>&nbsp;table, but to stick with our notation we want to rename it&nbsp;<code>RS</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">_ =</span> _)    <span class="co"># new name = old name</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">_ =</span> _)    <span class="co"># new name = old name</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="render-commit-push">
 <p>This is a good place to fender, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message (e.g.,&nbsp;“Completed exercises 1 - 3”), and push. After you push the changes, the Git pane in RStudio should be empty.</p>
@@ -682,15 +739,15 @@ Note
 <h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
 <p>Next, we need to compute the team’s actual winning percentage in each of these seasons. Thus, we need to add a new column to our data frame, and we do this with the&nbsp;<code>mutate()</code>&nbsp;command.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WPct =</span> _)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WPct =</span> _)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The expected number of wins is then equal to the product of the expected winning percentage times the number of games.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">W_hat =</span> _)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">W_hat =</span> _)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-5" class="level3">
@@ -705,30 +762,30 @@ Note
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
 <p>Naturally, the Mets experienced ups and downs during Ben’s time with the team. Which seasons were best? To figure this out, we can simply sort the rows of the data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(mets_ben, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(mets_ben, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-7" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
 <p>In 2006, the Mets had the best record in baseball during the regular season and nearly made the&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=World%20Series"><em>World Series</em></a>. How do these seasons rank in terms of the team’s performance relative to our model?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="sc">%&gt;%</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Diff =</span> _) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Diff =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-8" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-8">Exercise 8</h3>
 <p>Summarize the Mets performance</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_years =</span> _, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_W =</span> _, </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_L =</span> _, </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_WPct =</span> _, </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_resid =</span> _</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_years =</span> _, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_W =</span> _, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_L =</span> _, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_WPct =</span> _, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_resid =</span> _</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In these nine years, the Mets had a combined record of _ wins and _ losses, for an overall winning percentage of _.</p>
 <div class="render-commit-push">
@@ -740,41 +797,41 @@ Note
 <p>Next, let’s look at the relationship between the price and width of Ikea furniture. Fill in the code below to visualize the relationship between the two variables using a scatterplot.</p>
 <p>Then, use your visualization to describe the relationship between the width and price of Ikea furniture.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> _____, <span class="fu">aes</span>(<span class="at">x =</span> width, <span class="at">y =</span> _____)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"_____"</span>, </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"_____"</span>, </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"_____"</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> _____, <span class="fu">aes</span>(<span class="at">x =</span> width, <span class="at">y =</span> _____)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"_____"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"_____"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"_____"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-10" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-10">Exercise 10</h3>
 <p>Discretize the years into three chunks: one for each of the three general managers under whom Ben worked.&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Jim%20Duquette">Jim Duquette</a>&nbsp;was the Mets’&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=general%20manager"><em>general manager</em></a>&nbsp;in 2004,&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Omar%20Minaya">Omar Minaya</a>&nbsp;from 2005 to 2010, and&nbsp;<a href="https://en.wikipedia.org/w/index.php?search=Sandy%20Alderson">Sandy Alderson</a>&nbsp;from 2011 to 2012.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">gm =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">==</span> _, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      _, </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ifelse</span>(</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        yearID <span class="sc">&gt;=</span> _, </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        _, </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        _)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">gm =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">==</span> _, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      _, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ifelse</span>(</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        yearID <span class="sc">&gt;=</span> _, </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        _, </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        _)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternatively, we use the <code>case_when</code> function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">gm =</span> <span class="fu">case_when</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">==</span> _ <span class="sc">~</span> _, </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">&gt;=</span> _ <span class="sc">~</span> _, </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> _</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">gm =</span> <span class="fu">case_when</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">==</span> _ <span class="sc">~</span> _, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      yearID <span class="sc">&gt;=</span> _ <span class="sc">~</span> _, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> _</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="render-commit-push">
 <p>You’re done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message “Done with Lab 1!” , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that <strong>all</strong> documents are updated in your repo on GitHub. The PDF document you submit to Gradescope should be identical to the one in your GitHub repo.</p>
@@ -808,7 +865,7 @@ Warning
 </div>
 <p>To submit your assignment:</p>
 <ul>
-<li>Go to <a href="http://www.gradescope.com/">http://www.gradescope.com</a> and click <em>Log in</em> in the top right corner.</li>
+<li>Go to <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a> and click <em>Log in</em> in the top right corner.</li>
 <li>Click ??</li>
 <li>Click on your <em>STA 210</em> course.</li>
 <li>Click on the assignment, and you’ll be prompted to submit it.</li>
@@ -1211,7 +1268,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">This page is modified from <a href="https://sta210-s22.github.io/website/">a course</a> at Duke.</div>
+    <div class="nav-footer-right">This design is modified from <a href="https://sta210-s22.github.io/website/">a course</a> at Duke.</div>
   </div>
 </footer>
 
