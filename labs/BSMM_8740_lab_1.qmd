@@ -6,7 +6,7 @@ reference-location: margin
 
 ## Introduction
 
-This lab will go through much of the same workflow we've demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions.An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.
+This lab will go through much of the same workflow we've demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions. An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.
 
 ::: callout-note
 Git is a version control system (like "Track Changes" features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).
@@ -18,56 +18,121 @@ As the labs progress, you are encouraged to explore beyond what the labs dictate
 
 By the end of the lab, you will...
 
+-   Have practiced version control using GitHub
 -   Be familiar with the workflow using R, RStudio, Git, and GitHub
--   Gain practice writing a reproducible report using RMarkdown
--   Practice version control using GitHub
--   Be able to create data visualizations using `ggplot2`
--   Be able to describe variable distributions and the relationship between multiple variables
 
-## Getting started
+## Let's Git Started
 
-### Set up your SSH key
+### 1. Register a Github account
 
-You will authenticate GitHub using SSH. Below are an outline of the authentication steps; you are encouraged to follow along as your TA demonstrates the steps.
+Register an account with GitHub. It's free!
+
+-   <https://github.com>
+
+#### Username advice
+
+-   Incorporate your actual name! People like to know who they're dealing with. Also makes your username easier for people to guess or remember.
+-   Shorter is better than longer.
+-   Make it timeless. Don't highlight your current university, employer, or place of residence, e.g. JennyFromTheBlock.
+
+You can change your username later, but better to get this right the first time.
+
+-   <https://help.github.com/articles/changing-your-github-username/>
+
+-   <https://help.github.com/articles/what-happens-when-i-change-my-username/>
+
+### 2. Git already installed?
+
+Go to the terminal tab in RStudio and enter `which git` to request the path to your Git executable:
+
+```{r}
+#| echo: true
+#| eval: false
+which git
+```
+
+and `git --version` to see its version:
+
+```{r}
+#| echo: true
+#| eval: false
+git --version
+```
+
+### 3. Introduce yourself to Git
+
+You can set your Git user name and email from within R:
+
+```{r}
+#| echo: true
+#| eval: false
+usethis::use_git_config(
+  # user.name does not have to be your GitHub user name
+  user.name = "Jane Doe"
+  # user.email MUST be the email associated with your GitHub account.
+  , user.email = "jane@example.org"
+)
+```
 
 ::: callout-note
-You only need to do this authentication process one time on a single system.
+Your commits will be labelled with this user name, so make it informative to potential collaborators and future you.
 :::
 
--   Type `credentials::ssh_setup_github()` into your console.
--   R will ask "No SSH key found. Generate one now?" You should click 1 for yes.
--   You will generate a key. It will begin with "ssh-rsa...." R will then ask "Would you like to open a browser now?" You should click 1 for yes.
--   You may be asked to provide your GitHub username and password to log into GitHub. After entering this information, you should paste the key in and give it a name. You might name it in a way that indicates where the key will be used, e.g., `sta210`).
+### 4. Set up personal access tokens for HTTPS
 
-You can find more detailed instructions [here](https://github.com/DukeStatSci/github_auth_guide) if you're interested.
+The password that you use to login to GitHub's website is NOT an acceptable credential when talking to GitHub as a Git server. You can learn more in their blog post [Token authentication requirements for Git operations](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/).
 
-### Configure Git
-
-There is one more thing we need to do before getting started on the assignment. Specifically, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your name and email address.
-
-To do so, you will use the `use_git_config()` function from the `usethis` package.
-
-Type the following lines of code in the **console** in RStudio filling in your name and the email address associated with your GitHub account.
+The recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R:
 
 ```{r}
+#| echo: true
 #| eval: false
-
-usethis::use_git_config(
-  user.name = "GitHub username", 
-  user.email = "Email associated with your GitHub account"
-  )
+usethis::create_github_token()
 ```
 
-For example, mine would be
+The `usethis` approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking "Generate token".
+
+It is a very good idea to describe the token's purpose in the *Note* field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. "personal-macbook-air" or "vm-for-project-xyz". In the future, you will find yourself staring at this list of tokens, because inevitably you'll need to re-generate or delete one of them. Make it easy to figure out which token you've come here to fiddle with.
+
+##### **4.1 Click "Generate token"**.
+
+You won't be able to see this token again, so don't close or navigate away from this browser window until you store the PAT. Copy the PAT to the clipboard or a text file in RStudio.
+
+Treat this PAT like a password! Do not ever hard-wire your PAT into your code! A PAT should always be retrieved implicitly, for example, from the Git credential store, a safe place, where command line Git, RStudio, and R packages can discover it.
+
+##### 4.2 Save your PAT
+
+-   Copy the generated PAT to a secure, long-term system for storing secrets, like 1Password or LastPass.
+-   email it to yourself
+-   ??
+
+##### 4.3 Store your PAT in the Git credential store
+
+Finally, we store the PAT in a safe place where command line Git, RStudio, and R packages can discover it. To do this call `gitcreds::gitcreds_set()`. If you don't have a PAT stored already, it will prompt you to enter your PAT. Paste!
 
 ```{r}
+#| echo: true
 #| eval: false
-
-usethis::use_git_config(
-  user.name = "mine-cetinkaya-rundel", 
-  user.email = "cetinkaya.mine@gmail.com"
-  )
+gitcreds::gitcreds_set()
 ```
+
+Instead of saving your PAT you could just [re-generate the PAT each lab session and re-store it](https://happygitwithr.com/https-pat#regenerate-pat). If you accept the default 30-day expiration period, this is a workflow you'll be using often anyway.
+
+On github.com, assuming you're signed in, you can manage your personal access tokens from <https://github.com/settings/tokens>, also reachable via *Settings \> Developer settings \> Personal access tokens*.
+
+### 5. How Git works
+
+Git has three storages locally: a Working directory, Staging Area, and a Local repository.
+
+𝟭. 𝗪𝗼𝗿𝗸𝗶𝗻𝗴 𝗗𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 - is where you work, and your files live ("untracked"). GIT is not aware of these files.
+
+𝟮. 𝗦𝘁𝗮𝗴𝗶𝗻𝗴 𝗔𝗿𝗲𝗮 - When you stage your changes, GIT will start tracking and saving your changes with files. These changes are stored in the .git directory.
+
+𝟯. 𝗟𝗼𝗰𝗮𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝘆 - is the area where everything is saved (commits) in the .git directory. So, when you want to move your files from Staging Area to Local Repository, you can use the git commit command. After this, your Staging area will be empty. If you want to see what is in the Local repository, try git log.
+
+The workflow looks like this:
+
+![Git workflow](/images/git_workflow.jpeg){width="374"}
 
 You are now ready interact with GitHub via RStudio!
 
@@ -75,7 +140,7 @@ You are now ready interact with GitHub via RStudio!
 
 -   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
 
--   Click on the green **CODE** button, select **Use SSH** (this might already be selected by default, and if it is, you'll see the text **Clone with SSH**). Click on the clipboard icon to copy the repo URL.
+-   Click on the green **CODE** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS**). Click on the clipboard icon to copy the repo URL.
 
 -   In RStudio, go to *File* ➛ *New Project* ➛*Version Control* ➛ *Git*.
 
@@ -395,7 +460,7 @@ Remember -- you must turn in a PDF file to the Gradescope page before the submis
 
 To submit your assignment:
 
--   Go to [http://www.gradescope.com](http://www.gradescope.com/) and click *Log in* in the top right corner.
+-   Go to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and click *Log in* in the top right corner.
 -   Click ??
 -   Click on your *STA 210* course.
 -   Click on the assignment, and you'll be prompted to submit it.

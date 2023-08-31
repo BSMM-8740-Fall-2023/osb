@@ -10,6 +10,10 @@ editor: visual
 
 📖 Read the [support](/course-support.html) resources
 
+📖 Get familiar with Git by reading [Excuse me, do you have a moment to talk about version control?](https://peerj.com/preprints/3159v2/)
+
+📖 Read the article [What is Tidy Data?](https://towardsdatascience.com/what-is-tidy-data-d58bb9ad2458)
+
 ## Participate
 
 🖥️ [Lecture 1 - The tidyverse](/slides/BSMM_8740_lec_01.html)

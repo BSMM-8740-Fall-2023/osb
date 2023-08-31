@@ -17,7 +17,7 @@ website:
     image: "images/twitter-card.png"
 
   page-footer:
-    right: "This page is modified from [a course](https://sta210-s22.github.io/website/) at Duke."
+    right: "This design is modified from [a course](https://sta210-s22.github.io/website/) at Duke."
     left: "&copy; Copyright 2022, Mine Çetinkaya-Rundel used under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)"
     background: "#D9E3E4"
 
@@ -31,14 +31,14 @@ website:
         href: https://github.com/bsmm-8740-fall-2023
         text: "GitHub organization"
       - icon: person-fill
-        text: "Sakai"
+        text: "Brightspace"
         menu:
           - text: Discussion forum
-            url: https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/tool/13b6446a-a6c6-4222-8cfb-c36d1f70802b
-          - text: Gradescope
-            url: https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/page/aec742dc-2972-4f02-a35b-1dd3315af889
-          - text: Gradebook
-            url: https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/tool/69078433-67a6-4054-a2e7-9e6c202ecdc3/
+            url: https://brightspace.uwindsor.ca/d2l/le/144921/discussions/List
+          - text: Assignments
+            url: https://brightspace.uwindsor.ca/d2l/lms/dropbox/admin/folders_manage.d2l?ou=144921
+          - text: Home
+            url: https://brightspace.uwindsor.ca/d2l/home/144921
 
     style: "docked"
     search: true

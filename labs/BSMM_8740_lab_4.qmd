@@ -99,7 +99,7 @@ This is a good place to render, commit, and push changes to your remote lab repo
 
 In this exercise you will compare and interpret the results of linear regression on two similar datasets.
 
-The first dataset (`dat0` - generated below) has `demand0` and `price0` variables along with an unobserved variable (`unobserved0`  - so not in our dataset) that doesn't change the values of `demand0` and `price0`. Use lm to build a model to predict `demand0` from `price0` . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset `dat0`?
+The first dataset (`dat0` - generated below) has `demand0` and `price0` variables along with an unobserved variable (`unobserved0` - so not in our dataset) that doesn't change the values of `demand0` and `price0`. Use lm to build a model to predict `demand0` from `price0` . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset `dat0`?
 
 ```{r}
 #| echo: true
@@ -128,7 +128,7 @@ dat1 <- tibble::tibble(
 )
 ```
 
-Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?
+Which linear model returns the (approximately) correct dependence of demand on price, as given in the data generation process?
 
 ## Exercise 5
 
@@ -153,16 +153,13 @@ dat <-
 
 From the raw data in `dat`, we'll make a smaller dataset, and we'll need to do some cleaning to make it useable.
 
-First select the columns "Comb FE (Guide) - Conventional Fuel", "Eng Displ",'\# Cyl', Transmission
-, "\# Gears", "Air Aspiration Method Desc", "Regen Braking Type Desc", "Batt Energy Capacity (Amp-hrs)"
-, "Drive Desc", "Fuel Usage Desc - Conventional Fuel", "Cyl Deact?", and "Var Valve Lift?" and then clean the column names using janitor::janitor::clean_names(). Assign the revised data to the variable `cars_23`.
+First select the columns "Comb FE (Guide) - Conventional Fuel", "Eng Displ",'\# Cyl', Transmission , "\# Gears", "Air Aspiration Method Desc", "Regen Braking Type Desc", "Batt Energy Capacity (Amp-hrs)" , "Drive Desc", "Fuel Usage Desc - Conventional Fuel", "Cyl Deact?", and "Var Valve Lift?" and then clean the column names using janitor::janitor::clean_names(). Assign the revised data to the variable `cars_23`.
 
 Perform a quick check of the data using `DataExplorer::introduce()` and `DataExplorer::plot_missing()` and modify the data as follows
 
 -   mutate the columns `comb_fe_guide_conventional_fuel`, `number_cyl`, and `number_gears` to ensure that they contain integers values, not doubles.
 -   use `tidyr::replace_na` to replace any missing values in `batt_energy_capacity_amp_hrs` column with zeros, and replace and missing values in `regen_braking_type_desc` with empty strings ("").
--   finally, mutate the columns 'transmission','air_aspiration_method_desc','regen_braking_type_desc','drive_desc'
- ,'fuel_usage_desc_conventional_fuel','cyl_deact','var_valve_lift' so their values are factors.
+-   finally, mutate the columns 'transmission','air_aspiration_method_desc','regen_braking_type_desc','drive_desc' ,'fuel_usage_desc_conventional_fuel','cyl_deact','var_valve_lift' so their values are factors.
 
 Prepare a recipe to process `cars_23` ahead of modelling, using `comb_fe_guide_conventional_fuel` as the outcome, with the following steps.
 
@@ -275,7 +272,7 @@ for (j in 1:nrow(hyper_grid)) {
 best <- hyper_grid[which(xgb_test_rmse == min(xgb_test_rmse)),]; best
 ```
 
-re-run the code from the last exercise and evaluated the fit using the best tuning parameters.
+re-run the code from the last exercise and evaluate the fit using the best tuning parameters.
 
 Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).
 
