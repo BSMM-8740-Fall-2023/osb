@@ -4,6 +4,10 @@ subtitle: "BSMM-8740 - Fall 2023"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
+title-slide-attributes:
+  data-background-image: images/my-DRAFT.png
+  data-background-size: contain
+  data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss

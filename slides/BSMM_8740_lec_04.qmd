@@ -4,6 +4,10 @@ subtitle: "BSMM-8740 - Fall 2023"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
+title-slide-attributes:
+  data-background-image: images/my-DRAFT.png
+  data-background-size: contain
+  data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -206,6 +210,16 @@ $$
 $$
 
 This is known as the empirical risk minimization (ERM) - the expected loss taken with respect to the empirical distribution.
+
+## Collinearity
+
+One of the important assumptions of the classical linear regression models is that there is no exact collinearity among the regressors. While high correlation between regressors is a necessary indicator of the problem, a direct linear relationship beween regressors is sufficient.
+
+Data collection methods, constraints on the fitted regression model, model specification error, an overdefined model, may be some potential sources of multicollinearity. In other cases it is an artifact caused by creating new predictors from other predictors.
+
+## Collinearity
+
+The problem of collinearity has potentially serious effect on the regression estimates such as implausible coefficient signs, impossible inversion of matrix $X'X$ as it becomes near or exactly singular, large magnitude of coefficients in absolute value, large variance or standard errors with wider confidence intervals.
 
 ## Ridge Regression
 
@@ -547,6 +561,26 @@ dat %>%
   geom_point() +
   geom_line(aes(y=pred),color='red')
 ```
+
+## Generalized Linear Models
+
+A **generalized linear model** (**GLM**) is a flexible generalization of ordinary linear regression.
+
+Ordinary linear regression predicts the expected value of the outcome variable, a random variable, as a linear combination of a set of observed values (*predictors*). In a generalized linear model (GLM), each outcome $Y$ is assumed to be generated from a particular distribution in an exponential family, The mean, $\mu$, of the distribution depends on the independent variables, $X$, through:
+
+$$
+\mathbb{E}\left[\left.Y\right|X\right]=\mu=\text{g}^{-1}\left(X\beta\right)
+$$ where $g$ is called the **link function**.
+
+## Generalized Linear Models
+
+For example, if $Y$ is Poisson distributed, then
+
+$$
+\mathbb{P}\left[\left.Y=y\right|X,\lambda\right]=\frac{\lambda^{y}}{y!}e^{-\lambda}=e^{y\log\lambda-\lambda-\log y!}
+$$
+
+So here the link function is $\log$ and $\log\mathbb{E}\left[\left.Y\right|X\right] = \beta X$
 
 # Tree regression
 

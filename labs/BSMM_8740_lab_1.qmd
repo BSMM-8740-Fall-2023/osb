@@ -437,46 +437,35 @@ mets_ben <- mets_ben |>
 ```
 
 ::: render-commit-push
-You're done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message "Done with Lab 1!" , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that **all** documents are updated in your repo on GitHub. The PDF document you submit to Gradescope should be identical to the one in your GitHub repo.
+You're done and ready to submit your work! Render, commit, and push all remaining changes. You can use the commit message "Done with Lab 1!" , and make sure you have committed and pushed all changed files to GitHub (your Git pane in RStudio should be empty) and that **all** documents are updated in your repo on GitHub. The HTML document you submit to Brightspace should be identical to the one in your GitHub repo.
 :::
 
 ### Exercise 11
 
-Use the `gm` variable to define the manager groups with the `group_by()` operator, and run the summaries again, this time across the manager groups.
-
-### Bonus
-
-Do all the analysis at once, but retain the step-by-step logic.
+Use the `gm` variable to define the manager groups with the `group_by()` operator, and run the summaries again, this time across the manager groups.
 
 ## Submission
 
-In this class, we'll be submitting PDF documents to Gradescope.
+In this class, we'll be submitting HTML documents to Brightspace.
 
 ::: callout-warning
 Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
 
-Remember -- you must turn in a PDF file to the Gradescope page before the submission deadline for full credit.
+Remember -- you must turn in an HTML file to the Brightspace page before the submission deadline for full credit.
 :::
 
 To submit your assignment:
 
--   Go to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and click *Log in* in the top right corner.
--   Click ??
--   Click on your *STA 210* course.
--   Click on the assignment, and you'll be prompted to submit it.
--   Mark the pages associated with each exercise. All of the pages of your lab should be associated with at least one question (i.e., should be "checked").
--   Select the first page of your PDF submission to be associated with the *"Workflow & formatting"* section.
+-   Log in to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and select course [BSMM8740-2-R-2023F\|Data Analytic Meth.](https://brightspace.uwindsor.ca/d2l/home/144921 "BSMM8740-2-R-2023F|Data Analytic Meth. & Algorith")
+-   Click on the Lab-1 assignment, and submit it.
 
 ## Grading
 
 Total points available: 50 points.
 
-| Component             | Points |
-|-----------------------|--------|
-| Ex 1 - 10             | 45     |
-| Workflow & formatting | 5[^1]  |
-
-[^1]: The "Workflow & formatting" grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.
+| Component | Points |
+|-----------|--------|
+| Ex 1 - 10 | 30     |
 
 ## Resources for additional practice (optional)
 

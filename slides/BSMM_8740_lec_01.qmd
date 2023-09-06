@@ -4,6 +4,10 @@ subtitle: "BSMM-8740 - Fall 2023"
 author: "Dr. L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
+title-slide-attributes:
+  data-background-image: images/my-DRAFT.png
+  data-background-size: contain
+  data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -56,7 +60,7 @@ knitr::opts_chunk$set(
 ## Announcements
 
 -   If you're just joining the class, welcome! Go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) and review content you've missed, read the syllabus, and complete the *Getting to know you* survey.
--   Lab 1 is due Friday, at 5pm, on Gradescope.
+-   Lab 1 is due Friday September 15, at 5pm, on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
 
 ## Course Topics
 

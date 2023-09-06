@@ -14,6 +14,8 @@ editor: visual
 
 📖 Read the article [What is Tidy Data?](https://towardsdatascience.com/what-is-tidy-data-d58bb9ad2458)
 
+📖 Read the chapters 2-4 in [R for Data Science](https://r4ds.hadley.nz/)
+
 ## Participate
 
 🖥️ [Lecture 1 - The tidyverse](/slides/BSMM_8740_lec_01.html)
