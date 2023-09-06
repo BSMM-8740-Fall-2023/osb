@@ -397,7 +397,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-image="images/my-DRAFT.png" data-background-opacity="0.40" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">Regression Methods</h1>
   <p class="subtitle">BSMM-8740 - Fall 2023</p>
 
@@ -613,6 +613,15 @@ Q'QR\beta &amp; = Q'y\\
 \mathcal{L}\left(\theta\right)=\frac{1}{N}\sum_{n=1}^{N}\ell\left(y_{n},\theta;x_{n}\right)
 \]</span></p>
 <p>This is known as the empirical risk minimization (ERM) - the expected loss taken with respect to the empirical distribution.</p>
+</section>
+<section id="collinearity" class="slide level2">
+<h2>Collinearity</h2>
+<p>One of the important assumptions of the classical linear regression models is that there is no exact collinearity among the regressors. While high correlation between regressors is a necessary indicator of the problem, a direct linear relationship beween regressors is sufficient.</p>
+<p>Data collection methods, constraints on the fitted regression model, model specification error, an overdefined model, may be some potential sources of multicollinearity. In other cases it is an artifact caused by creating new predictors from other predictors.</p>
+</section>
+<section id="collinearity-1" class="slide level2">
+<h2>Collinearity</h2>
+<p>The problem of collinearity has potentially serious effect on the regression estimates such as implausible coefficient signs, impossible inversion of matrix <span class="math inline">\(X'X\)</span> as it becomes near or exactly singular, large magnitude of coefficients in absolute value, large variance or standard errors with wider confidence intervals.</p>
 </section>
 <section id="ridge-regression" class="slide level2">
 <h2>Ridge Regression</h2>
@@ -982,7 +991,23 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="generalized-linear-models" class="slide level2">
+<h2>Generalized Linear Models</h2>
+<p>A <strong>generalized linear model</strong> (<strong>GLM</strong>) is a flexible generalization of ordinary linear regression.</p>
+<p>Ordinary linear regression predicts the expected value of the outcome variable, a random variable, as a linear combination of a set of observed values (<em>predictors</em>). In a generalized linear model (GLM), each outcome <span class="math inline">\(Y\)</span> is assumed to be generated from a particular distribution in an exponential family, The mean, <span class="math inline">\(\mu\)</span>, of the distribution depends on the independent variables, <span class="math inline">\(X\)</span>, through:</p>
+<p><span class="math display">\[
+\mathbb{E}\left[\left.Y\right|X\right]=\mu=\text{g}^{-1}\left(X\beta\right)
+\]</span> where <span class="math inline">\(g\)</span> is called the <strong>link function</strong>.</p>
+</section>
+<section id="generalized-linear-models-1" class="slide level2">
+<h2>Generalized Linear Models</h2>
+<p>For example, if <span class="math inline">\(Y\)</span> is Poisson distributed, then</p>
+<p><span class="math display">\[
+\mathbb{P}\left[\left.Y=y\right|X,\lambda\right]=\frac{\lambda^{y}}{y!}e^{-\lambda}=e^{y\log\lambda-\lambda-\log y!}
+\]</span></p>
+<p>So here the link function is <span class="math inline">\(\log\)</span> and <span class="math inline">\(\log\mathbb{E}\left[\left.Y\right|X\right] = \beta X\)</span></p>
+</section></section>
 <section>
 <section id="tree-regression" class="title-slide slide level1 center">
 <h1>Tree regression</h1>
