@@ -1,24 +1,16 @@
 ---
 title: "Recipes"
-subtitle: "TBA"
+subtitle: "Data Prep and Feature Engineering with recipes"
 editor: visual
 ---
 
 ## Prepare
 
-📖 Read Introduction to Modern Statistics, Sec 24.1: [Case study: Sandwich store](https://openintro-ims.netlify.app/inf-model-slr.html#case-study-sandwich-store)
-
-📖 Read Introduction to Modern Statistics, Sec 24.2: [Randomization test for the slope](https://openintro-ims.netlify.app/inf-model-slr.html#randslope)
-
-📖 Read Introduction to Modern Statistics, Sec 24.3: [Bootstrap confidence interval for the slope](https://openintro-ims.netlify.app/inf-model-slr.html#bootbeta1)
+📖 Read Tidy Modeling with R, Chapter 8: [Feature Engineering with recipes](https://www.tmwr.org/recipes)
 
 ## Participate
 
 🖥️ [Lecture 3 - Recipes](/slides/BSMM_8740_lec_03.html)
-
-## Practice
-
-📋 [Application Exercise 2 - Bike rentals in DC](/ae/ae-2-dcbikeshare.html)
 
 ## Perform
 

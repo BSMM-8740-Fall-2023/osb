@@ -1,5 +1,5 @@
 ---
-title: "Tidymodels"
+title: "Classification and Clustering"
 subtitle: "BSMM-8740 - Fall 2023"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
@@ -37,26 +37,341 @@ theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 
 ## Recap of last week
 
--   Last week we looked at several regression models that are useful for predictions
+-   Last week we introduced the Tidymodels framework in R
 
--   However, these models have different conventions on how they accept data and describe the model
+-   We showed how we can use the Tidymodels framework to create a workflow for data prep, feature engineering, model fitting and model evaluation.
 
--   Today we look at the tidymodels package which will give us a workflow to describe, fit and compare models, using the same approach across methods.
+-   Today we look at the using the Tidymodels package to build classification and clustering models.
 
-# Tidymodels
+# Classification
 
-## Tidymodels
+## Classification
 
--   Tidymodels is an R package that provides a unified and consistent framework for modeling and machine learning tasks.
--   It is built on top of the tidyverse, making it easy to integrate with other tidyverse packages.
--   Tidymodels promotes best practices, repeatability, and clear documentation in your data analysis and modeling workflow.
+-   Classification is a supervised machine learning method where the model tries to predict the correct class label for a given input data.
+-   In classification, the model is fully trained using the training data, and then it is evaluated on test data before being used to perform prediction on new unseen data.
 
-## Tidymodels
+## Classification
 
-### Key Components of Tidymodels
+**Eager learners** are machine learning algorithms that first build a model from the training dataset before making any prediction on future datasets. They spend more time on the training process to better generalize from the data.
 
--   Model Building: tidymodels provides various modeling engines for different algorithms like lm(), glm(), randomForest(), xgboost(), etc.
--   Preprocessing: Easy and flexible data preprocessing using recipes, allowing for seamless data transformation and feature engineering.
+They usually require less time to make predictions. Example eager learners are:
+
+-   Logistic Regression.
+-   Support Vector Machine.
+-   Decision Trees.
+-   Artificial Neural Networks.
+
+## Classification
+
+**Lazy learners or instance-based learners**, do not create any model immediately from the training data, and this where the lazy aspect comes from. They just memorize the training data, and each time there is a need to make a prediction, they search for the nearest neighbor from the whole training data. Examples are:
+
+-   K-Nearest Neighbor.
+-   Case-based reasoning.
+
+## Types of classification
+
+-   Binary classification
+-   Multi-Class Classification (mutually exclusive)
+-   Multi-Label Classification (not mutually exclusive)
+-   Imbalanced Classification
+
+## Binary Logistic Regression
+
+Logistic regression is a Generalized Linear Model where the dependent (categorical) variable $y$ takes values in ${0,1}$. This can be interpreted as identifying two classes, and logistic regression provides a prediction for class membership based on a linear combination of the explanatory variables.
+
+Logistic regression is an example of supervised learning.
+
+## Binary Logistic Regression
+
+For the logistic GLM:
+
+-   the distribution of the observations is Binomial with parameter $\pi$
+-   the explanatory variables are linear in the parameters: $\eta=\beta_0+\beta_1 x_1+\beta_2 x_2+\beta_2 x_2\ldots+\beta_n x_n$
+-   the link function is the logit: $\eta=\text{logit}(\pi) = \log(\frac{\pi}{1-\pi})$
+
+It follows that $\pi = \frac{e^\eta}{1+e^\eta} = \frac{1}{1+e^{-\eta}}$, which is a sigmoid function in the explanatory variables. The equation $\eta=0$ defines a linear decision boundary or classification threshold.
+
+## Binary Logistic Regression
+
+The term $\frac{\pi}{1-\pi}$ is called the the odds-ratio. By its definition $\frac{\pi}{1-\pi}=e^{\beta_0+\beta_1 x_1+\beta_2 x_2+\beta_2 x_2\ldots+\beta_n x_n}$
+
+So if $x_1$ changes by one unit ($x_1\rightarrow x_1+1$), then the odds ratio changes by $e^{\beta_1}$.
+
+## Classifier metrics
+
+### Confusion matrix
+
+The confusion matrix is a 2x2 table summarizing the number of correct predictions of the model:
+
+|          | predict 1                | predict 0                |
+|----------|--------------------------|--------------------------|
+| data =1  | true positives (TP)      | false negatives (FN)[^1] |
+| data = 0 | false positives (FP)[^2] | true negatives (TN)      |
+
+[^1]: Type II error
+
+[^2]: Type I error
+
+## Classifier metrics
+
+### Accuracy
+
+Accuracy measure the percent of correct predictions:
+
+$$
+\frac{\text{TP}+\text{TN}}{\text{total # observations}}
+$$
+
+### Precision
+
+Accuracy measure the percent of positive predictions that are correct:
+
+$$
+\frac{\text{TP}}{\text{TP}+\text{FP}}
+$$
+
+## Classifier metrics
+
+### Recall / Sensitivity
+
+Measures the success at predicting the first class
+
+$$
+\frac{\text{TP}}{\text{TP}+\text{FN}}\qquad\text{(True Positive Rate - TPR)}
+$$
+
+### Recall / Specificity
+
+Measures the success at predicting the second class
+
+$$
+\frac{\text{TN}}{\text{TN}+\text{FP}}\qquad\text{(True Negative Rate - TNR)}
+$$
+
+## Classifier metrics
+
+### ROC Curves
+
+Consider plotting the TPR against the FPR (1-TNR) at different classification thresholds. This is the ROC.
+
+-   the diagonal (TPR = 1-TNR) describes a process equivalent to tossing a fair coin (i.e. no predictive power)
+-   our method should have a curve above the diagonal; which shape is better depends on the purpose of our classifier.
+
+So, how to compute?
+
+## Classifier metrics
+
+### The AUC: the area under the ROC.
+
+It turns out the AUC is very easy to compute and gives us the ROC at the same time.
+
+-   rank order your data by decreasing positive predicted probability
+-   against the cumulative percent of negative observations plot the cumulative percent of positive observations
+
+## Example: create the workflow
+
+#### Workflow to model credit card default
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+data <- ISLR::Default %>% tibble::as_tibble()
+set.seed(8740)
+
+# split data
+data_split <- rsample::initial_split(data)
+default_train <- rsample::training(data_split)
+
+# create a recipe
+default_recipe <- default_train %>% 
+  recipes::recipe(formula = default ~ student + balance + income) %>% 
+  recipes::step_dummy(recipes::all_nominal_predictors())
+
+# create a linear regression model
+default_model <- parsnip::logistic_reg() %>% 
+  parsnip::set_engine("glm") %>% 
+  parsnip::set_mode("classification")
+
+# create a workflow
+default_workflow <- workflows::workflow() %>%
+  workflows::add_recipe(default_recipe) %>%
+  workflows::add_model(default_model)
+```
+
+## Example: fit the model using the data
+
+```{r}
+#| echo: true
+#| code-fold: false
+# fit the model
+lm_fit <- 
+  default_workflow %>% 
+  parsnip::fit(default_train)
+
+# augment the data with the predictions using the model fit
+training_results <- 
+  broom::augment(lm_fit , default_train) 
+```
+
+## Example: compute the AUC
+
+```{r}
+#| echo: true
+#| code-fold: false
+auc_roc_tbl <- training_results %>% 
+  # order prediction probability from high to low
+  dplyr::arrange( desc(.pred_Yes) ) %>% 
+  # make new variable for cumulative % of 'Yes' category
+  dplyr::mutate( 
+    # scale to percent (# of all 'Yes' categories)
+    y = ifelse(default == "Yes", 1/sum(default == "Yes"),0)
+    # accumulate the values
+    , y = cumsum(y)
+  ) %>% 
+  # keep the 'No' category values
+  dplyr::filter(default == "No") %>% 
+  # number rows & scale to % of total; compute incremental areas
+  tibble::rowid_to_column("ID") %>% 
+  dplyr::mutate(
+    auc_inc = y / max(ID) # multiply the height by the width
+    , ID = ID / max(ID)   # scale to percent (# of all 'No' categories)
+  ) 
+```
+
+## Example: plot the ROC
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+auc_roc_tbl %>% 
+  ggplot(aes(x=ID, y = y)) +
+  geom_line() +
+  # xlim(c(0,1)) +
+  geom_abline(slope=1) + 
+    coord_fixed() +
+    labs(
+      title = "ROC curve for load default prediction",
+      subtitle = 
+        stringr::str_glue("Logistic Regression AUC = {scales::label_number(accuracy = 10^-7)(sum(auc_roc_tbl$auc_inc) )}")
+    )
+```
+
+## Example: yardstick
+
+```{r}
+#| echo: true
+#| code-fold: false
+training_results %>% 
+  yardstick::roc_auc(.pred_No, truth = default)
+```
+
+## Example: yardstick
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+training_results %>% yardstick::roc_curve(.pred_No, truth = default) %>% autoplot()
+```
+
+## Other Classification Methods
+
+## Naive Bayes Classification
+
+This method starts with Bayes rule: for $K$ classes and $N$ features, since $\mathbb{P}\left[\left.C_{k}\right|x_{1},\ldots,x_{N}\right]\times\mathbb{P}\left[x_{1},\ldots,x_{N}\right]$ is equal to $\mathbb{P}\left[\left.x_{1},\ldots,x_{N}\right|C_{k}\right]\times\mathbb{P}\left[C_{k}\right]$, we can write
+
+$$
+\mathbb{P}\left[\left.C_{k}\right|x_{1},\ldots,x_{N}\right]=\frac{\mathbb{P}\left[\left.x_{1},\ldots,x_{N}\right|C_{k}\right]\times\mathbb{P}\left[C_{k}\right]}{\mathbb{P}\left[x_{1},\ldots,x_{N}\right]}
+$$
+
+## Naive Bayes Classification
+
+If we assume that the features are all independent we can write Bayes rule as
+
+$$
+\mathbb{P}\left[\left.C_{k}\right|x_{1},\ldots,x_{N}\right]=\frac{\mathbb{P}\left[C_{k}\right]\times\prod_{n=1}^{N}\mathbb{P}\left[\left.x_{n}\right|C_{k}\right]}{\prod_{n=1}^{N}\mathbb{P}\left[x_{n}\right]}
+$$
+
+and our classifier is
+
+$$
+C_{k}=\arg\max_{C_{k}}\mathbb{P}\left[C_{k}\right]\prod_{n=1}^{N}\mathbb{P}\left[\left.x_{n}\right|C_{k}\right]
+$$
+
+## Naive Bayes Classification
+
+So it remains to calculate the class probability $\mathbb{P}\left[C_{k}\right]$ and the conditional probabilities $\mathbb{P}\left[\left.x_{n}\right|C_{k}\right]$
+
+The different naive Bayes classifiers differ mainly by the assumptions they make regarding the conditional probabilities.
+
+## Naive Bayes Classification
+
+If our features are all ordinal, then
+
+-   The class probabilities are simply the frequency of instances that belong to each class divided by the total number of instances.
+
+-   The conditional probabilities are the frequency of each feature value for a given class value divided by the frequency of instances with that class value.
+
+## Naive Bayes Classification
+
+If any features are numeric, we can estimate conditional probabilities by assuming that the numeric features have a Gaussian distribution for each class
+
+## Naive Bayes Classification
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| message: false
+#| warning: false
+library(discrim)
+# create a naive bayes classifier
+default_model_nb <- parsnip::naive_Bayes() %>% 
+  parsnip::set_engine("klaR") %>% 
+  parsnip::set_mode("classification")
+
+# create a workflow
+default_workflow_nb <- workflows::workflow() %>%
+  workflows::add_recipe(default_recipe) %>%
+  workflows::add_model(default_model_nb)
+
+# fit the model
+lm_fit_nb <- 
+  default_workflow_nb %>% 
+  parsnip::fit(
+    default_train
+  , control = 
+    workflows::control_workflow(parsnip::control_parsnip(verbosity = 1L))
+  )
+
+# augment the data with the predictions using the model fit
+training_results_nb <- 
+  broom::augment(lm_fit_nb , default_train) 
+```
+
+## Naive Bayes Classification
+
+::: panel-tabset
+## AUC
+
+```{r}
+#| echo: true
+#| code-fold: false
+training_results_nb %>% 
+  yardstick::roc_auc(.pred_No, truth = default)
+```
+
+## ROC
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+training_results_nb %>% yardstick::roc_curve(.pred_No, truth = default) %>% autoplot()
+```
+:::
 
 ## Tidymodels
 

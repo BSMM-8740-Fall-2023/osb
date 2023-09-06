@@ -206,7 +206,6 @@ Considering this extended dataset, some more analysis are allowed. First of all,
 # plot(count_by_year_male$acquisitionYear, count_by_year_male$count, type = "l", col = "blue", main = "Gender gap analysis on acquisitions", xlab = "Years", ylab = "Number of acquired artworks") lines(count_by_year_female$acquisitionYear, count_by_year_female$count, col = "pink")
 ```
 
-
 ```{r}
 #| eval: false
 spx_data <- readr::read_csv("labs/data/SPX_HistoricalData_1692322132002.csv", show_col_types = FALSE)
@@ -225,6 +224,7 @@ spx_summary <- spx_data %>% dplyr::mutate(
   ) 
 spx_summary
 ```
+
 nmmnmnmn
 
 ```{r}
@@ -246,4 +246,3 @@ spx_summary %>%
   gtExtras::gt_theme_espn()
   
 ```
-

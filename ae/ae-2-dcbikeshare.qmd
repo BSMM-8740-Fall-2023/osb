@@ -30,7 +30,7 @@ Click [here](https://rstudio-education.github.io/dsbox/reference/dcbikeshare.htm
 
 ```{r load-data}
 #| message: false
-bikeshare <- read_csv("data/dcbikeshare.csv")
+bikeshare <- readr::read_csv("data/dcbikeshare.csv")
 ```
 
 See AE 1 for the first part of this analysis.
