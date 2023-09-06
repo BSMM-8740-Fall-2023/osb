@@ -32,7 +32,7 @@ tbl_0 <- tibble::tribble(
 tbl_1 <- tibble::tribble(
 ~w,~x,~y,~z,
 "Office hours"	                  ,"Thursday 2:00 PM" 	    ,"Office" ,"Zoom", 
-"Telephone"	                    ," ---- " 	  ,"Email"	,"lodette@uwindsor.ca", 
+"Telephone"	                    ,"+1 617-935-0016" 	  ,"Email"	,"lodette@uwindsor.ca", 
 "Academic Director"	            ,"Dr. Brent Furneaux"	,"Email"	,"brent.furneaux@uwindsor.ca:",
 "Program Administrator"	        ,"TBD"	                ,"Email"	,"",
 "Student Experience Coordinator"	,"Samantha DesRosiers" ,"Email"	,"Samantha.Desrosiers@uwindsor.ca",
@@ -99,17 +99,15 @@ The general objectives of this course are to:
 
 While there is no official textbook for the course, we will be assigning readings from the following textbooks.
 
--   [The Elements of Statistical Learning Learning - Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn) (print 12) by Hastie, Tibshirani, and Firedman.
+-   [The Elements of Statistical Learning Learning - Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn) by Hastie, Tibshirani, and Firedman.
 
--   [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garret Grolemund
+-   [r Data Science](https://r4ds.had.co.nz/) by Garret Grolemund and Hadley Wickham
 
 -   [Introduction to Modern Statistics](https://openintro-ims.netlify.app/) by Mine Çetinkaya-Rundel and Johanna Hardin
 
 -   [Tidy modeling with R](https://www.tmwr.org/) by Max Kuhn and Julia Silge
 
 -   [Beyond Multiple Linear Regression](https://bookdown.org/roback/bookdown-BeyondMLR/) by Paul Roback and Julie Legler
-
--   [Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/) by Bradley Boehmke and Brandon Greenwell
 
 ## Course Content
 
