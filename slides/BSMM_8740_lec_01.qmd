@@ -1,6 +1,6 @@
 ---
-title: "Data Analytic Methods & Algorithms"
-subtitle: "BSMM-8740 - Fall 2023"
+title: "The tidyverse & git"
+subtitle: "BSMM8740-2-R-2023F [WEEK - 1]"
 author: "Dr. L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
@@ -55,12 +55,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Welcome
+# Welcome to Data Analytic Methods & Algorithms
 
 ## Announcements
 
--   If you're just joining the class, welcome! Go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) and review content you've missed, read the syllabus, and complete the *Getting to know you* survey.
--   Lab 1 is due Friday September 15, at 5pm, on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
+::: {style="font-size: smaller"}
+-   Please go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) to review the content, access the labs, read the syllabus, etc.
+-   I will also post the weekly slides on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
+-   My intent is to have assigned lab exercises each week, which should be able to be completed during class.
+    -   If we run over or if you'd like more time, the lab assignment will remain on the course Github site and your work will remain on your own Github account can can be submitted by the deadline.
+-   Lab 1 is due Friday September 15 at 5pm; the assignment can be submitted on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
+-   My regular office hour will be on Thursdays from 2:00pm - 3:00pm via MS Teams.
+:::
 
 ## Course Topics
 
@@ -72,12 +78,13 @@ knitr::opts_chunk$set(
 tibble::tibble(
   week = 1:11
   , topic = 
-    c('Tidyverse', 'EDA & feature engineering', 'Recipes', 'Regression', 'Tidymodels'
-      , 'Classification', 'Time Series', 'Causality', 'Causality', 'Bayesian methods', 'Bayesian methods')
+    c('The tidyverse & git', 'EDA and feature engineering', 'The recipes package', 'Regression methods', 'More tidymodels packages'
+      , 'Classification & clustering methods', 'Time series methods', 'Causality: DAGs', 'Causality: Effects', 'Monte-Carlo methods', 'Bayesian methods')
 ) %>% 
   gt::gt() %>% 
   gtExtras::gt_theme_espn() %>% 
   gt::tab_options( table.font.size = gt::px(28) ) %>% 
+  gt::cols_align(align = "center", columns = week) %>% 
   gt::as_raw_html()
 ```
 
@@ -85,9 +92,8 @@ tibble::tibble(
 
 ## Today's Outline
 
--   Introduction to Tidy data & Tidyverse syntax
--   Estimate the slope and intercept of the regression line using the least squares method
--   Interpret the slope and intercept of the regression line
+-   Introduction to Tidy data & Tidyverse syntax in R.
+-   Introduction to Git workflows and version control.
 
 # Introduction to the Tidyverse
 
@@ -145,7 +151,13 @@ From Wickham et al. ("Welcome to the Tidyverse." *Journal of Open Source Softwar
 2.  Reuse existing data structures
 3.  Design for the pipe and functional programming
 
-## A grammar for data Wrangling
+## Tidyverse
+
+Packages in the tidyverse.
+
+![](images/Tidyverse_packages.png){fig-align="center"}
+
+## A grammar for data wrangling
 
 The `dplyr` package gives a grammar for data wrangling, including these 5 verbs for working with data frames.
 
@@ -181,7 +193,7 @@ The two simplest of the five verbs are `filter()` and `select()`, which return 
 ggplot2::presidential
 ```
 
-## Example
+## Example: select
 
 To get just the names and parties of these presidents, use `select()`. The first [*argument*](#0) is the data frame, followed by the column names.
 
@@ -191,7 +203,7 @@ To get just the names and parties of these presidents, use `select()`. The first
 dplyr::select(presidential, name, party)
 ```
 
-## Example
+## Example: filter
 
 Similarly, the first argument to `filter()` is a data frame, and subsequent arguments are logical conditions that are evaluated on any involved columns. 
 
@@ -201,7 +213,7 @@ Similarly, the first argument to `filter()` is a data frame, and subsequent ar
 dplyr::filter(presidential, party == "Republican")
 ```
 
-## Example
+## Example: combined operations
 
 Combining the `filter()` and `select()` commands enables one to drill down to very specific pieces of information.
 
@@ -218,7 +230,7 @@ dplyr::select(
 )
 ```
 
-## Example
+## Example: pipe
 
 As written the `filter()` operation is nested inside the `select()` operation.
 
@@ -239,7 +251,7 @@ We might want to create, re-define, or rename some of our variables. A graphical
 
 ![The mutate() function. At right, the resulting data frame after adding a new column.](/images/mutate-1.png)
 
-## Example
+## Example: mutate, new column
 
 ```{r}
 #| echo: true
@@ -252,7 +264,7 @@ my_presidents <- presidential %>%
 my_presidents
 ```
 
-## Example
+## Example: mutate, existing column
 
 The `mutate()` function can be used to modify existing columns. Below we add a variable containing the year in which each president was elected assuming that every president was elected in the year before he took office.
 
@@ -270,7 +282,7 @@ my_presidents %<>%
 my_presidents %>% dplyr::slice_head(n=4)
 ```
 
-## Example
+## Example: new column
 
 Some entries in this data set are wrong, because presidential elections are only held every four years, and some presidents are not elected (e.g. Johnson and Ford).
 
@@ -311,7 +323,7 @@ The function `sort()` will sort a vector but not a data frame. The `arrange()
 
 ![The arrange() function. At left, a data frame with an ordinal variable. At right, the resulting data frame after sorting the rows in descending order of that variable.](/images/arrange-1.png)
 
-## Example
+## Example: arrange, since column
 
 To use `arrange` you have to specify the data frame, and the column by which you want it to be sorted. You also have to specify the direction in which you want it to be sorted.
 
@@ -330,7 +342,7 @@ my_presidents %>%
   dplyr::slice_head(n=9)
 ```
 
-## Example
+## Example, arrange, multiple columns
 
 To break ties, we can further sort by other variables
 
@@ -344,13 +356,13 @@ my_presidents |>
 
 ## **`summarize()` with `group_by()`**
 
-The `summarize` verb is usually used with `group_by`
+The `summarize` verb is often used with `group_by`
 
 ![The summarize() function. At left, a data frame. At right, the resulting data frame after aggregating four of the columns.](/images/summarize-1.png)
 
-## Example
+## Example: summarize
 
-When used alone, `summarize()` collapses a data frame into a single row.
+When used without grouping, `summarize()` collapses a data frame into a single row.
 
 ```{r}
 #| echo: true
@@ -367,7 +379,7 @@ my_presidents %>%
   )
 ```
 
-## Example
+## Example: pipe, stacked
 
 To make comparisons, we can first group then summarize, giving us one summary row for each group.
 
@@ -418,13 +430,13 @@ all_stations <-
 | Topic         | Magrittr *2.0.3*     | Base *4.3.0*                       |
 |---------------|----------------------|------------------------------------|
 | Operator      | `%>%` `%<>%` `%T>%`  | `|>` (since 4.1.0)                 |
-| Function call | `1:3 %>% sum()`      | `1:3 %>% sum()`                    |
+| Function call | `1:3 %>% sum()`      | `1:3 |> sum()`                     |
 |               | `1:3 %>% sum`        | *Needs brackets / parentheses*     |
 |               | `` 1:3 %>% `+`(4) `` | *Some functions are not supported* |
 | Placeholder   | `.`                  | `_` (since 4.2.0)                  |
 :::
 
-~based on [stackoverflow](https://stackoverflow.com/questions/67633022/what-are-the-differences-between-rs-new-native-pipe-and-the-magrittr-pipe)~
+~based\ post\ on\ a\ [stackoverflow](#0)\ post\ comparing\ magrittr\ pipe\ to\ base\ R\ pipe.~
 
 ## Use cases for the Magrittr pipe
 
@@ -446,7 +458,7 @@ airlines %<>%
 # side effects
 airlines %T>% 
   # report the dimensions
-  (\(x) print(dim(x)) ) %>% 
+  ( \(x) print(dim(x)) ) %>% 
   # summarize
   dplyr::summarize(avail_seat_km_per_week = sum(avail_seat_km_per_week))
 ```
@@ -581,6 +593,8 @@ iris %>%
 :::
 
 ## Example 3: nesting operations
+
+A nested data frame is a data frame where one (or more) columns is a list of data frames.
 
 ::: panel-tabset
 ## list columns
@@ -878,7 +892,7 @@ x %>% dplyr::right_join(y, by = "key")
 
 ### Filtering Joins:
 
--   `semi_join(x, y)` **keeps** all observations in `x` that have a match in `y`.
+-   `semi_join(x, y)` **keeps** all observations in `x` that have a match in `y` ( i.e. no NAs).
 -   `anti_join(x, y)` **drops** all observations in `x` that have a match in `y`.
 
 ## Set operations
@@ -889,25 +903,17 @@ When tidy dataset x and y have the same variables, set operations work as expect
 -   `union(x, y)`: return unique observations in `x` and `y`.
 -   `setdiff(x, y)`: return observations in `x`, but not in `y`.
 
-# Exercises in data wrangling
+## Tidying
 
-# Recap
+```{r}
+tidyr::table3 %>% 
+  tidyr::separate_wider_delim(cols = rate, delim = "/", names = c("cases", "population") )
+```
 
-## Recap {.smaller}
+## Recap
 
 ::: incremental
--   Used simple linear regression to describe the relationship between a quantitative predictor and quantitative outcome variable.
+-   Today we have introduced tidy data, tidyverse verbs and the pipe operator.
 
--   Used the least squares method to estimate the slope and intercept.å
-
--   We interpreted the slope and intercept.
-
-    ::: incremental
-    -   **Slope:** For every one unit increase in $x$, we expect y to be higher/lower by $\hat{\beta}_1$ units, on average.
-    -   **Intercept:** If $x$ is 0, then we expect $y$ to be $\hat{\beta}_0$ units.
-    :::
-
--   Predicted the response given a value of the predictor variable.
-
--   Defined extrapolation and why we should avoid it.
+-   In the lab we introduced Git and the data backup workflows.
 :::

@@ -1,6 +1,6 @@
 ---
-title: "Regression Methods"
-subtitle: "BSMM-8740 - Fall 2023"
+title: "Regression methods"
+subtitle: "BSMM8740-2-R-2023F [WEEK - 4]"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"

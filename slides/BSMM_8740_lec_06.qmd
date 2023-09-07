@@ -1,6 +1,6 @@
 ---
-title: "Classification and Clustering"
-subtitle: "BSMM-8740 - Fall 2023"
+title: "Classification & clustering methods"
+subtitle: "BSMM8740-2-R-2023F [WEEK - 6]"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
@@ -382,12 +382,68 @@ training_results_nb %>% yardstick::roc_curve(.pred_No, truth = default) %>% auto
 ```
 :::
 
+## Nearest Neighbour Classification
+
+The k-nearest neighbors algorithm, also known as KNN or k-NN, is a non-parametric, supervised learning classifier, which uses proximity to make classifications or predictions about the grouping of an individual data point.
+
+It is typically used as a classification algorithm, working off the assumption that similar points can be found near one another.
+
+## Nearest Neighbour Classification
+
+For classification problems, a class label is assigned on the basis of a majority vote---i.e. the label that is most frequently represented around a given data point is used.
+
+Before a classification can be made, the distance between points must be defined. Euclidean distance is most commonly used.
+
+## Nearest Neighbour Classification
+
+Note that the KNN algorithm is also part of a family of "lazy learning" models, meaning that it only stores a training dataset versus undergoing a training stage. This also means that all the computation occurs when a classification or prediction is being made.
+
+The k value in the k-NN algorithm determines how many neighbors will be checked to determine the classification of a specific query point.
+
+## KNN Classification: distance measures
+
+-   Euclidean: $\text{d}(x,y)=\sqrt{\sum_i(y_i- x_i)^2}$
+-   Manhattan: $\text{d}(x,y)=\sum_{i}\left|y_{i}-x_{i}\right|$
+-   Minkowski: $\text{d}(x,y)=\left(\sum_{i}\left|y_{i}-x_{i}\right|\right)^{1/p}$
+
+## KNN Classification: algorithm
+
+1.  Choose the value of K, which is the number of nearest neighbors that will be used to make the prediction.
+2.  Calculate the distance between that point and all the points in the training set.
+3.  Select the K nearest neighbors based on the distances calculated.
+4.  Assign the label of the majority class to the new data point.
+5.  Repeat steps 2 to 4 for all the data points in the test set.
+
+## KNN Classification: model
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+default_model_knn <- parsnip::nearest_neighbor(neighbors = 4) %>% 
+  parsnip::set_engine("kknn") %>% 
+  parsnip::set_mode("classification")
+```
+
+## Support Vector Machine Classification
+
+```{r}
+# show_engines("svm_linear")
+# parsnip::svm_linear() 
+# svm_linear(mode = "unknown", engine = "LiblineaR", cost = NULL, margin = NUL
+```
+
 ## Tidymodels
 
 ### Key Components of Tidymodels
 
 -   Resampling: Efficient methods for handling data splitting, cross-validation, bootstrapping, and more.
 -   Metrics: A wide range of evaluation metrics to assess model performance and choose the best model.
+
+```{r}
+
+
+```
 
 ## Recap
 

@@ -6,13 +6,13 @@ reference-location: margin
 
 ## Introduction
 
-This lab will go through much of the same workflow we've demonstrated in class. The main goal is to reinforce our understanding of R and RStudio, which we will be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions. An additional goal is to reinforce git and GitHub, the collaboration and version control system that we will be using throughout the course.
+This lab will go through many of the same operations we've demonstrated in class. The main goal is to reinforce our understanding of tidy data, the tidyverse and the pipe, which we will be using throughout the course. An additional goal is to reinforce your use of git and GitHub, the collaboration and version control system that we will be using throughout the course.
 
 ::: callout-note
 Git is a version control system (like "Track Changes" features from Microsoft Word but more powerful) and GitHub is the home for your Git-based projects on the internet (like DropBox but much better).
 :::
 
-As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.
+As the labs progress, you are encouraged to explore beyond what the labs require; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R and the tidyverse. Today we begin with an introductions to GIT followed by exercises in the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.
 
 ### Learning goals
 
@@ -92,7 +92,7 @@ usethis::create_github_token()
 
 The `usethis` approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking "Generate token".
 
-It is a very good idea to describe the token's purpose in the *Note* field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. "personal-macbook-air" or "vm-for-project-xyz". In the future, you will find yourself staring at this list of tokens, because inevitably you'll need to re-generate or delete one of them. Make it easy to figure out which token you've come here to fiddle with.
+It is a very good idea to describe the token's purpose in the *Note* field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. "personal-macbook-air" or "lab1-course-8740". In the future, you will find yourself staring at this list of tokens, because inevitably you'll need to re-generate or delete one of them. Make it easy to figure out which token you've come here to fiddle with.
 
 ##### **4.1 Click "Generate token"**.
 
@@ -103,8 +103,8 @@ Treat this PAT like a password! Do not ever hard-wire your PAT into your code! A
 ##### 4.2 Save your PAT
 
 -   Copy the generated PAT to a secure, long-term system for storing secrets, like 1Password or LastPass.
--   email it to yourself
--   ??
+-   email it to yourself.
+-   copy it onto a piece of scrap paper.
 
 ##### 4.3 Store your PAT in the Git credential store
 
@@ -180,13 +180,17 @@ You don't have to commit after every change, as this would get quite tedious. Yo
 
 In the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.
 
-Now let's make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you're good to go!
-
 ### Push changes
 
 Now that you have made an update and committed this change, it's time to push these changes to your repo on GitHub.
 
 In order to push your changes to GitHub, you must have **staged** your **commit** to be pushed. click on **Push**.
+
+Now let's make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you're good to go!
+
+More on the basic use of git [here](https://happygitwithr.com/git-intro).
+
+# Now, today's lab
 
 ## Packages
 
@@ -211,25 +215,9 @@ The message that's printed when you load the package tells you which versions of
 
 We'll be using functionality from all of these packages throughout the semester, though we'll always load them all at once with `library(tidyverse)`. You can find out more about the tidyverse and each of the packages that make it up [here](https://www.tidyverse.org/).
 
-## Data: Ikea furniture
+## Data: Yearly statistics and standings for baseball teams
 
-Today's data is all about [Ikea](https://www.ikea.com/) furniture. The data was obtained from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-11-03/readme.md) data collection.
-
-Use the code below to read in the data.
-
-```{r}
-#| message: false
-
-ikea <- read_csv("data/ikea.csv")
-```
-
-### Data dictionary
-
-The variable definitions are found in the help for Teams
-
-```{r}
-?Teams
-```
+Today's data is all baseball statistics. The data is in the `Lahman` package.
 
 ### View the data
 
@@ -240,7 +228,15 @@ library(Lahman)
 dim(Teams)
 ```
 
-## Exercises
+## Data dictionary
+
+The variable definitions are found in the help for Teams
+
+```{r}
+?Teams
+```
+
+### Exercises
 
 Write all code and narrative in your R Markdown file. Write all narrative in complete sentences. Throughout the assignment, you should periodically **Render** your Quarto document to produce the updated PDF, **commit** the changes in the Git pane, and **push** the updated files to GitHub.
 
@@ -295,17 +291,17 @@ where $\text{RA}$ is the number of runs the team allows to be scored, $\text{RS}
 ```{r}
 #| eval: false
 mets_ben <- Teams |>
-  select(_, _, _, _, _, _) |>
-  filter(_ == "NYN" & _ %in% 2004:2012)
+  dplyr::select(_, _, _, _, _, _) |>
+  dplyr::filter(_ == "NYN" & _ %in% 2004:2012)
 mets_ben
 ```
 
-First, note that the runs-scored variable is called `R` in the `Teams` table, but to stick with our notation we want to rename it `RS`.
+First, note that the runs-scored variable is called `R` in the `Teams` table, but to stick with our notation we want to rename it `RS`.
 
 ```{r}
 #| eval: false
 mets_ben <- mets_ben |>
-  rename(_ = _)    # new name = old name
+  dplyr::rename(_ = _)    # new name = old name
 mets_ben
 ```
 
@@ -320,7 +316,7 @@ Next, we need to compute the team's actual winning percentage in each of these s
 ```{r}
 #| eval: false
 mets_ben <- mets_ben |>
-  mutate(WPct = _)
+  dplyr::mutate(WPct = _)
 mets_ben
 ```
 
@@ -329,7 +325,7 @@ The expected number of wins is then equal to the product of the expected winning
 ```{r}
 #| eval: false
 mets_ben <- mets_ben |>
-  mutate(W_hat = _)
+  dplyr::mutate(W_hat = _)
 mets_ben
 ```
 
@@ -349,7 +345,7 @@ Naturally, the Mets experienced ups and downs during Ben's time with the team. W
 
 ```{r}
 #| eval: false
-arrange(mets_ben, _)
+dplyr::arrange(mets_ben, _)
 ```
 
 ### Exercise 7
@@ -359,8 +355,8 @@ In 2006, the Mets had the best record in baseball during the regular season and 
 ```{r}
 #| eval: false
 mets_ben %>% 
-  mutate(Diff = _) |>
-  arrange(_)
+  dplyr::mutate(Diff = _) |>
+  dplyr::arrange(_)
 ```
 
 ### Exercise 8
@@ -370,7 +366,7 @@ Summarize the Mets performance
 ```{r}
 #| eval: false
 mets_ben |>
-  summarize(
+  dplyr::summarize(
     num_years = _, 
     total_W = _, 
     total_L = _, 
@@ -409,7 +405,7 @@ Discretize the years into three chunks: one for each of the three general manage
 ```{r}
 #| eval: false
 mets_ben <- mets_ben %>% 
-  mutate(
+  dplyr::mutate(
     gm = ifelse(
       yearID == _, 
       _, 
@@ -427,8 +423,8 @@ Alternatively, we use the `case_when` function
 ```{r}
 #| eval: false
 mets_ben <- mets_ben |>
-  mutate(
-    gm = case_when(
+  dplyr::mutate(
+    gm = dplyr::case_when(
       yearID == _ ~ _, 
       yearID >= _ ~ _, 
       TRUE ~ _
@@ -442,11 +438,11 @@ You're done and ready to submit your work! Render, commit, and push all remainin
 
 ### Exercise 11
 
-Use the `gm` variable to define the manager groups with the `group_by()` operator, and run the summaries again, this time across the manager groups.
+Use the `gm` variable to define the manager groups with the `group_by()` operator, and run the summaries again, this time across the manager groups.
 
 ## Submission
 
-In this class, we'll be submitting HTML documents to Brightspace.
+Render your document to create an HTML file. In this class, we'll be submitting the HTML documents to Brightspace.
 
 ::: callout-warning
 Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
@@ -457,15 +453,15 @@ Remember -- you must turn in an HTML file to the Brightspace page before the sub
 To submit your assignment:
 
 -   Log in to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and select course [BSMM8740-2-R-2023F\|Data Analytic Meth.](https://brightspace.uwindsor.ca/d2l/home/144921 "BSMM8740-2-R-2023F|Data Analytic Meth. & Algorith")
--   Click on the Lab-1 assignment, and submit it.
+-   Click on the Lab-1 assignment, and submit your HTML file.
 
 ## Grading
 
-Total points available: 50 points.
+Total points available: 30 points.
 
 | Component | Points |
 |-----------|--------|
-| Ex 1 - 10 | 30     |
+| Ex 1 - 11 | 30     |
 
 ## Resources for additional practice (optional)
 

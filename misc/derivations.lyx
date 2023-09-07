@@ -807,5 +807,12 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $\text{d}(x,y)=\left(\sum_{i}\left|y_{i}-x_{i}\right|\right)^{1/p}$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

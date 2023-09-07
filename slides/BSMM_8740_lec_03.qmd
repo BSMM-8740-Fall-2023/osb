@@ -1,6 +1,6 @@
 ---
-title: "Design Matrices with Recipes"
-subtitle: "BSMM-8740 - Fall 2023"
+title: "The recipes package"
+subtitle: "BSMM8740-2-R-2023F [WEEK - 3]"
 author: "derived from Max Kuhn (RStudio)"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
