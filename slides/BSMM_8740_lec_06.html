@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="L.L. Odette">
-  <title>BSMM-8740 - Fall 2023 - Classification and Clustering</title>
+  <title>BSMM-8740 - Fall 2023 - Classification &amp; clustering methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,11 +384,11 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Classification and Clustering">
-<meta property="og:description" content="BSMM-8740 - Fall 2023">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - Classification &amp; clustering methods">
+<meta property="og:description" content="BSMM8740-2-R-2023F [WEEK - 6]">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Classification and Clustering">
-<meta name="twitter:description" content="BSMM-8740 - Fall 2023">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Classification &amp; clustering methods">
+<meta name="twitter:description" content="BSMM8740-2-R-2023F [WEEK - 6]">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
 <meta name="twitter:card" content="summary_large_image">
@@ -398,8 +398,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="images/my-DRAFT.png" data-background-opacity="0.40" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Classification and Clustering</h1>
-  <p class="subtitle">BSMM-8740 - Fall 2023</p>
+  <h1 class="title">Classification &amp; clustering methods</h1>
+  <p class="subtitle">BSMM8740-2-R-2023F [WEEK - 6]</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -740,6 +740,53 @@ C_{k}=\arg\max_{C_{k}}\mathbb{P}\left[C_{k}\right]\prod_{n=1}^{N}\mathbb{P}\left
 </div>
 </div>
 </div>
+</section>
+<section id="nearest-neighbour-classification" class="slide level2">
+<h2>Nearest Neighbour Classification</h2>
+<p>The k-nearest neighbors algorithm, also known as KNN or k-NN, is a non-parametric, supervised learning classifier, which uses proximity to make classifications or predictions about the grouping of an individual data point.</p>
+<p>It is typically used as a classification algorithm, working off the assumption that similar points can be found near one another.</p>
+</section>
+<section id="nearest-neighbour-classification-1" class="slide level2">
+<h2>Nearest Neighbour Classification</h2>
+<p>For classification problems, a class label is assigned on the basis of a majority vote—i.e.&nbsp;the label that is most frequently represented around a given data point is used.</p>
+<p>Before a classification can be made, the distance between points must be defined. Euclidean distance is most commonly used.</p>
+</section>
+<section id="nearest-neighbour-classification-2" class="slide level2">
+<h2>Nearest Neighbour Classification</h2>
+<p>Note that the KNN algorithm is also part of a family of “lazy learning” models, meaning that it only stores a training dataset versus undergoing a training stage. This also means that all the computation occurs when a classification or prediction is being made.</p>
+<p>The k value in the k-NN algorithm determines how many neighbors will be checked to determine the classification of a specific query point.</p>
+</section>
+<section id="knn-classification-distance-measures" class="slide level2">
+<h2>KNN Classification: distance measures</h2>
+<ul>
+<li>Euclidean: <span class="math inline">\(\text{d}(x,y)=\sqrt{\sum_i(y_i- x_i)^2}\)</span></li>
+<li>Manhattan: <span class="math inline">\(\text{d}(x,y)=\sum_{i}\left|y_{i}-x_{i}\right|\)</span></li>
+<li>Minkowski: <span class="math inline">\(\text{d}(x,y)=\left(\sum_{i}\left|y_{i}-x_{i}\right|\right)^{1/p}\)</span></li>
+</ul>
+</section>
+<section id="knn-classification-algorithm" class="slide level2">
+<h2>KNN Classification: algorithm</h2>
+<ol type="1">
+<li>Choose the value of K, which is the number of nearest neighbors that will be used to make the prediction.</li>
+<li>Calculate the distance between that point and all the points in the training set.</li>
+<li>Select the K nearest neighbors based on the distances calculated.</li>
+<li>Assign the label of the majority class to the new data point.</li>
+<li>Repeat steps 2 to 4 for all the data points in the test set.</li>
+</ol>
+</section>
+<section id="knn-classification-model" class="slide level2">
+<h2>KNN Classification: model</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="sc">&gt;</span> default_model_knn <span class="ot">&lt;-</span> parsnip<span class="sc">::</span><span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"kknn"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="support-vector-machine-classification" class="slide level2">
+<h2>Support Vector Machine Classification</h2>
 </section>
 <section id="tidymodels" class="slide level2">
 <h2>Tidymodels</h2>

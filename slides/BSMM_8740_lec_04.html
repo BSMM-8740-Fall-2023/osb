@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="L.L. Odette">
-  <title>BSMM-8740 - Fall 2023 - Regression Methods</title>
+  <title>BSMM-8740 - Fall 2023 - Regression methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,11 +384,11 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Regression Methods">
-<meta property="og:description" content="BSMM-8740 - Fall 2023">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - Regression methods">
+<meta property="og:description" content="BSMM8740-2-R-2023F [WEEK - 4]">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Regression Methods">
-<meta name="twitter:description" content="BSMM-8740 - Fall 2023">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Regression methods">
+<meta name="twitter:description" content="BSMM8740-2-R-2023F [WEEK - 4]">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
 <meta name="twitter:card" content="summary_large_image">
@@ -398,8 +398,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="images/my-DRAFT.png" data-background-opacity="0.40" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Regression Methods</h1>
-  <p class="subtitle">BSMM-8740 - Fall 2023</p>
+  <h1 class="title">Regression methods</h1>
+  <p class="subtitle">BSMM8740-2-R-2023F [WEEK - 4]</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -707,7 +707,7 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_04_files/figure-html/unnamed-chunk-9-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="ridge-regression-example-3" class="slide level2">
 <h2>Ridge Regression Example</h2>
 <div class="cell" data-layout-align="center">
@@ -731,7 +731,7 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_04_files/figure-html/unnamed-chunk-10-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="informal-quiz" class="slide level2">
 <h2>Informal Quiz</h2>
 <p>Can we re-write the glm coefficient plot code with only tidyverse verbs? ::: panel-tabset ## as written</p>
@@ -841,7 +841,7 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_04_files/figure-html/unnamed-chunk-14-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="lasso-regression-example-2" class="slide level2">
 <h2>Lasso Regression Example</h2>
 <div class="cell" data-layout-align="center">
@@ -865,7 +865,7 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_04_files/figure-html/unnamed-chunk-15-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="elastic-net-regression" class="slide level2">
 <h2>Elastic Net Regression</h2>
 <p>Elastic Net regression is a hybrid of ridge and lasso regression.</p>
@@ -991,7 +991,7 @@ nobs        1    -none-    numeric</code></pre>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_04_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_04_files/figure-html/unnamed-chunk-19-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="generalized-linear-models" class="slide level2">
 <h2>Generalized Linear Models</h2>
 <p>A <strong>generalized linear model</strong> (<strong>GLM</strong>) is a flexible generalization of ordinary linear regression.</p>
@@ -1274,12 +1274,22 @@ nobs        1    -none-    numeric</code></pre>
 <section id="rpart-trees" class="slide level2">
 <h2>rpart trees</h2>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="sc">&gt;</span> tree_fit <span class="ot">&lt;-</span> rpart<span class="sc">::</span><span class="fu">rpart</span>(medv <span class="sc">~</span> ., <span class="at">data =</span> dat, <span class="at">method  =</span> <span class="st">"anova"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="sc">&gt;</span> new_data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="sc">+</span>  <span class="er">~</span>crim, <span class="sc">~</span>zn, <span class="sc">~</span>indus, <span class="sc">~</span>chas, <span class="sc">~</span>nox, <span class="sc">~</span>rm, <span class="sc">~</span>age, <span class="sc">~</span>dis, <span class="sc">~</span>rad, <span class="sc">~</span>tax, <span class="sc">~</span>ptratio, <span class="sc">~</span>black, <span class="sc">~</span>lstat,</span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="sc">+</span>  <span class="fl">0.03237</span>, <span class="dv">0</span>, <span class="fl">2.18</span>, <span class="dv">0</span>, <span class="fl">0.458</span>, <span class="fl">6.998</span>, <span class="fl">45.8</span>, <span class="fl">6.0622</span>, <span class="dv">3</span>, <span class="dv">222</span>, <span class="fl">18.7</span>, <span class="fl">394.63</span>, <span class="fl">2.94</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="sc">+</span> )</span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="sc">&gt;</span> predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree_fit, new_data)</span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="sc">&gt;</span> <span class="fu">print</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 33.73846 </code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="sc">&gt;</span> modeldata<span class="sc">::</span>ames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,930 × 74
    MS_SubClass         MS_Zoning Lot_Frontage Lot_Area Street Alley Lot_Shape Land_Contour
@@ -1304,6 +1314,10 @@ nobs        1    -none-    numeric</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="sc">&gt;</span> ?MASS<span class="sc">::</span>Boston</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="sc">&gt;</span>  MASS<span class="sc">::</span>Boston</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        crim    zn indus chas    nox    rm   age     dis rad tax ptratio  black lstat
 1    0.00632  18.0  2.31    0 0.5380 6.575  65.2  4.0900   1 296    15.3 396.90  4.98
@@ -2541,44 +2555,6 @@ nobs        1    -none-    numeric</code></pre>
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

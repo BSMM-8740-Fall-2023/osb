@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Dr.&nbsp;L.L. Odette">
-  <title>BSMM-8740 - Fall 2023 - Data Analytic Methods &amp; Algorithms</title>
+  <title>BSMM-8740 - Fall 2023 - The tidyverse &amp; git</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,11 +384,11 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Data Analytic Methods &amp; Algorithms">
-<meta property="og:description" content="BSMM-8740 - Fall 2023">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - The tidyverse &amp; git">
+<meta property="og:description" content="BSMM8740-2-R-2023F [WEEK - 1]">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Data Analytic Methods &amp; Algorithms">
-<meta name="twitter:description" content="BSMM-8740 - Fall 2023">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - The tidyverse &amp; git">
+<meta name="twitter:description" content="BSMM8740-2-R-2023F [WEEK - 1]">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
 <meta name="twitter:card" content="summary_large_image">
@@ -398,8 +398,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="images/my-DRAFT.png" data-background-opacity="0.40" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Data Analytic Methods &amp; Algorithms</h1>
-  <p class="subtitle">BSMM-8740 - Fall 2023</p>
+  <h1 class="title">The tidyverse &amp; git</h1>
+  <p class="subtitle">BSMM8740-2-R-2023F [WEEK - 1]</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -411,16 +411,24 @@ Dr.&nbsp;L.L. Odette
 
 </section>
 <section>
-<section id="welcome" class="title-slide slide level1 center">
-<h1>Welcome</h1>
+<section id="welcome-to-data-analytic-methods-algorithms" class="title-slide slide level1 center">
+<h1>Welcome to Data Analytic Methods &amp; Algorithms</h1>
 
 </section>
 <section id="announcements" class="slide level2">
 <h2>Announcements</h2>
+<div style="font-size: smaller">
 <ul>
-<li>If you’re just joining the class, welcome! Go to the <a href="https://bsmm-8740-fall-2023.github.io/osb/">course website</a> and review content you’ve missed, read the syllabus, and complete the <em>Getting to know you</em> survey.</li>
-<li>Lab 1 is due Friday September 15, at 5pm, on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
+<li>Please go to the <a href="https://bsmm-8740-fall-2023.github.io/osb/">course website</a> to review the content, access the labs, read the syllabus, etc.</li>
+<li>I will also post the weekly slides on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
+<li>My intent is to have assigned lab exercises each week, which should be able to be completed during class.
+<ul>
+<li>If we run over or if you’d like more time, the lab assignment will remain on the course Github site and your work will remain on your own Github account can can be submitted by the deadline.</li>
+</ul></li>
+<li>Lab 1 is due Friday September 15 at 5pm; the assignment can be submitted on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
+<li>My regular office hour will be on Thursdays from 2:00pm - 3:00pm via MS Teams.</li>
 </ul>
+</div>
 </section>
 <section id="course-topics" class="slide level2">
 <h2>Course Topics</h2>
@@ -428,38 +436,38 @@ Dr.&nbsp;L.L. Odette
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
-<div id="uzlmntmgds" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gsfaasynfh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 28px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #FFFFFF; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
     
     <tr class="gt_col_headings" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="week" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">week</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="week" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">week</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="topic" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">topic</th>
     </tr>
   </thead>
   <tbody class="gt_table_body" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">1</td>
-<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Tidyverse</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">2</td>
-<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">EDA &amp; feature engineering</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">3</td>
-<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Recipes</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">4</td>
-<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Regression</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">5</td>
-<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Tidymodels</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">6</td>
-<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Classification</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">7</td>
-<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Time Series</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">8</td>
-<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Causality</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">9</td>
-<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Causality</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">10</td>
-<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Bayesian methods</td></tr>
-    <tr style="border-style: none;"><td headers="week" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">11</td>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">1</td>
+<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">The tidyverse &amp; git</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">2</td>
+<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">EDA and feature engineering</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">3</td>
+<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">The recipes package</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">4</td>
+<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Regression methods</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">5</td>
+<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">More tidymodels packages</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">6</td>
+<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Classification &amp; clustering methods</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">7</td>
+<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Time series methods</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">8</td>
+<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Causality: DAGs</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">9</td>
+<td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Causality: Effects</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">10</td>
+<td headers="topic" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Monte-Carlo methods</td></tr>
+    <tr style="border-style: none;"><td headers="week" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">11</td>
 <td headers="topic" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Bayesian methods</td></tr>
   </tbody>
   
@@ -473,9 +481,8 @@ Dr.&nbsp;L.L. Odette
 <section id="todays-outline" class="slide level2">
 <h2>Today’s Outline</h2>
 <ul>
-<li>Introduction to Tidy data &amp; Tidyverse syntax</li>
-<li>Estimate the slope and intercept of the regression line using the least squares method</li>
-<li>Interpret the slope and intercept of the regression line</li>
+<li>Introduction to Tidy data &amp; Tidyverse syntax in R.</li>
+<li>Introduction to Git workflows and version control.</li>
 </ul>
 </section></section>
 <section>
@@ -576,8 +583,13 @@ Dr.&nbsp;L.L. Odette
 <li>Design for the pipe and functional programming</li>
 </ol>
 </section>
+<section id="tidyverse" class="slide level2">
+<h2>Tidyverse</h2>
+<p>Packages in the tidyverse.</p>
+
+<img data-src="images/Tidyverse_packages.png" class="r-stretch quarto-figure-center"></section>
 <section id="a-grammar-for-data-wrangling" class="slide level2">
-<h2>A grammar for data Wrangling</h2>
+<h2>A grammar for data wrangling</h2>
 <p>The <code>dplyr</code> package gives a grammar for data wrangling, including these 5 verbs for working with data frames.</p>
 <div style="font-size: smaller">
 <ul>
@@ -626,8 +638,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-1" class="slide level2">
-<h2>Example</h2>
+<section id="example-select" class="slide level2">
+<h2>Example: select</h2>
 <p>To get just the names and parties of these presidents, use <code>select()</code>. The first&nbsp;<a href="#/0"><em>argument</em></a> is the data frame, followed by the column names.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(presidential, name, party)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -650,8 +662,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-2" class="slide level2">
-<h2>Example</h2>
+<section id="example-filter" class="slide level2">
+<h2>Example: filter</h2>
 <p>Similarly, the first argument to&nbsp;<code>filter()</code>&nbsp;is a data frame, and subsequent arguments are logical conditions that are evaluated on any involved columns.&nbsp;</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(presidential, party <span class="sc">==</span> <span class="st">"Republican"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,8 +681,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-3" class="slide level2">
-<h2>Example</h2>
+<section id="example-combined-operations" class="slide level2">
+<h2>Example: combined operations</h2>
 <p>Combining the&nbsp;<code>filter()</code>&nbsp;and&nbsp;<code>select()</code>&nbsp;commands enables one to drill down to very specific pieces of information.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
@@ -690,8 +702,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-4" class="slide level2">
-<h2>Example</h2>
+<section id="example-pipe" class="slide level2">
+<h2>Example: pipe</h2>
 <p>As written the <code>filter()</code> operation is nested inside the <code>select()</code> operation.</p>
 <p>With the pipe (<code>%&gt;%</code>), we can write the same expression as above in a more readable syntax.</p>
 <div class="cell" data-layout-align="center">
@@ -713,8 +725,8 @@ Dr.&nbsp;L.L. Odette
 <p>We might want to create, re-define, or rename some of our variables. A graphical illustration of the <code>mutate()</code> operation is shown below</p>
 
 <img data-src="../images/mutate-1.png" class="r-stretch quarto-figure-center"><p class="caption">The mutate() function. At right, the resulting data frame after adding a new column.</p></section>
-<section id="example-5" class="slide level2">
-<h2>Example</h2>
+<section id="example-mutate-new-column" class="slide level2">
+<h2>Example: mutate, new column</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14" data-code-line-numbers="1|2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>my_presidents <span class="ot">&lt;-</span> presidential <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
@@ -740,8 +752,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-6" class="slide level2">
-<h2>Example</h2>
+<section id="example-mutate-existing-column" class="slide level2">
+<h2>Example: mutate, existing column</h2>
 <p>The&nbsp;<code>mutate()</code>&nbsp;function can be used to modify existing columns. Below we add a variable containing the year in which each president was elected assuming that every president was elected in the year before he took office.</p>
 <div class="cell" data-layout-align="center">
 <details>
@@ -762,8 +774,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-7" class="slide level2">
-<h2>Example</h2>
+<section id="example-new-column" class="slide level2">
+<h2>Example: new column</h2>
 <p>Some entries in this data set are wrong, because presidential elections are only held every four years, and some presidents are not elected (e.g.&nbsp;Johnson and Ford).</p>
 <div class="cell" data-layout-align="center">
 <details>
@@ -815,8 +827,8 @@ Dr.&nbsp;L.L. Odette
 <p>The function&nbsp;<code>sort()</code>&nbsp;will sort a vector but not a data frame. The&nbsp;<code>arrange()</code>function sorts a data frame:&nbsp;</p>
 
 <img data-src="../images/arrange-1.png" class="r-stretch quarto-figure-center"><p class="caption">The arrange() function. At left, a data frame with an ordinal variable. At right, the resulting data frame after sorting the rows in descending order of that variable.</p></section>
-<section id="example-8" class="slide level2">
-<h2>Example</h2>
+<section id="example-arrange-since-column" class="slide level2">
+<h2>Example: arrange, since column</h2>
 <p>To use <code>arrange</code> you have to specify the data frame, and the column by which you want it to be sorted. You also have to specify the direction in which you want it to be sorted.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb22" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>my_presidents <span class="sc">%&gt;%</span> </span>
@@ -839,8 +851,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-9" class="slide level2">
-<h2>Example</h2>
+<section id="example-arrange-multiple-columns" class="slide level2">
+<h2>Example, arrange, multiple columns</h2>
 <p>To break ties, we can further sort by other variables</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb24" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>my_presidents <span class="sc">|&gt;</span></span>
@@ -866,12 +878,12 @@ Dr.&nbsp;L.L. Odette
 </section>
 <section id="summarize-with-group_by" class="slide level2">
 <h2><strong><code>summarize()</code> with <code>group_by()</code></strong></h2>
-<p>The <code>summarize</code> verb is usually used with <code>group_by</code></p>
+<p>The <code>summarize</code> verb is often used with <code>group_by</code></p>
 
 <img data-src="../images/summarize-1.png" class="r-stretch quarto-figure-center"><p class="caption">The summarize() function. At left, a data frame. At right, the resulting data frame after aggregating four of the columns.</p></section>
-<section id="example-10" class="slide level2">
-<h2>Example</h2>
-<p>When used alone, <code>summarize()</code> collapses a data frame into a single row.</p>
+<section id="example-summarize" class="slide level2">
+<h2>Example: summarize</h2>
+<p>When used without grouping, <code>summarize()</code> collapses a data frame into a single row.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26" data-code-line-numbers="2|3|4|5|6|7|8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>my_presidents <span class="sc">%&gt;%</span> </span>
 <span id="cb26-2"><a href="#cb26-2"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
@@ -890,8 +902,8 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-11" class="slide level2">
-<h2>Example</h2>
+<section id="example-pipe-stacked" class="slide level2">
+<h2>Example: pipe, stacked</h2>
 <p>To make comparisons, we can first group then summarize, giving us one summary row for each group.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28" data-code-line-numbers="2|3|4|5|6|7|8|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>my_presidents <span class="sc">%&gt;%</span> </span>
@@ -913,7 +925,7 @@ Dr.&nbsp;L.L. Odette
 </div>
 </div>
 </section>
-<section id="example-12" class="slide level2">
+<section id="example-1" class="slide level2">
 <h2>Example</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30" data-code-line-numbers="8-9|10-11|12-14|15-17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># attach package magrittr</span></span>
@@ -960,7 +972,7 @@ Dr.&nbsp;L.L. Odette
 <tr class="even">
 <td>Function call</td>
 <td><code>1:3 %&gt;% sum()</code></td>
-<td><code>1:3 %&gt;% sum()</code></td>
+<td><code>1:3 |&gt; sum()</code></td>
 </tr>
 <tr class="odd">
 <td></td>
@@ -980,7 +992,7 @@ Dr.&nbsp;L.L. Odette
 </tbody>
 </table>
 </div>
-<p><sub>based&nbsp;on&nbsp;<a href="https://stackoverflow.com/questions/67633022/what-are-the-differences-between-rs-new-native-pipe-and-the-magrittr-pipe">stackoverflow</a></sub></p>
+<p><sub>based&nbsp;post&nbsp;on&nbsp;a&nbsp;<a href="#/0">stackoverflow</a>&nbsp;post&nbsp;comparing&nbsp;magrittr&nbsp;pipe&nbsp;to&nbsp;base&nbsp;R&nbsp;pipe.</sub></p>
 </section>
 <section id="use-cases-for-the-magrittr-pipe" class="slide level2">
 <h2>Use cases for the Magrittr pipe</h2>
@@ -998,7 +1010,7 @@ Dr.&nbsp;L.L. Odette
 <span id="cb31-11"><a href="#cb31-11"></a><span class="co"># side effects</span></span>
 <span id="cb31-12"><a href="#cb31-12"></a>airlines <span class="sc">%T&gt;%</span> </span>
 <span id="cb31-13"><a href="#cb31-13"></a>  <span class="co"># report the dimensions</span></span>
-<span id="cb31-14"><a href="#cb31-14"></a>  (\(x) <span class="fu">print</span>(<span class="fu">dim</span>(x)) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-14"><a href="#cb31-14"></a>  ( \(x) <span class="fu">print</span>(<span class="fu">dim</span>(x)) ) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-15"><a href="#cb31-15"></a>  <span class="co"># summarize</span></span>
 <span id="cb31-16"><a href="#cb31-16"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">avail_seat_km_per_week =</span> <span class="fu">sum</span>(avail_seat_km_per_week))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1119,6 +1131,7 @@ Dr.&nbsp;L.L. Odette
 </section>
 <section id="example-3-nesting-operations" class="slide level2">
 <h2>Example 3: nesting operations</h2>
+<p>A nested data frame is a data frame where one (or more) columns is a list of data frames.</p>
 <div class="panel-tabset">
 <ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">list columns</a></li><li><a href="#tabset-4-2">group-nesting</a></li><li><a href="#tabset-4-3">mapping</a></li></ul>
 <div class="tab-content">
@@ -1512,7 +1525,7 @@ GROUP BY `x_bin`</code></pre>
 <h2>Relational data</h2>
 <h3 id="filtering-joins">Filtering Joins:</h3>
 <ul>
-<li><code>semi_join(x, y)</code> <strong>keeps</strong> all observations in <code>x</code> that have a match in <code>y</code>.</li>
+<li><code>semi_join(x, y)</code> <strong>keeps</strong> all observations in <code>x</code> that have a match in <code>y</code> ( i.e.&nbsp;no NAs).</li>
 <li><code>anti_join(x, y)</code> <strong>drops</strong> all observations in <code>x</code> that have a match in <code>y</code>.</li>
 </ul>
 </section>
@@ -1524,32 +1537,29 @@ GROUP BY `x_bin`</code></pre>
 <li><code>union(x, y)</code>: return unique observations in <code>x</code> and <code>y</code>.</li>
 <li><code>setdiff(x, y)</code>: return observations in <code>x</code>, but not in <code>y</code>.</li>
 </ul>
-</section></section>
-<section id="exercises-in-data-wrangling" class="title-slide slide level1 center">
-<h1>Exercises in data wrangling</h1>
-
 </section>
-
-<section>
-<section id="recap" class="title-slide slide level1 center">
-<h1>Recap</h1>
-
+<section id="tidying" class="slide level2">
+<h2>Tidying</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year cases  population
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+1 Afghanistan  1999 745    19987071  
+2 Afghanistan  2000 2666   20595360  
+3 Brazil       1999 37737  172006362 
+4 Brazil       2000 80488  174504898 
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
 </section>
-<section id="recap-1" class="slide level2 smaller">
+<section id="recap" class="slide level2">
 <h2>Recap</h2>
 <div>
 <ul>
-<li class="fragment"><p>Used simple linear regression to describe the relationship between a quantitative predictor and quantitative outcome variable.</p></li>
-<li class="fragment"><p>Used the least squares method to estimate the slope and intercept.å</p></li>
-<li class="fragment"><p>We interpreted the slope and intercept.</p>
-<div>
-<ul>
-<li class="fragment"><strong>Slope:</strong> For every one unit increase in <span class="math inline">\(x\)</span>, we expect y to be higher/lower by <span class="math inline">\(\hat{\beta}_1\)</span> units, on average.</li>
-<li class="fragment"><strong>Intercept:</strong> If <span class="math inline">\(x\)</span> is 0, then we expect <span class="math inline">\(y\)</span> to be <span class="math inline">\(\hat{\beta}_0\)</span> units.</li>
-</ul>
-</div></li>
-<li class="fragment"><p>Predicted the response given a value of the predictor variable.</p></li>
-<li class="fragment"><p>Defined extrapolation and why we should avoid it.</p></li>
+<li class="fragment"><p>Today we have introduced tidy data, tidyverse verbs and the pipe operator.</p></li>
+<li class="fragment"><p>In the lab we introduced Git and the data backup workflows.</p></li>
 </ul>
 </div>
 
