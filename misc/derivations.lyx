@@ -814,5 +814,49 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $f\left(x\right)=w^{\top}x+w_{0}$
+\end_inset
+
+ 
+\begin_inset Formula $x=x_{\bot}+r\frac{w}{\left\Vert w\right\Vert }$
+\end_inset
+
+ mnmnmn 
+\begin_inset Formula $f\left(x\right)=\left(w^{\top}x_{\bot}+w_{0}\right)+r\left\Vert w\right\Vert $
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $f\left(x_{\bot}\right)=w^{\top}x_{\bot}+w_{0}=0$
+\end_inset
+
+ nmbm 
+\begin_inset Formula $f\left(x\right)=r\left\Vert w\right\Vert $
+\end_inset
+
+ nmbmmb 
+\begin_inset Formula $f\left(x_{n}\right)\tilde{y}_{n}>0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\max_{w,w_{0}}\min_{n}\left[\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\min_{w,w_{0}}\frac{{1}}{2}\left\Vert w\right\Vert ^{2}\;\text{{s.t.}}\;\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

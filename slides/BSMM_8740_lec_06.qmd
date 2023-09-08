@@ -427,10 +427,115 @@ default_model_knn <- parsnip::nearest_neighbor(neighbors = 4) %>%
 
 ## Support Vector Machine Classification
 
+The SVM assumes a training set of the form $(x_1,y_1),\ldots,(x_n,y_n)$ where the $y_i$ are either $-1$ or $1$, indicating the class to which each $x_i$ belongs.
+
+The SVM algorithm looks to find the **maaximum-margin hyperplane** that divides the group of points $x_i$ for which $y_1=-1$ from the group for which $Y_1=1$, such that the distance between the hyperplane and the nearest point $x_i$ from either group is maximized
+
+## SVM Classification: large margin
+
+Illustration of SVM large-margin principle
+
+[![](images/lec-6/Murphy_Figure_17.12.png){fig-alt="from Murphy figure 17.12" fig-align="center"}](https://github.com/probml/pml-book/blob/main/book1-figures/Figure_17.12.png)
+
+## SVM Classification:
+
+::: columns
+::: {.column width="50%" style="font-size: smaller"}
+-   Let our decision boundary be given by $f\left(x\right)=w^{\top}x+w_{0}$, for a vector $w$ perpendicular to the boundary.
+
+-   We can express any point as $x=x_{\bot}+r\frac{w}{\left\Vert w\right\Vert }$
+
+-   Note that $f\left(x\right)=\left(w^{\top}x_{\bot}+w_{0}\right)+r\left\Vert w\right\Vert$
+:::
+
+::: {.column width="50%"}
+![](images/lec-6/Murphy_Figure_17.13_A.png){fig-align="center"}
+:::
+:::
+
+## SVM Classification:
+
+::: columns
+::: {.column width="50%" style="font-size: smaller"}
+-   Since $f\left(x_{\bot}\right)=w^{\top}x_{\bot}+w_{0}=0$, we have $f\left(x\right)=r\left\Vert w\right\Vert$.
+
+-   We also require $f\left(x_{n}\right)\tilde{y}_{n}>0$
+
+-   To maximize the distance to the closest point, the objective is $\max_{w,w_{0}}\min_{n}\left[\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\right]$
+:::
+
+::: {.column width="50%"}
+![](images/lec-6/Murphy_Figure_17.13_A.png){fig-align="center"}
+:::
+:::
+
+## SVM Classification:
+
+It is common to scale the vector $w$ and the offset $w_0$ such that $f_n\hat{y}_n=1$ for the point nearest the decision boundary, such that $f_n\hat{y}_n\ge1$ for all $n$.
+
+In addition, since minimizing $1/ \left\Vert w\right\Vert$ is equivalent to minimizing $\left\Vert w\right\Vert^2$, we can state the objective as
+
+$$
+\min_{w,w_{0}}\frac{{1}}{2}\left\Vert w\right\Vert ^{2}\quad\text{s.t.}\quad\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\ge 1, \forall n
+$$
+
+## SVM Classification:
+
+::: columns
+::: {.column width="50%" style="font-size: smaller"}
+If there is no solution to the objective we can add slack variables $\xi_n\ge0$ to replace the hard constraints that $f_n\hat{y}_n\ge1$ with the soft margin constraints that $f_n\hat{y}_n\ge1-\xi_n$.
+
+The new objective is
+
+$$
+\min_{w,w_{0},\xi}\frac{{1}}{2}\left\Vert w\right\Vert ^{2} + C\sum_n \xi_n \\
+\text{s.t.}\xi_n\ge0, \quad\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\ge 1, \forall n
+$$
+:::
+
+::: {.column width="50%"}
+![](images/lec-6/Murphy_Figure_17.13_B.png){fig-alt="Murphy fig 17.13(b)" fig-align="center" width="299"}
+:::
+:::
+
+## SVM: data not separable
+
+::: columns
+::: {.column width="50%" style="font-size: smaller"}
+If the data is not separable:
+
+-   a transformation of data may make them separable
+
+-   an embedding in a higher dimensional space might make them separable
+:::
+
+::: {.column width="50%"}
+![](images/lec-6/Sebastian_Raschka.png){fig-align="center" width="600"}
+:::
+:::
+
+## SVM Classification: Support Vectors
+
+-   Support vectors are the data points that lie closest to the decision surface (or hyperplane)
+
+-   They are the data points most difficult to classify
+
+-   They have direct bearing on the optimum location of the decision surface
+
+-   Support vectors are the elements of the training set that would change the position of the dividing hyperplane if
+
+    removed
+
+## SVM Classification: example
+
 ```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
 # show_engines("svm_linear")
-# parsnip::svm_linear() 
-# svm_linear(mode = "unknown", engine = "LiblineaR", cost = NULL, margin = NUL
+default_model_svm <- parsnip::svm_linear() %>% 
+  parsnip::set_engine("svm_linear") %>% 
+  parsnip::set_mode("classification")
 ```
 
 ## Tidymodels
@@ -444,6 +549,10 @@ default_model_knn <- parsnip::nearest_neighbor(neighbors = 4) %>%
 
 
 ```
+
+## More
+
+-   Read [An Idiot's Guide to Support Vector Machines](https://web.mit.edu/6.034/wwwbob/svm.pdf)
 
 ## Recap
 

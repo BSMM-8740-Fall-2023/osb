@@ -4,14 +4,20 @@ title: "FAQ"
 
 ## How do I export my assignment HTML from RStudio to upload to Brightspace?
 
-Go to your *Files* tab, check the box next to the file you want to download, then click on the blue gear icon on the Files tab to reveal the drop down menu, and select *Export*... If you have selected multiple files to export, RStudio will zip them up into a single zip file for you. If you've selected just a single file, it will only download that. The downloaded file will go to wherever files you download off the internet goes on your computer (usually your Downloads folder).
+In RStudio, go to your *Files* tab, and open the **.qmd** file for the current lab assignment. In addition to your answers, make sure you have edited the author and date field in the YAML at the top of the document to include your name and the current date.
+
+If you have made any edits, first save your document and then press *Render* in the bar just below the document tab. If there are no errors, the rendered document will appear in the *Viewer* tab. The rendered file will be found in the *Files* tab, with the same name as the **.qmd** file but with extension **.html**.
+
+If you now select *More -\> Show Folder* *in New Window*, you will be able to select your .htlm file for upload to Brightspace.
 
 ```{=html}
 <iframe width="700" height="394" src="https://www.youtube.com/embed/cAHCMpPJx3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ```
 ## How can I submit my assignment to Brightspace?
 
-The instructions for submitting your assignment to Brightspace can be found [here](https://help.gradescope.com/article/ccbpppziu9-student-submit-work#submitting_a_pdf). In a nutshell, you'll upload your HTML and them mark the page(s) where each question can be found. It's OK if a question spans multiple pages, just mark them all. It's also OK if a page includes multiple questions.
+The instructions for submitting your assignment to Brightspace can be accessed during UWindsor\'s IT Service Desk [hours](https://www.uwindsor.ca/itservices/support), [click here to chat with a University representative](https://chat.socialintents.com/c/uwindsorits). After 8 p.m. Monday to Friday, and 4:30 p.m. Saturday and Sunday, please ask your questions of the D2L Virtual Assistant found on the Brightspace page.
+
+In a nutshell, you'll upload your **.html** file via the Assignments tab in Brightspace..
 
 ```{=html}
 <iframe width="700" height="394" src="https://www.youtube.com/embed/u-pK4GzpId0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

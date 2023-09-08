@@ -4,10 +4,6 @@ subtitle: "BSMM8740-2-R-2023F [WEEK - 1]"
 author: "Dr. L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
-title-slide-attributes:
-  data-background-image: images/my-DRAFT.png
-  data-background-size: contain
-  data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -436,7 +432,7 @@ all_stations <-
 | Placeholder   | `.`                  | `_` (since 4.2.0)                  |
 :::
 
-~based\ post\ on\ a\ [stackoverflow](#0)\ post\ comparing\ magrittr\ pipe\ to\ base\ R\ pipe.~
+~based post on a [stackoverflow](#0) post comparing magrittr pipe to base R pipe.~
 
 ## Use cases for the Magrittr pipe
 
