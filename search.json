@@ -3749,7 +3749,63 @@
     "href": "slides/BSMM_8740_lec_06.html#support-vector-machine-classification",
     "title": "Classification & clustering methods",
     "section": "Support Vector Machine Classification",
-    "text": "Support Vector Machine Classification"
+    "text": "Support Vector Machine Classification\nThe SVM assumes a training set of the form \\((x_1,y_1),\\ldots,(x_n,y_n)\\) where the \\(y_i\\) are either \\(-1\\) or \\(1\\), indicating the class to which each \\(x_i\\) belongs.\nThe SVM algorithm looks to find the maaximum-margin hyperplane that divides the group of points \\(x_i\\) for which \\(y_1=-1\\) from the group for which \\(Y_1=1\\), such that the distance between the hyperplane and the nearest point \\(x_i\\) from either group is maximized"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-large-margin",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-large-margin",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification: large margin",
+    "text": "SVM Classification: large margin\nIllustration of SVM large-margin principle"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification:",
+    "text": "SVM Classification:\n\n\n\nLet our decision boundary be given by \\(f\\left(x\\right)=w^{\\top}x+w_{0}\\), for a vector \\(w\\) perpendicular to the boundary.\nWe can express any point as \\(x=x_{\\bot}+r\\frac{w}{\\left\\Vert w\\right\\Vert }\\)\nNote that \\(f\\left(x\\right)=\\left(w^{\\top}x_{\\bot}+w_{0}\\right)+r\\left\\Vert w\\right\\Vert\\)"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-1",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-1",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification:",
+    "text": "SVM Classification:\n\n\n\nSince \\(f\\left(x_{\\bot}\\right)=w^{\\top}x_{\\bot}+w_{0}=0\\), we have \\(f\\left(x\\right)=r\\left\\Vert w\\right\\Vert\\).\nWe also require \\(f\\left(x_{n}\\right)\\tilde{y}_{n}&gt;0\\)\nTo maximize the distance to the closest point, the objective is \\(\\max_{w,w_{0}}\\min_{n}\\left[\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\right]\\)"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-2",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-2",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification:",
+    "text": "SVM Classification:\nIt is common to scale the vector \\(w\\) and the offset \\(w_0\\) such that \\(f_n\\hat{y}_n=1\\) for the point nearest the decision boundary, such that \\(f_n\\hat{y}_n\\ge1\\) for all \\(n\\).\nIn addition, since minimizing \\(1/ \\left\\Vert w\\right\\Vert\\) is equivalent to minimizing \\(\\left\\Vert w\\right\\Vert^2\\), we can state the objective as\n\\[\n\\min_{w,w_{0}}\\frac{{1}}{2}\\left\\Vert w\\right\\Vert ^{2}\\quad\\text{s.t.}\\quad\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\ge 1, \\forall n\n\\]"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-3",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-3",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification:",
+    "text": "SVM Classification:\n\n\nIf there is no solution to the objective we can add slack variables \\(\\xi_n\\ge0\\) to replace the hard constraints that \\(f_n\\hat{y}_n\\ge1\\) with the soft margin constraints that \\(f_n\\hat{y}_n\\ge1-\\xi_n\\).\nThe new objective is\n\\[\n\\min_{w,w_{0},\\xi}\\frac{{1}}{2}\\left\\Vert w\\right\\Vert ^{2} + C\\sum_n \\xi_n \\\\\n\\text{s.t.}\\xi_n\\ge0, \\quad\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\ge 1, \\forall n\n\\]"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-data-not-separable",
+    "href": "slides/BSMM_8740_lec_06.html#svm-data-not-separable",
+    "title": "Classification & clustering methods",
+    "section": "SVM: data not separable",
+    "text": "SVM: data not separable\n\n\nIf the data is not separable:\n\na transformation of data may make them separable\nan embedding in a higher dimensional space might make them separable"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-support-vectors",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-support-vectors",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification: Support Vectors",
+    "text": "SVM Classification: Support Vectors\n\nSupport vectors are the data points that lie closest to the decision surface (or hyperplane)\nThey are the data points most difficult to classify\nThey have direct bearing on the optimum location of the decision surface\nSupport vectors are the elements of the training set that would change the position of the dividing hyperplane if\nremoved"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-example",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-example",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification: example",
+    "text": "SVM Classification: example\n\n\nCode\n&gt; # show_engines(\"svm_linear\")\n&gt; default_model_svm &lt;- parsnip::svm_linear() %&gt;% \n+   parsnip::set_engine(\"svm_linear\") %&gt;% \n+   parsnip::set_mode(\"classification\")"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#tidymodels",
@@ -3757,6 +3813,13 @@
     "title": "Classification & clustering methods",
     "section": "Tidymodels",
     "text": "Tidymodels\nKey Components of Tidymodels\n\nResampling: Efficient methods for handling data splitting, cross-validation, bootstrapping, and more.\nMetrics: A wide range of evaluation metrics to assess model performance and choose the best model."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#more",
+    "href": "slides/BSMM_8740_lec_06.html#more",
+    "title": "Classification & clustering methods",
+    "section": "More",
+    "text": "More\n\nRead An Idiot’s Guide to Support Vector Machines"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#recap",
@@ -10259,21 +10322,21 @@
     "href": "course-faq.html",
     "title": "FAQ",
     "section": "",
-    "text": "Go to your Files tab, check the box next to the file you want to download, then click on the blue gear icon on the Files tab to reveal the drop down menu, and select Export… If you have selected multiple files to export, RStudio will zip them up into a single zip file for you. If you’ve selected just a single file, it will only download that. The downloaded file will go to wherever files you download off the internet goes on your computer (usually your Downloads folder)."
+    "text": "In RStudio, go to your Files tab, and open the .qmd file for the current lab assignment. In addition to your answers, make sure you have edited the author and date field in the YAML at the top of the document to include your name and the current date.\nIf you have made any edits, first save your document and then press Render in the bar just below the document tab. If there are no errors, the rendered document will appear in the Viewer tab. The rendered file will be found in the Files tab, with the same name as the .qmd file but with extension .html.\nIf you now select More -&gt; Show Folder in New Window, you will be able to select your .htlm file for upload to Brightspace."
   },
   {
     "objectID": "course-faq.html#how-do-i-export-my-assignment-html-from-rstudio-to-upload-to-brightspace",
     "href": "course-faq.html#how-do-i-export-my-assignment-html-from-rstudio-to-upload-to-brightspace",
     "title": "FAQ",
     "section": "",
-    "text": "Go to your Files tab, check the box next to the file you want to download, then click on the blue gear icon on the Files tab to reveal the drop down menu, and select Export… If you have selected multiple files to export, RStudio will zip them up into a single zip file for you. If you’ve selected just a single file, it will only download that. The downloaded file will go to wherever files you download off the internet goes on your computer (usually your Downloads folder)."
+    "text": "In RStudio, go to your Files tab, and open the .qmd file for the current lab assignment. In addition to your answers, make sure you have edited the author and date field in the YAML at the top of the document to include your name and the current date.\nIf you have made any edits, first save your document and then press Render in the bar just below the document tab. If there are no errors, the rendered document will appear in the Viewer tab. The rendered file will be found in the Files tab, with the same name as the .qmd file but with extension .html.\nIf you now select More -&gt; Show Folder in New Window, you will be able to select your .htlm file for upload to Brightspace."
   },
   {
     "objectID": "course-faq.html#how-can-i-submit-my-assignment-to-brightspace",
     "href": "course-faq.html#how-can-i-submit-my-assignment-to-brightspace",
     "title": "FAQ",
     "section": "How can I submit my assignment to Brightspace?",
-    "text": "How can I submit my assignment to Brightspace?\nThe instructions for submitting your assignment to Brightspace can be found here. In a nutshell, you’ll upload your HTML and them mark the page(s) where each question can be found. It’s OK if a question spans multiple pages, just mark them all. It’s also OK if a page includes multiple questions."
+    "text": "How can I submit my assignment to Brightspace?\nThe instructions for submitting your assignment to Brightspace can be accessed during UWindsor's IT Service Desk hours, click here to chat with a University representative. After 8 p.m. Monday to Friday, and 4:30 p.m. Saturday and Sunday, please ask your questions of the D2L Virtual Assistant found on the Brightspace page.\nIn a nutshell, you’ll upload your .html file via the Assignments tab in Brightspace.."
   },
   {
     "objectID": "course-faq.html#can-i-use-a-local-install-of-r-and-rstudio-instead-of-using-the-lab",

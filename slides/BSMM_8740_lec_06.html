@@ -787,6 +787,116 @@ C_{k}=\arg\max_{C_{k}}\mathbb{P}\left[C_{k}\right]\prod_{n=1}^{N}\mathbb{P}\left
 </section>
 <section id="support-vector-machine-classification" class="slide level2">
 <h2>Support Vector Machine Classification</h2>
+<p>The SVM assumes a training set of the form <span class="math inline">\((x_1,y_1),\ldots,(x_n,y_n)\)</span> where the <span class="math inline">\(y_i\)</span> are either <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>, indicating the class to which each <span class="math inline">\(x_i\)</span> belongs.</p>
+<p>The SVM algorithm looks to find the <strong>maaximum-margin hyperplane</strong> that divides the group of points <span class="math inline">\(x_i\)</span> for which <span class="math inline">\(y_1=-1\)</span> from the group for which <span class="math inline">\(Y_1=1\)</span>, such that the distance between the hyperplane and the nearest point <span class="math inline">\(x_i\)</span> from either group is maximized</p>
+</section>
+<section id="svm-classification-large-margin" class="slide level2">
+<h2>SVM Classification: large margin</h2>
+<p>Illustration of SVM large-margin principle</p>
+
+<img data-src="images/lec-6/Murphy_Figure_17.12.png" alt="from Murphy figure 17.12" class="r-stretch quarto-figure-center"></section>
+<section id="svm-classification" class="slide level2">
+<h2>SVM Classification:</h2>
+<div class="columns">
+<div class="column" style="font-size: smaller">
+<ul>
+<li><p>Let our decision boundary be given by <span class="math inline">\(f\left(x\right)=w^{\top}x+w_{0}\)</span>, for a vector <span class="math inline">\(w\)</span> perpendicular to the boundary.</p></li>
+<li><p>We can express any point as <span class="math inline">\(x=x_{\bot}+r\frac{w}{\left\Vert w\right\Vert }\)</span></p></li>
+<li><p>Note that <span class="math inline">\(f\left(x\right)=\left(w^{\top}x_{\bot}+w_{0}\right)+r\left\Vert w\right\Vert\)</span></p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/lec-6/Murphy_Figure_17.13_A.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="svm-classification-1" class="slide level2">
+<h2>SVM Classification:</h2>
+<div class="columns">
+<div class="column" style="font-size: smaller">
+<ul>
+<li><p>Since <span class="math inline">\(f\left(x_{\bot}\right)=w^{\top}x_{\bot}+w_{0}=0\)</span>, we have <span class="math inline">\(f\left(x\right)=r\left\Vert w\right\Vert\)</span>.</p></li>
+<li><p>We also require <span class="math inline">\(f\left(x_{n}\right)\tilde{y}_{n}&gt;0\)</span></p></li>
+<li><p>To maximize the distance to the closest point, the objective is <span class="math inline">\(\max_{w,w_{0}}\min_{n}\left[\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\right]\)</span></p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/lec-6/Murphy_Figure_17.13_A.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="svm-classification-2" class="slide level2">
+<h2>SVM Classification:</h2>
+<p>It is common to scale the vector <span class="math inline">\(w\)</span> and the offset <span class="math inline">\(w_0\)</span> such that <span class="math inline">\(f_n\hat{y}_n=1\)</span> for the point nearest the decision boundary, such that <span class="math inline">\(f_n\hat{y}_n\ge1\)</span> for all <span class="math inline">\(n\)</span>.</p>
+<p>In addition, since minimizing <span class="math inline">\(1/ \left\Vert w\right\Vert\)</span> is equivalent to minimizing <span class="math inline">\(\left\Vert w\right\Vert^2\)</span>, we can state the objective as</p>
+<p><span class="math display">\[
+\min_{w,w_{0}}\frac{{1}}{2}\left\Vert w\right\Vert ^{2}\quad\text{s.t.}\quad\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\ge 1, \forall n
+\]</span></p>
+</section>
+<section id="svm-classification-3" class="slide level2">
+<h2>SVM Classification:</h2>
+<div class="columns">
+<div class="column" style="font-size: smaller">
+<p>If there is no solution to the objective we can add slack variables <span class="math inline">\(\xi_n\ge0\)</span> to replace the hard constraints that <span class="math inline">\(f_n\hat{y}_n\ge1\)</span> with the soft margin constraints that <span class="math inline">\(f_n\hat{y}_n\ge1-\xi_n\)</span>.</p>
+<p>The new objective is</p>
+<p><span class="math display">\[
+\min_{w,w_{0},\xi}\frac{{1}}{2}\left\Vert w\right\Vert ^{2} + C\sum_n \xi_n \\
+\text{s.t.}\xi_n\ge0, \quad\tilde{y}_{n}\left(w^{\top}x_{n}+w_{0}\right)\ge 1, \forall n
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/lec-6/Murphy_Figure_17.13_B.png" alt="Murphy fig 17.13(b)" width="299"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="svm-data-not-separable" class="slide level2">
+<h2>SVM: data not separable</h2>
+<div class="columns">
+<div class="column" style="font-size: smaller">
+<p>If the data is not separable:</p>
+<ul>
+<li><p>a transformation of data may make them separable</p></li>
+<li><p>an embedding in a higher dimensional space might make them separable</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/lec-6/Sebastian_Raschka.png" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="svm-classification-support-vectors" class="slide level2">
+<h2>SVM Classification: Support Vectors</h2>
+<ul>
+<li><p>Support vectors are the data points that lie closest to the decision surface (or hyperplane)</p></li>
+<li><p>They are the data points most difficult to classify</p></li>
+<li><p>They have direct bearing on the optimum location of the decision surface</p></li>
+<li><p>Support vectors are the elements of the training set that would change the position of the dividing hyperplane if</p>
+<p>removed</p></li>
+</ul>
+</section>
+<section id="svm-classification-example" class="slide level2">
+<h2>SVM Classification: example</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="sc">&gt;</span> <span class="co"># show_engines("svm_linear")</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="er">&gt;</span> default_model_svm <span class="ot">&lt;-</span> parsnip<span class="sc">::</span><span class="fu">svm_linear</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_engine</span>(<span class="st">"svm_linear"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="tidymodels" class="slide level2">
 <h2>Tidymodels</h2>
@@ -794,6 +904,12 @@ C_{k}=\arg\max_{C_{k}}\mathbb{P}\left[C_{k}\right]\prod_{n=1}^{N}\mathbb{P}\left
 <ul>
 <li>Resampling: Efficient methods for handling data splitting, cross-validation, bootstrapping, and more.</li>
 <li>Metrics: A wide range of evaluation metrics to assess model performance and choose the best model.</li>
+</ul>
+</section>
+<section id="more" class="slide level2">
+<h2>More</h2>
+<ul>
+<li>Read <a href="https://web.mit.edu/6.034/wwwbob/svm.pdf">An Idiot’s Guide to Support Vector Machines</a></li>
 </ul>
 </section>
 <section id="recap" class="slide level2">
