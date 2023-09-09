@@ -10,18 +10,12 @@ If you have made any edits, first save your document and then press *Render* in 
 
 If you now select *More -\> Show Folder* *in New Window*, you will be able to select your .htlm file for upload to Brightspace.
 
-```{=html}
-<iframe width="700" height="394" src="https://www.youtube.com/embed/cAHCMpPJx3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-```
 ## How can I submit my assignment to Brightspace?
 
-The instructions for submitting your assignment to Brightspace can be accessed during UWindsor\'s IT Service Desk [hours](https://www.uwindsor.ca/itservices/support), [click here to chat with a University representative](https://chat.socialintents.com/c/uwindsorits). After 8 p.m. Monday to Friday, and 4:30 p.m. Saturday and Sunday, please ask your questions of the D2L Virtual Assistant found on the Brightspace page.
+The instructions for submitting your assignment to Brightspace can be accessed during UWindsor's IT Service Desk [hours](https://www.uwindsor.ca/itservices/support), [click here to chat with a University representative](https://chat.socialintents.com/c/uwindsorits). After 8 p.m. Monday to Friday, and 4:30 p.m. Saturday and Sunday, please ask your questions of the D2L Virtual Assistant found on the Brightspace page.
 
 In a nutshell, you'll upload your **.html** file via the Assignments tab in Brightspace..
 
-```{=html}
-<iframe width="700" height="394" src="https://www.youtube.com/embed/u-pK4GzpId0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-```
 ## Can I use a local install of R and RStudio instead of using the Lab?
 
 The short answer is, I'd rather you didn't, to save yourself some headache. But, the long answer is, sure! But you will need to install a specific versions of R and RStudio for everything to work as expected. You will also need to install the R packages we're using as well as have Git installed on your computer. These are not extremely challenging things to get right, but they are not trivial either, particularly on certain operating systems. Myself and the TA are always happy to provide help with any computational questions when you're working in the lab. If you're working on your local setup, we can't guarantee being able to resolve your issues, though we're happy to try.
