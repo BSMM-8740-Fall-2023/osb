@@ -32,7 +32,7 @@ tbl_0 <- tibble::tribble(
 tbl_1 <- tibble::tribble(
 ~w,~x,~y,~z,
 "Office hours"	                  ,"Thursday 2:00 PM" 	    ,"Office" ,"Zoom", 
-"Telephone"	                    ,"+1 617-935-0016" 	  ,"Email"	,"lodette@uwindsor.ca", 
+"Telephone"	                    ," - " 	  ,"Email"	,"lodette@uwindsor.ca", 
 "Academic Director"	            ,"Dr. Brent Furneaux"	,"Email"	,"brent.furneaux@uwindsor.ca:",
 "Program Administrator"	        ,"TBD"	                ,"Email"	,"",
 "Student Experience Coordinator"	,"Samantha DesRosiers" ,"Email"	,"Samantha.Desrosiers@uwindsor.ca",
@@ -91,7 +91,7 @@ The general objectives of this course are to:
 ## Master of Management Competencies
 
 | **Program Competencies**                                                                                                                                       | **Course Competencies**                                                                                                                                        | Tested by                                           |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+|----------------------------|----------------------------|----------------|
 | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Lab Assessments                                     |
 | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Quizzes, Midterm Examination, and Final Examination |
 
