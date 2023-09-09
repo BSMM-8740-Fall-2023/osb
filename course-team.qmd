@@ -6,16 +6,16 @@ title: "Teaching team"
 
 ![](images/team/llo.png){fig-alt="Headshot of Dr. Lou Odette" style="float:right;padding: 0 0 0 10px;" width="200"}
 
-Dr. Louis (Lou) L. Odette was most recently Head of Advanced Analytics at Greenery Retail Canada. Prior to joining Greenery, Lou was Vice President of Quantitative Modeling & Research at AIG inn Boston with responsibilities for review and validation of existing risk models and risk metrics, in addition to modeling and assessment of alternative asset class risks. He holds a PhD in Electrical Engineering from MIT and an MSc in Mathematics from Oxford University. **Spoiler alert**: the picture to the right was taken many years ago.
+Dr. Louis (Lou) L. Odette was most recently Head of Advanced Analytics at Greenery Retail Canada. Prior to joining Greenery, Lou was Vice President of Quantitative Modeling & Research at AIG in Boston with responsibilities for review and validation of existing risk models and risk metrics, in addition to modeling and assessment of alternative asset-class risks. He holds a PhD in Electrical Engineering from MIT and an MSc in Mathematics from Oxford University. **Spoiler alert**: the picture to the right was taken many years ago.
 
-| Office hours                 | Location |
-|------------------------------|----------|
-| Thursdays 2:00 pm - 3:00 pm  | Zoom     |
+| Office hours                | Location |
+|-----------------------------|----------|
+| Thursdays 2:00 pm - 3:00 pm | Zoom     |
 
-If these times don't work for you or you'd like to schedule a one-on-one meeting, you can do so at [bit.ly/meet-mine](https://bit.ly/meet-mine).
+If this time doesn't work for you or you'd like to schedule a one-on-one meeting, you can email me at [lodette\@uwindsor.ca](mailto://lodette@uwindsor.ca).
 
 ## Teaching assistants
 
-|                             | Name           | Office hours      | Location                                                                                                                  |
-|:----------:|------------|------------|-----------------------------------|
-| ![](images/team/martha.png) | Martha Aboagye | Thursday 7 - 9 pm | [Zoom](https://sakai.duke.edu/portal/site/779c3ebe-3b88-4bcc-bd01-1813e8396a23/page/d5eef508-07a4-4c6d-b7bd-4614a9631562) |
+|                                                                                                                | Name            | Office hours                | Location |
+|:----------------:|:----------------|------------------|-------------------|
+| ![](images/team/Screenshot%202023-09-09%20at%2011-26-24%20(24)%20An%20(Suri)%20Vo%20LinkedIn.png){width="700"} | Tran Ngoc An Vo | TBD: starting Sept 18, 2023 | TBD      |
