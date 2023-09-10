@@ -56,10 +56,10 @@ knitr::opts_chunk$set(
 ## Announcements
 
 ::: {style="font-size: smaller"}
--   Please go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) to review the content, access the labs, read the syllabus, etc.
--   I will also post the weekly slides on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
+-   Please go to the [course website](https://bsmm-8740-fall-2023.github.io/osb/) to review the weekly slide, access the labs, read the syllabus, etc.
+-   I will also post a printed version of the weekly slides on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
 -   My intent is to have assigned lab exercises each week, which should be able to be completed during class.
-    -   If we run over or if you'd like more time, the lab assignment will remain on the course Github site and your work will remain on your own Github account can can be submitted by the deadline.
+    -   If we run over or if you'd like more time, the lab assignment will remain on the course Github site, and your work will remain on your own Github account. The lab can be submitted by the deadline.
 -   Lab 1 is due Friday September 15 at 5pm; the assignment can be submitted on [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921).
 -   My regular office hour will be on Thursdays from 2:00pm - 3:00pm via MS Teams.
 :::
@@ -346,7 +346,7 @@ To break ties, we can further sort by other variables
 #| echo: true
 #| message: false
 #| code-line-numbers: "2"
-my_presidents |>
+my_presidents %>% 
   dplyr::arrange(desc(term_length), party, elected)
 ```
 
