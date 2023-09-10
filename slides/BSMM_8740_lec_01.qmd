@@ -902,6 +902,10 @@ When tidy dataset x and y have the same variables, set operations work as expect
 ## Tidying
 
 ```{r}
+#| echo: true
+#| message: false
+#| code-fold: false
+#| code-line-numbers: "1|2"
 tidyr::table3 %>% 
   tidyr::separate_wider_delim(cols = rate, delim = "/", names = c("cases", "population") )
 ```
