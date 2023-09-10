@@ -419,11 +419,11 @@ Dr.&nbsp;L.L. Odette
 <h2>Announcements</h2>
 <div style="font-size: smaller">
 <ul>
-<li>Please go to the <a href="https://bsmm-8740-fall-2023.github.io/osb/">course website</a> to review the content, access the labs, read the syllabus, etc.</li>
-<li>I will also post the weekly slides on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
+<li>Please go to the <a href="https://bsmm-8740-fall-2023.github.io/osb/">course website</a> to review the weekly slide, access the labs, read the syllabus, etc.</li>
+<li>I will also post a printed version of the weekly slides on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
 <li>My intent is to have assigned lab exercises each week, which should be able to be completed during class.
 <ul>
-<li>If we run over or if you’d like more time, the lab assignment will remain on the course Github site and your work will remain on your own Github account can can be submitted by the deadline.</li>
+<li>If we run over or if you’d like more time, the lab assignment will remain on the course Github site, and your work will remain on your own Github account. The lab can be submitted by the deadline.</li>
 </ul></li>
 <li>Lab 1 is due Friday September 15 at 5pm; the assignment can be submitted on <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a>.</li>
 <li>My regular office hour will be on Thursdays from 2:00pm - 3:00pm via MS Teams.</li>
@@ -436,7 +436,7 @@ Dr.&nbsp;L.L. Odette
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
-<div id="fsqofljutb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="cjjkmcovur" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 28px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #FFFFFF; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
@@ -855,7 +855,7 @@ Dr.&nbsp;L.L. Odette
 <h2>Example, arrange, multiple columns</h2>
 <p>To break ties, we can further sort by other variables</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>my_presidents <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>my_presidents <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(term_length), party, elected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 6
