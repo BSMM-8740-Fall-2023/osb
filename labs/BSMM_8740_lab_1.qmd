@@ -21,6 +21,13 @@ By the end of the lab, you will...
 -   Have practiced version control using GitHub
 -   Be familiar with the workflow using R, RStudio, Git, and GitHub
 
+::: callout-important
+To access Github from the lab, you will need to make sure you are logged in as follows:
+
+-   username: **.\\daladmin**
+-   password: **Business507!**
+:::
+
 ## Let's Git Started
 
 ### 1. Register a Github account
@@ -31,7 +38,7 @@ Register an account with GitHub. It's free!
 
 #### Username advice
 
--   Incorporate your actual name! People like to know who they're dealing with. Also makes your username easier for people to guess or remember.
+-   Incorporate your actual name! People like to know who they're dealing with. Also it makes your username easier for people to guess or remember.
 -   Shorter is better than longer.
 -   Make it timeless. Don't highlight your current university, employer, or place of residence, e.g. JennyFromTheBlock.
 
@@ -41,17 +48,15 @@ You can change your username later, but better to get this right the first time.
 
 -   <https://help.github.com/articles/what-happens-when-i-change-my-username/>
 
+::: callout-note
+We will be switching between the console and the terminal, in this lab and others. The **Console** is where you can execute R code, while the **Terminal** is where you can execute system functions like git.
+
+![](images/Screen%20Shot%202023-09-12%20at%2012.25.57%20PM.png){fig-align="center" width="300"}
+:::
+
 ### 2. Git already installed?
 
-Go to the terminal tab in RStudio and enter `which git` to request the path to your Git executable:
-
-```{r}
-#| echo: true
-#| eval: false
-which git
-```
-
-and `git --version` to see its version:
+Go to the **Terminal** tab in RStudio and enter `git --version` to see its version:
 
 ```{r}
 #| echo: true
@@ -59,9 +64,15 @@ and `git --version` to see its version:
 git --version
 ```
 
+If this instruction gives an error, it's possible that git is not installed on your machine. If so, let your instructor know.
+
 ### 3. Introduce yourself to Git
 
-You can set your Git user name and email from within R:
+::: callout-important
+make sure that the package `usethis` has been installed. You can check under the packages tab in the file & plots viewer (e.g., do a search).
+:::
+
+You can set your Git user name and email from within R (i.e. go back to the **Console** tab):
 
 ```{r}
 #| echo: true
@@ -82,7 +93,7 @@ Your commits will be labelled with this user name, so make it informative to pot
 
 The password that you use to login to GitHub's website is NOT an acceptable credential when talking to GitHub as a Git server. You can learn more in their blog post [Token authentication requirements for Git operations](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/).
 
-The recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R:
+The recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R (in the **Console**):
 
 ```{r}
 #| echo: true
@@ -93,6 +104,10 @@ usethis::create_github_token()
 The `usethis` approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking "Generate token".
 
 It is a very good idea to describe the token's purpose in the *Note* field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. "personal-macbook-air" or "lab1-course-8740". In the future, you will find yourself staring at this list of tokens, because inevitably you'll need to re-generate or delete one of them. Make it easy to figure out which token you've come here to fiddle with.
+
+::: callout-tip
+If this is your first time generating a PAT, just accept the defaults and scroll to the bottom of the page and click the green **Generate token** button.
+:::
 
 ##### **4.1 Click "Generate token"**.
 
@@ -120,6 +135,10 @@ Instead of saving your PAT you could just [re-generate the PAT each lab session 
 
 On github.com, assuming you're signed in, you can manage your personal access tokens from <https://github.com/settings/tokens>, also reachable via *Settings \> Developer settings \> Personal access tokens*.
 
+::: callout-important
+Given that the machines start from the same initial state each lab session, you will follow the above steps to initial you machine at the start of each lab session.
+:::
+
 ### 5. How Git works
 
 Git has three storages locally: a Working directory, Staging Area, and a Local repository.
@@ -138,17 +157,21 @@ You are now ready interact with GitHub via RStudio!
 
 ### Clone the repo & start new RStudio project
 
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-1**. It contains the starter documents you need to complete the lab.
+1.  First make sure you are logged into your own Github account on a web browser.
 
--   Click on the green **CODE** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS**). Click on the clipboard icon to copy the repo URL.
+2.  Next, in a new browser tab, go to the course organization site at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/ "Course GitHub organization") on GitHub. Click on the repo **BSMM-lab-1**. It contains the starter documents you need to complete the lab.
 
--   In RStudio, go to *File* ➛ *New Project* ➛*Version Control* ➛ *Git*.
+3.  Click on the green **Use this template** button and select *Create a new repository*. This will make a copy of **BSMM-lab-1** in your own github account.
 
--   Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. Again, please make sure to have *SSH* highlighted under *Clone* when you copy the address.
+4.  Next, go back to your Github acount and select your copy of **BSMM-lab-1**. Click on the green **CODE** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS**). Click on the clipboard icon to copy the repo URL.
 
--   Click *Create Project*, and the files from your GitHub repo will be displayed in the *Files* pane in RStudio.
+5.  In RStudio, go to *File* ➛ *New Project* ➛*Version Control* ➛ *Git*.
 
--   Click *lab-1-ikea.qmd* to open the template R Markdown file. This is where you will write up your code and narrative for the lab.
+6.  Copy and paste the URL of your assignment repo (the clipboard copy you made in step 4) into the dialog box *Repository URL*. The project directory name should be automatically populated, but **make sure you select a directory** in *Create project as a subdirectory of*.
+
+7.  Finally, click *Create Project*, and the files from your GitHub repo will be displayed in the *Files* pane in RStudio.
+
+8.  Click *bsmm-lab-1.qmd* to open the template R Markdown file. This is where you will write up your code and narrative for the lab.
 
 ### R and R Studio
 
@@ -165,14 +188,14 @@ Below are the components of a Quarto (.qmd) file.
 The top portion of your R Markdown file (between the three dashed lines) is called **YAML**. It stands for "YAML Ain't Markup Language". It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.
 
 ::: callout-important
-Open the Quarto (\``` .qmd` ``) file in your project, change the author name to your name, and render the document. Examine the rendered document.
+Open the Quarto (\``` .qmd` ``) file in your project, change the author name to your name, and render the document. Examine the rendered HTML document in the *Files* pane.
 :::
 
 ### Committing changes
 
 Now, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.
 
-If you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the *diff*erence between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.
+If you have made changes to your \*.qmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the *diff*erence between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.
 
 If you're happy with these changes, we'll prepare the changes to be pushed to your remote repository. First, **stage** your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, "updated author name") in the **Commit message** box. Finally, click **Commit**. Note that every commit needs to have a commit message associated with it.
 
@@ -195,6 +218,10 @@ More on the basic use of git [here](https://happygitwithr.com/git-intro).
 ## Packages
 
 We will use the following package in today's lab.
+
+::: callout-note
+For this lab, you will need to install the package `Lahman`
+:::
 
 ```{r}
 library(tidyverse)
@@ -252,7 +279,6 @@ How many observations are in the `ikea` dataset? How many variables?
 
 ```{r}
 #| results: false
-
 dplyr::glimpse(Teams)
 ```
 
@@ -306,7 +332,7 @@ mets_ben
 ```
 
 ::: render-commit-push
-This is a good place to fender, commit, and push changes to your remote lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message (e.g., "Completed exercises 1 - 3"), and push. After you push the changes, the Git pane in RStudio should be empty.
+This is a good place to fender, commit, and push changes to your remote bsmm-lab-1 repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message (e.g., "Completed exercises 1 - 3"), and push. After you push the changes, the Git pane in RStudio should be empty.
 :::
 
 ### Exercise 4
