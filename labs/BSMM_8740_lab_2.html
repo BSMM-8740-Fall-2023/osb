@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar docked slimcontent">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -369,14 +369,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a></li>
   <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6">Exercise 6</a></li>
   <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7">Exercise 7</a></li>
+  <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise 8</a></li>
+  <li><a href="#exercise-9" id="toc-exercise-9" class="nav-link" data-scroll-target="#exercise-9">Exercise 9</a></li>
   </ul></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
+  <li><a href="#resources-for-additional-practice-optional" id="toc-resources-for-additional-practice-optional" class="nav-link" data-scroll-target="#resources-for-additional-practice-optional">Resources for additional practice (optional)</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/BSMM_8740_lab_2.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -397,11 +400,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.</p>
+<p>In today’s lab, you’ll explore several data sets as part of the EDA process, and then practice some feature engineering.</p>
 <section id="learning-goals" class="level3">
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab you will…</p>
 <ul>
+<li>Be able to generate summary statistics for EDA</li>
 <li>Be able to use the <code>DataExplorer</code> package to perform EDA</li>
 <li>Be able to perform basic feature engineering.</li>
 </ul>
@@ -410,17 +414,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-2</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Clone the repo and start a new project in RStudio. See the <a href="labs/bsmm-8740_lab-1.html">Lab 1 instructions</a> for details on cloning a repo, starting a new R project and configuring git.</p></li>
+<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repository named <strong>BSMM-lab-2</strong>. It contains the starter documents you need to complete the lab.</p></li>
+<li><p>Create a new repository and start a new project in RStudio. See the <a href="labs/BSMM_8740_lab_1.html">Lab 1 instructions</a> for details on creating a repository, starting a new R project and configuring git.</p></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To access Github from the lab, you will need to make sure you are logged in as follows:</p>
+<ul>
+<li>username: <strong>.\daladmin</strong></li>
+<li>password: <strong>Business507!</strong></li>
+</ul>
+<p>Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).</p>
+</div>
+</div>
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<p>We will use the following package in today’s lab.</p>
+<p>Here are some of the packages we’ll use in this lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># for data wrangling + visualization</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for modeling</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)      <span class="co"># for pretty printing of tables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># for data wrangling + visualization</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)   <span class="co"># for modeling</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)           <span class="co"># for making display tables</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)     <span class="co"># helper functions for beautiful tables</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer) <span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-the-tate-collection" class="level2">
@@ -473,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>Use the code below to load the Tate Collection data sets.</p>
+<p>Use the code below to load the Tate Collection data sets, and note the names of the variable referencing each dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>the_tate <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">"data/the-tate-collection.csv"</span>, <span class="st">";"</span>, <span class="at">escape_double =</span> <span class="cn">FALSE</span>, <span class="at">trim_ws =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>the_tate_artists <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/the-tate-artists.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,34 +512,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
-<p>Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.</p>
+<p>Roughly 7.8% of the works in the collection have missing dates, How many works have missing dates (i.e.&nbsp;the number)</p>
+<p>Use the <code>table()</code> function to count the number of works missing for each artist. Convert the table in to a tibble using <code>tibble::as_tibble()</code>, and then sort the count in descending order.</p>
+<p>How many artists have works with missing dates?</p>
+<p>Mutate the resulting table, adding columns for the percent of the total missing data for each artist, and another for the cumulative percent (just apply <code>cumsum()</code> to the percentage for each artist.</p>
+<p>If we could identify all the missing dates for each artists, what is the smallest number of arists needed to resolve at least 50% of the missing year data?</p>
+<p>Is this missing data MCAR, MAR, or MNAR?</p>
 </section>
 <section id="exercise-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
+<p>Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.</p>
+</section>
+<section id="exercise-4" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
 <p>Modify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using <code>gt::gt</code> with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the <code>gtExtras</code> package to the formatted table.</p>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
 </div>
 </section>
-<section id="exercise-4" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
-<p>Similar to exercises 2 and 3, in this exercise take the raw data (<code>the_tate</code>) and add a column with the area of each artwork in <span class="math inline">\(\text{cm}^2\)</span>. Next select the artist, title and the area and remove NA values using <code>tidyr::drop_na</code>, then order the works by area. Use <code>dplyr::slice_head</code> and <code>dplyr::slice_tail</code> to find the largest and smallest artworks in the collection.</p>
-</section>
 <section id="exercise-5" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-5">Exercise 5</h3>
-<p>Join the tables <code>the_tate</code> and <code>the_tate_artists</code> using <code>dplyr::left_join</code>, assigning the result to the variable <code>the_tate</code> . Drop rows with <code>NA</code> gender values and then group by gender</p>
+<p>Using the tibble <code>the_tate</code>, select the columns for artist and title and count the number of rows.</p>
+<p>Next take the tibble <code>the_tate</code>, select the columns for artist and title, and then apply <code>dplyr::distinct</code>. Count the distinct artist-title pairs.</p>
+<p>How many are duplicated?</p>
 </section>
 <section id="exercise-6" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
-<p>Read the historical price data in the file <code>SPX_HistoricalData_1692322132002.csv</code> and add a column for the year of the transaction and the daily return <span class="math inline">\(r_d\)</span>, using the formula</p>
-<p><span class="math display">\[
-r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
-\]</span> You will likely need <code>dplyr::lead</code> or <code>dplyr::lead</code>. Add an additional column for the daily return variance <span class="math inline">\(\text{var}_d = \text{r}_d^2\)</span>.</p>
-<p>Finally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument <code>.groups = "drop"</code> to the summarize function to drop the grouping after the summary is created.</p>
+<p>Similar to exercises 2 and 3, in this exercise take the raw data (<code>the_tate</code>) and add a column with the area of each artwork in <span class="math inline">\(\text{cm}^2\)</span>. Next select the artist, title and the area and remove NA values using <code>tidyr::drop_na</code>, then order the works by area. Use <code>dplyr::slice_head</code> and <code>dplyr::slice_tail</code> to find the largest and smallest artworks in the collection.</p>
 </section>
 <section id="exercise-7" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
-<p>Take the table from the last exercise and use the <code>gt::</code> package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).</p>
+<p>Join the tables <code>the_tate</code> and <code>the_tate_artists</code> using <code>dplyr::left_join</code>, assigning the result to the variable <code>the_tate</code> . Drop rows with <code>NA</code> gender values and then group by gender. Show the resulting table.</p>
+</section>
+<section id="exercise-8" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-8">Exercise 8</h3>
+<p>In the next two exercises we switch to a different dataset, the historical price data for the S&amp;P 500 Index.</p>
+<p>Read the historical price data in the file <code>SPX_HistoricalData_1692322132002.csv</code> using <code>readr:: read_csv</code> and add a column for the year of the transaction and the daily return <span class="math inline">\(r_d\)</span>, using the formula</p>
+<p><span class="math display">\[
+r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
+\]</span> You will likely need <code>dplyr::lead</code> or <code>dplyr::lead</code> functions. Add an additional column for the daily return variance <span class="math inline">\(\text{var}_d = \text{r}_d^2\)</span>.</p>
+<p>Finally, group by year and use <code>dplyr::summary</code> to compute the annual returns and standard deviations. Add the argument <code>.groups = "drop"</code> to the <code>dplyr::summarize</code> function to drop the grouping after the summary is created.</p>
+</section>
+<section id="exercise-9" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-9">Exercise 9</h3>
+<p>Take the table from the last exercise and use the <code>gt::</code> package to format it. Add summary rows for the period return and period volatility (note that variances can be added; volatilities cannot- so you will need to do some calculations).</p>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
 </div>
@@ -540,12 +580,12 @@ Warning
 <p>To submit your assignment:</p>
 <ul>
 <li>Log in to <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a> and select course <a href="https://brightspace.uwindsor.ca/d2l/home/144921" title="BSMM8740-2-R-2023F|Data Analytic Meth. &amp; Algorith">BSMM8740-2-R-2023F|Data Analytic Meth.</a></li>
-<li>Click on the Lab-2 assignment, and submit it.</li>
+<li>Click on the BSMM-Lab-2 assignment, and submit it.</li>
 </ul>
 </section>
-<section id="grading" class="level2 page-columns page-full">
+<section id="grading" class="level2">
 <h2 class="anchored" data-anchor-id="grading">Grading</h2>
-<p>Total points available: 50 points.</p>
+<p>Total points available: 30 points.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -555,19 +595,23 @@ Warning
 </thead>
 <tbody>
 <tr class="odd">
-<td>Ex 1 - 10</td>
-<td>45</td>
-</tr>
-<tr class="even">
-<td>Workflow &amp; formatting</td>
-<td>5<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td>Ex 1 - 9</td>
+<td>30</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="resources-for-additional-practice-optional" class="level2">
+<h2 class="anchored" data-anchor-id="resources-for-additional-practice-optional">Resources for additional practice (optional)</h2>
+<ul>
+<li>Work/read through the <strong>TTC subway</strong> dataset example in <em>Telling Stories with Data, Chapter 11.4</em>: <a href="https://tellingstorieswithdata.com/11-eda.html#ttc-subway-delays">TTC Subway Delays</a>
+<ul>
+<li>You will need to install the package <a href="https://CRAN.R-project.org/package=opendatatoronto"><code>opendatatoronto</code></a> (<a href="https://tellingstorieswithdata.com/99-references.html#ref-citeSharla">Gelfand 2022</a>) to access the data. The details on the package can be found <a href="https://sharlagelfand.github.io/opendatatoronto/">here</a>.</li>
+</ul></li>
+</ul>
 
 
-<div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;The “Workflow &amp; formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.</p></li></div></section>
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

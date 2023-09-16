@@ -3280,28 +3280,84 @@
     "href": "slides/BSMM_8740_lec_02.html#todays-outline",
     "title": "EDA and feature engineering",
     "section": "Today’s Outline",
-    "text": "Today’s Outline\n\nIntroduction to exploratory data analysis (EDA)\nFeature engineering in the tidyverse"
+    "text": "Today’s Outline\n\nComplete last week’s lab\nReview this week’s material\n\nIntroduction to exploratory data analysis (EDA), and\nFeature engineering in the tidyverse\n\nStart (and finish?) this week’s lab\n\n\n\n\n\n\n\nNote\n\n\nThe first two labs are designed to give you practice with the Tidyverse tools for manipulating data."
   },
   {
     "objectID": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-1",
     "href": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-1",
     "title": "EDA and feature engineering",
     "section": "Exploratory Data Analysis (EDA)",
-    "text": "Exploratory Data Analysis (EDA)\nWe are going to perform two broad categories of EDA:\n\nDescriptive Statistics, which includes mean, median, mode, inter-quartile range, and so on.\nGraphical Methods, which includes histogram, density estimation, box plots, and so on.\n\n\nImport the data\nClean the data\nProcess the data\nVisualize the data"
+    "text": "Exploratory Data Analysis (EDA)\nExploratory data analysis is the process of understanding a new dataset by looking at the data, constructing graphs, tables, and models. We want to understand three aspects:\n\neach individual variable by itself;\neach individual variable in the context of other, relevant, variables; and\nthe data that are not there."
   },
   {
     "objectID": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-2",
     "href": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-2",
     "title": "EDA and feature engineering",
     "section": "Exploratory Data Analysis (EDA)",
-    "text": "Exploratory Data Analysis (EDA)\n\n\n\nCode\n&gt; dat &lt;- forcats::gss_cat\n&gt; dat %&gt;% dplyr::slice_head(n=10) %&gt;% dplyr::glimpse()\n\n\nRows: 10\nColumns: 9\n$ year    &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000\n$ marital &lt;fct&gt; Never married, Divorced, Widowed, Never married, Divorced, Married, Neve…\n$ age     &lt;int&gt; 26, 48, 67, 39, 25, 25, 36, 44, 44, 47\n$ race    &lt;fct&gt; White, White, White, White, White, White, White, White, White, White\n$ rincome &lt;fct&gt; $8000 to 9999, $8000 to 9999, Not applicable, Not applicable, Not applic…\n$ partyid &lt;fct&gt; \"Ind,near rep\", \"Not str republican\", \"Independent\", \"Ind,near rep\", \"No…\n$ relig   &lt;fct&gt; Protestant, Protestant, Protestant, Orthodox-christian, None, Protestant…\n$ denom   &lt;fct&gt; \"Southern baptist\", \"Baptist-dk which\", \"No denomination\", \"Not applicab…\n$ tvhours &lt;int&gt; 12, NA, 2, 4, 1, NA, 3, NA, 0, 3"
+    "text": "Exploratory Data Analysis (EDA)\nDuring EDA we want to come to understand the issues and features of the dataset and how this may affect analysis decisions.\nWe are especially concerned about missing values and outliers."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-3",
+    "href": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-3",
+    "title": "EDA and feature engineering",
+    "section": "Exploratory Data Analysis (EDA)",
+    "text": "Exploratory Data Analysis (EDA)\nWe are going to perform two broad categories of EDA:\n\nDescriptive Statistics, which includes mean, median, mode, inter-quartile range, and so on.\nGraphical Methods, which includes histogram, density estimation, box plots, and so on."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-4",
+    "href": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-4",
+    "title": "EDA and feature engineering",
+    "section": "Exploratory Data Analysis (EDA)",
+    "text": "Exploratory Data Analysis (EDA)\nDescriptive statistics and graphical methods support the following process:\n\nUnderstand the distribution and properties of individual variables.\nUnderstand relationships between variables.\nUnderstand what is not there."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-example",
+    "href": "slides/BSMM_8740_lec_02.html#eda-example",
+    "title": "EDA and feature engineering",
+    "section": "EDA: example",
+    "text": "EDA: example\nOur first dataset is a sample of categorical variables from the General Social Survey, a long-running US survey conducted by the independent research organization NORC at the University of Chicago.\n\n\n\n\nCode\n&gt; dat &lt;- forcats::gss_cat\n&gt; dat %&gt;% utils::head()\n\n\n# A tibble: 6 × 9\n   year marital         age race  rincome        partyid            relig    denom tvhours\n  &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;              &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;\n1  2000 Never married    26 White $8000 to 9999  Ind,near rep       Protest… Sout…      12\n2  2000 Divorced         48 White $8000 to 9999  Not str republican Protest… Bapt…      NA\n3  2000 Widowed          67 White Not applicable Independent        Protest… No d…       2\n4  2000 Never married    39 White Not applicable Ind,near rep       Orthodo… Not …       4\n5  2000 Divorced         25 White Not applicable Not str democrat   None     Not …       1\n6  2000 Married          25 White $20000 - 24999 Strong democrat    Protest… Sout…      NA\n\n\n\n\nexecute ?forcats::gss_cat to see the data dictionary"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-example-1",
+    "href": "slides/BSMM_8740_lec_02.html#eda-example-1",
+    "title": "EDA and feature engineering",
+    "section": "EDA: example",
+    "text": "EDA: example\nUse dplyr::glimpse() to see every column in a data.frame\n\n\n&gt; dat %&gt;% dplyr::slice_head(n=10) %&gt;% dplyr::glimpse()\n\nRows: 10\nColumns: 9\n$ year    &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000\n$ marital &lt;fct&gt; Never married, Divorced, Widowed, Never married, Divorced, Married, Neve…\n$ age     &lt;int&gt; 26, 48, 67, 39, 25, 25, 36, 44, 44, 47\n$ race    &lt;fct&gt; White, White, White, White, White, White, White, White, White, White\n$ rincome &lt;fct&gt; $8000 to 9999, $8000 to 9999, Not applicable, Not applicable, Not applic…\n$ partyid &lt;fct&gt; \"Ind,near rep\", \"Not str republican\", \"Independent\", \"Ind,near rep\", \"No…\n$ relig   &lt;fct&gt; Protestant, Protestant, Protestant, Orthodox-christian, None, Protestant…\n$ denom   &lt;fct&gt; \"Southern baptist\", \"Baptist-dk which\", \"No denomination\", \"Not applicab…\n$ tvhours &lt;int&gt; 12, NA, 2, 4, 1, NA, 3, NA, 0, 3"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-example-2",
+    "href": "slides/BSMM_8740_lec_02.html#eda-example-2",
+    "title": "EDA and feature engineering",
+    "section": "EDA: example",
+    "text": "EDA: example\nUse dplyr::slice_sample() to see a random selection of rows in a data.frame\n\n\n&gt; dat %&gt;% dplyr::slice_sample(n=10)\n\n# A tibble: 10 × 9\n    year marital         age race  rincome        partyid            relig   denom tvhours\n   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;              &lt;fct&gt;   &lt;fct&gt;   &lt;int&gt;\n 1  2010 Widowed          77 Black Not applicable Independent        Protes… Sout…       0\n 2  2014 Divorced         89 White Not applicable Strong democrat    Protes… Unit…       3\n 3  2002 Divorced         47 Black $25000 or more Strong democrat    Protes… Sout…      NA\n 4  2008 Married          68 White Not applicable Independent        Protes… Epis…       2\n 5  2008 Widowed          57 White $25000 or more Not str republican Protes… Epis…       2\n 6  2008 Divorced         49 White No answer      Independent        Protes… No d…       1\n 7  2006 Never married    36 White $20000 - 24999 Independent        None    Not …       8\n 8  2000 Divorced         32 White $25000 or more Independent        Cathol… Not …       5\n 9  2012 Married          63 White $25000 or more Not str republican Protes… No d…      NA\n10  2002 Never married    30 Black $25000 or more Independent        None    Not …      NA"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-example-3",
+    "href": "slides/BSMM_8740_lec_02.html#eda-example-3",
+    "title": "EDA and feature engineering",
+    "section": "EDA: example",
+    "text": "EDA: example\nMost of the columns here are factors (categories). Use forcats::fct_count() to count the factor entries.\n\n\n&gt; forcats::fct_count(dat$relig) %&gt;% dplyr::arrange(desc(n))\n\n# A tibble: 16 × 2\n   f                           n\n   &lt;fct&gt;                   &lt;int&gt;\n 1 Protestant              10846\n 2 Catholic                 5124\n 3 None                     3523\n 4 Christian                 689\n 5 Jewish                    388\n 6 Other                     224\n 7 Buddhism                  147\n 8 Inter-nondenominational   109\n 9 Moslem/islam              104\n10 Orthodox-christian         95\n11 No answer                  93\n12 Hinduism                   71\n13 Other eastern              32\n14 Native american            23\n15 Don't know                 15\n16 Not applicable              0"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-example-4",
+    "href": "slides/BSMM_8740_lec_02.html#eda-example-4",
+    "title": "EDA and feature engineering",
+    "section": "EDA: example",
+    "text": "EDA: example\nThe base R function summary() can be used for key summary statistics of the data.\n\n\n&gt; dat %&gt;% summary()\n\n      year               marital           age                    race      \n Min.   :2000   No answer    :   17   Min.   :18.00   Other         : 1959  \n 1st Qu.:2002   Never married: 5416   1st Qu.:33.00   Black         : 3129  \n Median :2006   Separated    :  743   Median :46.00   White         :16395  \n Mean   :2007   Divorced     : 3383   Mean   :47.18   Not applicable:    0  \n 3rd Qu.:2010   Widowed      : 1807   3rd Qu.:59.00                         \n Max.   :2014   Married      :10117   Max.   :89.00                         \n                                      NA's   :76                            \n           rincome                   partyid            relig      \n $25000 or more:7363   Independent       :4119   Protestant:10846  \n Not applicable:7043   Not str democrat  :3690   Catholic  : 5124  \n $20000 - 24999:1283   Strong democrat   :3490   None      : 3523  \n $10000 - 14999:1168   Not str republican:3032   Christian :  689  \n $15000 - 19999:1048   Ind,near dem      :2499   Jewish    :  388  \n Refused       : 975   Strong republican :2314   Other     :  224  \n (Other)       :2603   (Other)           :2339   (Other)   :  689  \n              denom          tvhours      \n Not applicable  :10072   Min.   : 0.000  \n Other           : 2534   1st Qu.: 1.000  \n No denomination : 1683   Median : 2.000  \n Southern baptist: 1536   Mean   : 2.981  \n Baptist-dk which: 1457   3rd Qu.: 4.000  \n United methodist: 1067   Max.   :24.000  \n (Other)         : 3134   NA's   :10146"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-packages-for-eda",
+    "href": "slides/BSMM_8740_lec_02.html#eda-packages-for-eda",
+    "title": "EDA and feature engineering",
+    "section": "EDA: packages for EDA",
+    "text": "EDA: packages for EDA\n\nThe function skimr::skim() gives an enhanced version of base R’s summary() .\nOther packages, such as DataExplorer:: rely more on graphing.\n\nWe’ll look at a few of the DataExplorer:: functions next."
   },
   {
     "objectID": "slides/BSMM_8740_lec_02.html#dataexplorerintroduce",
     "href": "slides/BSMM_8740_lec_02.html#dataexplorerintroduce",
     "title": "EDA and feature engineering",
     "section": "DataExplorer::introduce",
-    "text": "DataExplorer::introduce\nThe function DataExplorer::introduce produces a description of the data in a data.frame.\n\n\nCode\n&gt; dat %&gt;% DataExplorer::introduce() %&gt;% dplyr::glimpse()\n\n\nRows: 1\nColumns: 9\n$ rows                 &lt;int&gt; 21483\n$ columns              &lt;int&gt; 9\n$ discrete_columns     &lt;int&gt; 6\n$ continuous_columns   &lt;int&gt; 3\n$ all_missing_columns  &lt;int&gt; 0\n$ total_missing_values &lt;int&gt; 10222\n$ complete_rows        &lt;int&gt; 11299\n$ total_observations   &lt;int&gt; 193347\n$ memory_usage         &lt;dbl&gt; 784776"
+    "text": "DataExplorer::introduce\nThe function DataExplorer::introduce produces a basic description of the data in a data.frame.\n\n\nCode\n&gt; dat %&gt;% DataExplorer::introduce() %&gt;% dplyr::glimpse()\n\n\nRows: 1\nColumns: 9\n$ rows                 &lt;int&gt; 21483\n$ columns              &lt;int&gt; 9\n$ discrete_columns     &lt;int&gt; 6\n$ continuous_columns   &lt;int&gt; 3\n$ all_missing_columns  &lt;int&gt; 0\n$ total_missing_values &lt;int&gt; 10222\n$ complete_rows        &lt;int&gt; 11299\n$ total_observations   &lt;int&gt; 193347\n$ memory_usage         &lt;dbl&gt; 784776"
   },
   {
     "objectID": "slides/BSMM_8740_lec_02.html#dataexplorerplot_intro",
@@ -3346,172 +3402,151 @@
     "text": "DataExplorer::plot_bar\n\n\nCode\n&gt; dat %&gt;% DataExplorer::plot_bar()"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#d_explorerplot_correlation",
-    "href": "slides/BSMM_8740_lec_02.html#d_explorerplot_correlation",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions",
+    "href": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions",
     "title": "EDA and feature engineering",
-    "section": "D_Explorer::plot_correlation",
-    "text": "D_Explorer::plot_correlation\n\n\nCode\n&gt; dat %&gt;% DataExplorer::plot_correlation()"
+    "section": "EDA: additional DataExplorer functions",
+    "text": "EDA: additional DataExplorer functions\nWhen the data has more numerical values consider looking at the relationships with the following functions:\n\nDataExplorer::plot_correlation() creates a correlation heatmap.\n\n\n&gt; iris %&gt;% DataExplorer::plot_correlation(type = \"c\")"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#d_explorerplot_correlation-1",
-    "href": "slides/BSMM_8740_lec_02.html#d_explorerplot_correlation-1",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions-1",
+    "href": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions-1",
     "title": "EDA and feature engineering",
-    "section": "D_Explorer::plot_correlation",
-    "text": "D_Explorer::plot_correlation\n\n\nCode\n&gt; dat %&gt;% DataExplorer::plot_correlation( maxcat = 5)"
+    "section": "EDA: additional DataExplorer functions",
+    "text": "EDA: additional DataExplorer functions\nWhen the data has more numerical values consider looking at the relationships with the following functions:\n\nDataExplorer::plot_scatterplot() creates a scatterplot for all measurements.\n\n\n&gt; iris %&gt;% DataExplorer::plot_scatterplot(by = \"Species\")"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#d_explorerplot_scatterplot",
-    "href": "slides/BSMM_8740_lec_02.html#d_explorerplot_scatterplot",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions-2",
+    "href": "slides/BSMM_8740_lec_02.html#eda-additional-dataexplorer-functions-2",
     "title": "EDA and feature engineering",
-    "section": "D_Explorer::plot_scatterplot",
-    "text": "D_Explorer::plot_scatterplot\n\n\nCode\n&gt; dat %&gt;% \n+   dplyr::select(year,age,tvhours) %&gt;% \n+   DataExplorer::plot_scatterplot(\n+     ggtheme = theme_bw(base_size = 18) + theme(legend.position = \"top\")\n+     , by = 'year', nrow=5\n+   )"
+    "section": "EDA: additional DataExplorer functions",
+    "text": "EDA: additional DataExplorer functions\nWhen the data has more numerical values consider looking at the relationships with the following functions:\n\nDataExplorer::plot_qq() creates a quantile-quantile plot for each continuous feature.\n\n\n&gt; iris %&gt;% DataExplorer::plot_qq(by = \"Species\", ncol = 2L)\n\n\n\n\n\n\n\nNote\n\n\nA Q–Q plot (quantile-quantile plot) is a probability plot, a graphical method for comparing two probability distributions by plotting their quantiles against each other."
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#dataexplorerplot_prcomp",
-    "href": "slides/BSMM_8740_lec_02.html#dataexplorerplot_prcomp",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-classifying-missing-data",
+    "href": "slides/BSMM_8740_lec_02.html#eda-classifying-missing-data",
     "title": "EDA and feature engineering",
-    "section": "DataExplorer::plot_prcomp",
-    "text": "DataExplorer::plot_prcomp\n\n&gt; prcomp_result %&gt;% \n+   purrr::pluck(\"page_0\")"
+    "section": "EDA: classifying missing data",
+    "text": "EDA: classifying missing data\nThere are three main categories of missing data\n\nMissing Completely At Random (MCAR);\n\nmissing but independent of other measurements\n\nMissing at Random (MAR);\n\nmissing in a way related to other measurements\n\nMissing Not At Random (MNAR).\n\nmissing as a property of the variable or some other unmeasured variable"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#dataexplorerplot_prcomp-1",
-    "href": "slides/BSMM_8740_lec_02.html#dataexplorerplot_prcomp-1",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-handling-missing-data",
+    "href": "slides/BSMM_8740_lec_02.html#eda-handling-missing-data",
     "title": "EDA and feature engineering",
-    "section": "DataExplorer::plot_prcomp",
-    "text": "DataExplorer::plot_prcomp\n\n\nCode\n&gt; prcomp_result %&gt;% \n+   purrr::pluck(\"page_1\")"
+    "section": "EDA: handling missing data",
+    "text": "EDA: handling missing data\nWe can think of a few options for dealing with missing data\n\nDrop observations with missing data.\nImpute the mean of observations without missing data.\nUse multiple imputation.\n\n\n\n\n\n\n\nNote\n\n\nMultiple imputation involves generating several estimates for the missing values and then averaging the outcomes."
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-3",
-    "href": "slides/BSMM_8740_lec_02.html#exploratory-data-analysis-eda-3",
+    "objectID": "slides/BSMM_8740_lec_02.html#example-mcar-or-mar",
+    "href": "slides/BSMM_8740_lec_02.html#example-mcar-or-mar",
     "title": "EDA and feature engineering",
-    "section": "Exploratory Data Analysis (EDA)",
-    "text": "Exploratory Data Analysis (EDA)\nPost-model development\n\nconfirm assumptions of the model (e.g. Normality)\nunderstand origin of any systemic issues"
+    "section": "Example: MCAR or MAR?",
+    "text": "Example: MCAR or MAR?\n\n\nCode\n&gt; dat %&gt;% dplyr::select(partyid) %&gt;% table() %&gt;% tibble::as_tibble() %&gt;% \n+   dplyr::left_join(\n+     dat %&gt;% dplyr::filter(is.na(age)) %&gt;% \n+       dplyr::select(na_partyid = partyid) %&gt;% table() %&gt;% tibble::as_tibble()\n+     , by = c(\"partyid\" = \"na_partyid\")\n+   ) %&gt;% \n+   dplyr::mutate(pct_na = n.y / n.x)\n\n\n# A tibble: 10 × 4\n   partyid              n.x   n.y   pct_na\n   &lt;chr&gt;              &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;\n 1 No answer            154     9 0.0584  \n 2 Don't know             1     0 0       \n 3 Other party          393     3 0.00763 \n 4 Strong republican   2314     8 0.00346 \n 5 Not str republican  3032     8 0.00264 \n 6 Ind,near rep        1791     2 0.00112 \n 7 Independent         4119    18 0.00437 \n 8 Ind,near dem        2499     2 0.000800\n 9 Not str democrat    3690    11 0.00298 \n10 Strong democrat     3490    15 0.00430"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-1",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-1",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-missing-data",
+    "href": "slides/BSMM_8740_lec_02.html#eda-missing-data",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering",
-    "text": "Feature engineering\nContinuous variables:\n\nMissing data\nNormalization\nStandardization\ntransformation (arithmetic, basis functions, polynomials, splines\noutliers\nlag variables\nprofiling"
+    "section": "EDA: missing data",
+    "text": "EDA: missing data\nFinally, be aware that how missing data is encoded depends on the dataset\n\nR defaults to NA when reading data, in joins, etc.\nThe creator(s) of the dataset may use a different encoding.\nMissing data can have multiple representations according to semantics of the measurement.\nRemember that entire measurements can be missing (i.e. from all observations, not just some)."
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-2",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-2",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-summary",
+    "href": "slides/BSMM_8740_lec_02.html#eda-summary",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering",
-    "text": "Feature engineering\nCategorical variables:\n\nLabel encoding\nOne-hot-encoding\nimbalances\n\nDate variables:\n\nDates, timestamps, intervals"
+    "section": "EDA: summary",
+    "text": "EDA: summary\n\nUnderstand what the measurements represent and confirm constraints (if any) and suitability of encoding.\nMake a decision on how to deal with missing data.\nUnderstand shape of measurements (may identify an issue or suggest a data transformation)"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-3",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-3",
+    "objectID": "slides/BSMM_8740_lec_02.html#eda-bad-data-rightarrow-bad-results",
+    "href": "slides/BSMM_8740_lec_02.html#eda-bad-data-rightarrow-bad-results",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering",
-    "text": "Feature engineering\nFeature selection\nFeature importance\nConvert to factors\nAdd and Delete a column\nRecode continuous variable to a categorical variable (rank, q-tiles, winsorizing, capping\nFind missing values\nHandle Missing values\nPCA, IDA"
+    "section": "EDA: bad data \\(\\rightarrow\\) bad results",
+    "text": "EDA: bad data \\(\\rightarrow\\) bad results"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nImportant concepts\n\nOverfitting (to both data and predictors)\nSupervised and Unsupervised Procedures\nNo Free Lunch Theorem\nThe Model versus the Modeling Process\nModel Bias and Variance (in modelling context)\nData-driven vs experience-driven"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nfor continuous variables (usually the independent variables or covariates):\n\nnormalization (scale values to \\([0,1]\\))\n\n\\(X_\\text{norm} = \\frac{X-X_\\text{min}}{X_\\text{max}-X_\\text{min}}\\)\n\nstandardization (subtract mean and scale by stdev)\n\n\\(X_\\text{std} = \\frac{X-\\mu_X}{\\sigma_X}\\)\n\nscaling (multiply / divide by a constant)\n\n\\(X_\\text{scaled} = K\\times X\\)"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-1",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-1",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-1",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-1",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nCategorical variables\n\ndummy variables for un-ordered categories\nencoding for many categories\n\n# categories &gt;&gt; # rows\nzero-variance predictors\nhashing\n\nnew categories"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nOther common transformations:\n\nBox-cox: with \\(\\tilde{x}\\) the geometric mean of the (positive) predictor data (\\(\\tilde{x}=\\left(\\prod_{i=1}^{n}x_{i}\\right)^{1/n}\\))\n\n\\[\nx_i(\\lambda) = \\left\\{\n\\begin{array}{cc}\n\\frac{x_i^{\\lambda}-1}{\\lambda\\tilde{x}^{\\lambda-1}} & \\lambda\\ne 0\\\\\n\\tilde{x}\\log x_i & \\lambda=0\n\\end{array}\n\\right .  \n\\]\n\n\n\n\n\n\nNote\n\n\nBox-cox is an example of a power transform; it is a technique used to stabilize variance, make the data more normal distribution-like."
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-2",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-2",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-2",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-2",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nCategorical variables\n\nsupervised encoding\n\nlikelihood encoding (e.g. log-odds, embeddings, NN)\n\nencoding for ordered categories (e.g. polynomial contrast)\n\nFeatures from text\nFactors vs. dummy vars in tree models"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nOne last common transformation:\n\nlogit transformation for bounded target variables (scaled to lie in \\([0,1]\\))\n\n\\[\n\\text{logit}\\left(p\\right)=\\log\\frac{p}{1-p},\\;p\\in [0,1]\n\\]\n\n\n\n\n\n\nNote\n\n\nThe Logit transform is primarily used to transform binary response data, such as survival/non-survival or present/absent, to provide a continuous value in the range \\(\\left(-\\infty,\\infty\\right)\\), where p is the proportion of each sample that is 1 (or 0)"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-3",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-3",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-3",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-3",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nWhy normalize or standardize?\n\nvariation in the range of feature values can lead to biased model performance or difficulties during the learning process, particularly in distance-based algorithms.\n\ne.g. income and age\n\nreduce the impact of outliers\nmake results more explainable"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-4",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-4",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-4",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-4",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nNumeric variables: issues\n\ndifferent scales\nskewness and extreme values\ncensored data\ncomplex functional relation to target\nrednundant"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nfor continuous variables (usually the target variables):\n\ntransformation (arithmetic, basis functions, polynomials, splines, differencing)\n\n\\(y = \\log(y),\\sqrt{y},\\frac{1}{y}\\), etc.\n\\(y = \\sum_i \\beta_i\\text{f}_i(x)\\;\\text{s.t.}\\;0=\\int\\text{f}_i(x)\\text{f}_j(x)\\; \\forall i\\ne j\\)\n\\(y = \\beta_0+\\beta_1 x+\\beta_2 x^2+\\beta_3 x^3+\\ldots\\)\n\\(y = \\beta_0+\\beta_1 x_1+\\beta_2 x_2+\\beta_3 x_1 x_2+\\ldots\\)\n\\(y'_i = y_i-y_{i-1}\\)"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-5",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-5",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-5",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-5",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations:\n\nBox-cox: with \\(\\tilde{x}\\) the geometric mean of the (positive) predictor data\n\n\\[\nx^{*} = \\left\\{\n\\begin{array}{cc}\n\\frac{x^{\\lambda}-1}{\\lambda\\tilde{x}^{\\lambda-1}} & \\lambda\\ne 0\\\\\n\\tilde{x}\\log x & \\lambda=0\n\\end{array}\n\\right .  \n\\]"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nfor categorical variables (either target or explanatory variables):\n\nbinning / bucketing\n\nrepresent a numerical value as a categorical value\n\ncategorical\\(\\rightarrow\\)ordinal and ordinal\\(\\rightarrow\\)categorical\n\nfor date variables:\n\ntimestamp\\(\\rightarrow\\)date or date part"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-6",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-6",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-6",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-transformation-6",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations:\n\nlogit transformation for bounded target variables (scaled to lie in \\([0,1]\\))\n\n\\[\n\\text{logit}\\left(x\\right)=\\frac{x}{1-x}\n\\]\n\ncentering and scaling"
+    "section": "Feature engineering: transformation",
+    "text": "Feature engineering: transformation\nWhy transform?\n\nit can make your model perform better\n\ne.g. \\(\\log\\) transform makes exponential data linear, and log-Normal data Gaussian\n\\(\\log\\) transforms also make multiplicative models additive\ne.g. polynomials, basis functions and splines help model non-linearities in data"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-7",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-7",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-creation",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-creation",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations: when time is a predictor\n\ndata smoothing (target or predictors)\n\nrunning mean/median\nsmoothing splines\nlags"
+    "section": "Feature engineering: creation",
+    "text": "Feature engineering: creation\n\noutliers (due to data entry, measurement/experiment, intentional errors)\n\noutliers can be identified by quantile methods (Gaussian data)\noutliers can be removed, treated as missing, or capped\n\nlag variables (either target or explanatory variables)\n\nuseful in time series models, e.g. \\(y_t,y_{t-1},\\ldots y_{t-n}\\)"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-8",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-8",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-creation-1",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-creation-1",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations: 1:many\n\northogonal basis expansions\n\npolynomial, fourier\n\nbinning / discretization"
+    "section": "Feature engineering: creation",
+    "text": "Feature engineering: creation\n\nbinning / bucketing\n\nrepresent numerical as categorical and vice versa\n\ninterval and ratio levels"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-9",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-9",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-fails",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-fails",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations: many:many\n\nlinear projection: for predictor matrix \\(X\\), create score matrix \\(X^*=XA\\)\n\nprincipal component analysis: capturing variation in a smaller number of features/scores\n\nscores are uncorrelated"
+    "section": "Feature engineering fails",
+    "text": "Feature engineering fails"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-10",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-10",
+    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-summary",
+    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-summary",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nTransformations: many:many\n\nnon-linear projection;\n\nkernel principle components (when target is a nonlinear function of predictors\n\nindependent component analysis\nnon-negative factorization\npartial least-squares"
+    "section": "Feature engineering: summary",
+    "text": "Feature engineering: summary\n\nrequires an advanced technical skill set\nrequires domain expertise\nis time-consuming and resource intensive\ndifferent analytics algorithms require different feature engineering"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-11",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-11",
+    "objectID": "slides/BSMM_8740_lec_02.html#recap",
+    "href": "slides/BSMM_8740_lec_02.html#recap",
     "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\n\n\n\nautoencoders"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-12",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-12",
-    "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nMissing data\nWhy?\n\nstructural deficiencies in the data\nrandom occurrences (MCAR & MAR)\nspecific causes\ncensored"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-13",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-13",
-    "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nSolutions:\n\ndelete\nencode\nimpute"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-14",
-    "href": "slides/BSMM_8740_lec_02.html#feature-engineering-selection-14",
-    "title": "EDA and feature engineering",
-    "section": "Feature engineering & selection",
-    "text": "Feature engineering & selection\nProfile data\n\nexperimental unit and unit of prediction\n\n\n\n\nbsmm-8740-fall-2023.github.io/osb"
+    "section": "Recap",
+    "text": "Recap\n\nToday we reviewed key elements of exploratory data analysis, the process that helps us understand the data we have and evaluate how it can help us solve the business problems we are interested in.\nWe also reviewed feature engineering - methods to we can use to facilitate our analysis and make our results more interpretable.\n\n\n\n\nbsmm-8740-fall-2023.github.io/osb"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#recap-of-last-week",
@@ -4260,7 +4295,7 @@
     "href": "index.html",
     "title": "BSMM-8740: Data Analytic Methods & Algorithms",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nPrepare\nSlides\nAE\nLab\nHW\nExam\nProject\n\n\n\n\n1\nMon, Sep 11\nTidyverse & Git\n📖\n🖥️\n📋\n\n\n\n\n\n\n\n\nLab 1\n\n\n\n💻\n\n\n\n\n\n2\nMon, Sep 18\nEDA and Feature engineering [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 2\n\n\n\n💻\n\n\n\n\n\n3\nMon, Sep 25\nThe Recipes package [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 3\n\n\n\n💻\n\n\n\n\n\n4\nMon, Oct 02\nRegression methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 4\n\n\n\n💻\n\n\n\n\n\n5\nMon, Oct 16\nThe Models Package [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 5\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 23\nClassification methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 6\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 30\nTime Series methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 7\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 06\nCausality: DAGs [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 8\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 13\nCausality: Effects [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 9\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 20\nMonte Carlo methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 10\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 27\nBayesian methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 11\n\n\n\n💻\n\n\n\n\n\n6\nMon, Dec 04\nAdvanced Topics [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 12\n\n\n\n💻"
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nPrepare\nSlides\nAE\nLab\nHW\nExam\nProject\n\n\n\n\n1\nMon, Sep 11\nTidyverse & Git\n📖\n🖥️\n📋\n\n\n\n\n\n\n\n\nLab 1\n\n\n\n💻\n\n\n\n\n\n2\nMon, Sep 18\nEDA and Feature engineering\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 2\n\n\n\n💻\n\n\n\n\n\n3\nMon, Sep 25\nThe Recipes package [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 3\n\n\n\n💻\n\n\n\n\n\n4\nMon, Oct 02\nRegression methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 4\n\n\n\n💻\n\n\n\n\n\n5\nMon, Oct 16\nThe Models Package [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 5\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 23\nClassification methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 6\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 30\nTime Series methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 7\n\n\n\n💻\n\n\n\n\n\n6\nMon, Oct 06\nCausality: DAGs [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 8\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 13\nCausality: Effects [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 9\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 20\nMonte Carlo methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 10\n\n\n\n💻\n\n\n\n\n\n6\nMon, Nov 27\nBayesian methods [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 11\n\n\n\n💻\n\n\n\n\n\n6\nMon, Dec 04\nAdvanced Topics [DRAFT STAGE]\n📖\n🖥️\n\n\n\n\n\n\n\n\n\nLab 12\n\n\n\n💻"
   },
   {
     "objectID": "course-overview.html",
@@ -4883,14 +4918,14 @@
     "href": "weeks/BSMM_8740_week_2.html",
     "title": "Feature Engineering",
     "section": "",
-    "text": "📖 Read Hands-On Machine Learning with R, Chapter 3: Feature & Target Engineering"
+    "text": "📖 Read Hands-On Machine Learning with R, Chapter 3: Feature & Target Engineering\n📖 Read Telling Stories with Data, Chapter 11: Exploratory data analysis\n📖 Read R for Data Science (2e), Chapter 11: Exploratory data analysis\n📖 Feature Engineering and Selection: A Practical Approach for Predictive Models: Chapters 5 & 6: Encoding Categorical & Numeric Predictors"
   },
   {
     "objectID": "weeks/BSMM_8740_week_2.html#prepare",
     "href": "weeks/BSMM_8740_week_2.html#prepare",
     "title": "Feature Engineering",
     "section": "",
-    "text": "📖 Read Hands-On Machine Learning with R, Chapter 3: Feature & Target Engineering"
+    "text": "📖 Read Hands-On Machine Learning with R, Chapter 3: Feature & Target Engineering\n📖 Read Telling Stories with Data, Chapter 11: Exploratory data analysis\n📖 Read R for Data Science (2e), Chapter 11: Exploratory data analysis\n📖 Feature Engineering and Selection: A Practical Approach for Predictive Models: Chapters 5 & 6: Encoding Categorical & Numeric Predictors"
   },
   {
     "objectID": "weeks/BSMM_8740_week_2.html#participate",
@@ -5296,7 +5331,7 @@
     "href": "labs/BSMM_8740_lab_1.html#lets-git-started",
     "title": "Lab 1 - Tidy Data Wrangling",
     "section": "Let’s Git Started",
-    "text": "Let’s Git Started\n\n1. Register a Github account\nRegister an account with GitHub. It’s free!\n\nhttps://github.com\n\n\nUsername advice\n\nIncorporate your actual name! People like to know who they’re dealing with. Also it makes your username easier for people to guess or remember.\nShorter is better than longer.\nMake it timeless. Don’t highlight your current university, employer, or place of residence, e.g. JennyFromTheBlock.\n\nYou can change your username later, but better to get this right the first time.\n\nhttps://help.github.com/articles/changing-your-github-username/\nhttps://help.github.com/articles/what-happens-when-i-change-my-username/\n\n\n\n\n\n\n\nNote\n\n\n\nWe will be switching between the console and the terminal, in this lab and others. The Console is where you can execute R code, while the Terminal is where you can execute system functions like git.\n\n\n\n\n\n\n\n\n\n\n2. Git already installed?\nGo to the Terminal tab in RStudio and enter git --version to see its version:\n\ngit --version\n\nIf this instruction gives an error, it’s possible that git is not installed on your machine. If so, let your instructor know.\n\n\n3. Introduce yourself to Git\n\n\n\n\n\n\nImportant\n\n\n\nmake sure that the package usethis has been installed. You can check under the packages tab in the file & plots viewer (e.g., do a search).\n\n\nYou can set your Git user name and email from within R (i.e. go back to the Console tab):\n\nusethis::use_git_config(\n  # user.name does not have to be your GitHub user name\n  user.name = \"Jane Doe\"\n  # user.email MUST be the email associated with your GitHub account.\n  , user.email = \"jane@example.org\"\n)\n\n\n\n\n\n\n\nNote\n\n\n\nYour commits will be labelled with this user name, so make it informative to potential collaborators and future you.\n\n\n\n\n4. Set up personal access tokens for HTTPS\nThe password that you use to login to GitHub’s website is NOT an acceptable credential when talking to GitHub as a Git server. You can learn more in their blog post Token authentication requirements for Git operations.\nThe recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R (in the Console):\n\nusethis::create_github_token()\n\nThe usethis approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking “Generate token”.\nIt is a very good idea to describe the token’s purpose in the Note field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. “personal-macbook-air” or “lab1-course-8740”. In the future, you will find yourself staring at this list of tokens, because inevitably you’ll need to re-generate or delete one of them. Make it easy to figure out which token you’ve come here to fiddle with.\n\n\n\n\n\n\nTip\n\n\n\nIf this is your first time generating a PAT, just accept the defaults and scroll to the bottom of the page and click the green Generate token button.\n\n\n\n4.1 Click “Generate token”.\nYou won’t be able to see this token again, so don’t close or navigate away from this browser window until you store the PAT. Copy the PAT to the clipboard or a text file in RStudio.\nTreat this PAT like a password! Do not ever hard-wire your PAT into your code! A PAT should always be retrieved implicitly, for example, from the Git credential store, a safe place, where command line Git, RStudio, and R packages can discover it.\n\n\n4.2 Save your PAT\n\nCopy the generated PAT to a secure, long-term system for storing secrets, like 1Password or LastPass.\nemail it to yourself.\ncopy it onto a piece of scrap paper.\n\n\n\n4.3 Store your PAT in the Git credential store\nFinally, we store the PAT in a safe place where command line Git, RStudio, and R packages can discover it. To do this call gitcreds::gitcreds_set(). If you don’t have a PAT stored already, it will prompt you to enter your PAT. Paste!\n\ngitcreds::gitcreds_set()\n\nInstead of saving your PAT you could just re-generate the PAT each lab session and re-store it. If you accept the default 30-day expiration period, this is a workflow you’ll be using often anyway.\nOn github.com, assuming you’re signed in, you can manage your personal access tokens from https://github.com/settings/tokens, also reachable via Settings &gt; Developer settings &gt; Personal access tokens.\n\n\n\n\n\n\nImportant\n\n\n\nGiven that the machines start from the same initial state each lab session, you will follow the above steps to initial you machine at the start of each lab session.\n\n\n\n\n\n5. How Git works\nGit has three storages locally: a Working directory, Staging Area, and a Local repository.\n𝟭. 𝗪𝗼𝗿𝗸𝗶𝗻𝗴 𝗗𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 - is where you work, and your files live (“untracked”). GIT is not aware of these files.\n𝟮. 𝗦𝘁𝗮𝗴𝗶𝗻𝗴 𝗔𝗿𝗲𝗮 - When you stage your changes, GIT will start tracking and saving your changes with files. These changes are stored in the .git directory.\n𝟯. 𝗟𝗼𝗰𝗮𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝘆 - is the area where everything is saved (commits) in the .git directory. So, when you want to move your files from Staging Area to Local Repository, you can use the git commit command. After this, your Staging area will be empty. If you want to see what is in the Local repository, try git log.\nThe workflow looks like this:\n\n\n\nGit workflow\n\n\nYou are now ready interact with GitHub via RStudio!\n\n\nClone the repo & start new RStudio project\n\nFirst make sure you are logged into your own Github account on a web browser.\nNext, in a new browser tab, go to the course organization site at BSMM-8740-Fall-2023 on GitHub. Click on the repo BSMM-lab-1. It contains the starter documents you need to complete the lab.\nClick on the green Use this template button and select Create a new repository. This will make a copy of BSMM-lab-1 in your own github account.\nNext, go back to your Github acount and select your copy of BSMM-lab-1. Click on the green CODE button, select Use HTTPS (this might already be selected by default, and if it is, you’ll see the text Clone with HTTPS). Click on the clipboard icon to copy the repo URL.\nIn RStudio, go to File ➛ New Project ➛Version Control ➛ Git.\nCopy and paste the URL of your assignment repo (the clipboard copy you made in step 4) into the dialog box Repository URL. The project directory name should be automatically populated, but make sure you select a directory in Create project as a subdirectory of.\nFinally, click Create Project, and the files from your GitHub repo will be displayed in the Files pane in RStudio.\nClick bsmm-lab-1.qmd to open the template R Markdown file. This is where you will write up your code and narrative for the lab.\n\n\n\nR and R Studio\nBelow are the components of the RStudio IDE.\n\nBelow are the components of a Quarto (.qmd) file.\n\n\n\nYAML\nThe top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.\n\n\n\n\n\n\nImportant\n\n\n\nOpen the Quarto (`.qmd`) file in your project, change the author name to your name, and render the document. Examine the rendered HTML document in the Files pane.\n\n\n\n\nCommitting changes\nNow, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.\nIf you have made changes to your *.qmd file, you should see it listed here. Click on it to select it in this list and then click on Diff. This shows you the difference between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.\nIf you’re happy with these changes, we’ll prepare the changes to be pushed to your remote repository. First, stage your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, “updated author name”) in the Commit message box. Finally, click Commit. Note that every commit needs to have a commit message associated with it.\nYou don’t have to commit after every change, as this would get quite tedious. You should commit states that are meaningful to you for inspection, comparison, or restoration.\nIn the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.\n\n\nPush changes\nNow that you have made an update and committed this change, it’s time to push these changes to your repo on GitHub.\nIn order to push your changes to GitHub, you must have staged your commit to be pushed. click on Push.\nNow let’s make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you’re good to go!\nMore on the basic use of git here."
+    "text": "Let’s Git Started\n\n1. Register a Github account\nRegister an account with GitHub. It’s free!\n\nhttps://github.com\n\n\nUsername advice\n\nIncorporate your actual name! People like to know who they’re dealing with. Also it makes your username easier for people to guess or remember.\nShorter is better than longer.\nMake it timeless. Don’t highlight your current university, employer, or place of residence, e.g. JennyFromTheBlock.\n\nYou can change your username later, but better to get this right the first time.\n\nhttps://help.github.com/articles/changing-your-github-username/\nhttps://help.github.com/articles/what-happens-when-i-change-my-username/\n\n\n\n\n\n\n\nNote\n\n\n\nWe will be switching between the console and the terminal, in this lab and others. The Console is where you can execute R code, while the Terminal is where you can execute system functions like git.\n\n\n\n\n\n\n\n\n\n\n2. Git already installed?\nGo to the Terminal tab in RStudio and enter git --version to see its version:\n\ngit --version\n\nIf this instruction gives an error, it’s possible that git is not installed on your machine. If so, let your instructor know.\n\n\n3. Introduce yourself to Git\n\n\n\n\n\n\nImportant\n\n\n\nmake sure that the package usethis has been installed. You can check under the packages tab in the file & plots viewer (e.g., do a search).\n\n\nYou can set your Git user name and email from within R (i.e. go back to the Console tab):\n\nusethis::use_git_config(\n  # user.name does not have to be your GitHub user name\n  user.name = \"Jane Doe\"\n  # user.email MUST be the email associated with your GitHub account.\n  , user.email = \"jane@example.org\"\n)\n\n\n\n\n\n\n\nNote\n\n\n\nYour commits will be labelled with this user name, so make it informative to potential collaborators and future you.\n\n\n\n\n4. Set up personal access tokens for HTTPS\nThe password that you use to login to GitHub’s website is NOT an acceptable credential when talking to GitHub as a Git server. You can learn more in their blog post Token authentication requirements for Git operations.\nThe recommendation to use a personal access token (PAT) is exactly what we cover here. First you need to create your PAT, and you can do this from R (in the Console):\n\nusethis::create_github_token()\n\nThe usethis approach takes you to a pre-filled form with pre-selected some recommended scopes, which you can look over and adjust before clicking “Generate token”.\nIt is a very good idea to describe the token’s purpose in the Note field, because one day you might have multiple PATs. We recommend naming each token after its use case, such as the computer or project you are using it for, e.g. “personal-macbook-air” or “lab1-course-8740”. In the future, you will find yourself staring at this list of tokens, because inevitably you’ll need to re-generate or delete one of them. Make it easy to figure out which token you’ve come here to fiddle with.\n\n\n\n\n\n\nTip\n\n\n\nIf this is your first time generating a PAT, just accept the defaults and scroll to the bottom of the page and click the green Generate token button.\n\n\n\n4.1 Click “Generate token”.\nYou won’t be able to see this token again, so don’t close or navigate away from this browser window until you store the PAT. Copy the PAT to the clipboard or a text file in RStudio.\nTreat this PAT like a password! Do not ever hard-wire your PAT into your code! A PAT should always be retrieved implicitly, for example, from the Git credential store, a safe place, where command line Git, RStudio, and R packages can discover it.\n\n\n4.2 Save your PAT\n\nCopy the generated PAT to a secure, long-term system for storing secrets, like 1Password or LastPass.\nemail it to yourself.\ncopy it onto a piece of scrap paper.\n\n\n\n4.3 Store your PAT in the Git credential store\nFinally, we store the PAT in a safe place where command line Git, RStudio, and R packages can discover it. To do this call gitcreds::gitcreds_set(). If you don’t have a PAT stored already, it will prompt you to enter your PAT. Paste!\n\ngitcreds::gitcreds_set()\n\nInstead of saving your PAT you could just re-generate the PAT each lab session and re-store it. If you accept the default 30-day expiration period, this is a workflow you’ll be using often anyway.\nOn github.com, assuming you’re signed in, you can manage your personal access tokens from https://github.com/settings/tokens, also reachable via Settings &gt; Developer settings &gt; Personal access tokens.\n\n\n\n\n\n\nImportant\n\n\n\nGiven that the machines start from the same initial state each lab session, you will follow the above steps to initial your machine at the start of each lab session.\n\n\n\n\n\n5. How Git works\nGit has three storages locally: a Working directory, Staging Area, and a Local repository.\n𝟭. 𝗪𝗼𝗿𝗸𝗶𝗻𝗴 𝗗𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 - is where you work, and your files live (“untracked”). GIT is not aware of these files.\n𝟮. 𝗦𝘁𝗮𝗴𝗶𝗻𝗴 𝗔𝗿𝗲𝗮 - When you stage your changes, GIT will start tracking and saving your changes with files. These changes are stored in the .git directory.\n𝟯. 𝗟𝗼𝗰𝗮𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝘆 - is the area where everything is saved (commits) in the .git directory. So, when you want to move your files from Staging Area to Local Repository, you can use the git commit command. After this, your Staging area will be empty. If you want to see what is in the Local repository, try git log.\nThe workflow looks like this:\n\n\n\nGit workflow\n\n\nYou are now ready interact with GitHub via RStudio!\n\n\nClone the repo & start new RStudio project\n\nFirst make sure you are logged into your own Github account on a web browser.\nNext, in a new browser tab, go to the course organization site at BSMM-8740-Fall-2023 on GitHub. Click on the repo BSMM-lab-1. It contains the starter documents you need to complete the lab.\nClick on the green Use this template button and select Create a new repository. This will make a copy of BSMM-lab-1 in your own github account.\nNext, go back to your Github acount and select your copy of BSMM-lab-1. Click on the green CODE button, select Use HTTPS (this might already be selected by default, and if it is, you’ll see the text Clone with HTTPS). Click on the clipboard icon to copy the repo URL.\nIn RStudio, go to File ➛ New Project ➛Version Control ➛ Git.\nCopy and paste the URL of your assignment repo (the clipboard copy you made in step 4) into the dialog box Repository URL. The project directory name should be automatically populated, but make sure you select a directory in Create project as a subdirectory of.\nFinally, click Create Project, and the files from your GitHub repo will be displayed in the Files pane in RStudio.\nClick bsmm-lab-1.qmd to open the template R Markdown file. This is where you will write up your code and narrative for the lab.\n\n\n\nR and R Studio\nBelow are the components of the RStudio IDE.\n\nBelow are the components of a Quarto (.qmd) file.\n\n\n\nYAML\nThe top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.\n\n\n\n\n\n\nImportant\n\n\n\nOpen the Quarto (`.qmd`) file in your project, change the author name to your name, and render the document. Examine the rendered HTML document in the Files pane.\n\n\n\n\nCommitting changes\nNow, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.\nIf you have made changes to your *.qmd file, you should see it listed here. Click on it to select it in this list and then click on Diff. This shows you the difference between the last committed state of the document and its current state including changes. You should see deletions in red and additions in green.\nIf you’re happy with these changes, we’ll prepare the changes to be pushed to your remote repository. First, stage your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, “updated author name”) in the Commit message box. Finally, click Commit. Note that every commit needs to have a commit message associated with it.\nYou don’t have to commit after every change, as this would get quite tedious. You should commit states that are meaningful to you for inspection, comparison, or restoration.\nIn the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.\n\n\nPush changes\nNow that you have made an update and committed this change, it’s time to push these changes to your repo on GitHub.\nIn order to push your changes to GitHub, you must have staged your commit to be pushed. click on Push.\nNow let’s make sure all the changes went to GitHub. Go to your GitHub repo and refresh the page. You should see your commit message next to the updated files. If you see this, all your changes are on GitHub and you’re good to go!\nMore on the basic use of git here."
   },
   {
     "objectID": "labs/BSMM_8740_lab_1.html#packages",
@@ -5345,56 +5380,63 @@
     "href": "labs/BSMM_8740_lab_2.html",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "",
-    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
+    "text": "In today’s lab, you’ll explore several data sets as part of the EDA process, and then practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to generate summary statistics for EDA\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#introduction",
     "href": "labs/BSMM_8740_lab_2.html#introduction",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "",
-    "text": "In today’s lab, you’ll explore several data sets in the EDA process and practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
+    "text": "In today’s lab, you’ll explore several data sets as part of the EDA process, and then practice some feature engineering.\n\n\nBy the end of the lab you will…\n\nBe able to generate summary statistics for EDA\nBe able to use the DataExplorer package to perform EDA\nBe able to perform basic feature engineering."
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#getting-started",
     "href": "labs/BSMM_8740_lab_2.html#getting-started",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Getting started",
-    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repo with the prefix lab-2. It contains the starter documents you need to complete the lab.\nClone the repo and start a new project in RStudio. See the Lab 1 instructions for details on cloning a repo, starting a new R project and configuring git."
+    "text": "Getting started\n\nGo to the course organization at BSMM-8740-Fall-2023 on GitHub. Click on the repository named BSMM-lab-2. It contains the starter documents you need to complete the lab.\nCreate a new repository and start a new project in RStudio. See the Lab 1 instructions for details on creating a repository, starting a new R project and configuring git.\n\n\n\n\n\n\n\nImportant\n\n\n\nTo access Github from the lab, you will need to make sure you are logged in as follows:\n\nusername: .\\daladmin\npassword: Business507!\n\nFollow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials)."
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#packages",
     "href": "labs/BSMM_8740_lab_2.html#packages",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Packages",
-    "text": "Packages\nWe will use the following package in today’s lab.\n\nlibrary(tidyverse)  # for data wrangling + visualization\nlibrary(tidymodels) # for modeling\nlibrary(knitr)      # for pretty printing of tables"
+    "text": "Packages\nHere are some of the packages we’ll use in this lab.\n\nlibrary(tidyverse)    # for data wrangling + visualization\nlibrary(tidymodels)   # for modeling\nlibrary(gt)           # for making display tables\nlibrary(gtExtras)     # helper functions for beautiful tables\nlibrary(DataExplorer) #"
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#data-the-tate-collection",
     "href": "labs/BSMM_8740_lab_2.html#data-the-tate-collection",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Data: The Tate Collection",
-    "text": "Data: The Tate Collection\nTate is an institution that houses the United Kingdom’s national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.\nThis dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.\nThe metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.\nThis dataset contains the following information for each artwork:\n\n\n\nId\nacquisitionYear\n\n\naccession_number\ndimensions\n\n\nartist\nwidth\n\n\nartistRole\nheight\n\n\nartistId\ndepth\n\n\ntitle\nunits\n\n\ndateText\ninscription\n\n\nmedium\nthumbnailCopyright\n\n\ncreditLine\nthumbnailUr\n\n\nyear\nurl\n\n\n\nUse the code below to load the Tate Collection data sets.\n\nthe_tate &lt;- readr::read_delim(\"data/the-tate-collection.csv\", \";\", escape_double = FALSE, trim_ws = TRUE)\nthe_tate_artists &lt;- readr::read_csv(\"data/the-tate-artists.csv\")"
+    "text": "Data: The Tate Collection\nTate is an institution that houses the United Kingdom’s national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.\nThis dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.\nThe metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.\nThis dataset contains the following information for each artwork:\n\n\n\nId\nacquisitionYear\n\n\naccession_number\ndimensions\n\n\nartist\nwidth\n\n\nartistRole\nheight\n\n\nartistId\ndepth\n\n\ntitle\nunits\n\n\ndateText\ninscription\n\n\nmedium\nthumbnailCopyright\n\n\ncreditLine\nthumbnailUr\n\n\nyear\nurl\n\n\n\nUse the code below to load the Tate Collection data sets, and note the names of the variable referencing each dataset.\n\nthe_tate &lt;- readr::read_delim(\"data/the-tate-collection.csv\", \";\", escape_double = FALSE, trim_ws = TRUE)\nthe_tate_artists &lt;- readr::read_csv(\"data/the-tate-artists.csv\")"
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#exercises",
     "href": "labs/BSMM_8740_lab_2.html#exercises",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Exercises",
-    "text": "Exercises\n\nExercise 1\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Generate some general observations about the dataset using dplyr::summarize, including the number of unique artists represented in the collection, the period represented in the collection and the acquisition period over which the collection was created.\nNext use DataExplorer::introduce and DataExplorer::plot_missing() to examine the scope of missing data.\n\n\nExercise 2\nPrepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.\n\n\nExercise 3\nModify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using gt::gt with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the gtExtras package to the formatted table.\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 4\nSimilar to exercises 2 and 3, in this exercise take the raw data (the_tate) and add a column with the area of each artwork in \\(\\text{cm}^2\\). Next select the artist, title and the area and remove NA values using tidyr::drop_na, then order the works by area. Use dplyr::slice_head and dplyr::slice_tail to find the largest and smallest artworks in the collection.\n\n\nExercise 5\nJoin the tables the_tate and the_tate_artists using dplyr::left_join, assigning the result to the variable the_tate . Drop rows with NA gender values and then group by gender\n\n\nExercise 6\nRead the historical price data in the file SPX_HistoricalData_1692322132002.csv and add a column for the year of the transaction and the daily return \\(r_d\\), using the formula\n\\[\nr_d\\equiv \\log \\frac{\\text{Close/Last}_{t=i}}{\\text{Close/Last}_{t=i-1}}\n\\] You will likely need dplyr::lead or dplyr::lead. Add an additional column for the daily return variance \\(\\text{var}_d = \\text{r}_d^2\\).\nFinally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument .groups = \"drop\" to the summarize function to drop the grouping after the summary is created.\n\n\nExercise 7\nTake the table from the last exercise and use the gt:: package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
+    "text": "Exercises\n\nExercise 1\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Generate some general observations about the dataset using dplyr::summarize, including the number of unique artists represented in the collection, the period represented in the collection and the acquisition period over which the collection was created.\nNext use DataExplorer::introduce and DataExplorer::plot_missing() to examine the scope of missing data.\n\n\nExercise 2\nRoughly 7.8% of the works in the collection have missing dates, How many works have missing dates (i.e. the number)\nUse the table() function to count the number of works missing for each artist. Convert the table in to a tibble using tibble::as_tibble(), and then sort the count in descending order.\nHow many artists have works with missing dates?\nMutate the resulting table, adding columns for the percent of the total missing data for each artist, and another for the cumulative percent (just apply cumsum() to the percentage for each artist.\nIf we could identify all the missing dates for each artists, what is the smallest number of arists needed to resolve at least 50% of the missing year data?\nIs this missing data MCAR, MAR, or MNAR?\n\n\nExercise 3\nPrepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.\n\n\nExercise 4\nModify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using gt::gt with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the gtExtras package to the formatted table.\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.\n\n\n\nExercise 5\nUsing the tibble the_tate, select the columns for artist and title and count the number of rows.\nNext take the tibble the_tate, select the columns for artist and title, and then apply dplyr::distinct. Count the distinct artist-title pairs.\nHow many are duplicated?\n\n\nExercise 6\nSimilar to exercises 2 and 3, in this exercise take the raw data (the_tate) and add a column with the area of each artwork in \\(\\text{cm}^2\\). Next select the artist, title and the area and remove NA values using tidyr::drop_na, then order the works by area. Use dplyr::slice_head and dplyr::slice_tail to find the largest and smallest artworks in the collection.\n\n\nExercise 7\nJoin the tables the_tate and the_tate_artists using dplyr::left_join, assigning the result to the variable the_tate . Drop rows with NA gender values and then group by gender. Show the resulting table.\n\n\nExercise 8\nIn the next two exercises we switch to a different dataset, the historical price data for the S&P 500 Index.\nRead the historical price data in the file SPX_HistoricalData_1692322132002.csv using readr:: read_csv and add a column for the year of the transaction and the daily return \\(r_d\\), using the formula\n\\[\nr_d\\equiv \\log \\frac{\\text{Close/Last}_{t=i}}{\\text{Close/Last}_{t=i-1}}\n\\] You will likely need dplyr::lead or dplyr::lead functions. Add an additional column for the daily return variance \\(\\text{var}_d = \\text{r}_d^2\\).\nFinally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument .groups = \"drop\" to the dplyr::summarize function to drop the grouping after the summary is created.\n\n\nExercise 9\nTake the table from the last exercise and use the gt:: package to format it. Add summary rows for the period return and period volatility (note that variances can be added; volatilities cannot- so you will need to do some calculations).\n\nThis is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty."
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#submission",
     "href": "labs/BSMM_8740_lab_2.html#submission",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Submission",
-    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in an HTML file to the Brightspace page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nLog in to Brightspace and select course BSMM8740-2-R-2023F|Data Analytic Meth.\nClick on the Lab-2 assignment, and submit it."
+    "text": "Submission\n\n\n\n\n\n\nWarning\n\n\n\nBefore you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.\nRemember – you must turn in an HTML file to the Brightspace page before the submission deadline for full credit.\n\n\nTo submit your assignment:\n\nLog in to Brightspace and select course BSMM8740-2-R-2023F|Data Analytic Meth.\nClick on the BSMM-Lab-2 assignment, and submit it."
   },
   {
     "objectID": "labs/BSMM_8740_lab_2.html#grading",
     "href": "labs/BSMM_8740_lab_2.html#grading",
     "title": "Lab 2 - EDA and Feature Engineering",
     "section": "Grading",
-    "text": "Grading\nTotal points available: 50 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 10\n45\n\n\nWorkflow & formatting\n51\n\n\n\n\n\n1 The “Workflow & formatting” grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML."
+    "text": "Grading\nTotal points available: 30 points.\n\n\n\nComponent\nPoints\n\n\n\n\nEx 1 - 9\n30"
+  },
+  {
+    "objectID": "labs/BSMM_8740_lab_2.html#resources-for-additional-practice-optional",
+    "href": "labs/BSMM_8740_lab_2.html#resources-for-additional-practice-optional",
+    "title": "Lab 2 - EDA and Feature Engineering",
+    "section": "Resources for additional practice (optional)",
+    "text": "Resources for additional practice (optional)\n\nWork/read through the TTC subway dataset example in Telling Stories with Data, Chapter 11.4: TTC Subway Delays\n\nYou will need to install the package opendatatoronto (Gelfand 2022) to access the data. The details on the package can be found here."
   },
   {
     "objectID": "labs/lab-6.html",
@@ -5471,7 +5513,21 @@
     "href": "labs/tate_scratch.html#a-short-summary-of-the-dataset",
     "title": "Exploratory Analysis for Tate dataset",
     "section": "A short summary of the dataset",
-    "text": "A short summary of the dataset\n\nthe_tate %&gt;% DataExplorer::introduce() %&gt;% dplyr::glimpse()\nthe_tate %&gt;% DataExplorer::plot_missing()\n\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Some general observations about the dataset:\n\nunique(the_tate$artist) shows us that there are 3336 different artists in the dataset,\nsummary(the_tate$year) illustrates the period of time covered by artworks (1545 - 2012),\nsummary(the_tate$acquisitionYear) gives us the period of time in which Tate has acquired artworks (1823 - 2013).\n\n\nthe_tate %&gt;% \n  dplyr::summarize(\n    artists = unique(artist) %&gt;% length()\n    , min_yr = min(year, na.rm = TRUE), max_yr = max(year, na.rm = TRUE)\n    , min_ac = min(acquisitionYear, na.rm = TRUE), max_ac = max(acquisitionYear, na.rm = TRUE)\n  )\n\n\n# the_tate_area &lt;- the_tate[!is.na(the_tate$width) & !is.na(the_tate$height),]\n# area &lt;- the_tate_area$width * the_tate_area$height\n# the_tate_area &lt;- cbind(the_tate_area, area)\n# the_tate_area &lt;- the_tate_area[order(the_tate_area$area),]\n\nthe_tate %&gt;% \n  dplyr::mutate(area = width * height / 100) %&gt;% \n  dplyr::select(artist, title, area) %&gt;% \n  dplyr::arrange(desc(area)) %&gt;% \n  tidyr::drop_na() %&gt;% \n  dplyr::slice_head(n=1)\n\nthe_tate %&gt;% \n  dplyr::mutate(area = width * height / 100) %&gt;% \n  dplyr::select(artist, title, area) %&gt;% \n  dplyr::arrange(desc(area)) %&gt;% \n  tidyr::drop_na() %&gt;% \n  dplyr::slice_tail(n=1)\n\nWe can create a variable area by multiplying width and height and then we can order the dataset according to this variable, so that we can detect the smallest and the biggest artwork available at Tate.\n\nThe smallest one will be the one in first row, the_tate_area[1,], Thème de Ballet by E.L.T. Mesens.\nThe biggest one will be the one in last row, the_tate_area[nrow(the_tate_area),], Table and Four Chairs by Robert Therrien.\n\nAnd what about the artists? If we group the dataset according to artist name (or artist ID) and we count rows, we obtain a table (that we order descending) with the number of artworks for each artist. It is easy to see that more than half of the artworks are by Joseph Mallord William Turner.\n\nthe_tate_by_artist &lt;- the_tate %&gt;%\n  dplyr::group_by(artist) %&gt;%\n  dplyr::summarize(count = n())\n\nthe_tate_by_artist %&gt;% \n  dplyr::arrange(desc(count)) %&gt;% \n  dplyr::mutate(\"pct of collection\" = count/sum(count)) %&gt;% \n  dplyr::slice_head(n=10) %&gt;% \n  gt::gt(\"artist\") %&gt;% \n  gt::fmt_percent(columns = `pct of collection`) %&gt;% \n  gtExtras::gt_theme_espn()\n\nSo, now we know that\n\n69201 artworks are available at Tate,\nTate’s artworks cover the period 1545 - 2012,\nTate’s acquisitions have begun in 1823,\nthe smallest artwork at Tate is Thème de Ballet by E.L.T. Mesens,\nthe biggest one is Table and Four Chairs by Robert Therrien,\nthe most represented artist is Joseph Mallord William Turner."
+    "text": "A short summary of the dataset\n\nthe_tate %&gt;% DataExplorer::introduce() %&gt;% dplyr::glimpse()\nthe_tate %&gt;% DataExplorer::plot_missing()"
+  },
+  {
+    "objectID": "labs/tate_scratch.html#e2-missing-year-data",
+    "href": "labs/tate_scratch.html#e2-missing-year-data",
+    "title": "Exploratory Analysis for Tate dataset",
+    "section": "E2: missing year data",
+    "text": "E2: missing year data\n\nmissing_year &lt;- the_tate %&gt;% \n  dplyr::filter(is.na(year))\nmisssing_year\n\nmissing_year$artist %&gt;% table() %&gt;% \n  tibble::as_tibble() %&gt;% \n  arrange(desc(n)) %&gt;% \n  mutate(total = sum(n), pct_of_missing = n/total, cum_pct = cumsum(pct_of_missing))"
+  },
+  {
+    "objectID": "labs/tate_scratch.html#e3",
+    "href": "labs/tate_scratch.html#e3",
+    "title": "Exploratory Analysis for Tate dataset",
+    "section": "E3",
+    "text": "E3\n\nthe_tate %&gt;% \n  dplyr::group_by(artist) %&gt;% \n  dplyr::mutate(count = n()) %&gt;% \n  dplyr::arrange(desc(count)) %&gt;% \n  dplyr::select(artist,count) %&gt;% \n  dplyr::distinct()\n\n\nE ?\n\nn_all &lt;- (the_tate %&gt;% \n  dplyr::select(artist,title) %&gt;% \n  dim())[1]\n  \n\nn_distinct &lt;- (the_tate %&gt;% \n  dplyr::select(artist,title) %&gt;% \n  dplyr::distinct() %&gt;% \n  dim())[1]\n\nn_all - n_distinct\n\nFirst of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Some general observations about the dataset:\n\nunique(the_tate$artist) shows us that there are 3336 different artists in the dataset,\nsummary(the_tate$year) illustrates the period of time covered by artworks (1545 - 2012),\nsummary(the_tate$acquisitionYear) gives us the period of time in which Tate has acquired artworks (1823 - 2013).\n\n\nthe_tate %&gt;% \n  dplyr::summarize(\n    artists = unique(artist) %&gt;% length()\n    , min_yr = min(year, na.rm = TRUE), max_yr = max(year, na.rm = TRUE)\n    , min_ac = min(acquisitionYear, na.rm = TRUE), max_ac = max(acquisitionYear, na.rm = TRUE)\n  )\n\n\n# the_tate_area &lt;- the_tate[!is.na(the_tate$width) & !is.na(the_tate$height),]\n# area &lt;- the_tate_area$width * the_tate_area$height\n# the_tate_area &lt;- cbind(the_tate_area, area)\n# the_tate_area &lt;- the_tate_area[order(the_tate_area$area),]\n\nthe_tate %&gt;% \n  dplyr::mutate(area = width * height / 100) %&gt;% \n  dplyr::select(artist, title, area) %&gt;% \n  dplyr::arrange(desc(area)) %&gt;% \n  tidyr::drop_na() %&gt;% \n  dplyr::slice_head(n=1)\n\nthe_tate %&gt;% \n  dplyr::mutate(area = width * height / 100) %&gt;% \n  dplyr::select(artist, title, area) %&gt;% \n  dplyr::arrange(desc(area)) %&gt;% \n  tidyr::drop_na() %&gt;% \n  dplyr::slice_tail(n=1)\n\nWe can create a variable area by multiplying width and height and then we can order the dataset according to this variable, so that we can detect the smallest and the biggest artwork available at Tate.\n\nThe smallest one will be the one in first row, the_tate_area[1,], Thème de Ballet by E.L.T. Mesens.\nThe biggest one will be the one in last row, the_tate_area[nrow(the_tate_area),], Table and Four Chairs by Robert Therrien.\n\nAnd what about the artists? If we group the dataset according to artist name (or artist ID) and we count rows, we obtain a table (that we order descending) with the number of artworks for each artist. It is easy to see that more than half of the artworks are by Joseph Mallord William Turner.\n\nthe_tate_by_artist &lt;- the_tate %&gt;%\n  dplyr::group_by(artist) %&gt;%\n  dplyr::summarize(count = n())\n\nthe_tate_by_artist %&gt;% \n  dplyr::arrange(desc(count)) %&gt;% \n  dplyr::mutate(\"pct of collection\" = count/sum(count)) %&gt;% \n  dplyr::slice_head(n=10) %&gt;% \n  gt::gt(\"artist\") %&gt;% \n  gt::fmt_percent(columns = `pct of collection`) %&gt;% \n  gtExtras::gt_theme_espn()\n\nSo, now we know that\n\n69201 artworks are available at Tate,\nTate’s artworks cover the period 1545 - 2012,\nTate’s acquisitions have begun in 1823,\nthe smallest artwork at Tate is Thème de Ballet by E.L.T. Mesens,\nthe biggest one is Table and Four Chairs by Robert Therrien,\nthe most represented artist is Joseph Mallord William Turner."
   },
   {
     "objectID": "labs/tate_scratch.html#titles-text-analysis",
