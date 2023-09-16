@@ -6,31 +6,44 @@ reference-location: margin
 
 ## Introduction
 
-In today's lab, you'll explore several data sets in the EDA process and practice some feature engineering.
+In today's lab, you'll explore several data sets as part of the EDA process, and then practice some feature engineering.
 
 ### Learning goals
 
 By the end of the lab you will...
 
+-   Be able to generate summary statistics for EDA
 -   Be able to use the `DataExplorer` package to perform EDA
 -   Be able to perform basic feature engineering.
 
 ## Getting started
 
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-2**. It contains the starter documents you need to complete the lab.
+-   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/ "Course GitHub organization") on GitHub. Click on the repository named **BSMM-lab-2**. It contains the starter documents you need to complete the lab.
 
--   Clone the repo and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+-   Create a new repository and start a new project in RStudio. See the [Lab 1 instructions](labs/BSMM_8740_lab_1.html) for details on creating a repository, starting a new R project and configuring git.
+
+::: callout-important
+To access Github from the lab, you will need to make sure you are logged in as follows:
+
+-   username: **.\\daladmin**
+-   password: **Business507!**
+
+Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).
+:::
 
 ## Packages
 
-We will use the following package in today's lab.
+Here are some of the packages we'll use in this lab.
 
 ```{r}
 #| message: false
+#| echo: true
 
-library(tidyverse)  # for data wrangling + visualization
-library(tidymodels) # for modeling
-library(knitr)      # for pretty printing of tables
+library(tidyverse)    # for data wrangling + visualization
+library(tidymodels)   # for modeling
+library(gt)           # for making display tables
+library(gtExtras)     # helper functions for beautiful tables
+library(DataExplorer) #
 ```
 
 ## Data: The Tate Collection
@@ -56,7 +69,7 @@ This dataset contains the following information for each artwork:
 | creditLine       | thumbnailUr        |
 | year             | url                |
 
-Use the code below to load the Tate Collection data sets.
+Use the code below to load the Tate Collection data sets, and note the names of the variable referencing each dataset.
 
 ```{r}
 #| message: false
@@ -74,9 +87,23 @@ Next use `DataExplorer::introduce` and `DataExplorer::plot_missing()` to examine
 
 ### Exercise 2
 
-Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.
+Roughly 7.8% of the works in the collection have missing dates, How many works have missing dates (i.e. the number)
+
+Use the `table()` function to count the number of works missing for each artist. Convert the table in to a tibble using `tibble::as_tibble()`, and then sort the count in descending order.
+
+How many artists have works with missing dates?
+
+Mutate the resulting table, adding columns for the percent of the total missing data for each artist, and another for the cumulative percent (just apply `cumsum()` to the percentage for each artist.
+
+If we could identify all the missing dates for each artists, what is the smallest number of arists needed to resolve at least 50% of the missing year data?
+
+Is this missing data MCAR, MAR, or MNAR?
 
 ### Exercise 3
+
+Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.
+
+### Exercise 4
 
 Modify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using `gt::gt` with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the `gtExtras` package to the formatted table.
 
@@ -84,27 +111,37 @@ Modify the table from the last exercise to show the percentage of the total coll
 This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
 :::
 
-### Exercise 4
-
-Similar to exercises 2 and 3, in this exercise take the raw data (`the_tate`) and add a column with the area of each artwork in $\text{cm}^2$. Next select the artist, title and the area and remove NA values using `tidyr::drop_na`, then order the works by area. Use `dplyr::slice_head` and `dplyr::slice_tail` to find the largest and smallest artworks in the collection.
-
 ### Exercise 5
 
-Join the tables `the_tate` and `the_tate_artists` using `dplyr::left_join`, assigning the result to the variable `the_tate` . Drop rows with `NA` gender values and then group by gender
+Using the tibble `the_tate`, select the columns for artist and title and count the number of rows.
+
+Next take the tibble `the_tate`, select the columns for artist and title, and then apply `dplyr::distinct`. Count the distinct artist-title pairs.
+
+How many are duplicated?
 
 ### Exercise 6
 
-Read the historical price data in the file `SPX_HistoricalData_1692322132002.csv` and add a column for the year of the transaction and the daily return $r_d$, using the formula
-
-$$
-r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
-$$ You will likely need `dplyr::lead` or `dplyr::lead`. Add an additional column for the daily return variance $\text{var}_d = \text{r}_d^2$.
-
-Finally, group by year and use dplyr::summary to compute the annual returns and standard deviations. Add the argument `.groups = "drop"` to the summarize function to drop the grouping after the summary is created.
+Similar to exercises 2 and 3, in this exercise take the raw data (`the_tate`) and add a column with the area of each artwork in $\text{cm}^2$. Next select the artist, title and the area and remove NA values using `tidyr::drop_na`, then order the works by area. Use `dplyr::slice_head` and `dplyr::slice_tail` to find the largest and smallest artworks in the collection.
 
 ### Exercise 7
 
-Take the table from the last exercise and use the `gt::` package to format it. Add summary rows for the period return and period volatility (note that variance can be added; volatilities cannot).
+Join the tables `the_tate` and `the_tate_artists` using `dplyr::left_join`, assigning the result to the variable `the_tate` . Drop rows with `NA` gender values and then group by gender. Show the resulting table.
+
+### Exercise 8
+
+In the next two exercises we switch to a different dataset, the historical price data for the S&P 500 Index.
+
+Read the historical price data in the file `SPX_HistoricalData_1692322132002.csv` using `readr:: read_csv` and add a column for the year of the transaction and the daily return $r_d$, using the formula
+
+$$
+r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
+$$ You will likely need `dplyr::lead` or `dplyr::lead` functions. Add an additional column for the daily return variance $\text{var}_d = \text{r}_d^2$.
+
+Finally, group by year and use `dplyr::summary` to compute the annual returns and standard deviations. Add the argument `.groups = "drop"` to the `dplyr::summarize` function to drop the grouping after the summary is created.
+
+### Exercise 9
+
+Take the table from the last exercise and use the `gt::` package to format it. Add summary rows for the period return and period volatility (note that variances can be added; volatilities cannot- so you will need to do some calculations).
 
 ::: render-commit-push
 This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
@@ -121,15 +158,17 @@ Remember -- you must turn in an HTML file to the Brightspace page before the sub
 To submit your assignment:
 
 -   Log in to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and select course [BSMM8740-2-R-2023F\|Data Analytic Meth.](https://brightspace.uwindsor.ca/d2l/home/144921 "BSMM8740-2-R-2023F|Data Analytic Meth. & Algorith")
--   Click on the Lab-2 assignment, and submit it.
+-   Click on the BSMM-Lab-2 assignment, and submit it.
 
 ## Grading
 
-Total points available: 50 points.
+Total points available: 30 points.
 
-| Component             | Points |
-|-----------------------|--------|
-| Ex 1 - 10             | 45     |
-| Workflow & formatting | 5[^1]  |
+| Component | Points |
+|-----------|--------|
+| Ex 1 - 9  | 30     |
 
-[^1]: The "Workflow & formatting" grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.
+## Resources for additional practice (optional)
+
+-   Work/read through the **TTC subway** dataset example in *Telling Stories with Data, Chapter 11.4*: [TTC Subway Delays](https://tellingstorieswithdata.com/11-eda.html#ttc-subway-delays)
+    -   You will need to install the package [`opendatatoronto`](https://CRAN.R-project.org/package=opendatatoronto) ([Gelfand 2022](https://tellingstorieswithdata.com/99-references.html#ref-citeSharla)) to access the data. The details on the package can be found [here](https://sharlagelfand.github.io/opendatatoronto/).

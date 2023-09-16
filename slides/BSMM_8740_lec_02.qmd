@@ -4,10 +4,6 @@ subtitle: "BSMM8740-2-R-2023F [WEEK - 2]"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
-title-slide-attributes:
-  data-background-image: images/my-DRAFT.png
-  data-background-size: contain
-  data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -36,10 +32,33 @@ theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 
 ## Today's Outline
 
--   Introduction to exploratory data analysis (EDA)
--   Feature engineering in the tidyverse
+1.  Complete last week's lab
+2.  Review this week's material
+    -   Introduction to exploratory data analysis (EDA), and
+    -   Feature engineering in the tidyverse
+3.  Start (and finish?) this week's lab
+
+::: callout-note
+The first two labs are designed to give you practice with the `Tidyverse` tools for manipulating data.
+:::
 
 # Exploratory Data Analysis (EDA)
+
+## Exploratory Data Analysis (EDA)
+
+Exploratory data analysis is the process of understanding a new dataset by looking at the data, constructing graphs, tables, and models. We want to understand three aspects:
+
+1.  each individual variable by itself;
+
+2.  each individual variable in the context of other, relevant, variables; and
+
+3.  the data that are not there.
+
+## Exploratory Data Analysis (EDA)
+
+During EDA we want to come to understand the issues and features of the dataset and how this may affect analysis decisions.
+
+We are especially concerned about missing values and outliers.
 
 ## Exploratory Data Analysis (EDA)
 
@@ -48,12 +67,23 @@ We are going to perform two broad categories of EDA:
 -   Descriptive Statistics, which includes mean, median, mode, inter-quartile range, and so on.
 -   Graphical Methods, which includes histogram, density estimation, box plots, and so on.
 
-1.  Import the data
-2.  Clean the data
-3.  Process the data
-4.  Visualize the data
-
 ## Exploratory Data Analysis (EDA)
+
+Descriptive statistics and graphical methods support the following process:
+
+-   Understand the distribution and properties of individual variables.
+
+-   Understand relationships between variables.
+
+-   Understand what is not there.
+
+## EDA: example
+
+Our first dataset is a sample of categorical variables from the [General Social Survey](https://gss.norc.org/Documents/other/2021%20XSEC%20R1%20Methodological%20Primer.pdf), a long-running US survey conducted by the independent research organization NORC at the University of Chicago.
+
+::: aside
+execute ?forcats::gss_cat to see the data dictionary
+:::
 
 ::: {style="font-size: 32px"}
 ```{r}
@@ -63,13 +93,73 @@ We are going to perform two broad categories of EDA:
 #| code-fold: true
 #| code-line-numbers: "1|2"
 dat <- forcats::gss_cat
+dat %>% utils::head()
+```
+:::
+
+## EDA: example
+
+Use `dplyr::glimpse()` to see every column in a data.frame
+
+::: {style="font-size: 32px"}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
 dat %>% dplyr::slice_head(n=10) %>% dplyr::glimpse()
 ```
 :::
 
+## EDA: example
+
+Use `dplyr::slice_sample()` to see a random selection of rows in a data.frame
+
+::: {style="font-size: 32px"}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+dat %>% dplyr::slice_sample(n=10)
+```
+:::
+
+## EDA: example
+
+Most of the columns here are `factors` (categories). Use `forcats::fct_count()` to count the factor entries.
+
+::: {style="font-size: 32px"}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+forcats::fct_count(dat$relig) %>% dplyr::arrange(desc(n))
+```
+:::
+
+## EDA: example
+
+The base R function `summary()` can be used for key summary statistics of the data.
+
+::: {style="font-size: 32px"}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+dat %>% summary()
+```
+:::
+
+## EDA: packages for EDA
+
+-   The function `skimr::skim()` gives an enhanced version of base R's `summary()` .
+
+-   Other packages, such as `DataExplorer::` rely more on graphing.
+
+    -   We'll look at a few of the `DataExplorer::` functions next.
+
 ## `DataExplorer::introduce`
 
-The function `DataExplorer::introduce` produces a description of the data in a `data.frame`.
+The function `DataExplorer::introduce` produces a basic description of the data in a `data.frame`.
 
 ```{r}
 #| echo: true
@@ -157,277 +247,227 @@ dat %>% DataExplorer::plot_bar()
 
 ```
 
-## `D_Explorer::plot_correlation`
+## EDA: additional `DataExplorer` functions
+
+When the data has more numerical values consider looking at the relationships with the following functions:
+
+-   `DataExplorer::plot_correlation()` creates a correlation heatmap.
+
+```{r}
+#| echo: true
+#| eval: false
+iris %>% DataExplorer::plot_correlation(type = "c")
+```
+
+## EDA: additional `DataExplorer` functions
+
+When the data has more numerical values consider looking at the relationships with the following functions:
+
+-   `DataExplorer::plot_scatterplot()` creates a scatterplot for all measurements.
+
+```{r}
+#| echo: true
+#| eval: false
+iris %>% DataExplorer::plot_scatterplot(by = "Species")
+```
+
+## EDA: additional `DataExplorer` functions
+
+When the data has more numerical values consider looking at the relationships with the following functions:
+
+-   `DataExplorer::plot_qq()` creates a quantile-quantile plot for each continuous feature.
+
+```{r}
+#| echo: true
+#| eval: false
+iris %>% DataExplorer::plot_qq(by = "Species", ncol = 2L)
+```
+
+::: {.callout-note style="font-size: smaller"}
+A **Q--Q plot** (**quantile-quantile plot**) is a probability plot, a graphical method for comparing two probability distributions by plotting their *quantiles* against each other.
+:::
+
+## EDA: classifying missing data
+
+There are three main categories of missing data
+
+1.  Missing Completely At Random (MCAR);
+    -   missing but independent of other measurements
+2.  Missing at Random (MAR);
+    -   missing in a way related to other measurements
+3.  Missing Not At Random (MNAR).
+    -   missing as a property of the variable or some other unmeasured variable
+
+## EDA: handling missing data
+
+We can think of a few options for dealing with missing data
+
+1.  Drop observations with missing data.
+
+2.  Impute the mean of observations without missing data.
+
+3.  Use multiple imputation.
+
+::: {.callout-note style="font-size: smaller"}
+Multiple imputation involves generating several estimates for the missing values and then averaging the outcomes.
+:::
+
+## Example: MCAR or MAR?
 
 ```{r}
 #| echo: true
 #| warning: false
 #| message: false
 #| code-fold: true
-dat %>% DataExplorer::plot_correlation()
+#| code-line-numbers: "1|2|3-4|5|7"
+dat %>% dplyr::select(partyid) %>% table() %>% tibble::as_tibble() %>% 
+  dplyr::left_join(
+    dat %>% dplyr::filter(is.na(age)) %>% 
+      dplyr::select(na_partyid = partyid) %>% table() %>% tibble::as_tibble()
+    , by = c("partyid" = "na_partyid")
+  ) %>% 
+  dplyr::mutate(pct_na = n.y / n.x)
 ```
 
-## `D_Explorer::plot_correlation`
+## EDA: missing data
 
-```{r}
-#| echo: true
-#| warning: false
-#| message: false
-#| code-fold: true
-dat %>% DataExplorer::plot_correlation( maxcat = 5)
-```
+Finally, be aware that how missing data is encoded depends on the dataset
 
-## `D_Explorer::plot_scatterplot`
+-   R defaults to NA when reading data, in joins, etc.
+-   The creator(s) of the dataset may use a different encoding.
+-   Missing data can have multiple representations according to semantics of the measurement.
+-   Remember that entire measurements can be missing (i.e. from all observations, not just some).
 
-```{r}
-#| echo: true
-#| warning: false
-#| message: false
-#| code-fold: true
-#| code-line-numbers: "1-2|3-5"
-dat %>% 
-  dplyr::select(year,age,tvhours) %>% 
-  DataExplorer::plot_scatterplot(
-    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
-    , by = 'year', nrow=5
-  )
-```
+## EDA: summary
 
-## `DataExplorer::plot_prcomp`
+-   Understand what the measurements represent and confirm constraints (if any) and suitability of encoding.
+-   Make a decision on how to deal with missing data.
+-   Understand shape of measurements (may identify an issue or suggest a data transformation)
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-#| code-fold: true
-#| output: false
-#| code-line-numbers: "1|2-5"
-prcomp_result <- na.omit(airquality) %>% 
-  DataExplorer::plot_prcomp(
-    ggtheme = theme_bw(base_size = 18) + theme(legend.position = "top")
-    ,nrow = 2L, ncol = 2L, variance_cap=100
-  ) 
-```
-
-```{r}
-prcomp_result %>% 
-  purrr::pluck("page_0")
-```
-
-## `DataExplorer::plot_prcomp`
-
-```{r}
-#| echo: true
-#| warning: false
-#| message: false
-#| code-fold: true
-prcomp_result %>% 
-  purrr::pluck("page_1")
-```
-
-## Exploratory Data Analysis (EDA)
-
-### Post-model development
-
--   confirm assumptions of the model (e.g. Normality)
-
--   understand origin of any systemic issues
-
-# Feature engineering
-
-Feature engineering is the act of converting raw observations into desired features using statistical or machine learning approaches.
-
-## Feature engineering
-
-Continuous variables:
-
--   Missing data
--   Normalization
--   Standardization
--   transformation (arithmetic, basis functions, polynomials, splines
--   outliers
--   lag variables
--   profiling
-
-## Feature engineering
-
-Categorical variables:
-
--   Label encoding
--   One-hot-encoding
--   imbalances
-
-Date variables:
-
--   Dates, timestamps, intervals
-
-## Feature engineering
-
-Feature selection
-
-Feature importance
-
-Convert to factors
-
-Add and Delete a column
-
-Recode continuous variable to a categorical variable (rank, q-tiles, winsorizing, capping
-
-Find missing values
-
-Handle Missing values
-
-PCA, IDA
-
-## Feature engineering & selection
-
-### Important concepts
-
--   Overfitting (to both data and predictors)
--   Supervised and Unsupervised Procedures
--   No Free Lunch Theorem
--   The Model versus the Modeling Process
--   Model Bias and Variance (in modelling context)
--   Data-driven vs experience-driven
-
-## Feature engineering & selection
-
-Categorical variables
-
--   dummy variables for un-ordered categories
-
--   encoding for many categories
-
-    -   \# categories \>\> \# rows
-    -   zero-variance predictors
-    -   hashing
-
--   new categories
-
-## Feature engineering & selection
-
-Categorical variables
-
--   supervised encoding
-
-    -   likelihood encoding (e.g. log-odds, embeddings, NN)
-
--   encoding for ordered categories (e.g. polynomial contrast)
-
-Features from text
-
-Factors vs. dummy vars in tree models
-
-## Feature engineering & selection
+## EDA: bad data $\rightarrow$ bad results
 
 ![](/images/category_fail.png)
 
-## Feature engineering & selection
+# Feature engineering
 
-Numeric variables: issues
+Feature engineering is the act of converting raw observations into desired features using statistical, mathematical, or machine learning approaches.
 
--   different scales
--   skewness and extreme values
--   censored data
--   complex functional relation to target
--   rednundant
+## Feature engineering: transformation
 
-## Feature engineering & selection
+for continuous variables (usually the independent variables or covariates):
 
-Transformations:
+-   **normalization** (scale values to $[0,1]$)
+    -   $X_\text{norm} = \frac{X-X_\text{min}}{X_\text{max}-X_\text{min}}$
+-   **standardization** (subtract mean and scale by stdev)
+    -   $X_\text{std} = \frac{X-\mu_X}{\sigma_X}$
+-   **scaling** (multiply / divide by a constant)
+    -   $X_\text{scaled} = K\times X$
 
--   Box-cox: with $\tilde{x}$ the geometric mean of the (positive) predictor data
+## Feature engineering: transformation
+
+Other common transformations:
+
+-   Box-cox: with $\tilde{x}$ the geometric mean of the (**positive**) predictor data ($\tilde{x}=\left(\prod_{i=1}^{n}x_{i}\right)^{1/n}$)
 
 $$
-x^{*} = \left\{ 
+x_i(\lambda) = \left\{ 
 \begin{array}{cc}
-\frac{x^{\lambda}-1}{\lambda\tilde{x}^{\lambda-1}} & \lambda\ne 0\\
-\tilde{x}\log x & \lambda=0
+\frac{x_i^{\lambda}-1}{\lambda\tilde{x}^{\lambda-1}} & \lambda\ne 0\\
+\tilde{x}\log x_i & \lambda=0
 \end{array}
 \right .  
 $$
 
-## Feature engineering & selection
+::: {.callout-note style="font-size: smaller"}
+Box-cox is an example of a power transform; it is a technique used to stabilize variance, make the data more normal distribution-like.
+:::
 
-Transformations:
+## Feature engineering: transformation
+
+One last common transformation:
 
 -   logit transformation for bounded target variables (scaled to lie in $[0,1]$)
 
 $$
-\text{logit}\left(x\right)=\frac{x}{1-x}
+\text{logit}\left(p\right)=\log\frac{p}{1-p},\;p\in [0,1]
 $$
 
--   centering and scaling
-
-## Feature engineering & selection
-
-Transformations: when time is a predictor
-
--   data smoothing (target or predictors)
-
-    -   running mean/median
-    -   smoothing splines
-    -   lags
-
-## Feature engineering & selection
-
-Transformations: 1:many
-
--   orthogonal basis expansions
-    -   polynomial, fourier
--   binning / discretization
-
-## Feature engineering & selection
-
-Transformations: many:many
-
--   linear projection: for predictor matrix $X$, create score matrix $X^*=XA$
-    -   principal component analysis: capturing variation in a smaller number of features/scores
-        -   scores are uncorrelated
-
-## Feature engineering & selection
-
-Transformations: many:many
-
--   non-linear projection;
-    -   kernel principle components (when target is a nonlinear function of predictors
--   independent component analysis
--   non-negative factorization
--   partial least-squares
-
-## Feature engineering & selection
-
-::: columns
-::: {.column width="25%"}
--   autoencoders
+::: {.callout-note style="font-size: small"}
+The Logit transform is primarily used to transform binary response data, such as survival/non-survival or present/absent, to provide a continuous value in the range $\left(-\infty,\infty\right)$, where p is the proportion of each sample that is 1 (or 0)
 :::
 
-::: {.column width="75%"}
-![](/images/ae.png){width="796"}
-:::
-:::
+## Feature engineering: transformation
 
-## Feature engineering & selection
+Why normalize or standardize?
 
-Missing data
+-   variation in the range of feature values can lead to biased model performance or difficulties during the learning process, particularly in distance-based algorithms.
+    -   e.g. income and age
+-   reduce the impact of outliers
+-   make results more explainable
 
-Why?
+## Feature engineering: transformation
 
--   structural deficiencies in the data
--   random occurrences (MCAR & MAR)
--   specific causes
--   censored
+for continuous variables (usually the target variables):
 
-## Feature engineering & selection
+-   **transformation** (arithmetic, basis functions, polynomials, splines, differencing)
+    -   $y = \log(y),\sqrt{y},\frac{1}{y}$, etc.
+    -   $y = \sum_i \beta_i\text{f}_i(x)\;\text{s.t.}\;0=\int\text{f}_i(x)\text{f}_j(x)\; \forall i\ne j$
+    -   $y = \beta_0+\beta_1 x+\beta_2 x^2+\beta_3 x^3+\ldots$
+    -   $y = \beta_0+\beta_1 x_1+\beta_2 x_2+\beta_3 x_1 x_2+\ldots$
+    -   $y'_i = y_i-y_{i-1}$
 
-Solutions:
+## Feature engineering: transformation
 
--   delete
--   encode
--   impute
+for categorical variables (either target or explanatory variables):
 
-## Feature engineering & selection
+-   binning / bucketing
+    -   represent a numerical value as a categorical value
+-   categorical$\rightarrow$ordinal and ordinal$\rightarrow$categorical
 
-Profile data
+for date variables:
 
--   experimental unit and unit of prediction
+-   timestamp$\rightarrow$date or date part
+
+## Feature engineering: transformation
+
+Why transform?
+
+-   it can make your model perform better
+
+    -   e.g. $\log$ transform makes exponential data linear, and log-Normal data Gaussian
+    -   $\log$ transforms also make multiplicative models additive
+    -   e.g. polynomials, basis functions and splines help model non-linearities in data
+
+## Feature engineering: creation
+
+-   outliers (due to data entry, measurement/experiment, intentional errors)
+    -   outliers can be identified by quantile methods (Gaussian data)
+    -   outliers can be removed, treated as missing, or capped
+-   lag variables (either target or explanatory variables)
+    -   useful in time series models, e.g. $y_t,y_{t-1},\ldots y_{t-n}$
+
+## Feature engineering: creation
+
+-   binning / bucketing
+    -   represent numerical as categorical and vice versa
+-   interval and ratio levels
+
+## Feature engineering fails
+
+![](/images/category_fail.png)
+
+## Feature engineering: summary
+
+-   requires an advanced technical skill set
+
+-   requires domain expertise
+
+-   is time-consuming and resource intensive
+
+-   different analytics algorithms require different feature engineering
+
+## Recap
+
+-   Today we reviewed key elements of exploratory data analysis, the process that helps us understand the data we have and evaluate how it can help us solve the business problems we are interested in.
+
+-   We also reviewed feature engineering - methods to we can use to facilitate our analysis and make our results more interpretable.

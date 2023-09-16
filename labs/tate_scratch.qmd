@@ -18,8 +18,9 @@ This kernel is intended to analyze the main features of Tate dataset. The idea i
 
 ```{r, message = FALSE}
 #| eval: false
-the_tate <- readr::read_delim("labs/data/the-tate-collection.csv", ";", escape_double = FALSE, trim_ws = TRUE)
-the_tate_artists <- readr::read_csv("labs/data/the-tate-artists.csv")
+require(magrittr)
+the_tate <- readr::read_delim("data/the-tate-collection.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+the_tate_artists <- readr::read_csv("data/the-tate-artists.csv")
 ```
 
 ## A short summary of the dataset
@@ -28,6 +29,49 @@ the_tate_artists <- readr::read_csv("labs/data/the-tate-artists.csv")
 #| eval: false
 the_tate %>% DataExplorer::introduce() %>% dplyr::glimpse()
 the_tate %>% DataExplorer::plot_missing()
+```
+
+## E2: missing year data
+
+```{r}
+#| eval: false
+missing_year <- the_tate %>% 
+  dplyr::filter(is.na(year))
+misssing_year
+
+missing_year$artist %>% table() %>% 
+  tibble::as_tibble() %>% 
+  arrange(desc(n)) %>% 
+  mutate(total = sum(n), pct_of_missing = n/total, cum_pct = cumsum(pct_of_missing))
+```
+
+## E3
+
+```{r}
+#| eval: false
+the_tate %>% 
+  dplyr::group_by(artist) %>% 
+  dplyr::mutate(count = n()) %>% 
+  dplyr::arrange(desc(count)) %>% 
+  dplyr::select(artist,count) %>% 
+  dplyr::distinct()
+```
+
+### E ?
+
+```{r}
+#| eval: false
+n_all <- (the_tate %>% 
+  dplyr::select(artist,title) %>% 
+  dim())[1]
+  
+
+n_distinct <- (the_tate %>% 
+  dplyr::select(artist,title) %>% 
+  dplyr::distinct() %>% 
+  dim())[1]
+
+n_all - n_distinct
 ```
 
 First of all, let's analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate's acquisition year. Some general observations about the dataset:

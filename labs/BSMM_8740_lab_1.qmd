@@ -136,7 +136,7 @@ Instead of saving your PAT you could just [re-generate the PAT each lab session 
 On github.com, assuming you're signed in, you can manage your personal access tokens from <https://github.com/settings/tokens>, also reachable via *Settings \> Developer settings \> Personal access tokens*.
 
 ::: callout-important
-Given that the machines start from the same initial state each lab session, you will follow the above steps to initial you machine at the start of each lab session.
+Given that the machines start from the same initial state each lab session, you will follow the above steps to initial your machine at the start of each lab session.
 :::
 
 ### 5. How Git works

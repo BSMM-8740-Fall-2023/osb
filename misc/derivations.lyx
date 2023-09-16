@@ -858,5 +858,19 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $\tilde{x}=\left(\prod_{i=1}^{n}x_{i}\right)^{1/n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(-\infty,\infty\right)$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
