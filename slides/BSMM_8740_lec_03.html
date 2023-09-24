@@ -397,7 +397,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="images/my-DRAFT.png" data-background-opacity="0.40" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">The recipes package</h1>
   <p class="subtitle">BSMM8740-2-R-2023F [WEEK - 3]</p>
 
@@ -412,26 +412,30 @@ derived from Max Kuhn (RStudio)
 </section>
 <section id="recap-of-last-lecture" class="slide level2">
 <h2>Recap of last lecture</h2>
-<p>Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.</p>
+<ul>
+<li>Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.</li>
+</ul>
 </section>
 <section id="todays-outline" class="slide level2">
 <h2>Today’s Outline</h2>
 <ul>
-<li>Introduction to data pre-processing and design/model matrix generation with the <code>Recipes</code> package.</li>
-<li>Using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g.&nbsp;train and test as well as cross-validation sets)</li>
+<li>We’ll review the R model formula approach to model specification,</li>
+<li>We’ll introducte data pre-processing and design/model matrix generation with the <code>Recipes</code> package, and</li>
+<li>We’ll show how using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g.&nbsp;train and test as well as cross-validation<sup>1</sup> datasets)</li>
 </ul>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Cross-validation is a resampling method that uses different portions of the data to test and train a model on different iterations.</p></li></ol></aside></section>
 <section id="r-model-formulas" class="slide level2">
 <h2>R Model Formulas</h2>
-<p>A simple formula in a linear model to predict house prices:</p>
+<p>A simple formula in a linear model to predict house prices (using the dataset Sacremento from the package <code>modeldata</code>):</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="sc">&gt;</span> mod1 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="sc">+</span>   <span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="sc">+</span>   , <span class="at">data =</span> Sacramento</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="sc">+</span>   , <span class="at">subset =</span> beds <span class="sc">&gt;</span> <span class="dv">2</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="sc">&gt;</span> Sacramento <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>Sacramento</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="sc">&gt;</span> mod1 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="sc">+</span>   <span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="sc">+</span>   , <span class="at">data =</span> Sacramento</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="sc">+</span>   , <span class="at">subset =</span> beds <span class="sc">&gt;</span> <span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div style="font-size: 80%">
+<div style="font-size: 75%">
 <p>The purpose of this code chunk:</p>
 <ol type="1">
 <li>subset some of the data points (<code>subset</code>)</li>
@@ -440,15 +444,64 @@ derived from Max Kuhn (RStudio)
 <li>fit a linear regression model</li>
 </ol>
 </div>
-<p>The first two steps create the <em>design matrix</em>.</p>
+<p>The first two steps create the <em>design-</em> or <em>model- matrix</em>.</p>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<p>The dataset Sacramento has three categorical variables:</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1|2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="sc">&gt;</span> skimr<span class="sc">::</span><span class="fu">skim</span>(Sacramento) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(skim_variable,<span class="fu">contains</span>(<span class="st">'factor'</span>)) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="sc">+</span>   tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="sc">+</span>   gtExtras<span class="sc">:::</span><span class="fu">gt_theme_espn</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">tab_options</span>( <span class="at">table.font.size =</span> gt<span class="sc">::</span><span class="fu">px</span>(<span class="dv">20</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">as_raw_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="quecxgrsac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  
+  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 20px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #FFFFFF; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
+  <thead style="border-style: none;">
+    
+    <tr class="gt_col_headings" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="skim_variable" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">skim_variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="factor.ordered" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">factor.ordered</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="factor.n_unique" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">factor.n_unique</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="factor.top_counts" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">factor.top_counts</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">city</td>
+<td headers="factor.ordered" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">FALSE</td>
+<td headers="factor.n_unique" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">37</td>
+<td headers="factor.top_counts" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">SAC: 438, ELK: 114, ROS: 48, CIT: 35</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">zip</td>
+<td headers="factor.ordered" class="gt_row gt_center gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: center;" valign="middle" bgcolor="#FAFAFA" align="center">FALSE</td>
+<td headers="factor.n_unique" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">68</td>
+<td headers="factor.top_counts" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">z95: 61, z95: 45, z95: 44, z95: 37</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">type</td>
+<td headers="factor.ordered" class="gt_row gt_center" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">FALSE</td>
+<td headers="factor.n_unique" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">3</td>
+<td headers="factor.top_counts" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Res: 866, Con: 53, Mul: 13</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="example-design-matrix" class="slide level2">
 <h2>Example design matrix</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1|2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="sc">&gt;</span>  mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="sc">+</span>    <span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="sc">+</span>    , <span class="at">data =</span> Sacramento</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="sc">+</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1|2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="sc">&gt;</span>  mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="sc">+</span>    <span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="sc">+</span>    , <span class="at">data =</span> Sacramento</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="sc">+</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -485,7 +538,7 @@ derived from Max Kuhn (RStudio)
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> type <span class="sc">+</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> type <span class="sc">+</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  typeCondo typeMulti_Family typeResidential sqft
 1         0                0               1  836
@@ -499,7 +552,7 @@ derived from Max Kuhn (RStudio)
 </div>
 <div id="tabset-1-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">:</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">:</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) typeCondo:sqft typeMulti_Family:sqft typeResidential:sqft
 1           1              0                     0                  836
@@ -513,7 +566,7 @@ derived from Max Kuhn (RStudio)
 </div>
 <div id="tabset-1-3">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">*</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">*</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) typeMulti_Family typeResidential sqft typeMulti_Family:sqft
 1           1                0               1  836                     0
@@ -534,7 +587,7 @@ derived from Max Kuhn (RStudio)
 </div>
 <div id="tabset-1-4">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">%in%</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">%in%</span> sqft, <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) typeCondo:sqft typeMulti_Family:sqft typeResidential:sqft
 1           1              0                     0                  836
@@ -548,7 +601,7 @@ derived from Max Kuhn (RStudio)
 </div>
 <div id="tabset-1-5">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft <span class="sc">+</span> <span class="fu">I</span>(sqft<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="fu">model.matrix</span>(<span class="fu">log</span>(price) <span class="sc">~</span> type <span class="sc">+</span> sqft <span class="sc">+</span> <span class="fu">I</span>(sqft<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) typeMulti_Family typeResidential sqft I(sqft^2)
 1           1                0               1  836    698896
@@ -567,44 +620,44 @@ derived from Max Kuhn (RStudio)
 <section id="summary-model-formula-method-1" class="slide level2">
 <h2>Summary: Model Formula Method</h2>
 <p>There are significant limitations to what this framework can do and, in some cases, it can be very inefficient.</p>
-<p>This is mostly due of being written well before large scale modeling and machine learning were commonplace.</p>
+<p>This is mostly due to being written well before large scale modeling and machine learning were commonplace.</p>
 </section>
 <section id="limitations-of-the-current-system" class="slide level2">
 <h2>Limitations of the Current System</h2>
 <ul>
 <li>Formulas are not very extensible especially with nested or sequential operations (e.g.&nbsp;<code>y ~ scale(center(knn_impute(x)))</code>).</li>
 <li>When used in modeling functions, you cannot recycle the previous computations.</li>
-<li>For wide data sets, the formula method can be very inefficient and consume a significant proportion of the total execution time.</li>
+<li>For wide data sets with lots of columns, the formula method can be very inefficient and consume a significant proportion of the total execution time.</li>
 </ul>
 </section>
 <section id="limitations-of-the-current-system-1" class="slide level2">
 <h2>Limitations of the Current System</h2>
 <ul>
-<li>Multivariate outcomes are kludgy by requiring <code>cbind</code></li>
-<li>Formulas have a limited set of roles (next two slides)</li>
+<li>Multivariate outcomes are kludgy by requiring <code>cbind</code> .</li>
+<li>Formulas have a limited set of roles for measurements (just <code>predictor</code> and <code>outcome</code>). We’ll look further at roles in the next two slides.</li>
 </ul>
-<p>A more in-depth discussion of these issues can be found in <a href="https://rviews.rstudio.com/2017/03/01/the-r-formula-method-the-bad-parts/">this blog post</a>.</p>
+<p>A more in-depth discussion of these issues can be found in <a href="https://rviews.rstudio.com/2017/03/01/the-r-formula-method-the-bad-parts/">this blog post</a> (recommended to read).</p>
 </section>
 <section id="variable-roles" class="slide level2">
 <h2>Variable Roles</h2>
 <p>Formulas have been re-implemented in different packages for a variety of different reasons:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="3|8-10|14-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="sc">&gt;</span> <span class="co"># ?lme4::lmer</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="er">&gt;</span> <span class="co"># Subjects need to be in the data but are not part of the model</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="er">&gt;</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> lme4<span class="sc">::</span>sleepstudy)</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="sc">&gt;</span> </span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="er">&gt;</span> <span class="co"># BradleyTerry2</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="er">&gt;</span> <span class="co"># We want to make the outcomes to be a function of a </span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="er">&gt;</span> <span class="co"># competitor-specific function of reach </span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="er">&gt;</span> BradleyTerry2<span class="sc">::</span><span class="fu">BTm</span>(<span class="at">outcome =</span> <span class="dv">1</span>, <span class="at">player1 =</span> winner, <span class="at">player2 =</span> loser,</span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="sc">+</span>     <span class="at">formula =</span> <span class="sc">~</span> reach[..] <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>..), </span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="sc">+</span>     <span class="at">data =</span> boxers)</span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="sc">&gt;</span> </span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="er">&gt;</span> <span class="co"># modeltools::ModelEnvFormula (using the modeltools package for formulas)</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="er">&gt;</span> <span class="co"># mob</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="er">&gt;</span> <span class="fu">data</span>(PimaIndiansDiabetes, <span class="at">package =</span> <span class="st">'mlbench'</span>)</span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="sc">&gt;</span> modeltools<span class="sc">::</span><span class="fu">ModelEnvFormula</span>(diabetes <span class="sc">~</span> glucose <span class="sc">|</span> pregnant <span class="sc">+</span> mass <span class="sc">+</span>  age,</span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="sc">+</span>     <span class="at">data =</span> PimaIndiansDiabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="3|8-10|14-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="co"># ?lme4::lmer</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="er">&gt;</span> <span class="co"># Subjects need to be in the data but are not part of the model</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="er">&gt;</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> lme4<span class="sc">::</span>sleepstudy)</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="sc">&gt;</span> </span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="er">&gt;</span> <span class="co"># BradleyTerry2</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="er">&gt;</span> <span class="co"># We want to make the outcomes to be a function of a </span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="er">&gt;</span> <span class="co"># competitor-specific function of reach </span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="er">&gt;</span> BradleyTerry2<span class="sc">::</span><span class="fu">BTm</span>(<span class="at">outcome =</span> <span class="dv">1</span>, <span class="at">player1 =</span> winner, <span class="at">player2 =</span> loser,</span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="sc">+</span>     <span class="at">formula =</span> <span class="sc">~</span> reach[..] <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>..), </span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="sc">+</span>     <span class="at">data =</span> boxers)</span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="sc">&gt;</span> </span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="er">&gt;</span> <span class="co"># modeltools::ModelEnvFormula (using the modeltools package for formulas)</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="er">&gt;</span> <span class="co"># mob</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="er">&gt;</span> <span class="fu">data</span>(PimaIndiansDiabetes, <span class="at">package =</span> <span class="st">'mlbench'</span>)</span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="sc">&gt;</span> modeltools<span class="sc">::</span><span class="fu">ModelEnvFormula</span>(diabetes <span class="sc">~</span> glucose <span class="sc">|</span> pregnant <span class="sc">+</span> mass <span class="sc">+</span>  age,</span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="sc">+</span>     <span class="at">data =</span> PimaIndiansDiabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="variable-roles-1" class="slide level2">
@@ -625,6 +678,11 @@ derived from Max Kuhn (RStudio)
 <p>(*) Can be handled in formulas but are hard-coded into functions.</p>
 </div>
 </section>
+<section>
+<section id="the-recipes-package" class="title-slide slide level1 center">
+<h1>The Recipes package</h1>
+
+</section>
 <section id="recipes" class="slide level2">
 <h2>Recipes</h2>
 <p>We can approach the design matrix and preprocessing steps by first specifying a <strong>sequence of steps</strong>.</p>
@@ -640,23 +698,41 @@ derived from Max Kuhn (RStudio)
 <p>A recipe is a specification of <em>intent</em>.</p>
 <p>One issue with the formula method is that it couples the specification for your predictors along with the implementation.</p>
 <p>Recipes separate the <em>planning</em> from the <em>doing</em>.</p>
-<p>Website: <a href="https://topepo.github.io/recipes"><code>https://topepo.github.io/recipes</code></a></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The Recipes website is found at: <a href="https://topepo.github.io/recipes"><code>https://topepo.github.io/recipes</code></a></p>
+</div>
+</div>
+</div>
 </section>
 <section id="recipes-2" class="slide level2">
 <h2>Recipes</h2>
-<p>A <em>recipe</em> can be trained then applied to any data.</p>
+<p>Once created, a <em>recipe</em> can be <code>prep</code>ped on training data then <code>bake</code>d with any other data.</p>
+<div style="font-size: smaller">
+<ul>
+<li>the <code>prep</code> step calculates and stores variables related to the steps (e.g.&nbsp;(min,max) for scaling), using the training data</li>
+<li>the <code>bake</code> step applies the steps to new data</li>
+</ul>
+</div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="2|4-6|9|11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="do">## Create an initial recipe with only predictors and outcome</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="er">&gt;</span> rec <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(price <span class="sc">~</span> type <span class="sc">+</span> sqft, <span class="at">data =</span> Sacramento)</span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="sc">&gt;</span> </span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="er">&gt;</span> rec <span class="ot">&lt;-</span> rec <span class="sc">%&gt;%</span> </span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(price) <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_dummy</span>(type)</span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="sc">&gt;</span> </span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="er">&gt;</span> <span class="co"># estimate any parameters</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="er">&gt;</span> rec_trained <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(rec, <span class="at">training =</span> Sacramento, <span class="at">retain =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="sc">&gt;</span> <span class="co"># apply the computations to new_data</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="er">&gt;</span> design_mat  <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(rec_trained, <span class="at">new_data =</span> Sacramento)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2|4-6|9|11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> <span class="do">## Create an initial recipe with only predictors and outcome</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="er">&gt;</span> rec <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(price <span class="sc">~</span> type <span class="sc">+</span> sqft, <span class="at">data =</span> Sacramento)</span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="sc">&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="er">&gt;</span> rec <span class="ot">&lt;-</span> rec <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(price) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_dummy</span>(type)</span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="sc">&gt;</span> </span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="er">&gt;</span> <span class="co"># estimate any parameters</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="er">&gt;</span> rec_trained <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(rec, <span class="at">training =</span> Sacramento, <span class="at">retain =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="sc">&gt;</span> <span class="co"># apply the computations to new_data</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="er">&gt;</span> design_mat  <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(rec_trained, <span class="at">new_data =</span> Sacramento)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="selecting-variables" class="slide level2">
@@ -669,129 +745,142 @@ derived from Max Kuhn (RStudio)
 <li>discretized predictors with dynamic bins</li>
 </ul>
 </section>
-<section id="selecting-variables-1" class="slide level2">
-<h2>Selecting Variables</h2>
-<p><code>dplyr</code> selectors can also be used on variables names, such as</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> rec <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_spatialsign</span>(</span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="sc">+</span>     <span class="fu">matches</span>(<span class="st">"^PC[1-9]"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="sc">+</span>     , <span class="fu">all_numeric</span>()</span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="sc">+</span>     , <span class="sc">-</span><span class="fu">all_outcomes</span>()</span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Variables can be selected by name, role, data type, or any <a href="https://recipes.tidymodels.org/articles/Selecting_Variables.html">combination of these</a>.</p>
-</section>
-<section id="example" class="slide level2">
+<section id="example-1" class="slide level2">
 <h2>Example</h2>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">data</a></li><li><a href="#tabset-2-2">recipe</a></li><li><a href="#tabset-2-3">results</a></li><li><a href="#tabset-2-4">use case</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
+<p>Using the <code>airquality</code> dataset in the <code>datasets</code> package</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="1|4-5|8-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="sc">&gt;</span> <span class="fu">data</span>(biomass, <span class="at">package =</span> <span class="st">"modeldata"</span>)</span>
+<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="1|3-4|5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="sc">&gt;</span> dat <span class="ot">&lt;-</span> datasets<span class="sc">::</span>airquality</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="sc">&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="er">&gt;</span> <span class="co"># training set</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="er">&gt;</span> biomass_tr <span class="ot">&lt;-</span> biomass <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(dataset <span class="sc">==</span> <span class="st">'Training'</span>)</span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="sc">&gt;</span> </span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="er">&gt;</span> <span class="co"># testing set</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="er">&gt;</span> biomass_te <span class="ot">&lt;-</span> biomass <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(dataset <span class="sc">==</span> <span class="st">'Testing'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="er">&gt;</span> dat <span class="sc">%&gt;%</span> skimr<span class="sc">::</span><span class="fu">skim</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(skim_variable<span class="sc">:</span>numeric.sd) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="sc">+</span>   gtExtras<span class="sc">:::</span><span class="fu">gt_theme_espn</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">tab_options</span>( <span class="at">table.font.size =</span> gt<span class="sc">::</span><span class="fu">px</span>(<span class="dv">20</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="sc">+</span>   gt<span class="sc">::</span><span class="fu">as_raw_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="xvgnlxolik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  
+  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 20px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #FFFFFF; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
+  <thead style="border-style: none;">
+    
+    <tr class="gt_col_headings" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="skim_variable" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">skim_variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n_missing" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">n_missing</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="complete_rate" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">complete_rate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="numeric.mean" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">numeric.mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="numeric.sd" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 80%; font-weight: bolder; text-transform: uppercase; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">numeric.sd</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Ozone</td>
+<td headers="n_missing" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">37</td>
+<td headers="complete_rate" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">0.7581699</td>
+<td headers="numeric.mean" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">42.129310</td>
+<td headers="numeric.sd" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">32.987885</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Solar.R</td>
+<td headers="n_missing" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">7</td>
+<td headers="complete_rate" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">0.9542484</td>
+<td headers="numeric.mean" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">185.931507</td>
+<td headers="numeric.sd" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">90.058422</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Wind</td>
+<td headers="n_missing" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">0</td>
+<td headers="complete_rate" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">1.0000000</td>
+<td headers="numeric.mean" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">9.957516</td>
+<td headers="numeric.sd" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">3.523001</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Temp</td>
+<td headers="n_missing" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">0</td>
+<td headers="complete_rate" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">1.0000000</td>
+<td headers="numeric.mean" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">77.882353</td>
+<td headers="numeric.sd" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">9.465270</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Month</td>
+<td headers="n_missing" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">0</td>
+<td headers="complete_rate" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">1.0000000</td>
+<td headers="numeric.mean" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">6.993464</td>
+<td headers="numeric.sd" class="gt_row gt_right" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">1.416522</td></tr>
+    <tr style="border-style: none;"><td headers="skim_variable" class="gt_row gt_left gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: left;" valign="middle" bgcolor="#FAFAFA" align="left">Day</td>
+<td headers="n_missing" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">0</td>
+<td headers="complete_rate" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">1.0000000</td>
+<td headers="numeric.mean" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">15.803922</td>
+<td headers="numeric.sd" class="gt_row gt_right gt_striped" style="border-style: none; padding-top: 7px; padding-bottom: 7px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #F6F7F7; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: #FAFAFA; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#FAFAFA" align="right">8.864520</td></tr>
+  </tbody>
+  
+  
+</table>
 </div>
 </div>
-<div id="tabset-2-2">
+</div>
+</section>
+<section id="example-create-basic-recipe" class="slide level2">
+<h2>Example: create basic recipe</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="1-4|6-9|11|13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="sc">&gt;</span> rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="sc">+</span>   HHV <span class="sc">~</span> carbon <span class="sc">+</span> hydrogen <span class="sc">+</span> oxygen <span class="sc">+</span> nitrogen <span class="sc">+</span> sulfur,</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="sc">+</span>   <span class="at">data =</span> biomass_tr</span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="sc">+</span> )</span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="sc">&gt;</span> </span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="er">&gt;</span> ss_trans <span class="ot">&lt;-</span> rec <span class="sc">%&gt;%</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="sc">+</span>   <span class="fu">step_center</span>(carbon, hydrogen) <span class="sc">%&gt;%</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="sc">+</span>   <span class="fu">step_scale</span>(carbon, hydrogen) <span class="sc">%&gt;%</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="sc">+</span>   <span class="fu">step_spatialsign</span>(carbon, hydrogen)</span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="sc">&gt;</span> <span class="co"># estimate any parameters</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a><span class="er">&gt;</span> ss_obj <span class="ot">&lt;-</span> <span class="fu">prep</span>(ss_trans, <span class="at">training =</span> biomass_tr)</span>
-<span id="cb18-12"><a href="#cb18-12"></a><span class="sc">&gt;</span> <span class="co"># apply the computations to new_data</span></span>
-<span id="cb18-13"><a href="#cb18-13"></a><span class="er">&gt;</span> transformed_te <span class="ot">&lt;-</span> <span class="fu">bake</span>(ss_obj, biomass_te)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-2-3">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="sc">&gt;</span> transformed_te</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="sc">&gt;</span> <span class="co"># create recipe</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="er">&gt;</span> aq_recipe <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(Ozone <span class="sc">~</span> ., <span class="at">data =</span> aq_df_train)</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="sc">&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="er">&gt;</span> <span class="fu">summary</span>(aq_recipe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 80 × 6
-    carbon hydrogen oxygen nitrogen sulfur   HHV
-     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1 -0.738    0.675    47.2     0.3    0.22  18.3
- 2 -0.998    0.0696   48.1     2.85   0.34  17.6
- 3 -0.998    0.0628   49.1     2.4    0.3   17.2
- 4 -0.331    0.944    37.3     1.8    0.5   18.9
- 5  0.0541   0.999    42.8     0.2    0     20.5
- 6 -0.996    0.0874   41.7     0.7    0.2   18.5
- 7 -0.978   -0.207    54.1     1.19   0.51  15.1
- 8 -0.669   -0.743    33.8     0.95   0.2   16.2
- 9 -0.901   -0.433    31.1     0.14   4.9   11.1
-10 -0.814   -0.581    23.7     4.63   1.05  10.8
-# ℹ 70 more rows</code></pre>
+<pre><code># A tibble: 6 × 4
+  variable type      role      source  
+  &lt;chr&gt;    &lt;list&gt;    &lt;chr&gt;     &lt;chr&gt;   
+1 Solar.R  &lt;chr [2]&gt; predictor original
+2 Wind     &lt;chr [2]&gt; predictor original
+3 Temp     &lt;chr [2]&gt; predictor original
+4 Month    &lt;chr [2]&gt; predictor original
+5 Day      &lt;chr [2]&gt; predictor original
+6 Ozone    &lt;chr [2]&gt; outcome   original</code></pre>
 </div>
 </div>
-</div>
-<div id="tabset-2-4">
-<div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="1-4|6-12|14-17|19-26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="sc">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1</span>); n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="sc">&gt;</span> tmp <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="sc">+</span>   <span class="at">x =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.02</span>), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="sc">+</span>   , <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>))</span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="sc">&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="er">&gt;</span> tmp <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n=</span><span class="sc">-</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="sc">+</span>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> </span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="sc">+</span>   <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(tmp <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">3</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"red"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(tmp <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">2</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"blue"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(tmp <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">1</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"green"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">32</span>)</span>
-<span id="cb21-13"><a href="#cb21-13"></a><span class="sc">&gt;</span> </span>
-<span id="cb21-14"><a href="#cb21-14"></a><span class="er">&gt;</span> rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(y <span class="sc">~</span> x, <span class="at">data =</span> tmp) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-15"><a href="#cb21-15"></a><span class="sc">+</span>   <span class="fu">step_spatialsign</span>(y, x) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-16"><a href="#cb21-16"></a><span class="sc">+</span>   <span class="fu">prep</span>(<span class="at">training =</span> tmp) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-17"><a href="#cb21-17"></a><span class="sc">+</span>   <span class="fu">bake</span>(tmp) </span>
-<span id="cb21-18"><a href="#cb21-18"></a><span class="sc">&gt;</span> </span>
-<span id="cb21-19"><a href="#cb21-19"></a><span class="er">&gt;</span> rec <span class="sc">%&gt;%</span> </span>
-<span id="cb21-20"><a href="#cb21-20"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n=</span><span class="sc">-</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-21"><a href="#cb21-21"></a><span class="sc">+</span>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> </span>
-<span id="cb21-22"><a href="#cb21-22"></a><span class="sc">+</span>   <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb21-23"><a href="#cb21-23"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(rec <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">3</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"red"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-24"><a href="#cb21-24"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(rec <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">2</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"blue"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-25"><a href="#cb21-25"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data=</span>(rec <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_tail</span>(<span class="at">n=</span><span class="dv">1</span>))[<span class="dv">1</span>,], <span class="at">color=</span><span class="st">"green"</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-26"><a href="#cb21-26"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">32</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="BSMM_8740_lec_03_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
-<figcaption>Raw data, with outliers</figcaption>
-</figure>
+</section>
+<section id="example-summary-of-basic-recipe" class="slide level2">
+<h2>Example: summary of basic recipe</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="sc">&gt;</span> <span class="co"># update roles for variables with missing data</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="er">&gt;</span> aq_recipe <span class="ot">&lt;-</span> aq_recipe <span class="sc">%&gt;%</span> recipes<span class="sc">::</span><span class="fu">update_role</span>(Ozone, Solar.R, <span class="at">new_role =</span> <span class="st">'NA_Variable'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="sc">&gt;</span> </span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="er">&gt;</span> <span class="fu">summary</span>(aq_recipe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  variable type      role        source  
+  &lt;chr&gt;    &lt;list&gt;    &lt;chr&gt;       &lt;chr&gt;   
+1 Solar.R  &lt;chr [2]&gt; NA_Variable original
+2 Wind     &lt;chr [2]&gt; predictor   original
+3 Temp     &lt;chr [2]&gt; predictor   original
+4 Month    &lt;chr [2]&gt; predictor   original
+5 Day      &lt;chr [2]&gt; predictor   original
+6 Ozone    &lt;chr [2]&gt; NA_Variable original</code></pre>
 </div>
 </div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="BSMM_8740_lec_03_files/figure-html/unnamed-chunk-11-2.png" width="672"></p>
-<figcaption>Transformed data</figcaption>
-</figure>
+</section>
+<section id="example-add-recipe-steps" class="slide level2">
+<h2>Example: add recipe steps</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="1|2-3|4-5|6-7|8-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="sc">&gt;</span> aq_recipe <span class="ot">&lt;-</span> aq_recipe <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="sc">+</span>   <span class="co"># impute Ozone missing values using the mean</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="sc">+</span>   <span class="fu">step_impute_mean</span>(<span class="fu">has_role</span>(<span class="st">'NA_Variable'</span>), <span class="sc">-</span>Solar.R) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="sc">+</span>   <span class="co"># impute Solar.R missing values using knn</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="sc">+</span>   <span class="fu">step_impute_knn</span>(<span class="fu">contains</span>(<span class="st">'.R'</span>), <span class="at">neighbors =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="sc">+</span>   <span class="co"># center all variable except the NA_Variable</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="sc">+</span>   <span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">has_role</span>(<span class="st">'NA_Variable'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="sc">+</span>   <span class="co"># scale all variable except the NA_Variable</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="sc">+</span>   <span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">has_role</span>(<span class="st">'NA_Variable'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="example-recipe-prep-and-bake" class="slide level2">
+<h2>Example: recipe prep and bake</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> <span class="co"># prep with training data</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="er">&gt;</span> aq_prep_train <span class="ot">&lt;-</span> aq_recipe <span class="sc">%&gt;%</span> <span class="fu">prep</span>(aq_df_train)</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="sc">&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="er">&gt;</span> <span class="co"># bake with testing data</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="er">&gt;</span> aq_bake <span class="ot">&lt;-</span> aq_prep_train <span class="sc">%&gt;%</span> <span class="fu">bake</span>(aq_df_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+</section>
+<section id="example-change-roles-again" class="slide level2">
+<h2>Example: change roles again</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> aq_recipe <span class="ot">&lt;-</span> aq_recipe <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(Ozone, <span class="at">new_role =</span> <span class="st">'outcome'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(Solar.R, <span class="at">new_role =</span> <span class="st">'predictor'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="available-steps" class="slide level2">
@@ -801,7 +890,7 @@ derived from Max Kuhn (RStudio)
 <li><strong>Encodings</strong>: <a href="https://recipes.tidymodels.org/reference/step_dummy.html">dummy variables</a>, <a href="https://recipes.tidymodels.org/reference/step_other.html">“other”</a> factor level collapsing, <a href="https://recipes.tidymodels.org/reference/discretize.html">discretization</a></li>
 <li><strong>Date Features</strong>: Encodings for <a href="https://recipes.tidymodels.org/reference/step_date.html">day/doy/month</a> etc, <a href="https://recipes.tidymodels.org/reference/step_holiday.html">holiday indicators</a></li>
 <li><strong>Filters</strong>: <a href="https://recipes.tidymodels.org/reference/step_corr.html">correlation</a>, <a href="https://recipes.tidymodels.org/reference/step_nzv.html">near-zero variables</a>, <a href="https://recipes.tidymodels.org/reference/step_lincomb.html">linear dependencies</a></li>
-<li><strong>Imputation</strong>: <a href="https://recipes.tidymodels.org/reference/step_knnimpute.html"><em>K</em>-nearest neighbors</a>, <a href="https://recipes.tidymodels.org/reference/step_bagimpute.html">bagged trees</a>, <a href="https://recipes.tidymodels.org/reference/step_meanimpute.html">mean</a>/<a href="https://recipes.tidymodels.org/reference/step_modeimpute.html">mode</a> imputation,</li>
+<li><strong>Imputation</strong>: <a href="https://recipes.tidymodels.org/reference/step_knnimpute.html"><em>K</em>-nearest neighbors</a>, <a href="https://recipes.tidymodels.org/reference/step_bagimpute.html">bagged trees</a>, <a href="https://recipes.tidymodels.org/reference/step_meanimpute.html">mean</a>/<a href="https://recipes.tidymodels.org/reference/step_modeimpute.html">mode</a> imputation</li>
 </ul>
 </section>
 <section id="available-steps-1" class="slide level2">
@@ -818,13 +907,13 @@ derived from Max Kuhn (RStudio)
 <h2>Extending</h2>
 <p>Need to add more pre-processing or other operations?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="sc">&gt;</span> standardized <span class="ot">&lt;-</span> rec_trained <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_center</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_scale</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_pca</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>())</span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="sc">&gt;</span>           </span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="er">&gt;</span> <span class="do">## Only estimate the new parts:</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="er">&gt;</span> standardized <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(standardized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="sc">&gt;</span> standardized <span class="ot">&lt;-</span> rec_trained <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_center</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_scale</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_pca</span>(recipes<span class="sc">::</span><span class="fu">all_numeric</span>())</span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="sc">&gt;</span>           </span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="er">&gt;</span> <span class="do">## Only estimate the new parts:</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="er">&gt;</span> standardized <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(standardized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If an initial step is computationally expensive, you don’t have to redo those operations to add more.</p>
 </section>
@@ -832,79 +921,108 @@ derived from Max Kuhn (RStudio)
 <h2>Extending</h2>
 <p>Recipes can also be created with different roles manually</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> rec <span class="ot">&lt;-</span> </span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">recipe</span>(<span class="at">x  =</span> Sacramento) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(price, <span class="at">new_role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(type, sqft, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(zip, <span class="at">new_role =</span> <span class="st">"strata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="2|3|4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="sc">&gt;</span> rec <span class="ot">&lt;-</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">recipe</span>(<span class="at">data =</span> Sacramento) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(price, <span class="at">new_role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(type, sqft, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">update_role</span>(zip, <span class="at">new_role =</span> <span class="st">"strata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Also, the sequential nature of steps means that there don’t have to be R operations and could call other compute engines (e.g.&nbsp;Weka, scikit-learn, Tensorflow, etc. )</p>
+<p>Also, the sequential nature of steps means that steps don’t have to be R operations and could call other compute engines (e.g.&nbsp;Weka, scikit-learn, Tensorflow, etc. )</p>
 </section>
 <section id="extending-2" class="slide level2">
 <h2>Extending</h2>
 <p>We can create wrappers to work with recipes too:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="2|3-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> lin_reg.recipe <span class="ot">&lt;-</span> <span class="cf">function</span>(rec, data, ...) {</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="sc">+</span>   trained <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(rec, <span class="at">training =</span> data)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="sc">+</span>   <span class="fu">lm.fit</span>(</span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="sc">+</span>     <span class="at">x =</span> recipes<span class="sc">::</span><span class="fu">bake</span>(trained, <span class="at">newdata =</span> data, <span class="fu">all_predictors</span>())</span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="sc">+</span>     , <span class="at">y =</span> recipes<span class="sc">::</span><span class="fu">bake</span>(trained, <span class="at">newdata =</span> data, <span class="fu">all_outcomes</span>())</span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="sc">+</span>     , ...</span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="sc">+</span>   )</span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="sc">+</span> }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2|3-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="sc">&gt;</span> lin_reg.recipe <span class="ot">&lt;-</span> <span class="cf">function</span>(rec, data, ...) {</span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="sc">+</span>   trained <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(rec, <span class="at">training =</span> data)</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="sc">+</span>   <span class="fu">lm.fit</span>(</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="sc">+</span>     <span class="at">x =</span> recipes<span class="sc">::</span><span class="fu">bake</span>(trained, <span class="at">newdata =</span> data, <span class="fu">all_predictors</span>())</span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="sc">+</span>     , <span class="at">y =</span> recipes<span class="sc">::</span><span class="fu">bake</span>(trained, <span class="at">newdata =</span> data, <span class="fu">all_outcomes</span>())</span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="sc">+</span>     , ...</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="sc">+</span>   )</span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="sc">+</span> }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="an-example" class="slide level2">
 <h2>An Example</h2>
 <p><a href="http://appliedpredictivemodeling.com">Kuhn and Johnson</a> (2013) analyze a data set where thousands of cells are determined to be well-segmented (WS) or poorly segmented (PS) based on 58 image features. We would like to make predictions of the segmentation quality based on these features.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The dataset <code>segmentationData</code> is in the package <code>caret</code> and represents the results of automated microscopy to collect images of cultured cells. The images are subjected to segmentation algorithms to identify cellular structures and quantitate their morphology, for hundreds to millions of individual cells.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="an-example-1" class="slide level2">
 <h2>An Example</h2>
 <p>The <code>segmentationData</code> dataset has 61 columns</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="1|3-5|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="sc">&gt;</span> <span class="fu">data</span>(segmentationData, <span class="at">package =</span> <span class="st">"caret"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="sc">&gt;</span> </span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="er">&gt;</span> seg_train <span class="ot">&lt;-</span> segmentationData <span class="sc">%&gt;%</span> </span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(Case <span class="sc">==</span> <span class="st">"Train"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Case, <span class="sc">-</span>Cell)</span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="sc">&gt;</span> </span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="er">&gt;</span> seg_test  <span class="ot">&lt;-</span> segmentationData <span class="sc">%&gt;%</span> </span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(Case <span class="sc">==</span> <span class="st">"Test"</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Case, <span class="sc">-</span>Cell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="1|3-5|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="sc">&gt;</span> <span class="fu">data</span>(segmentationData, <span class="at">package =</span> <span class="st">"caret"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="sc">&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="er">&gt;</span> seg_train <span class="ot">&lt;-</span> segmentationData <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(Case <span class="sc">==</span> <span class="st">"Train"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Case, <span class="sc">-</span>Cell)</span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="sc">&gt;</span> </span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="er">&gt;</span> seg_test  <span class="ot">&lt;-</span> segmentationData <span class="sc">%&gt;%</span> </span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(Case <span class="sc">==</span> <span class="st">"Test"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Case, <span class="sc">-</span>Cell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="a-simple-recipe" class="slide level2">
 <h2>A Simple Recipe</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1|3-8|10-17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="sc">&gt;</span> rec <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(Class  <span class="sc">~</span> ., <span class="at">data =</span> seg_train)</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="sc">&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="er">&gt;</span> basic <span class="ot">&lt;-</span> rec <span class="sc">%&gt;%</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="sc">+</span>   <span class="co"># Correct some predictors for skewness</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_YeoJohnson</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="sc">+</span>   <span class="co"># Standardize the values</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_center</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_scale</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>())</span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="sc">&gt;</span> </span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="er">&gt;</span> <span class="co"># Estimate the transformation and standardization parameters </span></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="er">&gt;</span> basic <span class="ot">&lt;-</span> </span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">prep</span>(</span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="sc">+</span>     basic</span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="sc">+</span>     , <span class="at">training =</span> seg_train</span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="sc">+</span>     , <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="sc">+</span>     , <span class="at">retain =</span> <span class="cn">TRUE</span></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="sc">+</span>   )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="1|3-8|10-17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="sc">&gt;</span> rec <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(Class  <span class="sc">~</span> ., <span class="at">data =</span> seg_train)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="sc">&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="er">&gt;</span> basic <span class="ot">&lt;-</span> rec <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="sc">+</span>   <span class="co"># Correct some predictors for skewness</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_YeoJohnson</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="sc">+</span>   <span class="co"># Standardize the values</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_center</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_scale</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>())</span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="sc">&gt;</span> </span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="er">&gt;</span> <span class="co"># Estimate the transformation and standardization parameters </span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="er">&gt;</span> basic <span class="ot">&lt;-</span> </span>
+<span id="cb29-12"><a href="#cb29-12"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">prep</span>(</span>
+<span id="cb29-13"><a href="#cb29-13"></a><span class="sc">+</span>     basic</span>
+<span id="cb29-14"><a href="#cb29-14"></a><span class="sc">+</span>     , <span class="at">training =</span> seg_train</span>
+<span id="cb29-15"><a href="#cb29-15"></a><span class="sc">+</span>     , <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a><span class="sc">+</span>     , <span class="at">retain =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a><span class="sc">+</span>   )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The Yeo-Johnson is similar to the Box-Cox method, however it allows for the transformation of nonpositive data as well. A Box Cox transformation is a transformation of non-normal dependent variables into a normal shape.</p>
+</div>
+</div>
 </div>
 </section>
-<section id="principal-component-analysis1" class="slide level2">
+<section id="principal-component-analysis2" class="slide level2">
 <h2>Principal Component Analysis<sup>1</sup></h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="1|3-8|10-17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="sc">&gt;</span> pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_pca</span>(</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="sc">+</span>     , <span class="at">threshold =</span> .<span class="dv">9</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="1|2|3-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="sc">&gt;</span> pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_pca</span>(</span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="sc">+</span>     , <span class="at">threshold =</span> .<span class="dv">9</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-layout-align="center">
@@ -925,11 +1043,11 @@ derived from Max Kuhn (RStudio)
 # ℹ 49 more rows</code></pre>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>A pretty good description of PCA can be found <a href="https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd">here</a>.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>A pretty good description of PCA can be found <a href="https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd">here</a>.</p></li></ol></aside></section>
 <section id="principal-component-analysis" class="slide level2">
 <h2>Principal Component Analysis</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&lt;&gt;%</span> recipes<span class="sc">::</span><span class="fu">prep</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&lt;&gt;%</span> recipes<span class="sc">::</span><span class="fu">prep</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -954,12 +1072,12 @@ derived from Max Kuhn (RStudio)
 <section id="principal-component-analysis-1" class="slide level2">
 <h2>Principal Component Analysis</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31" data-code-line-numbers="2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&lt;&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">bake</span>(</span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="sc">+</span>     <span class="at">new_data =</span> seg_test</span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="sc">+</span>     , <span class="fu">everything</span>()</span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="sc">+</span>   )</span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="sc">&gt;</span> pca[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">bake</span>(</span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="sc">+</span>     <span class="at">new_data =</span> seg_test</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="sc">+</span>     , <span class="fu">everything</span>()</span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="sc">+</span>   )</span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="sc">&gt;</span> pca[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 8
   Class  PC01  PC02   PC03   PC04  PC05   PC06   PC07
@@ -976,29 +1094,29 @@ derived from Max Kuhn (RStudio)
 <div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>PCA1</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC01, <span class="at">y =</span> PC02, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC01, <span class="at">y =</span> PC02, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_03_files/figure-html/image_pca_plot-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_03_files/figure-revealjs/image_pca_plot-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="kernel-principal-component-analysis" class="slide level2">
 <h2>Kernel Principal Component Analysis</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2|3-9|12|13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_kpca</span>(</span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="sc">+</span>     , <span class="at">num_comp =</span> <span class="dv">2</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="sc">+</span>     , <span class="at">options =</span> </span>
-<span id="cb34-6"><a href="#cb34-6"></a><span class="sc">+</span>       <span class="fu">list</span>(</span>
-<span id="cb34-7"><a href="#cb34-7"></a><span class="sc">+</span>         <span class="at">kernel =</span> <span class="st">"rbfdot"</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a><span class="sc">+</span>         , <span class="at">kpar =</span> <span class="fu">list</span>(<span class="at">sigma =</span> <span class="fl">0.05</span>)</span>
-<span id="cb34-9"><a href="#cb34-9"></a><span class="sc">+</span>       )</span>
-<span id="cb34-10"><a href="#cb34-10"></a><span class="sc">+</span>   )</span>
-<span id="cb34-11"><a href="#cb34-11"></a><span class="sc">&gt;</span> </span>
-<span id="cb34-12"><a href="#cb34-12"></a><span class="er">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(kern_pca)</span>
-<span id="cb34-13"><a href="#cb34-13"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(kern_pca, <span class="at">new_data =</span> seg_test, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2|3-9|12|13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_kpca</span>(</span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="sc">+</span>     recipes<span class="sc">::</span><span class="fu">all_predictors</span>()</span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="sc">+</span>     , <span class="at">num_comp =</span> <span class="dv">2</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="sc">+</span>     , <span class="at">options =</span> </span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="sc">+</span>       <span class="fu">list</span>(</span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="sc">+</span>         <span class="at">kernel =</span> <span class="st">"rbfdot"</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="sc">+</span>         , <span class="at">kpar =</span> <span class="fu">list</span>(<span class="at">sigma =</span> <span class="fl">0.05</span>)</span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="sc">+</span>       )</span>
+<span id="cb37-10"><a href="#cb37-10"></a><span class="sc">+</span>   )</span>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="sc">&gt;</span> </span>
+<span id="cb37-12"><a href="#cb37-12"></a><span class="er">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(kern_pca)</span>
+<span id="cb37-13"><a href="#cb37-13"></a><span class="sc">&gt;</span> kern_pca <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(kern_pca, <span class="at">new_data =</span> seg_test, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="kernel-principal-component-analysis-1" class="slide level2">
@@ -1006,31 +1124,31 @@ derived from Max Kuhn (RStudio)
 <div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>Kernel PCA</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> grDevices<span class="sc">::</span><span class="fu">extendrange</span>(<span class="fu">c</span>(kern_pca<span class="sc">$</span>kPC1, kern_pca<span class="sc">$</span>kPC2))</span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="sc">&gt;</span> kern_pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> kPC1, <span class="at">y =</span> kPC2, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
-<span id="cb35-5"><a href="#cb35-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") +</span></span>
-<span id="cb35-6"><a href="#cb35-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> grDevices<span class="sc">::</span><span class="fu">extendrange</span>(<span class="fu">c</span>(kern_pca<span class="sc">$</span>kPC1, kern_pca<span class="sc">$</span>kPC2))</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="sc">&gt;</span> kern_pca <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> kPC1, <span class="at">y =</span> kPC2, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") +</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_03_files/figure-html/image_kpca_fig-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_03_files/figure-revealjs/image_kpca_fig-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="distance-to-each-class-centroid" class="slide level2">
 <h2>Distance to Each Class Centroid</h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Kernel PCA - distance to each centroid</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="sc">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_classdist</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>(), <span class="at">class =</span> <span class="st">"Class"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="sc">+</span>   <span class="co"># Take log of the new distance features</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">starts_with</span>(<span class="st">"classdist"</span>))</span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="sc">&gt;</span> </span>
-<span id="cb36-6"><a href="#cb36-6"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(dist_to_classes, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb36-7"><a href="#cb36-7"></a><span class="sc">&gt;</span> </span>
-<span id="cb36-8"><a href="#cb36-8"></a><span class="er">&gt;</span> <span class="co"># All variables are retained plus an additional one for each class</span></span>
-<span id="cb36-9"><a href="#cb36-9"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(dist_to_classes, <span class="at">new_data =</span> seg_test, <span class="fu">matches</span>(<span class="st">"[Cc]lass"</span>))</span>
-<span id="cb36-10"><a href="#cb36-10"></a><span class="sc">&gt;</span> dist_to_classes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="sc">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> basic <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_classdist</span>(recipes<span class="sc">::</span><span class="fu">all_predictors</span>(), <span class="at">class =</span> <span class="st">"Class"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="sc">+</span>   <span class="co"># Take log of the new distance features</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">starts_with</span>(<span class="st">"classdist"</span>))</span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="sc">&gt;</span> </span>
+<span id="cb39-6"><a href="#cb39-6"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(dist_to_classes, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="sc">&gt;</span> </span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="er">&gt;</span> <span class="co"># All variables are retained plus an additional one for each class</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="er">&gt;</span> dist_to_classes <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(dist_to_classes, <span class="at">new_data =</span> seg_test, <span class="fu">matches</span>(<span class="st">"[Cc]lass"</span>))</span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="sc">&gt;</span> dist_to_classes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,010 × 3
@@ -1055,76 +1173,35 @@ derived from Max Kuhn (RStudio)
 <div class="cell" data-layout-align="center" width="80%">
 <details>
 <summary>Kernel PCA - distance to each class</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(<span class="fu">c</span>(dist_to_classes<span class="sc">$</span>classdist_PS, dist_to_classes<span class="sc">$</span>classdist_WS))</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(dist_to_classes, <span class="fu">aes</span>(<span class="at">x =</span> classdist_PS, <span class="at">y =</span> classdist_WS, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") + </span></span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="sc">+</span>   <span class="fu">xlab</span>(<span class="st">"Distance to PS Centroid (log scale)"</span>) <span class="sc">+</span> </span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="st">"Distance to WS Centroid (log scale)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="sc">&gt;</span> rngs <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(<span class="fu">c</span>(dist_to_classes<span class="sc">$</span>classdist_PS, dist_to_classes<span class="sc">$</span>classdist_WS))</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="sc">&gt;</span> <span class="fu">ggplot</span>(dist_to_classes, <span class="fu">aes</span>(<span class="at">x =</span> classdist_PS, <span class="at">y =</span> classdist_WS, <span class="at">color =</span> Class)) <span class="sc">+</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="sc">+</span>   <span class="fu">xlim</span>(rngs) <span class="sc">+</span> <span class="fu">ylim</span>(rngs) <span class="sc">+</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="sc">+</span>   <span class="co"># theme(legend.position = "top") + </span></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="sc">+</span>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="sc">+</span>   <span class="fu">xlab</span>(<span class="st">"Distance to PS Centroid (log scale)"</span>) <span class="sc">+</span> </span>
+<span id="cb41-8"><a href="#cb41-8"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="st">"Distance to WS Centroid (log scale)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_03_files/figure-html/image_dists_fig-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="BSMM_8740_lec_03_files/figure-revealjs/image_dists_fig-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
 <li>We’ve used the Recipes package to create a workflow for data pre-processing and feature engineering</li>
-<li>The verb <code>recipe</code> defines the pre-processing and feature engineering steps</li>
-<li>using the recipe object, the verb <code>prep</code> prepares the data on a training set, storing the metaparameters.</li>
-<li>the verb bake applies the prepped recipe to new data, using the metaparameters.</li>
+<li>The <code>recipe</code> verbs define the pre-processing and feature engineering steps</li>
+<li>using the recipe object, the verb <code>prep</code> prepares the data on a training set, storing the meta-parameters.</li>
+<li>the verb <code>bake</code> applies the prepped recipe to new data, using the meta-parameters.</li>
 </ul>
 </section>
 <section class="slide level2">
 
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>R version 4.2.1 (2022-06-23)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur ... 10.16
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
-[1] recipes_1.0.8   dplyr_1.1.2     caret_6.0-94    lattice_0.20-45 mlbench_2.1-3.1
-[6] ggplot2_3.4.3   magrittr_2.0.3  knitr_1.43     
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.10          lubridate_1.9.2      listenv_0.9.0        class_7.3-21        
- [5] digest_0.6.31        ipred_0.9-13         foreach_1.5.2        utf8_1.2.3          
- [9] parallelly_1.34.0    R6_2.5.1             plyr_1.8.8           stats4_4.2.1        
-[13] hardhat_1.3.0        evaluate_0.20        pillar_1.9.0         rlang_1.1.1         
-[17] data.table_1.14.8    rstudioapi_0.15.0    kernlab_0.9-32       rpart_4.1.19        
-[21] Matrix_1.6-1         rmarkdown_2.24       labeling_0.4.2       splines_4.2.1       
-[25] gower_1.0.1          stringr_1.5.0        htmlwidgets_1.6.1    munsell_0.5.0       
-[29] compiler_4.2.1       xfun_0.40            pkgconfig_2.0.3      globals_0.16.2      
-[33] htmltools_0.5.4      nnet_7.3-18          tidyselect_1.2.0     tibble_3.2.1        
-[37] prodlim_2019.11.13   codetools_0.2-19     fansi_1.0.4          future_1.33.0       
-[41] withr_2.5.0          MASS_7.3-58.2        ModelMetrics_1.2.2.2 grid_4.2.1          
-[45] nlme_3.1-162         jsonlite_1.8.7       gtable_0.3.3         lifecycle_1.0.3     
-[49] pROC_1.18.4          scales_1.2.1         future.apply_1.11.0  cli_3.6.1           
-[53] stringi_1.7.12       farver_2.1.1         reshape2_1.4.4       timeDate_4022.108   
-[57] ellipsis_0.3.2       generics_0.1.3       vctrs_0.6.3          lava_1.7.2.1        
-[61] iterators_1.0.14     tools_4.2.1          glue_1.6.2           purrr_1.0.2         
-[65] parallel_4.2.1       fastmap_1.1.1        survival_3.5-3       yaml_2.3.7          
-[69] timechange_0.2.0     colorspace_2.1-0    </code></pre>
-</div>
-</div>
 
 
 <img src="images/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://bsmm-8740-fall-2023.github.io/osb/">bsmm-8740-fall-2023.github.io/osb</a></p>
 </div>
-</section>
+</section></section>
 
     </div>
   </div>
@@ -1340,6 +1417,44 @@ loaded via a namespace (and not attached):
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

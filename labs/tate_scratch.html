@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-09-16">
+<meta name="dcterms.date" content="2023-09-21">
 
 <title>BSMM-8740 - Fall 2023 - Exploratory Analysis for Tate dataset</title>
 <style>
@@ -365,6 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dataset-extention" id="toc-dataset-extention" class="nav-link" data-scroll-target="#dataset-extention">Dataset extention</a>
   <ul class="collapse">
   <li><a href="#artworks-acquisition-and-gender-gap" id="toc-artworks-acquisition-and-gender-gap" class="nav-link" data-scroll-target="#artworks-acquisition-and-gender-gap">Artworks acquisition and gender gap</a></li>
+  <li><a href="#e-1" id="toc-e-1" class="nav-link" data-scroll-target="#e-1">E??</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/tate_scratch.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -385,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2023</p>
+      <p class="date">September 21, 2023</p>
     </div>
   </div>
   
@@ -589,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(count_by_year_male$acquisitionYear, count_by_year_male$count, type = "l", col = "blue", main = "Gender gap analysis on acquisitions", xlab = "Years", ylab = "Number of acquired artworks") lines(count_by_year_female$acquisitionYear, count_by_year_female$count, col = "pink")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spx_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"labs/data/SPX_HistoricalData_1692322132002.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spx_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/SPX_HistoricalData_1692322132002.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>spx_summary <span class="ot">&lt;-</span> spx_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Date =</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(Date)</span>
@@ -607,20 +608,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>nmmnmnmn</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>spx_summary <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>(<span class="st">'year'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_percent</span>(<span class="at">columns =</span> <span class="fu">c</span>(return,   volatility), <span class="at">decimals=</span><span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span> <span class="fu">grand_summary_rows</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> return</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fns =</span> <span class="fu">list</span>(<span class="at">label=</span><span class="st">"period return"</span>, <span class="at">fn=</span><span class="st">"sum"</span>) </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fmt =</span> <span class="sc">~</span> gt<span class="sc">::</span><span class="fu">fmt_percent</span>(., <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span> <span class="fu">grand_summary_rows</span>(</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> volatility</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fns =</span> <span class="fu">list</span>(<span class="st">`</span><span class="at">period volatility</span><span class="st">`</span> <span class="ot">=</span> <span class="er">~</span><span class="fu">sqrt</span>(<span class="fu">sum</span>(.<span class="sc">*</span>.)) )</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fmt =</span> <span class="sc">~</span> gt<span class="sc">::</span><span class="fu">fmt_percent</span>(., <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_espn</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>spx_data <span class="sc">%&gt;%</span> gtExtras<span class="sc">::</span><span class="fu">gt_plt_summary</span>(<span class="st">"S&amp;P 500 data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>spx_summary <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>(<span class="st">'year'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_percent</span>(<span class="at">columns =</span> <span class="fu">c</span>(return,   volatility), <span class="at">decimals=</span><span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span> <span class="fu">grand_summary_rows</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> return</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fns =</span> <span class="fu">list</span>(<span class="at">label=</span><span class="st">"period return"</span>, <span class="at">fn=</span><span class="st">"sum"</span>) </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fmt =</span> <span class="sc">~</span> gt<span class="sc">::</span><span class="fu">fmt_percent</span>(., <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span> <span class="fu">grand_summary_rows</span>(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> volatility</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fns =</span> <span class="fu">list</span>(<span class="st">`</span><span class="at">period volatility</span><span class="st">`</span> <span class="ot">=</span> <span class="er">~</span><span class="fu">sqrt</span>(<span class="fu">sum</span>(.<span class="sc">*</span>.)) )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">fmt =</span> <span class="sc">~</span> gt<span class="sc">::</span><span class="fu">fmt_percent</span>(., <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">force_sign=</span><span class="cn">TRUE</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_espn</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="e-1" class="level2">
+<h2 class="anchored" data-anchor-id="e-1">E??</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>the_tate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BSMM-8740 - Fall 2023 - Lab 2 - EDA and Feature Engineering</title>
+<title>BSMM-8740 - Fall 2023 - Lab 5 - The Models package</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,13 +95,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Lab 2 - EDA and Feature Engineering">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - Lab 5 - The Models package">
 <meta property="og:description" content="">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Lab 2 - EDA and Feature Engineering">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Lab 5 - The Models package">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/labs/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
@@ -117,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lab 2 - EDA and Feature Engineering</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lab 5 - The Models package</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -359,31 +357,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#data-the-tate-collection" id="toc-data-the-tate-collection" class="nav-link" data-scroll-target="#data-the-tate-collection">Data: The Tate Collection</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
-  <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise 3</a></li>
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise 4</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#exercise-1-eda" id="toc-exercise-1-eda" class="nav-link" data-scroll-target="#exercise-1-eda">Exercise 1: EDA</a></li>
+  <li><a href="#exercise-2-train-test-splits" id="toc-exercise-2-train-test-splits" class="nav-link" data-scroll-target="#exercise-2-train-test-splits">Exercise 2: Train / Test Splits</a></li>
+  <li><a href="#exercise-3-data-preprocessing" id="toc-exercise-3-data-preprocessing" class="nav-link" data-scroll-target="#exercise-3-data-preprocessing">Exercise 3: Data Preprocessing</a></li>
+  <li><a href="#exercise-4-modeling" id="toc-exercise-4-modeling" class="nav-link" data-scroll-target="#exercise-4-modeling">Exercise 4 Modeling</a></li>
   <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a></li>
-  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6">Exercise 6</a></li>
+  <li><a href="#exercise-6-bootstrap" id="toc-exercise-6-bootstrap" class="nav-link" data-scroll-target="#exercise-6-bootstrap">Exercise 6 Bootstrap</a></li>
   <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7">Exercise 7</a></li>
   <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise 8</a></li>
   <li><a href="#exercise-9" id="toc-exercise-9" class="nav-link" data-scroll-target="#exercise-9">Exercise 9</a></li>
-  </ul></li>
+  <li><a href="#exercise-10" id="toc-exercise-10" class="nav-link" data-scroll-target="#exercise-10">Exercise 10</a></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#resources-for-additional-practice-optional" id="toc-resources-for-additional-practice-optional" class="nav-link" data-scroll-target="#resources-for-additional-practice-optional">Resources for additional practice (optional)</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/BSMM_8740_lab_2.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/BSMM_8740_lab_5.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 2 - EDA and Feature Engineering</h1>
+<h1 class="title">Lab 5 - The Models package</h1>
 </div>
 
 
@@ -400,22 +395,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In today’s lab, you’ll explore several data sets as part of the EDA process, and then practice some feature engineering.</p>
+<p>In today’s lab, you’ll practice building <code>workflowsets</code> with <code>recipes</code>, <code>parsnip</code> models, <code>rsample</code> cross validations, model tuning and model comparison.</p>
 <section id="learning-goals" class="level3">
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab you will…</p>
 <ul>
-<li>Be able to generate summary statistics for EDA</li>
-<li>Be able to use the <code>DataExplorer</code> package to perform EDA</li>
-<li>Be able to perform basic feature engineering.</li>
+<li>Be able to build workflows to evaluate different models and featuresets.</li>
 </ul>
 </section>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repository named <strong>BSMM-lab-2</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Create a new repository and start a new project in RStudio. See the <a href="labs/BSMM_8740_lab_1.html">Lab 1 instructions</a> for details on creating a repository, starting a new R project and configuring git.</p></li>
+<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repository named <strong>BSMM-lab-5</strong>. It contains the starter documents you need to complete the lab.</p></li>
+<li><p>Create a copy of the repository in your own github account and start a new project in RStudio from the repository copy you just created. See the <a href="labs/BSMM_8740_lab_1.html">Lab 1 instructions</a> for details on creating a repository, starting a new R project and configuring git.</p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -438,129 +431,164 @@ Important
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<p>Here are some of the packages we’ll use in this lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)     <span class="co"># the pipe</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># for data wrangling + visualization</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)   <span class="co"># for modeling</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)           <span class="co"># for making display tables</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)     <span class="co"># helper functions for beautiful tables</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer) <span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)   <span class="co"># the pipe</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># for data wrangling + visualization</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for modeling</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    <span class="co"># for plotting</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set the efault theme for plotting</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-the-tate-collection" class="level2">
-<h2 class="anchored" data-anchor-id="data-the-tate-collection">Data: The Tate Collection</h2>
-<p>Tate is an institution that houses the United Kingdom’s national collection of British art, and international modern and contemporary art. It is a network of four art museums: Tate Britain, London (until 2000 known as the Tate Gallery, founded 1897), Tate Liverpool (founded 1988), Tate St Ives, Cornwall (founded 1993) and Tate Modern, London (founded 2000), with a complementary website, Tate Online (created 1998). Tate is not a government institution, but its main sponsor is the UK Department for Culture, Media and Sport.</p>
-<p>This dataset used here contains the metadata for around 70,000 artworks that Tate owns or jointly owns with the National Galleries of Scotland as part of ARTIST ROOMS. Metadata for around 3,500 associated artists is also included.</p>
-<p>The metadata here is released under the Creative Commons Public Domain CC0 licence. Images are not included and are not part of the dataset.</p>
-<p>This dataset contains the following information for each artwork:</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td>Id</td>
-<td>acquisitionYear</td>
-</tr>
-<tr class="even">
-<td>accession_number</td>
-<td>dimensions</td>
-</tr>
-<tr class="odd">
-<td>artist</td>
-<td>width</td>
-</tr>
-<tr class="even">
-<td>artistRole</td>
-<td>height</td>
-</tr>
-<tr class="odd">
-<td>artistId</td>
-<td>depth</td>
-</tr>
-<tr class="even">
-<td>title</td>
-<td>units</td>
-</tr>
-<tr class="odd">
-<td>dateText</td>
-<td>inscription</td>
-</tr>
-<tr class="even">
-<td>medium</td>
-<td>thumbnailCopyright</td>
-</tr>
-<tr class="odd">
-<td>creditLine</td>
-<td>thumbnailUr</td>
-</tr>
-<tr class="even">
-<td>year</td>
-<td>url</td>
-</tr>
-</tbody>
-</table>
-<p>Use the code below to load the Tate Collection data sets, and note the names of the variable referencing each dataset.</p>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data</h2>
+<p>Today we will be using the Ames Housing Data.</p>
+<p>This is a data set from <a href="http://jse.amstat.org/v19n3/decock.pdf">De Cock</a> (2011) has 82 fields were recorded for 2,930 properties in Ames Iowa in the US. The version in the <code>modeldata</code> package is copied from the <code>AmesHousing</code> package but does not include a few quality columns that appear to be outcomes rather than predictors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>the_tate <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">"data/the-tate-collection.csv"</span>, <span class="st">";"</span>, <span class="at">escape_double =</span> <span class="cn">FALSE</span>, <span class="at">trim_ws =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>the_tate_artists <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/the-tate-artists.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>ames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data dictionary can be found on the internet:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(readr<span class="sc">::</span><span class="fu">read_file</span>(<span class="st">"http://jse.amstat.org/v19n3/decock/DataDocumentation.txt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
-<section id="exercise-1" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
-<p>First of all, let’s analyze the entire dataset as it is. We have 69201 observations, each one corresponding to an artwork in Tate collection. For each observation/artwork, we have 20 attributes, including artist, title, date, medium, dimensions and Tate’s acquisition year. Generate some general observations about the dataset using <code>dplyr::summarize</code>, including the number of <em>unique artists</em> represented in the collection, the <em>period</em> represented in the collection and the <em>acquisition period</em> over which the collection was created.</p>
-<p>Next use <code>DataExplorer::introduce</code> and <code>DataExplorer::plot_missing()</code> to examine the scope of missing data.</p>
+<section id="exercise-1-eda" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-eda">Exercise 1: EDA</h2>
+<p>Write and execute the code to perform summary EDA on the Ames Housing data using the package <code>skimr</code>.</p>
 </section>
-<section id="exercise-2" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
-<p>Roughly 7.8% of the works in the collection have missing dates, How many works have missing dates (i.e.&nbsp;the number)</p>
-<p>Use the <code>table()</code> function to count the number of works missing for each artist. Convert the table in to a tibble using <code>tibble::as_tibble()</code>, and then sort the count in descending order.</p>
-<p>How many artists have works with missing dates?</p>
-<p>Mutate the resulting table, adding columns for the percent of the total missing data for each artist, and another for the cumulative percent (just apply <code>cumsum()</code> to the percentage for each artist.</p>
-<p>If we could identify all the missing dates for each artists, what is the smallest number of arists needed to resolve at least 50% of the missing year data?</p>
-<p>Is this missing data MCAR, MAR, or MNAR?</p>
+<section id="exercise-2-train-test-splits" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-train-test-splits">Exercise 2: Train / Test Splits</h2>
+<p>Write and execute code to create training and test datasets. Have the training dataset represent 75% of the total data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8740</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span>__</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ames_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span>__</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ames_test  <span class="ot">&lt;-</span> rsample<span class="sc">::</span>__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="exercise-3" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
-<p>Prepare a table showing the number of works for each unique artist, ordered from the largest number of works to the smallest. Show the top 10 artists by number of works in the collection.</p>
+<section id="exercise-3-data-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-data-preprocessing">Exercise 3: Data Preprocessing</h2>
+<p>create a recipe based on the formula <strong>Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold</strong> with the following steps:</p>
+<ul>
+<li>transform the variable <code>Sale_Price</code> to <code>log(Sale_Price)</code></li>
+<li>center and scale all predictors</li>
+<li>create dummy variables for all nominal variables</li>
+<li>transform the variable <code>Neighborhood</code> to pool infrequent values (see <code>recipes::step_other</code>)</li>
+</ul>
+<p>Finally prep the recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>norm_recipe <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">recipe</span>( ___ ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">prep</span>( ___ )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="exercise-4" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
-<p>Modify the table from the last exercise to show the percentage of the total collection that each artist represents. Format the table using <code>gt::gt</code> with the percentage column formatted for display as a percentage, to two decimals. Apply a theme from the <code>gtExtras</code> package to the formatted table.</p>
+<section id="exercise-4-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4-modeling">Exercise 4 Modeling</h2>
+<p>Create three regression models</p>
+<ul>
+<li><p>a base regression model using <code>lm</code></p></li>
+<li><p>a regression model using <code>glmnet</code>; set the model parameters <code>penalty</code> and <code>mixture</code> for tuning</p></li>
+<li><p>a tree model using the <code>ranger</code> engine; set the model parameters <code>min_n</code> and <code>trees</code> for tuning</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_mod_base <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  parsnip<span class="sc">::</span><span class="fu">linear_reg</span>( ___ ) <span class="sc">%&gt;%</span> ___</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_mod_glmnet <span class="ot">&lt;-</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  parsnip<span class="sc">::</span><span class="fu">linear_reg</span>( ___ ) <span class="sc">%&gt;%</span> ___</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>lm_mod_rforest <span class="ot">&lt;-</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  parsnip<span class="sc">::</span><span class="fu">rand_forest</span>( ___ ) <span class="sc">%&gt;%</span> ___</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
+<p>Use parsnip::translate() on each model to see the code object that is specific to a particular engine</p>
+</section>
+<section id="exercise-6-bootstrap" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-6-bootstrap">Exercise 6 Bootstrap</h2>
+<p>Create bootstrap samples for the training dataset. You can leave the parameters set to their defaults</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8740</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>train_resamples <span class="ot">&lt;-</span> ___ <span class="sc">%&gt;%</span> rsample<span class="sc">::</span><span class="fu">bootstraps</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
 </div>
 </section>
-<section id="exercise-5" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-5">Exercise 5</h3>
-<p>Using the tibble <code>the_tate</code>, select the columns for artist and title and count the number of rows.</p>
-<p>Next take the tibble <code>the_tate</code>, select the columns for artist and title, and then apply <code>dplyr::distinct</code>. Count the distinct artist-title pairs.</p>
-<p>How many are duplicated?</p>
-</section>
-<section id="exercise-6" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
-<p>Similar to exercises 2 and 3, in this exercise take the raw data (<code>the_tate</code>) and add a column with the area of each artwork in <span class="math inline">\(\text{cm}^2\)</span>. Next select the artist, title and the area and remove NA values using <code>tidyr::drop_na</code>, then order the works by area. Use <code>dplyr::slice_head</code> and <code>dplyr::slice_tail</code> to find the largest and smallest artworks in the collection.</p>
-</section>
-<section id="exercise-7" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
-<p>Join the tables <code>the_tate</code> and <code>the_tate_artists</code> using <code>dplyr::left_join</code>, assigning the result to the variable <code>the_tate</code> . Drop rows with <code>NA</code> gender values and then group by gender. Show the resulting table.</p>
-</section>
-<section id="exercise-8" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-8">Exercise 8</h3>
-<p>In the next two exercises we switch to a different dataset, the historical price data for the S&amp;P 500 Index.</p>
-<p>Read the historical price data in the file <code>SPX_HistoricalData_1692322132002.csv</code> using <code>readr:: read_csv</code> and add a column for the year of the transaction and the daily return <span class="math inline">\(r_d\)</span>, using the formula</p>
-<p><span class="math display">\[
-r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
-\]</span>You will likely need <code>dplyr::lead</code> or <code>dplyr::lead</code> functions. Add an additional column for the daily return variance <span class="math inline">\(\text{var}_d = \text{r}_d^2\)</span>.</p>
-<p>Finally, group by year and use <code>dplyr::summary</code> to compute the annual returns and standard deviations. Add the argument <code>.groups = "drop"</code> to the <code>dplyr::summarize</code> function to drop the grouping after the summary is created.</p>
-</section>
-<section id="exercise-9" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-9">Exercise 9</h3>
-<p>Take the table from the last exercise and use the <code>gt::</code> package to format it. Add summary rows for the period return and period volatility (note that variances can be added; volatilities cannot- so you will need to do some calculations).</p>
-<div class="render-commit-push">
-<p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
+<section id="exercise-7" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-7">Exercise 7</h2>
+<p>Create workflows with <code>workflowsets::workflow_set</code> using your recipe and models.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_set</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">preproc =</span> <span class="fu">list</span>(<span class="at">base =</span> norm_recipe),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">models =</span> <span class="fu">list</span>(<span class="at">base =</span> lm_mod_base, <span class="at">glmnet =</span> lm_mod_glmnet, <span class="at">forest =</span> lm_mod_rforest)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="exercise-8" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-8">Exercise 8</h2>
+<p>Map the default function (<code>tune::tune_grid()</code>) across the workflows in the workflowset you just created and update the variable <code>all_workflows</code> with the result</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_map</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">TRUE</span>                <span class="co"># enable logging</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    , <span class="at">resamples =</span> train_resamples <span class="co"># a parameter passed to tune::tune_grid()</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    , <span class="at">grid =</span> <span class="dv">5</span>                    <span class="co"># a parameter passed to tune::tune_grid()</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The updated variable <code>all_workflows</code> contains a nested column named <strong>result</strong>, and each cell of the column <strong>result</strong> is a tibble containing a nested column named <strong>.metrics</strong>. Write code to</p>
+<ol type="1">
+<li><p>un-nest the metrics in the column .metrics</p></li>
+<li><p>filter out the rows for the metric rmse</p></li>
+<li><p>group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(wflow_id,__) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(__) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(wflow_id,__) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(__) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">'___'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(wflow_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(__) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-9" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
+<p>Run the code below and compare to your results from exercise 8.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>workflowsets<span class="sc">::</span><span class="fu">rank_results</span>(all_workflows, <span class="at">rank_metric =</span> <span class="st">"rmse"</span>, <span class="at">select_best =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-10" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-10">Exercise 10</h2>
+<p>Select the best model per the <strong>rsme</strong> metric using its id.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>best_model_workflow <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">extract_workflow</span>(<span class="st">"__"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finalize the workflow by setting the parameters for the best model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>best_model_workflow <span class="ot">&lt;-</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  best_model_workflow <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  tune<span class="sc">::</span><span class="fu">finalize_workflow</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">__ =</span> __, <span class="at">__ =</span> __) <span class="co"># enter the name and value of the best-fit parameters</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now compare the fits</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>training_fit <span class="ot">&lt;-</span> best_model_workflow <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>testing_fit <span class="ot">&lt;-</span> best_model_workflow <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> ames_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the ration of the OOB prediction errors (MSE): test/train?</p>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>
@@ -575,18 +603,18 @@ Warning
 </div>
 <div class="callout-body-container callout-body">
 <p>Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.</p>
-<p>Remember – you must turn in an HTML file to the Brightspace page before the submission deadline for full credit.</p>
+<p>Remember – you must turn in a PDF file to the Brightspace page before the submission deadline for full credit.</p>
 </div>
 </div>
 <p>To submit your assignment:</p>
 <ul>
 <li>Log in to <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a> and select course <a href="https://brightspace.uwindsor.ca/d2l/home/144921" title="BSMM8740-2-R-2023F|Data Analytic Meth. &amp; Algorith">BSMM8740-2-R-2023F|Data Analytic Meth.</a></li>
-<li>Click on the BSMM-Lab-2 assignment, and submit it.</li>
+<li>Click on the Lab-5 assignment, and submit it.</li>
 </ul>
 </section>
 <section id="grading" class="level2">
 <h2 class="anchored" data-anchor-id="grading">Grading</h2>
-<p>Total points available: 30 points.</p>
+<p>Total points available: 50 points.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -596,20 +624,11 @@ Warning
 </thead>
 <tbody>
 <tr class="odd">
-<td>Ex 1 - 9</td>
+<td>Ex 1 - 10</td>
 <td>30</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="resources-for-additional-practice-optional" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-additional-practice-optional">Resources for additional practice (optional)</h2>
-<ul>
-<li>Work/read through the <strong>TTC subway</strong> dataset example in <em>Telling Stories with Data, Chapter 11.4</em>: <a href="https://tellingstorieswithdata.com/11-eda.html#ttc-subway-delays">TTC Subway Delays</a>
-<ul>
-<li>You will need to install the package <a href="https://CRAN.R-project.org/package=opendatatoronto"><code>opendatatoronto</code></a> (<a href="https://tellingstorieswithdata.com/99-references.html#ref-citeSharla">Gelfand 2022</a>) to access the data. The details on the package can be found <a href="https://sharlagelfand.github.io/opendatatoronto/">here</a>.</li>
-</ul></li>
-</ul>
 
 
 </section>

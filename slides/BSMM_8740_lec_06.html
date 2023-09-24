@@ -419,18 +419,18 @@ L.L. Odette
 </ul>
 </section>
 <section>
-<section id="classification" class="title-slide slide level1 center">
-<h1>Classification</h1>
+<section id="classification-methods" class="title-slide slide level1 center">
+<h1>Classification Methods</h1>
 
 </section>
-<section id="classification-1" class="slide level2">
+<section id="classification" class="slide level2">
 <h2>Classification</h2>
 <ul>
 <li>Classification is a supervised machine learning method where the model tries to predict the correct class label for a given input data.</li>
 <li>In classification, the model is fully trained using the training data, and then it is evaluated on test data before being used to perform prediction on new unseen data.</li>
 </ul>
 </section>
-<section id="classification-2" class="slide level2">
+<section id="classification-1" class="slide level2">
 <h2>Classification</h2>
 <p><strong>Eager learners</strong> are machine learning algorithms that first build a model from the training dataset before making any prediction on future datasets. They spend more time on the training process to better generalize from the data.</p>
 <p>They usually require less time to make predictions. Example eager learners are:</p>
@@ -441,7 +441,7 @@ L.L. Odette
 <li>Artificial Neural Networks.</li>
 </ul>
 </section>
-<section id="classification-3" class="slide level2">
+<section id="classification-2" class="slide level2">
 <h2>Classification</h2>
 <p><strong>Lazy learners or instance-based learners</strong>, do not create any model immediately from the training data, and this where the lazy aspect comes from. They just memorize the training data, and each time there is a need to make a prediction, they search for the nearest neighbor from the whole training data. Examples are:</p>
 <ul>
@@ -897,6 +897,189 @@ C_{k}=\arg\max_{C_{k}}\mathbb{P}\left[C_{k}\right]\prod_{n=1}^{N}\mathbb{P}\left
 <span id="cb11-4"><a href="#cb11-4"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section></section>
+<section>
+<section id="clustering-methods" class="title-slide slide level1 center">
+<h1>Clustering Methods</h1>
+
+</section>
+<section id="clustering" class="slide level2">
+<h2>Clustering</h2>
+<p><strong><em>Cluster analysis</em></strong> refers to algorithms that group similar objects into groups called <em>clusters</em>. The endpoint of cluster analysis is a set of clusters<em>,</em> where each cluster is distinct from each other cluster, and the objects within each cluster are broadly similar to each other.</p>
+<p>The purpose of cluster analysis is to help reveal patterns and structures within a dataset that may provide insights into underlying relationships and associations.</p>
+</section>
+<section id="clustering-applications" class="slide level2">
+<h2>Clustering Applications</h2>
+<ol type="1">
+<li><strong>Market Segmentation:</strong>&nbsp;Cluster analysis is often used in marketing to segment customers into groups based on their buying behavior, demographics, or other characteristics.</li>
+<li><strong>Image Processing:</strong>&nbsp;In image processing, cluster analysis is used to group pixels with similar properties together, allowing for the identification of objects and patterns in images.</li>
+<li><strong>Biology and Medicine:</strong>&nbsp;Cluster analysis is used in biology and medicine to identify genes associated with specific diseases or to group patients with similar clinical characteristics together.</li>
+<li><strong>Social Network Analysis:</strong>&nbsp;In social network analysis, cluster analysis is used to group individuals with similar social connections and characteristics together, allowing for the identification of subgroups within a larger network.</li>
+<li><strong>Anomaly Detection:</strong>&nbsp;Cluster analysis can be used to detect anomalies in data, such as fraudulent financial transactions, unusual patterns in network traffic, or outliers in medical data.</li>
+</ol>
+</section>
+<section id="k-means-clustering" class="slide level2">
+<h2>K-means Clustering</h2>
+<p><em>k-means</em> is a method of <em>unsupervised</em> learning that produces a partitioning of observations into <em>k</em> unique clusters.</p>
+<p>The goal of <em>k-means</em> is to minimize the sum of squared Euclidian distances between observations in a cluster and the <strong>centroid</strong>, or geometric mean, of that cluster.</p>
+</section>
+<section id="k-means-clustering-1" class="slide level2">
+<h2>K-means Clustering</h2>
+<p>In <em>k-means</em> clustering, observed variables (columns) are considered to be locations on axes in multidimensional space.</p>
+<p>The basic k-means algorithm has the following steps.</p>
+<ol type="1">
+<li>pick the number of clusters k</li>
+<li>Choose <em>k</em> random observations in the dataset. These locations in space are declared to be the <strong>initial centroids</strong>.</li>
+<li>Assign each observation to the nearest <strong>centroid</strong>.</li>
+<li>Compute the new <strong>centroids</strong> of each cluster.</li>
+<li>Repeat steps 3 and 4 until the <strong>centroids</strong> do not change.</li>
+</ol>
+</section>
+<section id="k-means-clustering-2" class="slide level2">
+<h2>K-means Clustering</h2>
+<p>There are three common methods for selecting initial centers:</p>
+<ol type="1">
+<li><strong>Random observations:</strong> Chosing random observations to act as our initial centers is the most commonly used approach, implemented in the <code>Forgy</code>, <code>Lloyd</code>, and <code>MacQueen</code> methods.</li>
+<li><strong>Random partition:</strong> The observations are assigned to a cluster uniformly at random. The centroid of each cluster is computed, and these are used as the initial centers. This approach is implemented in the <code>Hartigan-Wong</code> method.</li>
+<li><strong>k-means++:</strong> Beginning with one random set of the observations, further observations are sampled via probability-weighted sampling until <span class="math inline">\(k\)</span> clusters are formed. The centroids of these clusters are used as the initial centers.</li>
+</ol>
+</section>
+<section id="k-means-clustering-3" class="slide level2">
+<h2>K-means Clustering</h2>
+<p>Because the initial conditions are based on random selection in both approaches, the k-means algorithm is not deterministic. That is, running the clustering twice on the same data may not result in the same cluster assignments.</p>
+</section>
+<section id="k-means-example" class="slide level2">
+<h2>K-means Example</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">8740</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="sc">&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="er">&gt;</span> centers <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="sc">+</span>   <span class="at">cluster =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), </span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="sc">+</span>   <span class="at">num_points =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">50</span>, <span class="dv">90</span>),  <span class="co"># number points in each cluster</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="sc">+</span>   <span class="at">x1 =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">4</span>),              <span class="co"># x1 coordinate of cluster center</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="sc">+</span>   <span class="at">x2 =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="fl">1.5</span>)               <span class="co"># x2 coordinate of cluster center</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="sc">+</span> )</span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="sc">&gt;</span> </span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="er">&gt;</span> labelled_points <span class="ot">&lt;-</span> </span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="sc">+</span>   centers <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="sc">+</span>     <span class="at">x1 =</span> purrr<span class="sc">::</span><span class="fu">map2</span>(num_points, x1, rnorm),</span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="sc">+</span>     <span class="at">x2 =</span> purrr<span class="sc">::</span><span class="fu">map2</span>(num_points, x2, rnorm)</span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="sc">+</span>   ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>num_points) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="sc">+</span>   tidyr<span class="sc">::</span><span class="fu">unnest</span>(<span class="at">cols =</span> <span class="fu">c</span>(x1, x2))</span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="sc">&gt;</span> </span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="er">&gt;</span> <span class="fu">ggplot</span>(labelled_points, <span class="fu">aes</span>(x1, x2, <span class="at">color =</span> cluster)) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="co"># penguins &lt;- modeldata::penguins</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="er">&gt;</span> <span class="co"># </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="er">&gt;</span> <span class="co"># labelled_points &lt;- penguins %&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="er">&gt;</span> <span class="co">#   dplyr::select(bill_length_mm, bill_depth_mm) %&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="er">&gt;</span> <span class="co">#   tidyr::drop_na() %&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="er">&gt;</span> <span class="co">#   # shuffle rows</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="er">&gt;</span> <span class="co">#   dplyr::slice_sample( n = nrow(penguins) )</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="er">&gt;</span> </span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="er">&gt;</span> <span class="co"># create recipe</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="er">&gt;</span> labelled_points_recipe <span class="ot">&lt;-</span> labelled_points <span class="sc">%&gt;%</span> </span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="sc">+</span>   recipes<span class="sc">::</span><span class="fu">recipe</span>(<span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="sc">&gt;</span> labelled_points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> kmeans_spec <span class="ot">&lt;-</span> tidyclust<span class="sc">::</span><span class="fu">k_means</span>( <span class="at">num_clusters =</span> <span class="dv">3</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> wflow <span class="ot">&lt;-</span> workflows<span class="sc">::</span><span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_model</span>(kmeans_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="sc">+</span>   workflows<span class="sc">::</span><span class="fu">add_recipe</span>(labelled_points_recipe)</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="sc">&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="er">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">8740</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="sc">&gt;</span> labelled_points_resamples <span class="ot">&lt;-</span> labelled_points <span class="sc">%&gt;%</span> rsample<span class="sc">::</span><span class="fu">bootstraps</span>(<span class="at">apparent =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="sc">&gt;</span> wflow <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">fit</span>(labelled_points) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="sc">+</span>   broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="sc">&gt;</span> wflow <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="sc">+</span>   parsnip<span class="sc">::</span><span class="fu">fit</span>(labelled_points) <span class="sc">%&gt;%</span> tidyclust<span class="sc">::</span><span class="fu">extract_centroids</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="sc">&gt;</span> <span class="co"># all_workflows &lt;- all_workflows %&gt;% </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="er">&gt;</span> <span class="co">#   workflowsets::workflow_map(</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="er">&gt;</span> <span class="co">#     verbose = TRUE                # enable logging</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="er">&gt;</span> <span class="co">#     , fn = "tune_cluster"</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="er">&gt;</span> <span class="co">#     , resamples = labelled_points_resamples # a parameter passed to tune::tune_grid()</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="er">&gt;</span> <span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="sc">&gt;</span> <span class="co"># all_workflows %&gt;% </span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="er">&gt;</span> <span class="co">#   dplyr::select(wflow_id,result) %&gt;% </span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="er">&gt;</span> <span class="co">#   tidyr::unnest(result) %&gt;% </span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="er">&gt;</span> <span class="co">#   tidyr::unnest(.metrics) %&gt;% </span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="er">&gt;</span> <span class="co">#   dplyr::filter(.metric == 'sse_total') %&gt;% </span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="er">&gt;</span> <span class="co">#   dplyr::group_by(wflow_id) %&gt;% </span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="er">&gt;</span> <span class="co">#   dplyr::arrange(desc(.estimate) ) %&gt;% </span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="er">&gt;</span> <span class="co">#   dplyr::slice(1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="sc">&gt;</span> all_workflows <span class="ot">&lt;-</span> all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="sc">+</span>   workflowsets<span class="sc">::</span><span class="fu">workflow_map</span>(</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="sc">+</span>     <span class="at">verbose =</span> <span class="cn">TRUE</span>                <span class="co"># enable logging</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="sc">+</span>     , <span class="at">fn =</span> <span class="st">"tune_cluster"</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="sc">+</span>     , <span class="at">resamples =</span> labelled_points_resamples <span class="co"># a parameter passed to tune::tune_grid()</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="sc">+</span>   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="sc">&gt;</span> all_workflows <span class="sc">%&gt;%</span> workflowsets<span class="sc">::</span><span class="fu">rank_results</span>(<span class="at">select_best =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">select</span>(wflow_id,result) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="sc">+</span>   tidyr<span class="sc">::</span><span class="fu">unnest</span>(result) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="sc">+</span>   tidyr<span class="sc">::</span><span class="fu">unnest</span>(.metrics) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">'sse_within_total'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(wflow_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(.estimate) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="sc">+</span>   dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> tune_results <span class="ot">&lt;-</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="sc">+</span>    all_workflows <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="sc">+</span>    <span class="fu">workflow_map</span>(</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="sc">+</span>       <span class="at">fn =</span> <span class="st">"tune_cluster"</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="sc">+</span>       , <span class="at">resamples =</span> labelled_points_resamples</span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="sc">+</span>       , <span class="at">grid =</span> dials<span class="sc">::</span><span class="fu">grid_regular</span>(dials<span class="sc">::</span><span class="fu">num_clusters</span>(), <span class="at">levels =</span> <span class="dv">10</span>)</span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="sc">+</span>       , <span class="at">metrics =</span> tidyclust<span class="sc">::</span><span class="fu">cluster_metric_set</span>(sse_within_total, sse_total, sse_ratio)</span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="sc">+</span>       , <span class="at">control =</span> tune<span class="sc">::</span><span class="fu">control_grid</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">extract =</span> identity)</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="sc">+</span>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hierarchical-clustering" class="slide level2">
+<h2>Hierarchical Clustering</h2>
+<p><em>Hierarchical Clustering</em>, sometimes called <em>Agglomerative Clustering</em>, is a method of <em>unsupervised</em> learning that produces a <em>dendrogram</em>, which can be used to partition observations into clusters.</p>
 </section>
 <section id="tidymodels" class="slide level2">
 <h2>Tidymodels</h2>

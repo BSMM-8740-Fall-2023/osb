@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BSMM-8740 - Fall 2023 - BSMM-8740: Data Analytic Methods &amp; Algorithms</title>
+<title>BSMM-8740 - Fall 2023 - lab_1_scratch</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./course-faq.html" rel="next">
-<link href="./course-team.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -64,15 +96,11 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - BSMM-8740: Data Analytic Methods &amp; Algorithms">
-<meta property="og:description" content="">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - lab_1_scratch">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - BSMM-8740: Data Analytic Methods &amp; Algorithms">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/images/twitter-card.png">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - lab_1_scratch">
+<meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/labs/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
-<meta name="twitter:image-height" content="418">
-<meta name="twitter:image-width" content="800">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -85,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./course-overview.html">Course information</a></li><li class="breadcrumb-item"><a href="./index.html">Schedule</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">lab_1_scratch</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -99,8 +127,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/BSMM-8740.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/BSMM-8740.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/bsmm-8740-fall-2023" rel="" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -136,46 +164,46 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Course information</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-support.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-support.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Support</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-team.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-team.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Teaching team</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-faq.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-faq.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAQ</span></a>
   </div>
 </li>
@@ -192,67 +220,67 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_4.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 4</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_5.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 5</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_6.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 6</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_7.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_7.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 7</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_8.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_8.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 8</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_9.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_9.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 9</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_10.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_10.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 10</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weeks/BSMM_8740_week_11.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/BSMM_8740_week_11.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 11</span></a>
   </div>
 </li>
@@ -269,31 +297,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supplemental/slr-derivations.html" class="sidebar-item-text sidebar-link">
+  <a href="../supplemental/slr-derivations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SLR derivations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supplemental/model-diagnostics-matrix.html" class="sidebar-item-text sidebar-link">
+  <a href="../supplemental/model-diagnostics-matrix.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model diagnostics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supplemental/mlr-matrix.html" class="sidebar-item-text sidebar-link">
+  <a href="../supplemental/mlr-matrix.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MLR matrix notation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supplemental/log-transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="../supplemental/log-transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Log transformations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supplemental/model-selection-criteria.html" class="sidebar-item-text sidebar-link">
+  <a href="../supplemental/model-selection-criteria.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model selection criteria</span></a>
   </div>
 </li>
@@ -320,11 +348,11 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BSMM-8740: Data Analytic Methods &amp; Algorithms</h1>
+<h1 class="title">lab_1_scratch</h1>
 </div>
 
 
@@ -339,326 +367,54 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.</p>
-<div class="column-screen-inset-right">
-<table class="table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 10%">
-<col style="width: 30%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Week</th>
-<th>Date</th>
-<th>Topic</th>
-<th style="text-align: center;">Prepare</th>
-<th style="text-align: center;">Slides</th>
-<th style="text-align: center;">AE</th>
-<th style="text-align: center;">Lab</th>
-<th style="text-align: center;">HW</th>
-<th style="text-align: center;">Exam</th>
-<th style="text-align: center;">Project</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_1.html">1</a></td>
-<td>Mon, Sep 11</td>
-<td>Tidyverse &amp; Git</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_1.html#prepare" aria-label="Week 1 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_01.html" aria-label="Lecture 1 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"><a href="./ae/ae-0-movies.html" aria-label="Application Exercise 0 instructions" title="Application exercise">📋</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 1</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_1.html" aria-label="Lab 1 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_2.html">2</a></td>
-<td>Mon, Sep 18</td>
-<td>EDA and Feature engineering</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_2.html#prepare" aria-label="Week 2 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_02.html" aria-label="Lecture 2 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 2</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_2.html" aria-label="Lab 2 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_3.html">3</a></td>
-<td>Mon, Sep 25</td>
-<td>The Recipes package</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_3.html#prepare" aria-label="Week 3 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_03.html" aria-label="Lecture 3 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"><a href="./ae/ae-1-dcbikeshare.html" aria-label="Application Exercise 1 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 3</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_3.html" aria-label="Lab 3 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_4.html">4</a></td>
-<td>Mon, Oct 02</td>
-<td>Regression methods [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_4.html#prepare" aria-label="Week 4 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_04.html" aria-label="Lecture 4 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 4</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_4.html" aria-label="Lab 4 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_5.html">5</a></td>
-<td>Mon, Oct 16</td>
-<td>The Models Package [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_5.html#prepare" aria-label="Week 5 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_05.html" aria-label="Lecture 5 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 5</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_5.html" aria-label="Lab 5 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_6.html">6</a></td>
-<td>Mon, Oct 23</td>
-<td>Classification methods [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_6.html#prepare" aria-label="Week 6 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_06.html" aria-label="Lecture 6 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 6</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_6.html" aria-label="Lab 6 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_7.html">6</a></td>
-<td>Mon, Oct 30</td>
-<td>Time Series methods [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_7.html#prepare" aria-label="Week 7 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_07.html" aria-label="Lecture 7 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 7</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_7.html" aria-label="Lab 7 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_8.html">6</a></td>
-<td>Mon, Oct 06</td>
-<td>Causality: DAGs [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_8.html#prepare" aria-label="Week 8 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_08.html" aria-label="Lecture 8 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 8</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_8.html" aria-label="Lab 8 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_9.html">6</a></td>
-<td>Mon, Nov 13</td>
-<td>Causality: Effects [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_9.html#prepare" aria-label="Week 9 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_09.html" aria-label="Lecture 9 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 9</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_9.html" aria-label="Lab 9 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_10.html">6</a></td>
-<td>Mon, Nov 20</td>
-<td>Monte Carlo methods [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_10.html#prepare" aria-label="Week 10 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_10.html" aria-label="Lecture 10 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 10</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_10.html" aria-label="Lab 10 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_11.html">6</a></td>
-<td>Mon, Nov 27</td>
-<td>Bayesian methods [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_11.html#prepare" aria-label="Week 11 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_11.html" aria-label="Lecture 11 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 11</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_11.html" aria-label="Lab 11 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_12.html">6</a></td>
-<td>Mon, Dec 04</td>
-<td>Advanced Topics [DRAFT STAGE]</td>
-<td style="text-align: center;"><a href="./weeks/BSMM_8740_week_12.html#prepare" aria-label="Week 6 summary">📖</a></td>
-<td style="text-align: center;"><a href="./slides/BSMM_8740_lec_12.html" aria-label="Lecture 12 slides" title="Lecture slides">🖥️</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td></td>
-<td>Lab 12</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="./ae/ae-2-dcbikeshare.html" aria-label="Application Exercise 2 instructions" title="Application exercise"></a></td>
-<td style="text-align: center;"><a href="./labs/BSMM_8740_lab_12.html" aria-label="Lab 3 instructions" title="Lab instructions">💻</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Lahman)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Teams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3015   48</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>?Teams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(Teams <span class="sc">%&gt;%</span> <span class="fu">head</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mets <span class="ot">&lt;-</span> Teams  <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(teamID <span class="sc">==</span> <span class="st">"NYN"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>my_mets <span class="ot">&lt;-</span> mets <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>my_mets <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(yearID,G,W,L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> Teams <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(teamID, yearID, G, RA, <span class="at">RS=</span>R) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(teamID <span class="sc">==</span> <span class="st">"NYN"</span> <span class="sc">&amp;</span> yearID <span class="sc">%in%</span> <span class="dv">2004</span><span class="sc">:</span><span class="dv">2012</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  teamID yearID   G  RA  RS
+1    NYN   2004 162 731 684
+2    NYN   2005 162 648 722
+3    NYN   2006 162 731 834
+4    NYN   2007 162 750 804
+5    NYN   2008 162 715 799
+6    NYN   2009 162 757 671
+7    NYN   2010 162 652 656
+8    NYN   2011 162 742 718
+9    NYN   2012 162 709 650</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">WPct =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (RA<span class="sc">/</span>RS)<span class="sc">^</span><span class="dv">2</span>) )</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mets_ben <span class="ot">&lt;-</span> mets_ben <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">W_hat =</span> G <span class="sc">*</span> WPct)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mets_ben</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -1012,25 +768,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="./course-team.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Teaching team</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./course-faq.html" class="pagination-link">
-        <span class="nav-page-text">FAQ</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">© Copyright 2022, Mine Çetinkaya-Rundel used under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/labs/lab1_scratch.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">This design is modified from <a href="https://sta210-s22.github.io/website/">a course</a> at Duke.</div>
   </div>
 </footer>
