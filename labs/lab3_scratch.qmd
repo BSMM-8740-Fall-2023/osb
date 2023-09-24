@@ -4,9 +4,10 @@ title: "cocktails_scratch"
 
 ```{r}
 #| eval: false
+library(magrittr).  # the pipe
 library(tidyverse)  # for data wrangling + visualization
 library(tidymodels) # for modeling
-library(knitr)      # for pretty printing of tables
+library(gt)      # for pretty printing of tables
 ```
 
 ```{r}

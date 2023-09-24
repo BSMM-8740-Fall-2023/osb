@@ -38,7 +38,7 @@ Here are some of the packages we'll use in this lab.
 ```{r}
 #| message: false
 #| echo: true
-
+library(magrittr)     # the pipe
 library(tidyverse)    # for data wrangling + visualization
 library(tidymodels)   # for modeling
 library(gt)           # for making display tables
@@ -135,7 +135,7 @@ Read the historical price data in the file `SPX_HistoricalData_1692322132002.csv
 
 $$
 r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
-$$ You will likely need `dplyr::lead` or `dplyr::lead` functions. Add an additional column for the daily return variance $\text{var}_d = \text{r}_d^2$.
+$$You will likely need `dplyr::lead` or `dplyr::lead` functions. Add an additional column for the daily return variance $\text{var}_d = \text{r}_d^2$.
 
 Finally, group by year and use `dplyr::summary` to compute the annual returns and standard deviations. Add the argument `.groups = "drop"` to the `dplyr::summarize` function to drop the grouping after the summary is created.
 

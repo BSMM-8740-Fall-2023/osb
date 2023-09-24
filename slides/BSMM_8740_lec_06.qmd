@@ -43,7 +43,7 @@ theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 
 -   Today we look at the using the Tidymodels package to build classification and clustering models.
 
-# Classification
+# Classification Methods
 
 ## Classification
 
@@ -537,6 +537,238 @@ default_model_svm <- parsnip::svm_linear() %>%
   parsnip::set_engine("svm_linear") %>% 
   parsnip::set_mode("classification")
 ```
+
+# Clustering Methods
+
+## Clustering
+
+***Cluster analysis*** refers to algorithms that group similar objects into groups called *clusters*. The endpoint of cluster analysis is a set of clusters*,* where each cluster is distinct from each other cluster, and the objects within each cluster are broadly similar to each other.
+
+The purpose of cluster analysis is to help reveal patterns and structures within a dataset that may provide insights into underlying relationships and associations.
+
+## Clustering Applications
+
+1.  **Market Segmentation:** Cluster analysis is often used in marketing to segment customers into groups based on their buying behavior, demographics, or other characteristics.
+2.  **Image Processing:** In image processing, cluster analysis is used to group pixels with similar properties together, allowing for the identification of objects and patterns in images.
+3.  **Biology and Medicine:** Cluster analysis is used in biology and medicine to identify genes associated with specific diseases or to group patients with similar clinical characteristics together.
+4.  **Social Network Analysis:** In social network analysis, cluster analysis is used to group individuals with similar social connections and characteristics together, allowing for the identification of subgroups within a larger network.
+5.  **Anomaly Detection:** Cluster analysis can be used to detect anomalies in data, such as fraudulent financial transactions, unusual patterns in network traffic, or outliers in medical data.
+
+## K-means Clustering
+
+*k-means* is a method of *unsupervised* learning that produces a partitioning of observations into *k* unique clusters.
+
+The goal of *k-means* is to minimize the sum of squared Euclidian distances between observations in a cluster and the **centroid**, or geometric mean, of that cluster.
+
+## K-means Clustering
+
+In *k-means* clustering, observed variables (columns) are considered to be locations on axes in multidimensional space.
+
+The basic k-means algorithm has the following steps.
+
+1.  pick the number of clusters k
+2.  Choose *k* random observations in the dataset. These locations in space are declared to be the **initial centroids**.
+3.  Assign each observation to the nearest **centroid**.
+4.  Compute the new **centroids** of each cluster.
+5.  Repeat steps 3 and 4 until the **centroids** do not change.
+
+## K-means Clustering
+
+There are three common methods for selecting initial centers:
+
+1.  **Random observations:** Chosing random observations to act as our initial centers is the most commonly used approach, implemented in the `Forgy`, `Lloyd`, and `MacQueen` methods.
+2.  **Random partition:** The observations are assigned to a cluster uniformly at random. The centroid of each cluster is computed, and these are used as the initial centers. This approach is implemented in the `Hartigan-Wong` method.
+3.  **k-means++:** Beginning with one random set of the observations, further observations are sampled via probability-weighted sampling until $k$ clusters are formed. The centroids of these clusters are used as the initial centers.
+
+## K-means Clustering
+
+Because the initial conditions are based on random selection in both approaches, the k-means algorithm is not deterministic. That is, running the clustering twice on the same data may not result in the same cluster assignments.
+
+## K-means Example
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+set.seed(8740)
+
+centers <- tibble::tibble(
+  cluster = factor(1:4), 
+  num_points = c(100, 150, 50, 90),  # number points in each cluster
+  x1 = c(5, 0, -3, -4),              # x1 coordinate of cluster center
+  x2 = c(-1, 1, -2, 1.5)               # x2 coordinate of cluster center
+)
+
+labelled_points <- 
+  centers %>%
+  dplyr::mutate(
+    x1 = purrr::map2(num_points, x1, rnorm),
+    x2 = purrr::map2(num_points, x2, rnorm)
+  ) %>% 
+  dplyr::select(-num_points) %>% 
+  tidyr::unnest(cols = c(x1, x2))
+
+ggplot(labelled_points, aes(x1, x2, color = cluster)) +
+  geom_point(alpha = 0.3)
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+# penguins <- modeldata::penguins
+# 
+# labelled_points <- penguins %>%
+#   dplyr::select(bill_length_mm, bill_depth_mm) %>%
+#   tidyr::drop_na() %>%
+#   # shuffle rows
+#   dplyr::slice_sample( n = nrow(penguins) )
+
+# create recipe
+labelled_points_recipe <- labelled_points %>% 
+  recipes::recipe(~ x1 + x2, data = .)
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+labelled_points
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+kmeans_spec <- tidyclust::k_means( num_clusters = 3 )
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+wflow <- workflows::workflow() %>%
+  workflows::add_model(kmeans_spec) %>%
+  workflows::add_recipe(labelled_points_recipe)
+
+set.seed(8740)
+labelled_points_resamples <- labelled_points %>% rsample::bootstraps(apparent = TRUE)
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| eval: false
+wflow %>%
+  parsnip::fit(labelled_points) %>% 
+  broom::tidy()
+```
+
+```{r}
+#| echo: true
+#| eval: false
+wflow %>%
+  parsnip::fit(labelled_points) %>% tidyclust::extract_centroids()
+```
+
+```{r}
+#| eval: false
+# all_workflows <- all_workflows %>% 
+#   workflowsets::workflow_map(
+#     resamples = train_resamples, grid = 5, verbose = TRUE
+#   )
+```
+
+```{r}
+#| eval: false
+# all_workflows <- 
+#   workflowsets::workflow_set(
+#     preproc = list(base = labelled_points_recipe),
+#     models = 
+#       3:20 %>% purrr::map( ~tidyclust::k_means( num_clusters = .x ) )
+#   )
+```
+
+```{r}
+#| echo: true
+#| eval: false
+# all_workflows <- all_workflows %>% 
+#   workflowsets::workflow_map(
+#     verbose = TRUE                # enable logging
+#     , fn = "tune_cluster"
+#     , resamples = labelled_points_resamples # a parameter passed to tune::tune_grid()
+#   )
+```
+
+```{r}
+#| echo: true
+#| eval: false
+# all_workflows %>% 
+#   dplyr::select(wflow_id,result) %>% 
+#   tidyr::unnest(result) %>% 
+#   tidyr::unnest(.metrics) %>% 
+#   dplyr::filter(.metric == 'sse_total') %>% 
+#   dplyr::group_by(wflow_id) %>% 
+#   dplyr::arrange(desc(.estimate) ) %>% 
+#   dplyr::slice(1)
+```
+
+```{r}
+#| eval: false
+all_workflows <- 
+  workflowsets::workflow_set(
+    preproc = list(base = labelled_points_recipe),
+    models = list(tidyclust::k_means( num_clusters = parsnip::tune() ) )
+  )
+```
+
+```{r}
+#| echo: true
+#| eval: false
+all_workflows <- all_workflows %>% 
+  workflowsets::workflow_map(
+    verbose = TRUE                # enable logging
+    , fn = "tune_cluster"
+    , resamples = labelled_points_resamples # a parameter passed to tune::tune_grid()
+  )
+```
+
+```{r}
+#| echo: true
+#| eval: false
+all_workflows %>% workflowsets::rank_results(select_best = TRUE)
+```
+
+```{r}
+#| echo: true
+#| eval: false
+all_workflows %>% 
+  dplyr::select(wflow_id,result) %>% 
+  tidyr::unnest(result) %>% 
+  tidyr::unnest(.metrics) %>% 
+  dplyr::filter(.metric == 'sse_within_total') %>% 
+  dplyr::group_by(wflow_id) %>% 
+  dplyr::arrange(desc(.estimate) ) %>% 
+  dplyr::slice(1)
+```
+
+```{r}
+#| echo: true
+#| eval: false
+tune_results <-
+   all_workflows %>% 
+   workflow_map(
+      fn = "tune_cluster"
+      , resamples = labelled_points_resamples
+      , grid = dials::grid_regular(dials::num_clusters(), levels = 10)
+      , metrics = tidyclust::cluster_metric_set(sse_within_total, sse_total, sse_ratio)
+      , control = tune::control_grid(save_pred = TRUE, extract = identity)
+   )
+```
+
+## Hierarchical Clustering
+
+*Hierarchical Clustering*, sometimes called *Agglomerative Clustering*, is a method of *unsupervised* learning that produces a *dendrogram*, which can be used to partition observations into clusters.
 
 ## Tidymodels
 

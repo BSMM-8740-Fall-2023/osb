@@ -252,7 +252,7 @@ Considering this extended dataset, some more analysis are allowed. First of all,
 
 ```{r}
 #| eval: false
-spx_data <- readr::read_csv("labs/data/SPX_HistoricalData_1692322132002.csv", show_col_types = FALSE)
+spx_data <- readr::read_csv("data/SPX_HistoricalData_1692322132002.csv", show_col_types = FALSE)
 
 spx_summary <- spx_data %>% dplyr::mutate(
   Date = lubridate::mdy(Date)
@@ -273,6 +273,11 @@ nmmnmnmn
 
 ```{r}
 #| eval: false
+spx_data %>% gtExtras::gt_plt_summary("S&P 500 data")
+```
+
+```{r}
+#| eval: false
 #| echo: true
 spx_summary %>% 
   gt::gt('year') %>% 
@@ -289,4 +294,15 @@ spx_summary %>%
   ) %>% 
   gtExtras::gt_theme_espn()
   
+```
+
+## E??
+
+```{r}
+#| eval: false
+the_tate
+```
+
+```{r}
+
 ```

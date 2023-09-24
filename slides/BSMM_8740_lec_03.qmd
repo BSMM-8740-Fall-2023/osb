@@ -4,10 +4,10 @@ subtitle: "BSMM8740-2-R-2023F [WEEK - 3]"
 author: "derived from Max Kuhn (RStudio)"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
-title-slide-attributes:
-  data-background-image: images/my-DRAFT.png
-  data-background-size: contain
-  data-background-opacity: "0.40"
+# title-slide-attributes:
+#   data-background-image: images/my-DRAFT.png
+#   data-background-size: contain
+#   data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -33,8 +33,8 @@ require(magrittr)
 require(ggplot2)
 require(mlbench)
 data("PimaIndiansDiabetes")
+# data(Sacramento)
 library(caret)
-data("Sacramento")
 library(recipes)
 library(lattice)
 theme_set(theme_bw() + theme(legend.position = "top"))
@@ -42,22 +42,26 @@ theme_set(theme_bw() + theme(legend.position = "top"))
 
 ## Recap of last lecture
 
-Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.
+-   Last time we worked with exploratory data analysis and then used the tidyverse verbs to engineer features into our datasets.
 
 ## Today's Outline
 
--   Introduction to data pre-processing and design/model matrix generation with the `Recipes` package.
--   Using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g. train and test as well as cross-validation sets)
+-   We'll review the R model formula approach to model specification,
+-   We'll introducte data pre-processing and design/model matrix generation with the `Recipes` package, and
+-   We'll show how using recipes will facilitate developing feature engineering workflows that can be applied to multiple datasets (e.g. train and test as well as cross-validation[^1] datasets)
+
+[^1]: Cross-validation is a resampling method that uses different portions of the data to test and train a model on different iterations.
 
 ## R Model Formulas
 
-A simple formula in a linear model to predict house prices:
+A simple formula in a linear model to predict house prices (using the dataset Sacremento from the package `modeldata`):
 
 ```{r sac}
 #| echo: true
 #| message: false
 #| results: false
 #| code-line-numbers: "1|2|3|4"
+Sacramento <- modeldata::Sacramento
 mod1 <- stats::lm(
   log(price) ~ type + sqft
   , data = Sacramento
@@ -65,7 +69,7 @@ mod1 <- stats::lm(
   )
 ```
 
-::: {style="font-size: 80%"}
+::: {style="font-size: 75%"}
 The purpose of this code chunk:
 
 1.  subset some of the data points (`subset`)
@@ -74,7 +78,25 @@ The purpose of this code chunk:
 4.  fit a linear regression model
 :::
 
-The first two steps create the *design matrix*.
+The first two steps create the *design-* or *model- matrix*.
+
+## Example
+
+The dataset Sacramento has three categorical variables:
+
+```{r}
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-line-numbers: "1|2|3|4|5"
+skimr::skim(Sacramento) %>% 
+  dplyr::select(c(skim_variable,contains('factor')) ) %>% 
+  tidyr::drop_na() %>% 
+  gt::gt() %>% 
+  gtExtras:::gt_theme_espn() %>% 
+  gt::tab_options( table.font.size = gt::px(20) ) %>% 
+  gt::as_raw_html()
+```
 
 ## Example design matrix
 
@@ -145,20 +167,20 @@ contrast with log(price) \~ type + sqft + sqft\^2
 
 There are significant limitations to what this framework can do and, in some cases, it can be very inefficient.
 
-This is mostly due of being written well before large scale modeling and machine learning were commonplace.
+This is mostly due to being written well before large scale modeling and machine learning were commonplace.
 
 ## Limitations of the Current System
 
 -   Formulas are not very extensible especially with nested or sequential operations (e.g. `y ~ scale(center(knn_impute(x)))`).
 -   When used in modeling functions, you cannot recycle the previous computations.
--   For wide data sets, the formula method can be very inefficient and consume a significant proportion of the total execution time.
+-   For wide data sets with lots of columns, the formula method can be very inefficient and consume a significant proportion of the total execution time.
 
 ## Limitations of the Current System
 
--   Multivariate outcomes are kludgy by requiring `cbind`
--   Formulas have a limited set of roles (next two slides)
+-   Multivariate outcomes are kludgy by requiring `cbind` .
+-   Formulas have a limited set of roles for measurements (just `predictor` and `outcome`). We'll look further at roles in the next two slides.
 
-A more in-depth discussion of these issues can be found in [this blog post](https://rviews.rstudio.com/2017/03/01/the-r-formula-method-the-bad-parts/).
+A more in-depth discussion of these issues can be found in [this blog post](https://rviews.rstudio.com/2017/03/01/the-r-formula-method-the-bad-parts/) (recommended to read).
 
 ## Variable Roles
 
@@ -207,6 +229,8 @@ A general list of possible variable roles could be:
 (\*) Can be handled in formulas but are hard-coded into functions.
 :::
 
+# The Recipes package
+
 ## Recipes
 
 We can approach the design matrix and preprocessing steps by first specifying a **sequence of steps**.
@@ -224,11 +248,18 @@ One issue with the formula method is that it couples the specification for your 
 
 Recipes separate the *planning* from the *doing*.
 
-Website: [`https://topepo.github.io/recipes`](https://topepo.github.io/recipes)
+::: callout-note
+The Recipes website is found at: [`https://topepo.github.io/recipes`](https://topepo.github.io/recipes)
+:::
 
 ## Recipes
 
-A *recipe* can be trained then applied to any data.
+Once created, a *recipe* can be `prep`ped on training data then `bake`d with any other data.
+
+::: {style="font-size: smaller"}
+-   the `prep` step calculates and stores variables related to the steps (e.g. (min,max) for scaling), using the training data
+-   the `bake` step applies the steps to new data
+:::
 
 ```{r rec_basic}
 #| echo: true
@@ -257,111 +288,96 @@ In some cases, the names of the predictors may not be known at the time when you
 -   PCA feature extraction when you keep components that capture $X$% of the variability.
 -   discretized predictors with dynamic bins
 
-## Selecting Variables
-
-`dplyr` selectors can also be used on variables names, such as
-
-```{r step_match}
-#| echo: true
-#| message: false
-#| eval: false
-rec %>% 
-  recipes::step_spatialsign(
-    matches("^PC[1-9]")
-    , all_numeric()
-    , -all_outcomes()
-  )
-```
-
-Variables can be selected by name, role, data type, or any [combination of these](https://recipes.tidymodels.org/articles/Selecting_Variables.html).
-
 ## Example
 
-::: panel-tabset
-## data
+Using the `airquality` dataset in the `datasets` package
 
 ```{r}
 #| echo: true
 #| message: false
-#| code-line-numbers: "1|4-5|8-9"
-data(biomass, package = "modeldata")
+#| code-line-numbers: "1|3-4|5-8"
+dat <- datasets::airquality
 
-# training set
-biomass_tr <- biomass %>% tibble::as_tibble() %>% 
-  dplyr::filter(dataset == 'Training')
-
-# testing set
-biomass_te <- biomass %>% tibble::as_tibble() %>% 
-  dplyr::filter(dataset == 'Testing')
+dat %>% skimr::skim() %>% 
+  dplyr::select(skim_variable:numeric.sd) %>% 
+  gt::gt() %>% 
+  gtExtras:::gt_theme_espn() %>% 
+  gt::tab_options( table.font.size = gt::px(20) ) %>% 
+  gt::as_raw_html()
 ```
 
-## recipe
+## Example: create basic recipe
+
+```{r}
+#| echo: false
+#| message: false
+aq_df <- dat %>% rsample::initial_split(prop = 0.8)
+aq_df_train <- aq_df %>% rsample::training()
+aq_df_test <- aq_df %>% rsample::training()
+```
 
 ```{r}
 #| echo: true
 #| message: false
-#| code-line-numbers: "1-4|6-9|11|13"
-rec <- recipe(
-  HHV ~ carbon + hydrogen + oxygen + nitrogen + sulfur,
-  data = biomass_tr
-)
+#| code-line-numbers: "2|4"
+# create recipe
+aq_recipe <- recipes::recipe(Ozone ~ ., data = aq_df_train)
 
-ss_trans <- rec %>%
-  step_center(carbon, hydrogen) %>%
-  step_scale(carbon, hydrogen) %>%
-  step_spatialsign(carbon, hydrogen)
-# estimate any parameters
-ss_obj <- prep(ss_trans, training = biomass_tr)
-# apply the computations to new_data
-transformed_te <- bake(ss_obj, biomass_te)
+summary(aq_recipe)
 ```
 
-## results
-
-```{r}
-transformed_te
-```
-
-## use case
+## Example: summary of basic recipe
 
 ```{r}
 #| echo: true
-#| warning: false
 #| message: false
-#| code-fold: true
-#| code-line-numbers: "1-4|6-12|14-17|19-26"
-#| layout-ncol: 2
-#| fig-subcap: 
-#|   - "Raw data, with outliers"
-#|   - "Transformed data"
-set.seed(1); n <- 10000
-tmp <- tibble::tibble(
-  x = c(rnorm(n, 0, 0.02), -1, 1, 0.5)
-  , y = c(rnorm(n, 0, 0.2), -1, 1, -2))
+#| code-line-numbers: "2"
+# update roles for variables with missing data
+aq_recipe <- aq_recipe %>% recipes::update_role(Ozone, Solar.R, new_role = 'NA_Variable')
 
-tmp %>% dplyr::slice_head(n=-3) %>%
-  ggplot(aes(x=x, y=y)) + 
-  geom_point() + 
-  geom_point(data=(tmp %>% dplyr::slice_tail(n=3))[1,], color="red", size=5) +
-  geom_point(data=(tmp %>% dplyr::slice_tail(n=2))[1,], color="blue", size=5) +
-  geom_point(data=(tmp %>% dplyr::slice_tail(n=1))[1,], color="green", size=5) +
-  theme_bw(base_size = 32)
-
-rec <- recipe(y ~ x, data = tmp) %>% 
-  step_spatialsign(y, x) %>% 
-  prep(training = tmp) %>% 
-  bake(tmp) 
-
-rec %>% 
-  dplyr::slice_head(n=-3) %>%
-  ggplot(aes(x=x, y=y)) + 
-  geom_point() + 
-  geom_point(data=(rec %>% dplyr::slice_tail(n=3))[1,], color="red", size=5) +
-  geom_point(data=(rec %>% dplyr::slice_tail(n=2))[1,], color="blue", size=5) +
-  geom_point(data=(rec %>% dplyr::slice_tail(n=1))[1,], color="green", size=5) +
-  theme_bw(base_size = 32)
+summary(aq_recipe)
 ```
-:::
+
+## Example: add recipe steps
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1|2-3|4-5|6-7|8-9"
+aq_recipe <- aq_recipe %>% 
+  # impute Ozone missing values using the mean
+  step_impute_mean(has_role('NA_Variable'), -Solar.R) %>%
+  # impute Solar.R missing values using knn
+  step_impute_knn(contains('.R'), neighbors = 3) %>%
+  # center all variable except the NA_Variable
+  step_center(all_numeric(), -has_role('NA_Variable')) %>%
+  # scale all variable except the NA_Variable
+  step_scale(all_numeric(), -has_role('NA_Variable'))
+```
+
+## Example: recipe prep and bake
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1-2|4-5"
+# prep with training data
+aq_prep_train <- aq_recipe %>% prep(aq_df_train)
+
+# bake with testing data
+aq_bake <- aq_prep_train %>% bake(aq_df_test)
+```
+
+## Example: change roles again
+
+```{r}
+#| echo: true
+#| message: false
+#| code-line-numbers: "1-2|4-5"
+aq_recipe <- aq_recipe %>% 
+  recipes::update_role(Ozone, new_role = 'outcome') %>% 
+  recipes::update_role(Solar.R, new_role = 'predictor')
+```
 
 ## Available Steps
 
@@ -369,7 +385,7 @@ rec %>%
 -   **Encodings**: [dummy variables](https://recipes.tidymodels.org/reference/step_dummy.html), ["other"](https://recipes.tidymodels.org/reference/step_other.html) factor level collapsing, [discretization](https://recipes.tidymodels.org/reference/discretize.html)
 -   **Date Features**: Encodings for [day/doy/month](https://recipes.tidymodels.org/reference/step_date.html) etc, [holiday indicators](https://recipes.tidymodels.org/reference/step_holiday.html)
 -   **Filters**: [correlation](https://recipes.tidymodels.org/reference/step_corr.html), [near-zero variables](https://recipes.tidymodels.org/reference/step_nzv.html), [linear dependencies](https://recipes.tidymodels.org/reference/step_lincomb.html)
--   **Imputation**: [*K*-nearest neighbors](https://recipes.tidymodels.org/reference/step_knnimpute.html), [bagged trees](https://recipes.tidymodels.org/reference/step_bagimpute.html), [mean](https://recipes.tidymodels.org/reference/step_meanimpute.html)/[mode](https://recipes.tidymodels.org/reference/step_modeimpute.html) imputation,
+-   **Imputation**: [*K*-nearest neighbors](https://recipes.tidymodels.org/reference/step_knnimpute.html), [bagged trees](https://recipes.tidymodels.org/reference/step_bagimpute.html), [mean](https://recipes.tidymodels.org/reference/step_meanimpute.html)/[mode](https://recipes.tidymodels.org/reference/step_modeimpute.html) imputation
 
 ## Available Steps
 
@@ -409,13 +425,13 @@ Recipes can also be created with different roles manually
 #| message: false
 #| code-line-numbers: "2|3|4|5"
 rec <- 
-  recipes::recipe(x  = Sacramento) %>%
+  recipes::recipe(data = Sacramento) %>%
   recipes::update_role(price, new_role = "outcome") %>%
   recipes::update_role(type, sqft, new_role = "predictor") %>%
   recipes::update_role(zip, new_role = "strata")
 ```
 
-Also, the sequential nature of steps means that there don't have to be R operations and could call other compute engines (e.g. Weka, scikit-learn, Tensorflow, etc. )
+Also, the sequential nature of steps means that steps don't have to be R operations and could call other compute engines (e.g. Weka, scikit-learn, Tensorflow, etc. )
 
 ## Extending
 
@@ -438,6 +454,10 @@ lin_reg.recipe <- function(rec, data, ...) {
 ## An Example
 
 [Kuhn and Johnson](http://appliedpredictivemodeling.com) (2013) analyze a data set where thousands of cells are determined to be well-segmented (WS) or poorly segmented (PS) based on 58 image features. We would like to make predictions of the segmentation quality based on these features.
+
+::: {.callout-note style="font-size: smaller"}
+The dataset `segmentationData` is in the package `caret` and represents the results of automated microscopy to collect images of cultured cells. The images are subjected to segmentation algorithms to identify cellular structures and quantitate their morphology, for hundreds to millions of individual cells.
+:::
 
 ## An Example
 
@@ -463,6 +483,7 @@ seg_test  <- segmentationData %>%
 ```{r image_rec}
 #| echo: true
 #| message: false
+#| code-fold: true
 #| code-line-numbers: "1|3-8|10-17"
 rec <- recipes::recipe(Class  ~ ., data = seg_train)
 
@@ -483,15 +504,19 @@ basic <-
   )  
 ```
 
-## Principal Component Analysis[^1]
+::: {.callout-note style="font-size: smaller"}
+The Yeo-Johnson is similar to the Box-Cox method, however it allows for the transformation of nonpositive data as well. A Box Cox transformation is a transformation of non-normal dependent variables into a normal shape.
+:::
 
-[^1]: A pretty good description of PCA can be found [here](https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd).
+## Principal Component Analysis[^2]
+
+[^2]: A pretty good description of PCA can be found [here](https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd).
 
 ```{r image_pca}
 #| echo: true
 #| message: false
 #| code-fold: true
-#| code-line-numbers: "1|3-8|10-17"
+#| code-line-numbers: "1|2|3-4"
 pca <- basic %>% 
   recipes::step_pca(
     recipes::all_predictors()
@@ -621,12 +646,8 @@ ggplot(dist_to_classes, aes(x = classdist_PS, y = classdist_WS, color = Class)) 
 ## Recap
 
 -   We've used the Recipes package to create a workflow for data pre-processing and feature engineering
--   The verb `recipe` defines the pre-processing and feature engineering steps
--   using the recipe object, the verb `prep` prepares the data on a training set, storing the metaparameters.
--   the verb bake applies the prepped recipe to new data, using the metaparameters.
+-   The `recipe` verbs define the pre-processing and feature engineering steps
+-   using the recipe object, the verb `prep` prepares the data on a training set, storing the meta-parameters.
+-   the verb `bake` applies the prepped recipe to new data, using the meta-parameters.
 
 ------------------------------------------------------------------------
-
-```{r, echo = FALSE}
-sessionInfo()
-```

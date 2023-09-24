@@ -1,24 +1,33 @@
 ---
-title: "Lab 3 - Recipes"
+title: "Lab 3 - The Recipes package"
 editor: visual
 reference-location: margin
 ---
 
 ## Introduction
 
-In today's lab, you'll explore several data sets practice pre-processing and feature engineering with `recipes`.
+In today's lab, you'll explore several data sets and practice pre-processing and feature engineering with `recipes`.
 
 ### Learning goals
 
 By the end of the lab you will...
 
--   Be able to use the `recipes` package to prepare a train and test datasets for analysis/modeling
+-   Be able to use the `recipes` package to prepare and train & test datasets for analysis/modeling.
 
 ## Getting started
 
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-3**. It contains the starter documents you need to complete the lab.
+-   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/ "Course GitHub organization") on GitHub. Click on the repo with the prefix **BSMM-lab-3**. It contains the starter documents you need to complete the lab.
 
--   Clone the repo and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+-   Clone the repo to your own Github account and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+
+::: callout-important
+To access Github from the lab, you will need to make sure you are logged in as follows:
+
+-   username: **.\\daladmin**
+-   password: **Business507!**
+
+Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).
+:::
 
 ## Packages
 
@@ -26,10 +35,10 @@ We will use the following package in today's lab.
 
 ```{r}
 #| message: false
-
+library(magrittr)   # the pipe
 library(tidyverse)  # for data wrangling + visualization
 library(tidymodels) # for modeling
-library(knitr)      # for pretty printing of tables
+library(gt)         # for pretty tables
 ```
 
 ## Data: The Boston Cocktail Recipes
@@ -61,15 +70,15 @@ boston_cocktails <- readr::read_csv('data/boston_cocktails.csv')
 
 ### Exercise 1
 
-First `DataExplorer::introduce` to assess the quality of the data set.
+First use `skimr::skim` and `DataExplorer::introduce` to assess the quality of the data set.
 
-Next prepare a summary. What is the median measure number across cocktail recipes?
+Next prepare a `summary`. What is the median measure number across cocktail recipes?
 
 ### Exercise 2
 
-From the boston_cocktails dataset select the name, category, ingredient, and measure_number columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.
+From the boston_cocktails dataset select the *name*, *category*, *ingredient*, and *measure_number* columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.
 
-Since the names of the new columns may contain space, clean then using the `janitor::clean_names()`. Finally drop any rows with NA values and save this new dataset in a variable.
+Since the names of the new columns may contain spaces, clean then using the `janitor::clean_names()`. Finally drop any rows with NA values and save this new dataset in a variable.
 
 How much gin is in the cocktail called **Leap Frog Highball**?
 
@@ -93,7 +102,7 @@ What ingredient is the most used, on average?
 
 ### Exercise 5
 
-Now look at the result of the PCA, applying the `recipes::tidy` verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting component column so that the values are factors, ordering them in the order they appear using the `forcats::fct_inorder` verb.
+Now look at the result of the PCA, applying the `recipes::tidy` verb as before, but with second argument = 2. Save the result in a variable and filter for the components PC1 to PC5. Mutate the resulting `component` column so that the values are factors, ordering them in the order they appear using the `forcats::fct_inorder` verb.
 
 Plot this data using `ggplot2` and the code below
 
@@ -150,11 +159,8 @@ To submit your assignment:
 
 ## Grading
 
-Total points available: 50 points.
+Total points available: 30 points.
 
-| Component             | Points |
-|-----------------------|--------|
-| Ex 1 - 10             | 45     |
-| Workflow & formatting | 5[^1]  |
-
-[^1]: The "Workflow & formatting" grade is to assess the reproducible workflow. This includes having at least 3 informative commit messages and updating the name and date in the YAML.
+| Component | Points |
+|-----------|--------|
+| Ex 1 - 7  | 30     |

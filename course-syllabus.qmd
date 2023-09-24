@@ -91,7 +91,7 @@ The general objectives of this course are to:
 ## Master of Management Competencies
 
 | **Program Competencies**                                                                                                                                       | **Course Competencies**                                                                                                                                        | Tested by                                           |
-|----------------------------|----------------------------|----------------|
+|---------------------------|---------------------------|------------------|
 | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Apply an evidence-based decision model to evaluate and recommend the best available alternative to resolve an international business problem.                  | Lab Assessments                                     |
 | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Analyze both qualitative and quantitative data and findings, distinguishing and evaluating their relevance to the resolution of international business issues. | Quizzes, Midterm Examination, and Final Examination |
 
@@ -117,7 +117,7 @@ While there is no official textbook for the course, we will be assigning reading
 | *Sep 18, 2023* | EDA and Feature engineering |
 | *Sep 25, 2023* | The Recipes package         |
 | *Oct 02, 2023* | Regression methods          |
-| *Oct 16, 2023* | The Models Package          |
+| *Oct 16, 2023* | The Models package          |
 | *Oct 23, 2023* | Classification methods      |
 | *Oct 30, 2023* | Time Series methods         |
 | *Nov 06, 2023* | Causality: DAGs             |

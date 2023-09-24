@@ -30,6 +30,12 @@ require(ggplot2)
 theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
 
+## Announcements
+
+-   For this week (September 25 - 29), office hours will be on **Friday, from 2:00pm - 4:00pm**.
+
+-   Regular Thursday office hours resume the week of October 02.
+
 ## Today's Outline
 
 1.  Complete last week's lab
