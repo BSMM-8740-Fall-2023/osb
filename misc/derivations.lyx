@@ -886,5 +886,26 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\sum_{i=1}^{n}r_{i} & =\sum_{i=1}^{n}\log\frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}\\
+ & =\log\prod_{i=1}^{n}\frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}\\
+ & =\log\frac{\text{Close/Last}_{t=n}}{\text{Close/Last}_{t=n-1}}\times\cdots\times\frac{\text{Close/Last}_{t=2}}{\text{Close/Last}_{t=1}}\times\frac{\text{Close/Last}_{t=1}}{\text{Close/Last}_{t=0}}\\
+ & =\log\frac{\text{Close/Last}_{t=n}}{\text{Close/Last}_{t=0}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\exp\left(\sum_{i=1}^{n}r_{i}\right)=\frac{\text{Close/Last}_{t=n}}{\text{Close/Last}_{t=0}}$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
