@@ -548,10 +548,10 @@ Important
 <section id="exercise-8" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-8">Exercise 8</h3>
 <p>In the next two exercises we switch to a different dataset, the historical price data for the S&amp;P 500 Index.</p>
-<p>Read the historical price data in the file <code>SPX_HistoricalData_1692322132002.csv</code> using <code>readr:: read_csv</code> and add a column for the year of the transaction and the daily return <span class="math inline">\(r_d\)</span>, using the formula</p>
+<p>Read the historical price data in the file <code>SPX_HistoricalData_1692322132002.csv</code> using <code>readr:: read_csv</code> and add a column for the year of the transaction and the daily return <span class="math inline">\(r_i\)</span>, using the formula</p>
 <p><span class="math display">\[
-r_d\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
-\]</span>You will likely need <code>dplyr::lead</code> or <code>dplyr::lead</code> functions. Add an additional column for the daily return variance <span class="math inline">\(\text{var}_d = \text{r}_d^2\)</span>.</p>
+r_i\equiv \log \frac{\text{Close/Last}_{t=i}}{\text{Close/Last}_{t=i-1}}
+\]</span>You will likely need <code>dplyr::lead</code> or <code>dplyr::lead</code> functions. Add an additional column for the daily return variance <span class="math inline">\(\text{var}_i = \text{r}_i^2\)</span>.</p>
 <p>Finally, group by year and use <code>dplyr::summary</code> to compute the annual returns and standard deviations. Add the argument <code>.groups = "drop"</code> to the <code>dplyr::summarize</code> function to drop the grouping after the summary is created.</p>
 </section>
 <section id="exercise-9" class="level3">
