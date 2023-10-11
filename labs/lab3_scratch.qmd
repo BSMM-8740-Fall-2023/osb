@@ -118,8 +118,8 @@ boston_cocktails %>% summary() %>% glimpse()
 cocktails_df <- boston_cocktails %>%
   dplyr::select(-ingredient_number, -row_id, -measure) %>%
   tidyr::pivot_wider(names_from = ingredient, values_from = measure_number, values_fill = 0) %>%
-  janitor::clean_names() %>%
-  na.omit()
+  janitor::clean_names() %>% 
+  # na.omit()
 cocktails_df
 ```
 

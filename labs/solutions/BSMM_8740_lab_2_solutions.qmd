@@ -376,7 +376,7 @@ $$
 $$ and $\exp\left(\sum_{i=1}^{n}r_{i}\right)=\frac{\text{Close/Last}_{t=n}}{\text{Close/Last}_{t=0}}$, so $\exp\left(\sum_{i=1}^{n}r_{i}\right)-1$ is the annual return. The value of 1 plus the annual return is sometimes called the total return.
 :::
 
-## Exercise 9
+### Exercise 9
 
 Take the table from the last exercise and use the `gt::` package to format it. Add summary rows for the period return and period volatility (note that variances can be added; volatilities cannot- so you will need to do some calculations).
 

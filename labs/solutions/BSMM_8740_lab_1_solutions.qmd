@@ -2,7 +2,7 @@
 title: "Lab 1 - Tidy Data Wrangling"
 subtitle: "SOLUTIONS"
 editor: visual
-format: pdf
+format: html
 self-contained: true
 # reference-location: margin
 # pdf-engine: pdflatex

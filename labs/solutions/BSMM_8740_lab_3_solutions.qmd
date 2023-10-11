@@ -1,40 +1,11 @@
 ---
 title: "Lab 3 - The Recipes package"
+subtitle: "SOLUTIONS"
 editor: visual
+format: html
+self-contained: true
 reference-location: margin
 ---
-
-## Introduction
-
-In today's lab, you'll explore several data sets and practice pre-processing and feature engineering with `recipes`.
-
-### Learning goals
-
-By the end of the lab you will...
-
--   Be able to use the `recipes` package to prepare and train & test datasets for analysis/modeling.
-
-## Getting started
-
--   Log in to your github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-3-\[your github username\]** repository to complete the lab.
-
-    Create an R project using your **BSMM-lab-3-\[your github username\]** repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-lab-3.qmd` file in your repository.
-
--   When you are done, be sure to save your document, stage, commit and push your work.
-
-::: callout-important
-To access Github from the lab, you will need to make sure you are logged in as follows:
-
--   username: **.\\daladmin**
--   password: **Business507!**
-
-Remember to (create a PAT and set your git credentials)
-
--   create your PAT using `usethis::create_github_token()` ,
--   store your PAT with `gitcreds::gitcreds_set()` ,
--   set your username and email with
-    -   `usethis::use_git_config( user.name = ___, user.email = ___)`
-:::
 
 ## Packages
 
@@ -46,6 +17,8 @@ library(magrittr)   # the pipe
 library(tidyverse)  # for data wrangling + visualization
 library(tidymodels) # for modeling
 library(gt)         # for pretty tables
+
+boston_cocktails <- readr::read_csv('../data/boston_cocktails.csv', show_col_types = FALSE)
 ```
 
 ## Data: The Boston Cocktail Recipes
@@ -66,13 +39,6 @@ This dataset contains the following information for each cocktail:
 | measure           | character | Measurement/volume of ingredient |
 | measure_number    | real      | measure as a number              |
 
-Use the code below to load the Boston Cocktail Recipes data set.
-
-```{r}
-#| message: false
-boston_cocktails <- readr::read_csv('data/boston_cocktails.csv')
-```
-
 ## Exercises
 
 ### Exercise 1
@@ -81,13 +47,61 @@ First use `skimr::skim` and `DataExplorer::introduce` to assess the quality of t
 
 Next prepare a `summary`. What is the median measure number across cocktail recipes?
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+#| layout-nrow: 3
+boston_cocktails %>% skimr::skim()
+```
+
+```{r}
+boston_cocktails %>% DataExplorer::introduce()
+```
+
+```{r}
+boston_cocktails %>% summary()
+```
+
+The median measure is 1.0. Note that the dimensions are identified as ounces (oz) in the `measure` column.
+:::
+
 ### Exercise 2
 
 From the boston_cocktails dataset select the *name*, *category*, *ingredient*, and *measure_number* columns and then pivot the table to create a column for each ingredient. Fill any missing values with the number zero.
 
-Since the names of the new columns may contain spaces, clean then using the `janitor::clean_names()`. Finally drop any rows with NA values and save this new dataset in a variable.
+Since the names of the new columns may contain spaces, clean them using the `janitor::clean_names()`. Finally drop any rows with NA values and save this new dataset in a variable.
 
 How much gin is in the cocktail called **Leap Frog Highball**?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+cocktails_df <- boston_cocktails %>%
+  # select the columns (by de-selecting the ones we don't want)
+  dplyr::select(-ingredient_number, -row_id, -measure) %>%
+  # pivot wider (make more columns); use zeros in place of NA values
+  tidyr::pivot_wider(
+    names_from = ingredient
+    , values_from = measure_number
+    , values_fill = 0
+  ) %>%
+  janitor::clean_names() %>%
+  tidyr::drop_na()
+# show the table in the document
+cocktails_df
+```
+
+```{r}
+cocktails_df %>% 
+  # filter for the desired cocktail
+  dplyr::filter(name == 'Leap Frog Highball') %>% 
+  dplyr::pull(gin)
+```
+
+Two ounces (oz) of gin are in the *Leap Frog Highball.*
+:::
 
 ### Exercise 3
 
@@ -95,8 +109,36 @@ Prepare a recipes::recipe object without a target but give name and category as 
 
 How many predictor variables are prepped by the recipe?
 
-::: render-commit-push
-This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+# create a recipe: y~. with an outcome/target, but here we just use ~.
+pca_rec <- recipes::recipe(~., data = cocktails_df) 
+pca_rec %>% summary()
+```
+
+```{r}
+pca_rec <- pca_rec %>% 
+  # change the roles of name and category to 'id' from 'predictor'
+  recipes::update_role(name, category, new_role = "id") %>%
+  # normalize the remaining predictors
+  recipes::step_normalize(all_predictors()) %>%
+  # convert the predictors to principle components
+  recipes::step_pca(all_predictors())
+
+# note there are 40 predictors, but that nothing has been calculated yet
+pca_rec %>% summary()
+```
+
+```{r}
+# calculate prepare the data per the steps in the recipe
+pca_prep <- recipes::prep(pca_rec)
+pca_prep %>% summary
+```
+
+-   There are 40 predictors and 2 id variables before the data is prepped.
+-   Once prepped, the PCA returns just 5 components by default, so we have (post-prep) 5 predictors and 2 id variables.
 :::
 
 ### Exercise 4
@@ -106,6 +148,31 @@ Apply the `recipes::tidy` verb to the prepped recipe in the last exercise. The r
 To see the values calculated for normalization, apply the `recipes::tidy` verb as before, but with second argument = 1.
 
 What ingredient is the most used, on average?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+# tidy returns a tibble with the calculations performed by prep
+pca_prep %>% recipes::tidy()
+```
+
+```{r}
+# if we select the first (normalization) step we get the values calculated:
+# - the mean and standard deviation for each variable
+foo <- pca_prep %>% recipes::tidy(1)
+foo
+```
+
+```{r}
+# we can just filter to find the largest mean value
+foo %>% dplyr::filter(statistic == 'mean') %>% 
+  # since we have just the mean values, filter out the row with the max value 
+  dplyr::filter(value == max(value))
+```
+
+On average, it is gin that is the largest component of the cocktails, with just over 1/4 oz per cocktail.
+:::
 
 ### Exercise 5
 
@@ -125,6 +192,33 @@ theme(axis.text=element_text(size=7),
 ```
 
 How would you describe the drinks represented by PC1?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+# this is showing the weights of each ingredient, for each component.
+# - i.e. PC1 (along with PC2 - PC5) is a weighted sum of ingredients
+bar <- pca_prep %>% recipes::tidy(2)
+bar
+```
+
+```{r}
+# plot to show the ingredient weights
+bar %>%
+  # since there are only 5 components, this is redundant
+  dplyr::filter(component %in% paste0("PC", 1:5)) %>%
+  # change component from a character to a factor, and give them an order
+  dplyr::mutate(component = forcats::fct_inorder(component)) %>%
+  # plot
+  ggplot(aes(value, terms, fill = terms)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~component, nrow = 1) +
+  labs(y = NULL) +
+  theme(axis.text=element_text(size=7),
+        axis.title=element_text(size=14,face="bold"))
+```
+:::
 
 ### Exercise 6
 
