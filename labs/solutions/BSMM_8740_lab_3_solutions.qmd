@@ -17,7 +17,7 @@ library(magrittr)   # the pipe
 library(tidyverse)  # for data wrangling + visualization
 library(tidymodels) # for modeling
 library(gt)         # for pretty tables
-
+theme_set(theme_bw(base_size = 12))
 boston_cocktails <- readr::read_csv('../data/boston_cocktails.csv', show_col_types = FALSE)
 ```
 
@@ -166,8 +166,9 @@ foo
 
 ```{r}
 # we can just filter to find the largest mean value
+# first, isolate the mean values
 foo %>% dplyr::filter(statistic == 'mean') %>% 
-  # since we have just the mean values, filter out the row with the max value 
+  # once we have just the mean values, filter out the row with the max value 
   dplyr::filter(value == max(value))
 ```
 
@@ -197,7 +198,8 @@ How would you describe the drinks represented by PC1?
 ## SOLUTION:
 
 ```{r}
-# this is showing the weights of each ingredient, for each component.
+# the tidy operation shows the weights of each ingredient, 
+# for each principal component.
 # - i.e. PC1 (along with PC2 - PC5) is a weighted sum of ingredients
 bar <- pca_prep %>% recipes::tidy(2)
 bar
@@ -226,6 +228,74 @@ As in the last exercise, use the variable with the tidied PCA data and use only 
 
 What is the characteristic alcoholic beverage of each of the first 4 principle components.
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+bar %>%
+  # filter our the rows for PC1 - PC4
+  dplyr::filter(component %in% paste0("PC", 1:4)) %>%
+  # group by component (i.e. principal component) 
+  dplyr::group_by(component) %>%
+  # for each group, take the top 8 ingredients by absolute value
+  dplyr::slice_max(n = 8, order_by = abs(value)) %>% 
+  # now make a nicely formatted table
+  gt::gt() %>% 
+  # make/apply a table style: this one for values < 0
+  gt::tab_style(
+    style = list(
+      gt::cell_fill(color = "red"),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = value,
+      rows = value < 0
+    )
+  ) %>% 
+  # make/apply another table style: this one for values >= 0
+    gt::tab_style(
+    style = list(
+      gt::cell_fill(color = "green"),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = value,
+      rows = value >= 0
+    )
+  ) %>% 
+  # apply a theme; any theme will do
+  gtExtras::gt_theme_espn()
+```
+
+**Principal components** and similar methods are very useful in reducing the complexity of our models. In this case we reduced the 40 original predictors to just 5 predictors.
+
+The challenge with using these methods is attaching meaning to the revised predictors, and this is important when we need to explain our models. The computer can compute the new predictors but they can't tell us what they represent. For this we need to look at the structure of the new predictors and see if we can attach some meaning to them; often the solution is to give them names that capture the underlying structure.
+
+In this case, looking at the ingredients that make up the PCA predictors
+
+-   PC1 represents a drink with:
+
+    -   little or no sugar, egg, gin or port; some or a lot of syrup and citrus juice
+    -   most often / mainly **tequila**
+
+-   PC2 represents a drink with:
+
+    -   little or no sugar, syrup, or citrus juice
+    -   most often / mainly **vermouth**
+
+-   PC3 represents a drink with:
+
+    -   little or no egg, whiskey or vodka
+
+    -   most often / mainly **gin**
+
+-   PC4 represents a drink with
+
+    -   little or no syrup; some or a lot of juice and dairy product
+
+    -   most often / mainly **grenadine and vodka**
+:::
+
 ### Exercise 7
 
 For this exercise, bake the prepped PCA recipe using `recipes::bake` on the original data and plot each cocktail by its PC1, PC2 component, using
@@ -241,22 +311,30 @@ ggplot(aes(PC1, PC2, label = name)) +
 
 Can you create an interpretation of the PCA analysis?
 
-::: render-commit-push
-This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+# bake the dataset cocktails_df, creating a new dataset
+recipes::bake(pca_prep, new_data = cocktails_df) %>%
+  ggplot(aes(PC1, PC2, label = name)) +
+  geom_point(aes(color = category), alpha = 0.7, size = 2) +
+  geom_text(check_overlap = TRUE, hjust = "inward") + 
+  labs(color = NULL)
+```
+
+In this exercise we are plotting the cocktails against the first two principal components and trying to interpret the results.
+
+The interpretation is more difficult now than it was in the last exercise where we found an interpretation for each principal component. Now we are looking at each cocktail in terms of combinations of PC1 and PC2, both positive and negative.
+
+It appears that the lower left quadrant (negative PC1 and PC2 values) are mainly cocktail classics. If you look at the components of PC1 and PC2 from the last exercise and negate them, you can describe the cocktails in this quadrant: they have egg /egg-white, port, sugar, no vermouth or gin or tequila.
+
+The lower right quadrant is positive PC1 and negative PC2. PC1 contains juice and syrup, while PC2 is negative juice and syrup - so in this quadrant we have cocktails that are like PC1 (juice and syrup) and unlike PC2 (juice and syrup & sugar). The cocktails in this quadrant have citrus juice, are sweet from the use of syrup & sugar and likely have tequila.
+
+The top half of the plot shows cocktails clustered along the PC1=0 axis, so those are mainly tequila cocktails, very much like PC2.
+
+Is there an opportunity to create a new cocktail in the upper left or upper right quadrants?
 :::
-
-## Submission
-
-::: callout-warning
-Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
-
-Remember -- you must turn in a HTML file to the Brightspace page before the submission deadline for full credit.
-:::
-
-To submit your assignment:
-
--   Log in to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and select course [BSMM8740-2-R-2023F\|Data Analytic Meth.](https://brightspace.uwindsor.ca/d2l/home/144921 "BSMM8740-2-R-2023F|Data Analytic Meth. & Algorith")
--   Click on the Lab 3 assignment, and submit it.
 
 ## Grading
 
