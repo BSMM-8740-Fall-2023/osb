@@ -405,16 +405,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab you will…</p>
 <ul>
-<li>Be able to use different regression models to predict a response/target as a function of a set of variates.</li>
+<li>Be able to use different regression models to predict a response/target/outcome as a function of a set of variates.</li>
 </ul>
 </section>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/osb" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>lab-4</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Clone the repo and start a new project in RStudio. See the <a href="labs/bsmm-8740_lab-1.html">Lab 1 instructions</a> for details on cloning a repo, starting a new R project and configuring git.</p></li>
+<li><p>Log in to <strong>your</strong> github account and then go to the <a href="https://github.com/bsmm-8740-fall-2023">GitHub organization</a> for the course and find the <strong>BSMM-lab-4-[your github username]</strong> repository to complete the lab.</p>
+<p>Create an R project using your <strong>BSMM-lab-4-[your github username]</strong> repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the <code>BSMM-lab-4.qmd</code> file in your repository.</p></li>
+<li><p>When you are done, be sure to save your document, stage, commit and push your work.</p></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To access Github from the lab, you will need to make sure you are logged in as follows:</p>
+<ul>
+<li>username: <strong>.\daladmin</strong></li>
+<li>password: <strong>Business507!</strong></li>
+</ul>
+<p>Remember to (create a PAT and set your git credentials)</p>
+<ul>
+<li>create your PAT using <code>usethis::create_github_token()</code> ,</li>
+<li>store your PAT with <code>gitcreds::gitcreds_set()</code> ,</li>
+<li>set your username and email with
+<ul>
+<li><code>usethis::use_git_config( user.name = ___, user.email = ___)</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
@@ -509,7 +536,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
-<p>Using the result from Exercise 1, and the data below, use the predict function (<code>stats::predict.lm</code> or just <code>predict</code>) with the argument interval = “confidence” to prepare a summary table with columns lstat, fit, lwr, upr.</p>
+<p>Using the result from Exercise 1, and the data below, use the predict function (<code>stats::predict.lm</code> or just <code>predict</code>) with the argument interval = “confidence” to prepare a summary table with columns <em>lstat</em>, <em>fit</em>, <em>lwr</em>, <em>upr</em>.</p>
+<p>You can use <code>stats::predict.lm</code> directly with the data below.</p>
+<p>Or consider creating a nested column using <code>dplyr::mutate</code> along with <code>purrr::map</code> with first argument <em>lstat</em> and second argument a function you create. The last operation is to unnest the nested column with <code>tidyr::unnest(__)</code>.</p>
+<p>Or</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">lstat =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -518,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
-<p>Fit <code>medv</code> to all predictors in the dataset and use the <code>performance::check_collinearity</code> function on the resulting model to check if any predictors are redundant.</p>
+<p>Fit the variable <code>medv</code> (median value of owner-occupied homes) to all predictors in the dataset and use the <code>performance::check_collinearity</code> function on the resulting model to check if any predictors are redundant.</p>
 <p>The variance inflation factor is a measure to analyze the magnitude of multicollinearity of model terms. A VIF less than 5 indicates a low correlation of that predictor with other predictors. A value between 5 and 10 indicates a moderate correlation, while VIF values larger than 10 are a sign for high, not tolerable correlation of model predictors.</p>
 <p>Which predictors in this dataset might be redundant for predicting <code>medv</code>?</p>
 <div class="render-commit-push">
@@ -528,26 +558,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-4" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4">Exercise 4</h3>
 <p>In this exercise you will compare and interpret the results of linear regression on two similar datasets.</p>
-<p>The first dataset (<code>dat0</code> - generated below) has <code>demand0</code> and <code>price0</code> variables along with an unobserved variable (<code>unobserved0</code> - so not in our dataset) that doesn’t change the values of <code>demand0</code> and <code>price0</code>. Use lm to build a model to predict <code>demand0</code> from <code>price0</code> . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset <code>dat0</code>?</p>
+<p>The first dataset (<code>dat0</code> - generated below) has <code>demand0</code> and <code>price0</code> variables along with an unobserved variable (<code>unobserved0</code> - so not in our dataset) that doesn’t change the values of <code>demand0</code> and <code>price0</code>. Use <code>lm</code> to build a model to predict <code>demand0</code> from <code>price0</code> . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset <code>dat0</code>?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>plot with something like:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>price0,<span class="at">y=</span>demand0)) <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>         <span class="co"># plot the points</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="co"># add a straight line to the plot</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="fu">geom_abline</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> ?? a table with the coefficient estimates ??</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            , <span class="fu">aes</span>(<span class="at">intercept =</span> <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>, <span class="at">slope =</span> price0)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            , <span class="at">colour =</span> <span class="st">"red"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">price0 =</span> <span class="dv">10</span><span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand0 =</span> <span class="dv">30</span><span class="sc">-</span>(price0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  , <span class="at">unobserved0 =</span> <span class="fl">0.45</span><span class="sc">*</span>price0 <span class="sc">+</span> <span class="fl">0.77</span><span class="sc">*</span>demand0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">price0 =</span> <span class="dv">10</span><span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand0 =</span> <span class="dv">30</span><span class="sc">-</span>(price0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  , <span class="at">unobserved0 =</span> <span class="fl">0.45</span><span class="sc">*</span>price0 <span class="sc">+</span> <span class="fl">0.77</span><span class="sc">*</span>demand0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The second dataset (<code>dat1</code> - generated below) has <code>demand1</code> and <code>price1</code> variables, along with a variable <code>unobserved1</code> that is completely random and is not observed, so it isn’t in our dataset. Use lm to build a model to predict <code>demand1</code> from <code>price1</code> . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset <code>dat1</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">unobserved1 =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">price1 =</span> <span class="dv">10</span> <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand1 =</span> <span class="dv">23</span> <span class="sc">-</span>(<span class="fl">0.5</span><span class="sc">*</span>price1 <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">unobserved1 =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">price1 =</span> <span class="dv">10</span> <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">demand1 =</span> <span class="dv">23</span> <span class="sc">-</span>(<span class="fl">0.5</span><span class="sc">*</span>price1 <span class="sc">+</span> unobserved1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Which linear model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
 </section>
@@ -556,14 +608,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
 <p>Now repeat the modeling of exercise, but assuming that the formerly unobservable variables are now observable, and so can be included in the linear regression models.</p>
 <p>Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
-<p>What can you conclude from these two exercises.</p>
+<p>What can you conclude from these two exercises?</p>
 <section id="exercise-6" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
 <p>For the next several exercises, we’ll work with a new dataset. This dataset is taken from an <a href="https://www.fueleconomy.gov/feg/download.shtml">EPA</a> site on fuel economy, in particular the fuel economy dataset for 2023.</p>
 <p>Use the code below to load the FE Guide data set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">"data/2023 FE Guide for DOE-release dates before 7-28-2023.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">"data/2023 FE Guide for DOE-release dates before 7-28-2023.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>From the raw data in <code>dat</code>, we’ll make a smaller dataset, and we’ll need to do some cleaning to make it useable.</p>
 <p>First select the columns “Comb FE (Guide) - Conventional Fuel”, “Eng Displ”,‘# Cyl’, Transmission , “# Gears”, “Air Aspiration Method Desc”, “Regen Braking Type Desc”, “Batt Energy Capacity (Amp-hrs)” , “Drive Desc”, “Fuel Usage Desc - Conventional Fuel”, “Cyl Deact?”, and “Var Valve Lift?” and then clean the column names using janitor::janitor::clean_names(). Assign the revised data to the variable <code>cars_23</code>.</p>
@@ -585,12 +637,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="exercise-7">Exercise 7</h3>
 <p>For this exercise, set a sample size equal to 75% of the observations of <code>cars_23</code> and split the data as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> cars_23 <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">anti_join</span>(cars_23 <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>), XXtrain, <span class="at">by =</span> <span class="st">'ID'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID); test <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1966</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sample 75% of the rows of the cars_23 dataset to make the training set</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> cars_23 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make an ID column for use as a key</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample the rows</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the training dataset from the original dataset to make the training set</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">anti_join</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    cars_23 <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="co"># add a key column to the original data</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    , train</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    , <span class="at">by =</span> <span class="st">'ID'</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the ID column from training and test datasets</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID); test <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next prep the recipe created in the last exercise using <code>recipes::prep</code> on the training data, and then use the result of the prep step to <code>recipes::bake</code> with the training and test data. Save the baked data in separate variables for use later.</p>
 <p>After these two steps how many columns are in the data? Why does this differ from the last step?</p>
@@ -603,68 +668,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this exercise we will run xgboost::xgboost to evaluate the regression.</p>
 <p>First run fit the model with default meta-parameters for <code>max_depth</code> and <code>eta</code>, using the training data per the code below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>untuned_xgb <span class="ot">&lt;-</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  xgboost<span class="sc">::</span><span class="fu">xgboost</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> <span class="dv">6</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> .<span class="dv">25</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    , <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>untuned_xgb <span class="ot">&lt;-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  xgboost<span class="sc">::</span><span class="fu">xgboost</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> <span class="dv">6</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> .<span class="dv">25</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    , <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next use the fitted model using the test data:</p>
+<p>Next use the fitted model to predict the outcome using the test data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  untuned_xgb</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  , cars_23_test <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>() </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cars_23_test <span class="sc">%&gt;%</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>() </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">postResample</span>(yhat, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create predictions using the test data and the fitted model</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  untuned_xgb</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  , cars_23_test <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.matrix</span>() </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Finally, pull out the <code>comb_fe_guide_conventional_fuel</code> column from the test data, convert it to a matrix and then use <code>caret::postResample</code> with arguments <code>yhat</code> and <code>y</code> to evaluate how well the model fits.</p>
+<p>Finally, pull out the <code>comb_fe_guide_conventional_fuel</code> column from the test data, assign it to the variable <code>y</code> and then use <code>caret::postResample</code> with arguments <code>yhat</code> and <code>y</code> to evaluate how well the model fits.</p>
 <p>What is the RMSE for the un-tuned model?</p>
 </section>
 </section>
 <section id="exercise-9" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
 <p>In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.</p>
-<p>Finally, we select the best parameters by least RMSE.</p>
+<p>Finally, we select the best parameters by least RMSE. This code will take a while to run</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create hyperparameter grid</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hyper_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">max_depth =</span> <span class="fu">seq</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">1</span>), <span class="at">eta =</span> <span class="fu">seq</span>(.<span class="dv">2</span>, .<span class="dv">35</span>, .<span class="dv">01</span>))  </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>xgb_train_rmse <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>xgb_test_rmse  <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hyper_grid)) {</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  m_xgb_untuned <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.cv</span>(</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">nfold =</span> <span class="dv">5</span>,</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> hyper_grid<span class="sc">$</span>max_depth[j],</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> hyper_grid<span class="sc">$</span>eta[j],</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  xgb_train_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>train_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  xgb_test_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>test_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}    </span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>best <span class="ot">&lt;-</span> hyper_grid[<span class="fu">which</span>(xgb_test_rmse <span class="sc">==</span> <span class="fu">min</span>(xgb_test_rmse)),]; best</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create hyperparameter grid</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>hyper_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">max_depth =</span> <span class="fu">seq</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">1</span>), <span class="at">eta =</span> <span class="fu">seq</span>(.<span class="dv">2</span>, .<span class="dv">35</span>, .<span class="dv">01</span>))  </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize our metric variables</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>xgb_train_rmse <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>xgb_test_rmse  <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hyper_grid)) {</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  m_xgb_untuned <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.cv</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(), </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> cars_23_train <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(comb_fe_guide_conventional_fuel) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>(),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">1000</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">3</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">nfold =</span> <span class="dv">5</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_depth =</span> hyper_grid<span class="sc">$</span>max_depth[j],</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> hyper_grid<span class="sc">$</span>eta[j],</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  xgb_train_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>train_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  xgb_test_rmse[j] <span class="ot">&lt;-</span> m_xgb_untuned<span class="sc">$</span>evaluation_log<span class="sc">$</span>test_rmse_mean[m_xgb_untuned<span class="sc">$</span>best_iteration]</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>}    </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>best <span class="ot">&lt;-</span> hyper_grid[<span class="fu">which</span>(xgb_test_rmse <span class="sc">==</span> <span class="fu">min</span>(xgb_test_rmse)),]; best <span class="co"># there may be ties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>re-run the code from the last exercise and evaluate the fit using the best tuning parameters.</p>
+<p>re-run the code from the last exercise and evaluate the fit using one of the best tuning parameters (i.e.&nbsp;when re-running the regression, set <code>max_depth</code> and <code>eta</code> to one pair the best-fit parameters [there may be ties]).</p>
 <p>Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).</p>
 </section>
 <section id="exercise-10" class="level2">

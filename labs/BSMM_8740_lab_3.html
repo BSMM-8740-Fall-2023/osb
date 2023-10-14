@@ -409,8 +409,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repo with the prefix <strong>BSMM-lab-3</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Clone the repo to your own Github account and start a new project in RStudio. See the <a href="labs/bsmm-8740_lab-1.html">Lab 1 instructions</a> for details on cloning a repo, starting a new R project and configuring git.</p></li>
+<li><p>Log in to <strong>your</strong> github account and then go to the <a href="https://github.com/bsmm-8740-fall-2023">GitHub organization</a> for the course and find the <strong>BSMM-lab-3-[your github username]</strong> repository to complete the lab.</p>
+<p>Create an R project using your <strong>BSMM-lab-3-[your github username]</strong> repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the <code>BSMM-lab-3.qmd</code> file in your repository.</p></li>
+<li><p>When you are done, be sure to save your document, stage, commit and push your work.</p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -427,7 +428,15 @@ Important
 <li>username: <strong>.\daladmin</strong></li>
 <li>password: <strong>Business507!</strong></li>
 </ul>
-<p>Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).</p>
+<p>Remember to (create a PAT and set your git credentials)</p>
+<ul>
+<li>create your PAT using <code>usethis::create_github_token()</code> ,</li>
+<li>store your PAT with <code>gitcreds::gitcreds_set()</code> ,</li>
+<li>set your username and email with
+<ul>
+<li><code>usethis::use_git_config( user.name = ___, user.email = ___)</code></li>
+</ul></li>
+</ul>
 </div>
 </div>
 </section>
