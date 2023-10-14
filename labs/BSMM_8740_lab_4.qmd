@@ -12,13 +12,29 @@ In today's lab, you'll explore several data sets and practice building and evalu
 
 By the end of the lab you will...
 
--   Be able to use different regression models to predict a response/target as a function of a set of variates.
+-   Be able to use different regression models to predict a response/target/outcome as a function of a set of variates.
 
 ## Getting started
 
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/osb "Course GitHub organization") on GitHub. Click on the repo with the prefix **lab-4**. It contains the starter documents you need to complete the lab.
+-   Log in to **your** github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-4-\[your github username\]** repository to complete the lab.
 
--   Clone the repo and start a new project in RStudio. See the [Lab 1 instructions](labs/bsmm-8740_lab-1.html) for details on cloning a repo, starting a new R project and configuring git.
+    Create an R project using your **BSMM-lab-4-\[your github username\]** repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-lab-4.qmd` file in your repository.
+
+-   When you are done, be sure to save your document, stage, commit and push your work.
+
+::: callout-important
+To access Github from the lab, you will need to make sure you are logged in as follows:
+
+-   username: **.\\daladmin**
+-   password: **Business507!**
+
+Remember to (create a PAT and set your git credentials)
+
+-   create your PAT using `usethis::create_github_token()` ,
+-   store your PAT with `gitcreds::gitcreds_set()` ,
+-   set your username and email with
+    -   `usethis::use_git_config( user.name = ___, user.email = ___)`
+:::
 
 ## Packages
 
@@ -71,7 +87,13 @@ Next prepare a summary of the model. What is the intercept and the coefficient o
 
 ### Exercise 2
 
-Using the result from Exercise 1, and the data below, use the predict function (`stats::predict.lm` or just `predict`) with the argument interval = "confidence" to prepare a summary table with columns lstat, fit, lwr, upr.
+Using the result from Exercise 1, and the data below, use the predict function (`stats::predict.lm` or just `predict`) with the argument interval = "confidence" to prepare a summary table with columns *lstat*, *fit*, *lwr*, *upr*.
+
+You can use `stats::predict.lm` directly with the data below.
+
+Or consider creating a nested column using `dplyr::mutate` along with `purrr::map` with first argument *lstat* and second argument a function you create. The last operation is to unnest the nested column with `tidyr::unnest(__)`.
+
+Or
 
 ```{r}
 #| echo: true
@@ -85,7 +107,7 @@ Are there any overly influential observations in this dataset?
 
 ### Exercise 3
 
-Fit `medv` to all predictors in the dataset and use the `performance::check_collinearity` function on the resulting model to check if any predictors are redundant.
+Fit the variable `medv` (median value of owner-occupied homes) to all predictors in the dataset and use the `performance::check_collinearity` function on the resulting model to check if any predictors are redundant.
 
 The variance inflation factor is a measure to analyze the magnitude of multicollinearity of model terms. A VIF less than 5 indicates a low correlation of that predictor with other predictors. A value between 5 and 10 indicates a moderate correlation, while VIF values larger than 10 are a sign for high, not tolerable correlation of model predictors.
 
@@ -99,7 +121,23 @@ This is a good place to render, commit, and push changes to your remote lab repo
 
 In this exercise you will compare and interpret the results of linear regression on two similar datasets.
 
-The first dataset (`dat0` - generated below) has `demand0` and `price0` variables along with an unobserved variable (`unobserved0` - so not in our dataset) that doesn't change the values of `demand0` and `price0`. Use lm to build a model to predict `demand0` from `price0` . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset `dat0`?
+The first dataset (`dat0` - generated below) has `demand0` and `price0` variables along with an unobserved variable (`unobserved0` - so not in our dataset) that doesn't change the values of `demand0` and `price0`. Use `lm` to build a model to predict `demand0` from `price0` . Plot the data, including intercept and slope. What is the slope of the demand curve in dataset `dat0`?
+
+::: callout-tip
+plot with something like:
+
+``` R
+dat0 %>% ggplot(aes(x=price0,y=demand0)) + 
+         # plot the points
+         geom_point() +
+         # add a straight line to the plot
+         geom_abline(
+          data = ?? a table with the coefficient estimates ??
+            , aes(intercept = `(Intercept)`, slope = price0)
+            , colour = "red"
+         )
+```
+:::
 
 ```{r}
 #| echo: true
@@ -136,7 +174,7 @@ Now repeat the modeling of exercise, but assuming that the formerly unobservable
 
 Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?
 
-What can you conclude from these two exercises.
+What can you conclude from these two exercises?
 
 ### Exercise 6
 
@@ -178,9 +216,22 @@ For this exercise, set a sample size equal to 75% of the observations of `cars_2
 #| eval: false
 set.seed(1966)
 
-train <- cars_23 %>% tibble::rowid_to_column("ID") %>% dplyr::sample_frac(0.75)
-test  <- dplyr::anti_join(cars_23 %>% tibble::rowid_to_column("ID"), XXtrain, by = 'ID')
+# sample 75% of the rows of the cars_23 dataset to make the training set
+train <- cars_23 %>% 
+  # make an ID column for use as a key
+  tibble::rowid_to_column("ID") %>% 
+  # sample the rows
+  dplyr::sample_frac(0.75)
 
+# remove the training dataset from the original dataset to make the training set
+test  <- 
+  dplyr::anti_join(
+    cars_23 %>% tibble::rowid_to_column("ID") # add a key column to the original data
+    , train
+    , by = 'ID'
+  )
+
+# drop the ID column from training and test datasets
 train %<>% dplyr::select(-ID); test %<>% dplyr::select(-ID)
 ```
 
@@ -201,6 +252,7 @@ First run fit the model with default meta-parameters for `max_depth` and `eta`, 
 ```{r}
 #| echo: true
 #| eval: false
+#| 
 untuned_xgb <-
   xgboost::xgboost(
     data = cars_23_train %>% dplyr::select(-comb_fe_guide_conventional_fuel) %>% as.matrix(), 
@@ -214,25 +266,21 @@ untuned_xgb <-
   )
 ```
 
-Next use the fitted model using the test data:
+Next use the fitted model to predict the outcome using the test data:
 
 ```{r}
 #| echo: true
 #| eval: false
+# create predictions using the test data and the fitted model
 yhat <- predict(
   untuned_xgb
   , cars_23_test %>% 
     dplyr::select(-comb_fe_guide_conventional_fuel) %>% 
     as.matrix() 
 )
-
-y <- cars_23_test %>% 
-    dplyr::select(comb_fe_guide_conventional_fuel) %>% 
-    as.matrix() 
-caret::postResample(yhat, y)
 ```
 
-Finally, pull out the `comb_fe_guide_conventional_fuel` column from the test data, convert it to a matrix and then use `caret::postResample` with arguments `yhat` and `y` to evaluate how well the model fits.
+Finally, pull out the `comb_fe_guide_conventional_fuel` column from the test data, assign it to the variable `y` and then use `caret::postResample` with arguments `yhat` and `y` to evaluate how well the model fits.
 
 What is the RMSE for the un-tuned model?
 
@@ -240,7 +288,7 @@ What is the RMSE for the un-tuned model?
 
 In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.
 
-Finally, we select the best parameters by least RMSE.
+Finally, we select the best parameters by least RMSE. This code will take a while to run
 
 ```{r}
 #| echo: true
@@ -248,6 +296,7 @@ Finally, we select the best parameters by least RMSE.
 #create hyperparameter grid
 hyper_grid <- expand.grid(max_depth = seq(3, 6, 1), eta = seq(.2, .35, .01))  
 
+# initialize our metric variables
 xgb_train_rmse <- NULL
 xgb_test_rmse  <- NULL
 
@@ -269,10 +318,10 @@ for (j in 1:nrow(hyper_grid)) {
   xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
 }    
 
-best <- hyper_grid[which(xgb_test_rmse == min(xgb_test_rmse)),]; best
+best <- hyper_grid[which(xgb_test_rmse == min(xgb_test_rmse)),]; best # there may be ties
 ```
 
-re-run the code from the last exercise and evaluate the fit using the best tuning parameters.
+re-run the code from the last exercise and evaluate the fit using one of the best tuning parameters (i.e. when re-running the regression, set `max_depth` and `eta` to one pair the best-fit parameters \[there may be ties\]).
 
 Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).
 

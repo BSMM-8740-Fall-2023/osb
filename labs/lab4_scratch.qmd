@@ -525,7 +525,6 @@ dat1 %>% ggplot(aes(x=price1,y=demand1)) +
   )
 ```
 
-
 ## Ex5
 
 ```{r}

@@ -16,7 +16,7 @@ By the end of the lab you will...
 
 ## Getting started
 
--   Log in to your github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-3-\[your github username\]** repository to complete the lab.
+-   Log in to **your** github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-3-\[your github username\]** repository to complete the lab.
 
     Create an R project using your **BSMM-lab-3-\[your github username\]** repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-lab-3.qmd` file in your repository.
 

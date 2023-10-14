@@ -9,7 +9,7 @@ reference-location: margin
 
 ## Packages
 
-We will use the following package in today's lab.
+We will use the following package in this lab.
 
 ```{r}
 #| message: false
