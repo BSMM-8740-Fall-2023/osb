@@ -133,109 +133,39 @@
     "text": "Part 1 - Conceptual: The answers to the multiple choice/short answer questions should be submitted under Test & Quizzes in Sakai.\nPart 2 - Applied: The PDF document for the data analysis portion must be uploaded to Gradescope.\n\nYou must submit a PDF to Gradescope that corresponds to the .qmd file on your GitHub repository in order to receive credit for this portion of the exam.\nYou must upload a PDF, not HTML. Any non-PDF submissions will not be graded.\nMark the pages associated with each question. If any answer for a question spans multiple pages, mark all associated pages.\nMake sure to associate the “Workflow & formatting” section with the first page.\nFailure to mark the pages in Gradescope will result in point deductions. Any pages that are not marked will not be graded.\nMake sure that your uploaded PDF document matches your .qmd and the PDF in your GitHub repository exactly. Points will be deducted for documents that are not reproducible."
   },
   {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html",
-    "title": "BSMM-quiz-1",
+    "objectID": "exams/exam-1.html",
+    "href": "exams/exam-1.html",
+    "title": "Exam 1",
     "section": "",
-    "text": "Quiz 1 will be released on Monday, October 2, and is designed to be completed in 30 minutes.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Simple questions designed to evaluate your familiarity with the written course notes.\nPart 2 - Applied: Data analysis in RStudio (like a usual lab, but simpler).\n\nGo to the GitHub organization for the course and find the quiz-1-[your github username] repo to complete the quiz. Add your answers by editing the quiz-1.qmd file in your repository.\n🍀 Good luck! 🍀\n\n\n\nBy taking this exam, you pledge to that:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised.\n\n\n\n\n\nThis is an individual assignment. Everything in your repository is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor. For example, you may not communicate with other students or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\n\n\n\n\n\nYour answers should be typed in the document below\nMake sure you commit any changes to the document and push the changes to the course repository before he end of the quiz.\nOnce the quiz has ended, the contents of your repository will be pulled for grading. This will happen only once, so no changes made after the end of the quiz will be recorded."
+    "text": "Exam 1 will be released on Friday, Feb 4 at 9 am ET and must be completed by Mon, Feb 7 at 11:59 pm.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Multiple choice questions on Sakai test and quizzes. This portion may only be submitted one time. Go here to complete Part 1 of the exam.\nPart 2 - Applied: Data analysis in RStudio and submitted in Gradescope (like a usual lab and homework). Go to the GitHub organization for the course and find the exam-1- repo to complete Part 3 of your exam. Add your answers to the exam-1.qmd file in your repo.\n\nBoth portions must be completed and submitted by Mon, Feb 7 at 11:59 pm. Late work will only be accepted in the case of of extenuating circumstances and notification from your academic dean.\n🍀 Good luck! 🍀\n\n\n\nBy taking this exam, you pledge to uphold the Duke Community Standard:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised.\n\n\n\n\n\nThis is an individual assignment. Everything in your repository and on Sakai is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor and the head TA (Rick Presman). For example, you may not communicate with other students, other TAs, or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\nOnly head TA and professor office hours will be held during the exam period.\nYou may not email the TAs questions about the exam.\nIf you have questions, direct message the professor or the head TA (Rick Presman) on Slack or post on Sakai Conversations for “Instructors in this site” only or attend my office hours (Monday, 10:30 am - 11:30 am).\n\n\n\n\n\nPart 1 - Conceptual: The answers to the multiple choice/short answer questions should be submitted under Test & Quizzes in Sakai.\nPart 2 - Applied: The PDF document for the data analysis portion must be uploaded to Gradescope.\n\nYou must submit a PDF to Gradescope that corresponds to the .qmd file on your GitHub repository in order to receive credit for this portion of the exam.\nYou must upload a PDF, not HTML. Any non-PDF submissions will not be graded.\nMark the pages associated with each question. If any answer for a question spans multiple pages, mark all associated pages.\nMake sure to associate the “Workflow & formatting” section with the first page.\nFailure to mark the pages in Gradescope will result in point deductions. Any pages that are not marked will not be graded.\nMake sure that your uploaded PDF document matches your .qmd and the PDF in your GitHub repository exactly. Points will be deducted for documents that are not reproducible."
   },
   {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#overview",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#overview",
-    "title": "BSMM-quiz-1",
+    "objectID": "exams/exam-1.html#overview",
+    "href": "exams/exam-1.html#overview",
+    "title": "Exam 1",
     "section": "",
-    "text": "Quiz 1 will be released on Monday, October 2, and is designed to be completed in 30 minutes.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Simple questions designed to evaluate your familiarity with the written course notes.\nPart 2 - Applied: Data analysis in RStudio (like a usual lab, but simpler).\n\nGo to the GitHub organization for the course and find the quiz-1-[your github username] repo to complete the quiz. Add your answers by editing the quiz-1.qmd file in your repository.\n🍀 Good luck! 🍀"
+    "text": "Exam 1 will be released on Friday, Feb 4 at 9 am ET and must be completed by Mon, Feb 7 at 11:59 pm.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Multiple choice questions on Sakai test and quizzes. This portion may only be submitted one time. Go here to complete Part 1 of the exam.\nPart 2 - Applied: Data analysis in RStudio and submitted in Gradescope (like a usual lab and homework). Go to the GitHub organization for the course and find the exam-1- repo to complete Part 3 of your exam. Add your answers to the exam-1.qmd file in your repo.\n\nBoth portions must be completed and submitted by Mon, Feb 7 at 11:59 pm. Late work will only be accepted in the case of of extenuating circumstances and notification from your academic dean.\n🍀 Good luck! 🍀"
   },
   {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#academic-integrity",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#academic-integrity",
-    "title": "BSMM-quiz-1",
+    "objectID": "exams/exam-1.html#academic-integrity",
+    "href": "exams/exam-1.html#academic-integrity",
+    "title": "Exam 1",
     "section": "",
-    "text": "By taking this exam, you pledge to that:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised."
+    "text": "By taking this exam, you pledge to uphold the Duke Community Standard:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised."
   },
   {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#rules-notes",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#rules-notes",
-    "title": "BSMM-quiz-1",
+    "objectID": "exams/exam-1.html#rules-notes",
+    "href": "exams/exam-1.html#rules-notes",
+    "title": "Exam 1",
     "section": "",
-    "text": "This is an individual assignment. Everything in your repository is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor. For example, you may not communicate with other students or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam."
+    "text": "This is an individual assignment. Everything in your repository and on Sakai is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor and the head TA (Rick Presman). For example, you may not communicate with other students, other TAs, or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\nOnly head TA and professor office hours will be held during the exam period.\nYou may not email the TAs questions about the exam.\nIf you have questions, direct message the professor or the head TA (Rick Presman) on Slack or post on Sakai Conversations for “Instructors in this site” only or attend my office hours (Monday, 10:30 am - 11:30 am)."
   },
   {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#submission",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#submission",
-    "title": "BSMM-quiz-1",
+    "objectID": "exams/exam-1.html#submission",
+    "href": "exams/exam-1.html#submission",
+    "title": "Exam 1",
     "section": "",
-    "text": "Your answers should be typed in the document below\nMake sure you commit any changes to the document and push the changes to the course repository before he end of the quiz.\nOnce the quiz has ended, the contents of your repository will be pulled for grading. This will happen only once, so no changes made after the end of the quiz will be recorded."
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q-1",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q-1",
-    "title": "BSMM-quiz-1",
-    "section": "Q-1",
-    "text": "Q-1\nIs this data a tidy dataset?\n\n\n\n\n\n\n\n\n\n\n\nRegion\n&lt; $1M\n$1 - $5M\n$5 - $10M\n$10 - $100M\n&gt; $100M\n\n\n\n\nN America\n$50M\n$324M\n$1045M\n$941M\n$1200M\n\n\nEMEA\n$10M\n$121M\n$77M\n$80M\n$0M\n\n\n\nDelete the wrong answer:\n\n\n\n\n\n\nSOLUTION: the answer is No\n\n\n\nThe category names appear as column names, while the values are spread out across the tables. The Tidy version would have just two columns - Region and income_band. The is could be achieved by transforming the table using tidyr::pivot_longer()\n\n\n\nYes\nNo"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q-2",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q-2",
-    "title": "BSMM-quiz-1",
-    "section": "Q-2",
-    "text": "Q-2\nWhich dlpyr:: function possibly reduces the number of rows in a dataset? Delete the wrong answers below.\n\n\n\n\n\n\nSOLUTION: The answer is dplyr::filter\n\n\n\nThe function dplyr::select() selects columns, not rows, and the function dplyr::arrange()orders rows, but does not remove any. By contrast dplyr::filter will select only those rows meeting the filter criteria, and will thus return less than or equal to the number of current rows.\n\n\n\ndplyr::select()\ndplyr::arrange()\ndplyr::filter"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q-3",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q-3",
-    "title": "BSMM-quiz-1",
-    "section": "Q-3",
-    "text": "Q-3\nIf I join the two tables below as follows:\ndplyr::????_join(employees, departments, by = \"department_id\")\nwhich type of join would include employee_name == Moe Syzslak?\n\n\n\n\n\n\nSOLUTION: the answer is left_join\n\n\n\nInner join will return all the rows with common department ID, and since Moe Syzslak has a NA department ID, with no match in the department ID table,his name won’t appear in the result of the join.\nRight join will return the departments table and all the rows of employees with department ID in common with the departments table, and since Moe Syzslak has a NA department ID, with no match in the department ID table,his name won’t appear in the result of the join.\nLeft join will return the employees table and all the rows of departments with department ID in common with the employees table. Since Moe Syzslak appears in the employees table his name will appear in the result of the join. Since\nSee the code below.\n\n\n\ninner\nleft\nright\nall of the above\n\nDelete the incorrect answers.\nemployees - This table contains each employee’s ID, name, and department ID.\n\n\n\nid\nemployee_name\ndepartment_id\n\n\n\n\n1\nHomer Simpson\n4\n\n\n2\nNed Flanders\n1\n\n\n3\nBarney Gumble\n5\n\n\n4\nClancy Wiggum\n3\n\n\n5\nMoe Syzslak\nNA\n\n\n\ndepartments - This table contains each department’s ID and name.\n\n\n\ndepartment_id\ndepartment_name\n\n\n\n\n1\nSales\n\n\n2\nEngineering\n\n\n3\nHuman Resources\n\n\n4\nCustomer Service\n\n\n5\nResearch And Development\n\n\n\n\ntbl1 &lt;- tibble::tribble(\n~id , ~employee_name,   ~department_id\n,1  ,'Homer Simpson'    ,4\n,2  ,'Ned Flanders'   ,1\n,3  ,'Barney Gumble'    ,5\n,4  ,'Clancy Wiggum'    ,3\n,5  ,'Moe Syzslak'    ,NA\n)\n\ntbl2 &lt;- tibble::tribble(\n~department_id  ,~department_name\n,1  ,\"Sales\"\n,2  ,\"Engineering\"\n,3  ,\"Human Resources\"\n,4  ,\"Customer Service\"\n,5  ,\"Research And Development\"\n)\n\nprint('left_join'); dplyr::left_join(tbl1,tbl2,by = \"department_id\")\nprint('right_join'); dplyr::right_join(tbl1,tbl2,by = \"department_id\")\nprint('inner_join'); dplyr::inner_join(tbl1,tbl2,by = \"department_id\")\n\n\n\n[1] \"left_join\"\n\n\n# A tibble: 5 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources         \n5     5 Moe Syzslak              NA &lt;NA&gt;                    \n\n\n\n\n[1] \"right_join\"\n\n\n# A tibble: 5 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources         \n5    NA &lt;NA&gt;                      2 Engineering             \n\n\n\n\n[1] \"inner_join\"\n\n\n# A tibble: 4 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q-4",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q-4",
-    "title": "BSMM-quiz-1",
-    "section": "Q-4",
-    "text": "Q-4\nGive two questions you might ask of the data during exploratory data analysis.\n\n\n\n\n\n\nSOLUTION: there are many!\n\n\n\nYou might ask:\n\nIs there missing data, and if so which columns/rows have missing data\npick any two columns; can I see a relationship between them by plotting\nhow are the numerical variables distributed\nhow are the categorical variables encoded\nhow many rows and columns are in the data set.\n…\n\n\n\n\n___\n___"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q-5",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q-5",
-    "title": "BSMM-quiz-1",
-    "section": "Q-5",
-    "text": "Q-5\nIf you thought your data had seasonality, what type of feature might you add to your predictive variables?\n\n\n\n\n\n\nSOLUTION: I’ll accept 1,2,3,or 4\n\n\n\nLag variables can be used as a predictor that captures seasonality, if you pick the right lag. A sum of basis functions like sin() and cos() are often used to capture seasonality, Finally, date-part features are also frequently used to capture seasonality in the data, e.g. for seasonality of sale volumes, a month-of-year feature can be a good predictor.\n\n\n\nlag variables\nbasis functions\ndate-part variables\nall of the 1,2,3\nnone of 1,2,3\n\nDelete the incorrect answers."
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q6",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q6",
-    "title": "BSMM-quiz-1",
-    "section": "Q6",
-    "text": "Q6\nWrite code to determine the number of species of penguin in the dataset. How many are there?\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  dplyr::distinct(species)\n# == OR ==\npalmerpenguins::penguins$species %&gt;% \n  unique() %&gt;% length()\n\n\n\n# A tibble: 3 × 1\n  species  \n  &lt;fct&gt;    \n1 Adelie   \n2 Gentoo   \n3 Chinstrap\n\n\n\n\n[1] 3"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q7",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q7",
-    "title": "BSMM-quiz-1",
-    "section": "Q7",
-    "text": "Q7\nUsing one of the packages we discussed in class write code to perform EDA on the data\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\npalmerpenguins::penguins %&gt;% DataExplorer::plot_intro()\n\n\n\n\n\n# == OR ==\npalmerpenguins::penguins %&gt;% skimr::skim()\n\n\n\n\nData summary\n\n\nName\nPiped data\n\n\nNumber of rows\n344\n\n\nNumber of columns\n8\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nfactor\n3\n\n\nnumeric\n5\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\n\n\nVariable type: factor\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nordered\nn_unique\ntop_counts\n\n\n\n\nspecies\n0\n1.00\nFALSE\n3\nAde: 152, Gen: 124, Chi: 68\n\n\nisland\n0\n1.00\nFALSE\n3\nBis: 168, Dre: 124, Tor: 52\n\n\nsex\n11\n0.97\nFALSE\n2\nmal: 168, fem: 165\n\n\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nbill_length_mm\n2\n0.99\n43.92\n5.46\n32.1\n39.23\n44.45\n48.5\n59.6\n▃▇▇▆▁\n\n\nbill_depth_mm\n2\n0.99\n17.15\n1.97\n13.1\n15.60\n17.30\n18.7\n21.5\n▅▅▇▇▂\n\n\nflipper_length_mm\n2\n0.99\n200.92\n14.06\n172.0\n190.00\n197.00\n213.0\n231.0\n▂▇▃▅▂\n\n\nbody_mass_g\n2\n0.99\n4201.75\n801.95\n2700.0\n3550.00\n4050.00\n4750.0\n6300.0\n▃▇▆▃▂\n\n\nyear\n0\n1.00\n2008.03\n0.82\n2007.0\n2007.00\n2008.00\n2009.0\n2009.0\n▇▁▇▁▇"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q8",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q8",
-    "title": "BSMM-quiz-1",
-    "section": "Q8",
-    "text": "Q8\nWrite code to add a column that counts the number of penguins in each species-island group.\n\n\n\n\n\n\nSOLUTION: 5 species-island groups\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  dplyr::group_by(species, island) %&gt;% \n  dplyr::mutate(count = dplyr::n(), .after = species) %&gt;% \n  dplyr::distinct(species, count)\n\n# A tibble: 5 × 3\n# Groups:   species, island [5]\n  island    species   count\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;\n1 Torgersen Adelie       52\n2 Biscoe    Adelie       44\n3 Dream     Adelie       56\n4 Biscoe    Gentoo      124\n5 Dream     Chinstrap    68\n\n\n\n# == OR ==\npalmerpenguins::penguins %&gt;% \n  dplyr::count(species, island)  # not discussed in class\n\n# A tibble: 5 × 3\n  species   island        n\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;\n1 Adelie    Biscoe       44\n2 Adelie    Dream        56\n3 Adelie    Torgersen    52\n4 Chinstrap Dream        68\n5 Gentoo    Biscoe      124"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q9",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q9",
-    "title": "BSMM-quiz-1",
-    "section": "Q9",
-    "text": "Q9\nFinish the code below to explore the distribution of flipper lengths among species. Which species has the longest flippers on average?\n\n\n\n\n\n\nSOLUTION: Gentoo has the longest flippers on average\n\n\n\n\nflipper_hist &lt;- ggplot(data = palmerpenguins::penguins, aes(x = flipper_length_mm)) +\n  geom_histogram(aes(fill = species), \n                 alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Flipper length (mm)\",\n       y = \"Frequency\",\n       title = \"Penguin flipper lengths\")\n\nflipper_hist"
-  },
-  {
-    "objectID": "exams/BSMM-8740-quiz-1-solutions.html#q10",
-    "href": "exams/BSMM-8740-quiz-1-solutions.html#q10",
-    "title": "BSMM-quiz-1",
-    "section": "Q10",
-    "text": "Q10\nWrite code to eliminate any rows that contain NA values. How many rows were left?\n\n\n\n\n\n\nSOLUTION: 344 - 333 = 11 rows removed\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  tidyr::drop_na()\n\n# A tibble: 333 × 8\n   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n 1 Adelie  Torgersen           39.1          18.7               181        3750\n 2 Adelie  Torgersen           39.5          17.4               186        3800\n 3 Adelie  Torgersen           40.3          18                 195        3250\n 4 Adelie  Torgersen           36.7          19.3               193        3450\n 5 Adelie  Torgersen           39.3          20.6               190        3650\n 6 Adelie  Torgersen           38.9          17.8               181        3625\n 7 Adelie  Torgersen           39.2          19.6               195        4675\n 8 Adelie  Torgersen           41.1          17.6               182        3200\n 9 Adelie  Torgersen           38.6          21.2               191        3800\n10 Adelie  Torgersen           34.6          21.1               198        4400\n# ℹ 323 more rows\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;"
+    "text": "Part 1 - Conceptual: The answers to the multiple choice/short answer questions should be submitted under Test & Quizzes in Sakai.\nPart 2 - Applied: The PDF document for the data analysis portion must be uploaded to Gradescope.\n\nYou must submit a PDF to Gradescope that corresponds to the .qmd file on your GitHub repository in order to receive credit for this portion of the exam.\nYou must upload a PDF, not HTML. Any non-PDF submissions will not be graded.\nMark the pages associated with each question. If any answer for a question spans multiple pages, mark all associated pages.\nMake sure to associate the “Workflow & formatting” section with the first page.\nFailure to mark the pages in Gradescope will result in point deductions. Any pages that are not marked will not be graded.\nMake sure that your uploaded PDF document matches your .qmd and the PDF in your GitHub repository exactly. Points will be deducted for documents that are not reproducible."
   },
   {
     "objectID": "course-faq.html",
@@ -11487,39 +11417,109 @@
     "text": "Course materials costs\nThere are no costs associated with this course. All readings will come from freely available, open resources (open-source textbooks, journal articles, etc.)."
   },
   {
-    "objectID": "exams/exam-1.html",
-    "href": "exams/exam-1.html",
-    "title": "Exam 1",
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html",
+    "title": "BSMM-quiz-1",
     "section": "",
-    "text": "Exam 1 will be released on Friday, Feb 4 at 9 am ET and must be completed by Mon, Feb 7 at 11:59 pm.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Multiple choice questions on Sakai test and quizzes. This portion may only be submitted one time. Go here to complete Part 1 of the exam.\nPart 2 - Applied: Data analysis in RStudio and submitted in Gradescope (like a usual lab and homework). Go to the GitHub organization for the course and find the exam-1- repo to complete Part 3 of your exam. Add your answers to the exam-1.qmd file in your repo.\n\nBoth portions must be completed and submitted by Mon, Feb 7 at 11:59 pm. Late work will only be accepted in the case of of extenuating circumstances and notification from your academic dean.\n🍀 Good luck! 🍀\n\n\n\nBy taking this exam, you pledge to uphold the Duke Community Standard:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised.\n\n\n\n\n\nThis is an individual assignment. Everything in your repository and on Sakai is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor and the head TA (Rick Presman). For example, you may not communicate with other students, other TAs, or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\nOnly head TA and professor office hours will be held during the exam period.\nYou may not email the TAs questions about the exam.\nIf you have questions, direct message the professor or the head TA (Rick Presman) on Slack or post on Sakai Conversations for “Instructors in this site” only or attend my office hours (Monday, 10:30 am - 11:30 am).\n\n\n\n\n\nPart 1 - Conceptual: The answers to the multiple choice/short answer questions should be submitted under Test & Quizzes in Sakai.\nPart 2 - Applied: The PDF document for the data analysis portion must be uploaded to Gradescope.\n\nYou must submit a PDF to Gradescope that corresponds to the .qmd file on your GitHub repository in order to receive credit for this portion of the exam.\nYou must upload a PDF, not HTML. Any non-PDF submissions will not be graded.\nMark the pages associated with each question. If any answer for a question spans multiple pages, mark all associated pages.\nMake sure to associate the “Workflow & formatting” section with the first page.\nFailure to mark the pages in Gradescope will result in point deductions. Any pages that are not marked will not be graded.\nMake sure that your uploaded PDF document matches your .qmd and the PDF in your GitHub repository exactly. Points will be deducted for documents that are not reproducible."
+    "text": "Quiz 1 will be released on Monday, October 2, and is designed to be completed in 30 minutes.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Simple questions designed to evaluate your familiarity with the written course notes.\nPart 2 - Applied: Data analysis in RStudio (like a usual lab, but simpler).\n\nGo to the GitHub organization for the course and find the quiz-1-[your github username] repo to complete the quiz. Add your answers by editing the quiz-1.qmd file in your repository.\n🍀 Good luck! 🍀\n\n\n\nBy taking this exam, you pledge to that:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised.\n\n\n\n\n\nThis is an individual assignment. Everything in your repository is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor. For example, you may not communicate with other students or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\n\n\n\n\n\nYour answers should be typed in the document below\nMake sure you commit any changes to the document and push the changes to the course repository before he end of the quiz.\nOnce the quiz has ended, the contents of your repository will be pulled for grading. This will happen only once, so no changes made after the end of the quiz will be recorded."
   },
   {
-    "objectID": "exams/exam-1.html#overview",
-    "href": "exams/exam-1.html#overview",
-    "title": "Exam 1",
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#overview",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#overview",
+    "title": "BSMM-quiz-1",
     "section": "",
-    "text": "Exam 1 will be released on Friday, Feb 4 at 9 am ET and must be completed by Mon, Feb 7 at 11:59 pm.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Multiple choice questions on Sakai test and quizzes. This portion may only be submitted one time. Go here to complete Part 1 of the exam.\nPart 2 - Applied: Data analysis in RStudio and submitted in Gradescope (like a usual lab and homework). Go to the GitHub organization for the course and find the exam-1- repo to complete Part 3 of your exam. Add your answers to the exam-1.qmd file in your repo.\n\nBoth portions must be completed and submitted by Mon, Feb 7 at 11:59 pm. Late work will only be accepted in the case of of extenuating circumstances and notification from your academic dean.\n🍀 Good luck! 🍀"
+    "text": "Quiz 1 will be released on Monday, October 2, and is designed to be completed in 30 minutes.\nThe exam will consist of two parts:\n\nPart 1 - Conceptual: Simple questions designed to evaluate your familiarity with the written course notes.\nPart 2 - Applied: Data analysis in RStudio (like a usual lab, but simpler).\n\nGo to the GitHub organization for the course and find the quiz-1-[your github username] repo to complete the quiz. Add your answers by editing the quiz-1.qmd file in your repository.\n🍀 Good luck! 🍀"
   },
   {
-    "objectID": "exams/exam-1.html#academic-integrity",
-    "href": "exams/exam-1.html#academic-integrity",
-    "title": "Exam 1",
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#academic-integrity",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#academic-integrity",
+    "title": "BSMM-quiz-1",
     "section": "",
-    "text": "By taking this exam, you pledge to uphold the Duke Community Standard:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised."
+    "text": "By taking this exam, you pledge to that:\n\nI will not lie, cheat, or steal in my academic endeavors;\nI will conduct myself honorably in all my endeavors; and\nI will act if the Standard is compromised."
   },
   {
-    "objectID": "exams/exam-1.html#rules-notes",
-    "href": "exams/exam-1.html#rules-notes",
-    "title": "Exam 1",
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#rules-notes",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#rules-notes",
+    "title": "BSMM-quiz-1",
     "section": "",
-    "text": "This is an individual assignment. Everything in your repository and on Sakai is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor and the head TA (Rick Presman). For example, you may not communicate with other students, other TAs, or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam.\nOnly head TA and professor office hours will be held during the exam period.\nYou may not email the TAs questions about the exam.\nIf you have questions, direct message the professor or the head TA (Rick Presman) on Slack or post on Sakai Conversations for “Instructors in this site” only or attend my office hours (Monday, 10:30 am - 11:30 am)."
+    "text": "This is an individual assignment. Everything in your repository is for your eyes only.\nYou may not collaborate or communicate anything about this exam to anyone except the instructor. For example, you may not communicate with other students or post/solicit help on the internet, email or via any other method of communication.\nThe exam is open-book, open-note, so you may use any materials from class as you take the exam."
   },
   {
-    "objectID": "exams/exam-1.html#submission",
-    "href": "exams/exam-1.html#submission",
-    "title": "Exam 1",
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#submission",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#submission",
+    "title": "BSMM-quiz-1",
     "section": "",
-    "text": "Part 1 - Conceptual: The answers to the multiple choice/short answer questions should be submitted under Test & Quizzes in Sakai.\nPart 2 - Applied: The PDF document for the data analysis portion must be uploaded to Gradescope.\n\nYou must submit a PDF to Gradescope that corresponds to the .qmd file on your GitHub repository in order to receive credit for this portion of the exam.\nYou must upload a PDF, not HTML. Any non-PDF submissions will not be graded.\nMark the pages associated with each question. If any answer for a question spans multiple pages, mark all associated pages.\nMake sure to associate the “Workflow & formatting” section with the first page.\nFailure to mark the pages in Gradescope will result in point deductions. Any pages that are not marked will not be graded.\nMake sure that your uploaded PDF document matches your .qmd and the PDF in your GitHub repository exactly. Points will be deducted for documents that are not reproducible."
+    "text": "Your answers should be typed in the document below\nMake sure you commit any changes to the document and push the changes to the course repository before he end of the quiz.\nOnce the quiz has ended, the contents of your repository will be pulled for grading. This will happen only once, so no changes made after the end of the quiz will be recorded."
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q-1",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q-1",
+    "title": "BSMM-quiz-1",
+    "section": "Q-1",
+    "text": "Q-1\nIs this data a tidy dataset?\n\n\n\n\n\n\n\n\n\n\n\nRegion\n&lt; $1M\n$1 - $5M\n$5 - $10M\n$10 - $100M\n&gt; $100M\n\n\n\n\nN America\n$50M\n$324M\n$1045M\n$941M\n$1200M\n\n\nEMEA\n$10M\n$121M\n$77M\n$80M\n$0M\n\n\n\nDelete the wrong answer:\n\n\n\n\n\n\nSOLUTION: the answer is No\n\n\n\nThe category names appear as column names, while the values are spread out across the tables. The Tidy version would have just two columns - Region and income_band. The is could be achieved by transforming the table using tidyr::pivot_longer()\n\n\n\nYes\nNo"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q-2",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q-2",
+    "title": "BSMM-quiz-1",
+    "section": "Q-2",
+    "text": "Q-2\nWhich dlpyr:: function possibly reduces the number of rows in a dataset? Delete the wrong answers below.\n\n\n\n\n\n\nSOLUTION: The answer is dplyr::filter\n\n\n\nThe function dplyr::select() selects columns, not rows, and the function dplyr::arrange()orders rows, but does not remove any. By contrast dplyr::filter will select only those rows meeting the filter criteria, and will thus return less than or equal to the number of current rows.\n\n\n\ndplyr::select()\ndplyr::arrange()\ndplyr::filter"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q-3",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q-3",
+    "title": "BSMM-quiz-1",
+    "section": "Q-3",
+    "text": "Q-3\nIf I join the two tables below as follows:\ndplyr::????_join(employees, departments, by = \"department_id\")\nwhich type of join would include employee_name == Moe Syzslak?\n\n\n\n\n\n\nSOLUTION: the answer is left_join\n\n\n\nInner join will return all the rows with common department ID, and since Moe Syzslak has a NA department ID, with no match in the department ID table,his name won’t appear in the result of the join.\nRight join will return the departments table and all the rows of employees with department ID in common with the departments table, and since Moe Syzslak has a NA department ID, with no match in the department ID table,his name won’t appear in the result of the join.\nLeft join will return the employees table and all the rows of departments with department ID in common with the employees table. Since Moe Syzslak appears in the employees table his name will appear in the result of the join. Since\nSee the code below.\n\n\n\ninner\nleft\nright\nall of the above\n\nDelete the incorrect answers.\nemployees - This table contains each employee’s ID, name, and department ID.\n\n\n\nid\nemployee_name\ndepartment_id\n\n\n\n\n1\nHomer Simpson\n4\n\n\n2\nNed Flanders\n1\n\n\n3\nBarney Gumble\n5\n\n\n4\nClancy Wiggum\n3\n\n\n5\nMoe Syzslak\nNA\n\n\n\ndepartments - This table contains each department’s ID and name.\n\n\n\ndepartment_id\ndepartment_name\n\n\n\n\n1\nSales\n\n\n2\nEngineering\n\n\n3\nHuman Resources\n\n\n4\nCustomer Service\n\n\n5\nResearch And Development\n\n\n\n\ntbl1 &lt;- tibble::tribble(\n~id , ~employee_name,   ~department_id\n,1  ,'Homer Simpson'    ,4\n,2  ,'Ned Flanders'   ,1\n,3  ,'Barney Gumble'    ,5\n,4  ,'Clancy Wiggum'    ,3\n,5  ,'Moe Syzslak'    ,NA\n)\n\ntbl2 &lt;- tibble::tribble(\n~department_id  ,~department_name\n,1  ,\"Sales\"\n,2  ,\"Engineering\"\n,3  ,\"Human Resources\"\n,4  ,\"Customer Service\"\n,5  ,\"Research And Development\"\n)\n\nprint('left_join'); dplyr::left_join(tbl1,tbl2,by = \"department_id\")\nprint('right_join'); dplyr::right_join(tbl1,tbl2,by = \"department_id\")\nprint('inner_join'); dplyr::inner_join(tbl1,tbl2,by = \"department_id\")\n\n\n\n[1] \"left_join\"\n\n\n# A tibble: 5 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources         \n5     5 Moe Syzslak              NA &lt;NA&gt;                    \n\n\n\n\n[1] \"right_join\"\n\n\n# A tibble: 5 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources         \n5    NA &lt;NA&gt;                      2 Engineering             \n\n\n\n\n[1] \"inner_join\"\n\n\n# A tibble: 4 × 4\n     id employee_name department_id department_name         \n  &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                   \n1     1 Homer Simpson             4 Customer Service        \n2     2 Ned Flanders              1 Sales                   \n3     3 Barney Gumble             5 Research And Development\n4     4 Clancy Wiggum             3 Human Resources"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q-4",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q-4",
+    "title": "BSMM-quiz-1",
+    "section": "Q-4",
+    "text": "Q-4\nGive two questions you might ask of the data during exploratory data analysis.\n\n\n\n\n\n\nSOLUTION: there are many!\n\n\n\nYou might ask:\n\nIs there missing data, and if so which columns/rows have missing data\npick any two columns; can I see a relationship between them by plotting\nhow are the numerical variables distributed\nhow are the categorical variables encoded\nhow many rows and columns are in the data set.\n…\n\n\n\n\n___\n___"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q-5",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q-5",
+    "title": "BSMM-quiz-1",
+    "section": "Q-5",
+    "text": "Q-5\nIf you thought your data had seasonality, what type of feature might you add to your predictive variables?\n\n\n\n\n\n\nSOLUTION: I’ll accept 1,2,3,or 4\n\n\n\nLag variables can be used as a predictor that captures seasonality, if you pick the right lag. A sum of basis functions like sin() and cos() are often used to capture seasonality, Finally, date-part features are also frequently used to capture seasonality in the data, e.g. for seasonality of sale volumes, a month-of-year feature can be a good predictor.\n\n\n\nlag variables\nbasis functions\ndate-part variables\nall of the 1,2,3\nnone of 1,2,3\n\nDelete the incorrect answers."
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q6",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q6",
+    "title": "BSMM-quiz-1",
+    "section": "Q6",
+    "text": "Q6\nWrite code to determine the number of species of penguin in the dataset. How many are there?\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  dplyr::distinct(species)\n# == OR ==\npalmerpenguins::penguins$species %&gt;% \n  unique() %&gt;% length()\n\n\n\n# A tibble: 3 × 1\n  species  \n  &lt;fct&gt;    \n1 Adelie   \n2 Gentoo   \n3 Chinstrap\n\n\n\n\n[1] 3"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q7",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q7",
+    "title": "BSMM-quiz-1",
+    "section": "Q7",
+    "text": "Q7\nUsing one of the packages we discussed in class write code to perform EDA on the data\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\npalmerpenguins::penguins %&gt;% DataExplorer::plot_intro()\n\n\n\n\n\n# == OR ==\npalmerpenguins::penguins %&gt;% skimr::skim()\n\n\n\n\nData summary\n\n\nName\nPiped data\n\n\nNumber of rows\n344\n\n\nNumber of columns\n8\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nfactor\n3\n\n\nnumeric\n5\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\n\n\nVariable type: factor\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nordered\nn_unique\ntop_counts\n\n\n\n\nspecies\n0\n1.00\nFALSE\n3\nAde: 152, Gen: 124, Chi: 68\n\n\nisland\n0\n1.00\nFALSE\n3\nBis: 168, Dre: 124, Tor: 52\n\n\nsex\n11\n0.97\nFALSE\n2\nmal: 168, fem: 165\n\n\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nbill_length_mm\n2\n0.99\n43.92\n5.46\n32.1\n39.23\n44.45\n48.5\n59.6\n▃▇▇▆▁\n\n\nbill_depth_mm\n2\n0.99\n17.15\n1.97\n13.1\n15.60\n17.30\n18.7\n21.5\n▅▅▇▇▂\n\n\nflipper_length_mm\n2\n0.99\n200.92\n14.06\n172.0\n190.00\n197.00\n213.0\n231.0\n▂▇▃▅▂\n\n\nbody_mass_g\n2\n0.99\n4201.75\n801.95\n2700.0\n3550.00\n4050.00\n4750.0\n6300.0\n▃▇▆▃▂\n\n\nyear\n0\n1.00\n2008.03\n0.82\n2007.0\n2007.00\n2008.00\n2009.0\n2009.0\n▇▁▇▁▇"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q8",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q8",
+    "title": "BSMM-quiz-1",
+    "section": "Q8",
+    "text": "Q8\nWrite code to add a column that counts the number of penguins in each species-island group.\n\n\n\n\n\n\nSOLUTION: 5 species-island groups\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  dplyr::group_by(species, island) %&gt;% \n  dplyr::mutate(count = dplyr::n(), .after = species) %&gt;% \n  dplyr::distinct(species, count)\n\n# A tibble: 5 × 3\n# Groups:   species, island [5]\n  island    species   count\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;\n1 Torgersen Adelie       52\n2 Biscoe    Adelie       44\n3 Dream     Adelie       56\n4 Biscoe    Gentoo      124\n5 Dream     Chinstrap    68\n\n\n\n# == OR ==\npalmerpenguins::penguins %&gt;% \n  dplyr::count(species, island)  # not discussed in class\n\n# A tibble: 5 × 3\n  species   island        n\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;\n1 Adelie    Biscoe       44\n2 Adelie    Dream        56\n3 Adelie    Torgersen    52\n4 Chinstrap Dream        68\n5 Gentoo    Biscoe      124"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q9",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q9",
+    "title": "BSMM-quiz-1",
+    "section": "Q9",
+    "text": "Q9\nFinish the code below to explore the distribution of flipper lengths among species. Which species has the longest flippers on average?\n\n\n\n\n\n\nSOLUTION: Gentoo has the longest flippers on average\n\n\n\n\nflipper_hist &lt;- ggplot(data = palmerpenguins::penguins, aes(x = flipper_length_mm)) +\n  geom_histogram(aes(fill = species), \n                 alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Flipper length (mm)\",\n       y = \"Frequency\",\n       title = \"Penguin flipper lengths\")\n\nflipper_hist"
+  },
+  {
+    "objectID": "exams/BSMM_8740_quiz_1_solutions.html#q10",
+    "href": "exams/BSMM_8740_quiz_1_solutions.html#q10",
+    "title": "BSMM-quiz-1",
+    "section": "Q10",
+    "text": "Q10\nWrite code to eliminate any rows that contain NA values. How many rows were left?\n\n\n\n\n\n\nSOLUTION: 344 - 333 = 11 rows removed\n\n\n\n\npalmerpenguins::penguins %&gt;% \n  tidyr::drop_na()\n\n# A tibble: 333 × 8\n   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n 1 Adelie  Torgersen           39.1          18.7               181        3750\n 2 Adelie  Torgersen           39.5          17.4               186        3800\n 3 Adelie  Torgersen           40.3          18                 195        3250\n 4 Adelie  Torgersen           36.7          19.3               193        3450\n 5 Adelie  Torgersen           39.3          20.6               190        3650\n 6 Adelie  Torgersen           38.9          17.8               181        3625\n 7 Adelie  Torgersen           39.2          19.6               195        4675\n 8 Adelie  Torgersen           41.1          17.6               182        3200\n 9 Adelie  Torgersen           38.6          21.2               191        3800\n10 Adelie  Torgersen           34.6          21.1               198        4400\n# ℹ 323 more rows\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;"
   },
   {
     "objectID": "exams/exam-2.html",
