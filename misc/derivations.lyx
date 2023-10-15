@@ -907,5 +907,92 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $\ldots=\sum_{n=3)^{\infty}\frac{1}{n!}f^{(n)}(\beta_{0})(x-\beta_{0})^{n}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{E}\left[u\right]=0;\;\mathbb{E}\left[\left.u\right|x\right]=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[y-\beta_{0}-\beta_{1}x\right] & =0\\
+\mathbb{E}\left[x\left(y-\beta_{0}-\beta_{1}x\right)\right] & =0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\frac{1}{N}\sum_{i-1}^{N}y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i} & =0\label{eq: asd}\\
+\frac{1}{N}\sum_{i-1}^{N}x_{i}\left(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i}\right) & =0\label{eq:}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+sd
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\bar{y}_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}\bar{x}_{i} & =0\\
+\bar{y}_{i}-\hat{\beta}_{1}\bar{x}_{i} & =\hat{\beta}_{0}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+sd
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\sum_{i-1}^{N}x_{i}\left(y_{i}-\left(\bar{y}-\hat{\beta}_{1}\bar{x}_{i}\right)-\hat{\beta}_{1}x_{i}\right) & =0\\
+\sum_{i-1}^{N}x_{i}\left(y_{i}-\bar{y}\right) & =\hat{\beta}_{1}\sum_{i-1}^{N}x_{i}\left(\bar{x}_{i}-x_{i}\right)\\
+\sum_{i-1}^{N}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right) & =\hat{\beta}_{1}\sum_{i-1}^{N}x_{i}\left(\bar{x}_{i}-x_{i}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\beta}_{1} & =\frac{\sum_{i-1}^{N}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sum_{i-1}^{N}x_{i}\left(\bar{x}_{i}-x_{i}\right)}\\
+ & =\frac{\text{sample covariance}(x_{i}y_{i})}{\text{sample variance}(x_{i})}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

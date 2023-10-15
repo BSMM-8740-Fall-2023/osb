@@ -4,10 +4,10 @@ subtitle: "BSMM8740-2-R-2023F [WEEK - 4]"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
-title-slide-attributes:
-  data-background-image: images/my-DRAFT.png
-  data-background-size: contain
-  data-background-opacity: "0.40"
+# title-slide-attributes:
+#   data-background-image: images/my-DRAFT.png
+#   data-background-size: contain
+#   data-background-opacity: "0.40"
 format: 
   revealjs: 
     theme: slides.scss
@@ -36,28 +36,32 @@ theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 
 ## Recap of last lecture
 
--   Last time we worked with the `recipes` package to develop workflows for pre-processing our data
+-   Last time we worked with the `recipes` package to develop workflows for pre-processing our data.
 
--   Today we look at regression methods we might apply to our data
+-   Today we look at regression methods we might apply to our data.
 
 # Linear regression
 
 ## Linear regression models
 
-In the simple linear regression model, you have $n$ observations of the response variable $Y$ with a linear combination of $m$ predictor variables $\mathbf{x}$ where
+In the simple linear regression model, you have $N$ observations of the response variable $Y$ with a linear combination of $D$ predictor variables $\mathbf{x}$ where
 
 $$
 \pi\left(Y=y|\mathbf{x,\theta}\right)=\mathcal{N}\left(\left.y\right|\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x},\sigma^{2}\right)
 $$
 
-and where $\mathcal{N}\left(\left.y\right|\mu,\sigma^{2}\right)$ is a Normal distribution with mean $\mu$ and variance $\sigma^2$, $\theta=\left(\beta_{0},\mathbf{\mathbf{\mathbf{\beta}}},\sigma^{2}\right)$ are the *parameters* of the model and the vector of parameters $\beta_{1:D}$ are the *weights* or *regression* coefficients.
+## Linear regression models
+
+where $\mathcal{N}\left(\left.y\right|\mu,\sigma^{2}\right)$ is a Normal distribution with mean $\mu$ and variance $\sigma^2$, $\theta=\left(\beta_{0},\mathbf{\mathbf{\mathbf{\beta}}},\sigma^{2}\right)$ are the *parameters* of the model and the vector of parameters $\beta_{1:D}$ are the *weights* or *regression* coefficients.
 
 ## Linear regression models
 
-The mean function $f(\mathbf{x})\equiv\mu$ could be any linear function in $\mathbf{x}=(x_1,\ldots,x_m)$ in which case $\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x}$ is a linear approximation around $\beta_{0}$ per the Taylor series for $f(\mathbf{x})$. When $D=1$ the Taylor series is
+The mean function $f(\mathbf{x})\equiv\mu$ could be any linear function in $\mathbf{x}=(x_1,\ldots,x_m)$ in which case $\beta_{0}+\mathbf{\mathbf{\mathbf{\beta}}}'\mathbf{x}$ is a linear approximation around $\beta_{0}$ per the Taylor series for $f(\mathbf{x})$. When $D=1$ the Taylor series is[^1]
+
+[^1]: where $\ldots = \sum_{n=3}^{\infty}\frac{1}{n!}f^{(n)}(\beta_{0})(x-\beta_{0})^{n}$
 
 $$
-f(x)=f(\beta_{0})+f'(\beta_{0})(x-\beta_{0})+\frac{1}{2}f''(\beta_{0})(x-\beta_{0})^{2}+\ldots
+f(x)=f(\beta_{0})+f^{(1)}(\beta_{0})(x-\beta_{0})+\frac{1}{2}f^{(2)}(\beta_{0})(x-\beta_{0})^{2}+\ldots
 $$
 
 ## Linear regression models
@@ -79,7 +83,7 @@ To fit the 1D linear regression model to $N$ data samples, we minimize the negat
 $$
 \begin{align*}
 \text{NLL}\left(\beta,\sigma^{2}\right) & =\sum_{n=1}^{N}\log\left[\left(\frac{1}{2\pi\sigma^{2}}\right)^{\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^{2}}\left(y_{n}-\beta'x_{n}\right)^{2}\right)\right]\\
- & =-\frac{1}{2\sigma^{2}}\sum_{n=1}^{N}\left(y_{n}-\hat{y}_{n}\right)^{2}-N\log\left(2\pi\sigma^{2}\right)
+ & =-\frac{1}{2\sigma^{2}}\sum_{n=1}^{N}\left(y_{n}-\hat{y}_{n}\right)^{2}-\frac{N}{2}\log\left(2\pi\sigma^{2}\right)
 \end{align*}
 $$
 
@@ -98,7 +102,85 @@ $$
 
 ## Linear regression models
 
-The minimum of the RSS is solved by (assuming $N>D$):
+#### Ordinary least squares (OLS)
+
+We can write our regression assumption as
+
+$$
+y_i=\beta_0+\beta_1 x_i + u_i
+$$
+
+where $u_i$ is a sample from $\mathcal{N}\left(0,\sigma^{2}\right)$ which in turn implies $\mathbb{E}\left[u\right]=0;\;\mathbb{E}\left[\left.u\right|x\right]=0$
+
+## Linear regression models
+
+#### Ordinary least squares (OLS)
+
+It follows that
+
+$$
+\begin{align*}
+\mathbb{E}\left[y-\beta_{0}-\beta_{1}x\right] & =0\\
+\mathbb{E}\left[x\left(y-\beta_{0}-\beta_{1}x\right)\right] & =0
+\end{align*}
+$$
+
+## Linear regression models
+
+#### Ordinary least squares (OLS)
+
+Writing the same thing for our samples (where $\hat{\beta}_{0}, \hat{\beta}_{1}$ are our estimates)
+
+$$
+\begin{align*}
+\frac{1}{N}\sum_{i-1}^{N}y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i} & =0\\
+\frac{1}{N}\sum_{i-1}^{N}x_{i}\left(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i}\right) & =0
+\end{align*}
+$$
+
+## Linear regression models
+
+#### Ordinary least squares (OLS)
+
+From the first equation
+
+$$
+\begin{align*}
+\bar{y}-\hat{\beta}_{0}-\hat{\beta}_{1}\bar{x}_{i} & =0\\
+\bar{y}-\hat{\beta}_{1}\bar{x} & =\hat{\beta}_{0}
+\end{align*}
+$$
+
+## Linear regression models
+
+#### Ordinary least squares (OLS)
+
+Substituting the expression for $\hat{\beta}_{0}$ in the independence equation
+
+$$
+\begin{align*}
+\frac{1}{N}\sum_{i-1}^{N}x_{i}\left(y_{i}-\left(\bar{y}-\hat{\beta}_{1}\bar{x}\right)-\hat{\beta}_{1}x_{i}\right) & =0\\
+\frac{1}{N}\sum_{i-1}^{N}x_{i}\left(y_{i}-\bar{y}\right) & =\hat{\beta}_{1}\frac{1}{N}\sum_{i-1}^{N}x_{i}\left(\bar{x}-x_{i}\right)\\
+\frac{1}{N}\sum_{i-1}^{N}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right) & =\hat{\beta}_{1}\frac{1}{N}\sum_{i-1}^{N}\left(\bar{x}-x_{i}\right)^2
+\end{align*}
+$$
+
+## Linear regression models
+
+#### Ordinary least squares (OLS)
+
+So as long as $\sum_{i-1}^{N}\left(\bar{x}-x_{i}\right)^2\ne 0$
+
+$$
+\begin{align*}
+\hat{\beta}_{1} & =\frac{\sum_{i-1}^{N}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sum_{i-1}^{N}\left(\bar{x}_{i}-x_{i}\right)^2}\\
+ & =\frac{\text{sample covariance}(x_{i}y_{i})}{\text{sample variance}(x_{i})}
+\end{align*}
+$$
+
+## Linear regression models
+
+Similarly, in the vector equation, the minimum of the RSS is solved by (assuming $N>D$):
 
 $$
 \hat{\mathbf{\beta}}_{OLS}=\left(X'X\right)^{-1}\left(X'Y\right) = \frac{\text{cov}(X,Y)}{\text{var}(X)}
@@ -128,7 +210,7 @@ Since $R$ is upper triangular, the last equation can be solved by back-substitut
 #| echo: true
 #| message: false
 #| code-line-numbers: "1|2"
-A <- matrix(c(1,2,3, 2,4,6, 3, 3, 3), nrow=3)
+A <- matrix(c(1,2,5, 2,4,6, 3, 3, 3), nrow=3)
 QR <- qr(A)
 ```
 
@@ -163,13 +245,18 @@ Q %*% R
 ```{r}
 #| echo: true
 #| message: false
-#| code-line-numbers: "1|3|5"
+#| layout-nrow: 3
+#| code-fold: true
+#| code-line-numbers: "1|2-3|5-6|8-9"
 # A linear system of equations y = Ax
-A <- matrix(c(3, 2, -1, 2, -2, .5, -1, 4, -1), nrow=3); A; cat("\n")
+cat("matrix A\n")
+A <- matrix(c(3, 2, -1, 2, -2, .5, -1, 4, -1), nrow=3); A
 
-x <- c(1, -2, -2); x; cat("\n")
+cat("vector x\n")
+x <- c(1, -2, -2); x
 
-y <- A %*% x ; y; cat("\n")
+cat("vector y\n")
+y <- A %*% x ; y
 ```
 
 ## Linear regression algorithms
@@ -177,7 +264,7 @@ y <- A %*% x ; y; cat("\n")
 ```{r}
 #| echo: true
 #| message: false
-#| code-line-numbers: "1-3|6|9"
+#| code-line-numbers: "1-4|6-7|9-10"
 # Compute the QR decomposition of A
 QR <- qr(A)
 Q <- qr.Q(QR)
@@ -213,7 +300,9 @@ This is known as the empirical risk minimization (ERM) - the expected loss taken
 
 ## Collinearity
 
-One of the important assumptions of the classical linear regression models is that there is no exact collinearity among the regressors. While high correlation between regressors is a necessary indicator of the problem, a direct linear relationship beween regressors is sufficient.
+One of the important assumptions of the classical linear regression models is that there is no exact collinearity among the regressors. While high correlation between regressors is a necessary indicator of the collinearity problem, a direct linear relationship beween regressors is sufficient.
+
+## Collinearity
 
 Data collection methods, constraints on the fitted regression model, model specification error, an overdefined model, may be some potential sources of multicollinearity. In other cases it is an artifact caused by creating new predictors from other predictors.
 
@@ -264,12 +353,12 @@ x <- mtcars %>% dplyr::select(mpg, wt, drat, qsec) %>% data.matrix()
 ```{r}
 #| echo: true
 #| message: false
-#| code-line-numbers: "2|5"
-#fit ridge regression model
+#| code-line-numbers: "1-2|4-5"
+# fit ridge regression model
 model <- glmnet::glmnet(x, y, alpha = 0)
 
-#view summary of model
-summary(model)
+# get coefficients when lambda = 7.6
+coef(model, s = 7.6)
 ```
 
 ## Ridge Regression Example
@@ -279,14 +368,14 @@ summary(model)
 #| message: false
 #| code-fold: true
 #| code-summary: "glmnet example"
-#| code-line-numbers: "2|5|8|9|10|11|12"
-#perform k-fold cross-validation to find optimal lambda value
+#| code-line-numbers: "1-2|4-5|7-8|9|10|11|12"
+# perform k-fold cross-validation to find optimal lambda value
 cv_model <- glmnet::cv.glmnet(x, y, alpha = 0)
 
-#find optimal lambda value that minimizes test MSE
+# find optimal lambda value that minimizes test MSE
 best_lambda <- cv_model$lambda.min
 
-#produce plot of test MSE by lambda value
+# produce plot of test MSE by lambda value
 cv_model %>% broom::tidy() %>% 
 ggplot(aes(x=lambda, y = estimate)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "#00ABFD", alpha=0.5) +
@@ -326,33 +415,6 @@ model$beta %>%
   )
 ```
 
-## Informal Quiz
-
-Can we re-write the glm coefficient plot code with only tidyverse verbs? ::: panel-tabset \## as written
-
-```{r}
-#| echo: true
-#| warning: false
-#| message: false
-#| code-fold: true
-dat <- model$beta %>% 
-  as.matrix() %>% 
-  t() %>% 
-  tibble::as_tibble() %>% 
-  tibble::add_column(lambda = model$lambda, .before = 1) 
-```
-
-```{r}
-#| echo: false
-dat %>% dplyr::slice_head(n=8)
-```
-
-## tidy version
-
-?
-
-:::
-
 ## Lasso Regression
 
 Lasso regression is another example of a penalized regression model; in this case both the magnitude of the weights and the number of parameters are penalized by using the $\ell_1$ norm of the weights to the loss function of the lasso regression. In particular, the lasso regression weights are:
@@ -376,17 +438,18 @@ $$
 #| message: false
 #| code-fold: true
 #| code-summary: "lasso model"
-#define response variable
+#| code-line-numbers: "1-2|4-5|7-8|10-11"
+# define response variable
 y <- mtcars %>% dplyr::pull(hp)
 
-#define matrix of predictor variables
+# define matrix of predictor variables
 x <- mtcars %>% dplyr::select(mpg, wt, drat, qsec) %>% data.matrix()
 
-#fit ridge regression model
+# fit ridge regression model
 model <- glmnet::glmnet(x, y, alpha = 1)
 
-#view summary of model
-summary(model)
+# get coefficients when lambda = 3.53
+coef(model, s = 3.53)
 ```
 
 ## Lasso Regression Example
@@ -580,7 +643,11 @@ $$
 \mathbb{P}\left[\left.Y=y\right|X,\lambda\right]=\frac{\lambda^{y}}{y!}e^{-\lambda}=e^{y\log\lambda-\lambda-\log y!}
 $$
 
-So here the link function is $\log$ and $\log\mathbb{E}\left[\left.Y\right|X\right] = \beta X$
+Where $\lambda$ is both the mean and the variance. In the glm the link function is $\log$ and
+
+$$
+\log\mathbb{E}\left[\left.Y\right|X\right] = \beta X=\log\lambda
+$$
 
 # Tree regression
 
@@ -785,6 +852,8 @@ Architecture of a Neural Net (NN)
 #| echo: true
 #| warning: false
 #| message: false
+#| layout-nrow: 3
+#| code-line-numbers: "1|3-4|6-11|13-17|19-25|27-28|30-39"
 #| code-fold: true
 set.seed(500)
   
@@ -824,16 +893,19 @@ test.r <-
   data_test$medv * 
   (max(data$medv) - min(data$medv)) + 
   min(data$medv)
-MSE.nn <- sum((test.r - pr.nn_)^2) / nrow(data_test)
-  
-# Plot the neural network
-plot(nn)
+MSE.nn <- sum((test.r - pr.nn_)^2) / nrow(data_test)  
+```
 
-# Plot regression line
-plot(data_test$medv, pr.nn$net.result, col = "red", 
-     main = 'Real vs Predicted')
-abline(0, 1, lwd = 2)
+## Regression with neural nets
 
+::: panel-tabset
+## NN
+
+![](images/nn_plot.png){fig-align="center"}
+
+## Regression
+
+```{r}
 tibble::tibble(test = data_test$medv, predicted = pr.nn$net.result) %>% 
   ggplot(aes(x=test, y=predicted)) +
   geom_point(color='red') +
@@ -845,9 +917,8 @@ tibble::tibble(test = data_test$medv, predicted = pr.nn$net.result) %>%
          "Mean squared prediction error is {scales::number(MSE.nn, accuracy=0.01)}"
        )
   )
-  
-
 ```
+:::
 
 ## Recap
 
@@ -855,29 +926,4 @@ tibble::tibble(test = data_test$medv, predicted = pr.nn$net.result) %>%
 
 -   Next week we will look at the `tidymodels` package which will give a way to develop a workflow for fitting and comparing our models
 
-## rpart trees
-
-```{r}
-tree_fit <- rpart::rpart(medv ~ ., data = dat, method  = "anova")
-```
-
-```{r}
-new_data <- tibble::tribble(
- ~crim, ~zn, ~indus, ~chas, ~nox, ~rm, ~age, ~dis, ~rad, ~tax, ~ptratio, ~black, ~lstat,
- 0.03237, 0, 2.18, 0, 0.458, 6.998, 45.8, 6.0622, 3, 222, 18.7, 394.63, 2.94
-)
-predictions <- predict(tree_fit, new_data)
-print(predictions)
-```
-
-```{r}
-modeldata::ames
-```
-
-```{r}
-?MASS::Boston
-```
-
-```{r}
- MASS::Boston
-```
+## 
