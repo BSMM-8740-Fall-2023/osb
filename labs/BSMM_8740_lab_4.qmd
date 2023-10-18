@@ -126,7 +126,7 @@ The first dataset (`dat0` - generated below) has `demand0` and `price0` variable
 ::: callout-tip
 plot with something like:
 
-``` R
+``` r
 dat0 %>% ggplot(aes(x=price0,y=demand0)) + 
          # plot the points
          geom_point() +
@@ -336,17 +336,12 @@ Per this model, what is the most important feature for predicting fuel efficienc
 ::: callout-warning
 Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
 
-Remember -- you must turn in a PDF file to the Brightspace page before the submission deadline for full credit.
+Remember -- you do **not** have to turn in an \*.html file. I will be pulling your work directly from your repository on the course website.
 :::
-
-To submit your assignment:
-
--   Log in to [Brightspace](https://brightspace.uwindsor.ca/d2l/home/144921) and select course [BSMM8740-2-R-2023F\|Data Analytic Meth.](https://brightspace.uwindsor.ca/d2l/home/144921 "BSMM8740-2-R-2023F|Data Analytic Meth. & Algorith")
--   Click on the Lab-4 assignment, and submit it.
 
 ## Grading
 
-Total points available: 50 points.
+Total points available: 30 points.
 
 | Component | Points |
 |-----------|--------|

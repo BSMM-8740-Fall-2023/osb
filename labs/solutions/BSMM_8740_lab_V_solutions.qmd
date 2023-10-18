@@ -14,21 +14,6 @@ By the end of the lab you will...
 
 -   Be able to build workflows to evaluate different models and featuresets.
 
-## Getting started
-
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/ "Course GitHub organization") on GitHub. Click on the repository named **BSMM-lab-5**. It contains the starter documents you need to complete the lab.
-
--   Create a copy of the repository in your own github account and start a new project in RStudio from the repository copy you just created. See the [Lab 1 instructions](labs/BSMM_8740_lab_1.html) for details on creating a repository, starting a new R project and configuring git.
-
-::: callout-important
-To access Github from the lab, you will need to make sure you are logged in as follows:
-
--   username: **.\\daladmin**
--   password: **Business507!**
-
-Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).
-:::
-
 ## Packages
 
 ```{r}
@@ -48,7 +33,7 @@ Today we will be using the Ames Housing Data.
 This is a data set from [De Cock](http://jse.amstat.org/v19n3/decock.pdf) (2011) has 82 fields were recorded for 2,930 properties in Ames Iowa in the US. The version in the `modeldata` package is copied from the `AmesHousing` package but does not include a few quality columns that appear to be outcomes rather than predictors.
 
 ```{r}
-#| eval: false
+#| eval: true
 dat <- modeldata::ames
 ```
 
@@ -63,22 +48,37 @@ cat(readr::read_file("http://jse.amstat.org/v19n3/decock/DataDocumentation.txt")
 
 Write and execute the code to perform summary EDA on the Ames Housing data using the package `skimr`.
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+#| layout-nrow: 3
+dat %>% skimr::skim()
+```
+:::
+
 ## Exercise 2: Train / Test Splits
 
 Write and execute code to create training and test datasets. Have the training dataset represent 75% of the total data.
 
-```{r}
-#| eval: false
-set.seed(8740)
-data_split <- rsample::__
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
 
-ames_train <- rsample::__
-ames_test  <- rsample::__
+```{r}
+set.seed(8740)
+# split the data, with 75% in the training set
+data_split <- rsample::initial_split(dat, strata = "Sale_Price", prop = 0.75)
+
+# extract the training set
+ames_train <- rsample::training(data_split)
+# extract the text set
+ames_test  <- rsample::testing(data_split)
 ```
+:::
 
 ## Exercise 3: Data Preprocessing
 
-create a recipe based on the formula **Sale_Price \~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold** with the following steps :
+create a recipe based on the formula **Sale_Price \~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold** with the following steps:
 
 -   transform the outcome variable `Sale_Price` to `log(Sale_Price)` (natural log)
 -   center and scale all numeric predictors
@@ -91,15 +91,30 @@ Make sure you consider the order of the operations (hint: `step_dummy` turns fac
 
 You can use broom::tidy() on the recipe to examine whether the prepped data is correct.
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
 ```{r}
-#| eval: false
 norm_recipe <- 
-  recipes::recipe( ___ ) %>% 
-      .
-      .
-      .
-  recipes::prep( ___ )
+  # create a recipe with the specified formula and data
+  recipes::recipe(
+    Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold, 
+    data = ames_train
+  ) %>%
+  # center all predictors
+  recipes::step_center(all_numeric_predictors()) %>%
+  # scals all predictors
+  recipes::step_scale(all_numeric_predictors()) %>%
+  # transformm the outcome using log-base-e (natural log)
+  recipes::step_log(Sale_Price, base = exp(1)) %>% 
+  # pool categories with few members into a new category - 'other'
+  recipes::step_other(Neighborhood) %>% 
+  # create dummy variables for all categories
+  recipes::step_dummy(all_nominal_predictors()) %>%
+  # estimate the means and standard deviations by prepping the data
+  recipes::prep(training = ames_train, retain = TRUE)
 ```
+:::
 
 ## Exercise 4 Modeling
 
@@ -109,55 +124,85 @@ Create three regression models
 -   a regression model using `glmnet`; set the model parameters `penalty` and `mixture` for tuning
 -   a tree model using the `ranger` engine; set the model parameters `min_n` and `trees` for tuning
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
 ```{r}
-#| eval: false
-lm_mod_base <- 
-  parsnip::linear_reg( ___ ) %>% ___
+# linear model: engine lm, mode regression
+lm_mod_base <- parsnip::linear_reg() %>%
+  parsnip::set_engine("lm")  %>% 
+  parsnip::set_mode("regression")
 
+# tuned linear model: engine glmnet, mode regression; tuning penalty and mixture
 lm_mod_glmnet <- 
-  parsnip::linear_reg( ___ ) %>% ___
+  parsnip::linear_reg( penalty = parsnip::tune(), mixture = parsnip::tune() ) %>% 
+  parsnip::set_engine("glmnet") %>% 
+  parsnip::set_mode("regression")
 
+# random forest model: engine lm, mode regression
 lm_mod_rforest <- 
-  parsnip::rand_forest( ___ ) %>% ___
+  parsnip::rand_forest( min_n = parsnip::tune(), trees = parsnip::tune() ) %>% 
+  parsnip::set_engine("ranger") %>% 
+  parsnip::set_mode("regression")
 ```
+:::
 
 ## Exercise 5
 
 Use `parsnip::translate()` on each model to see the code object that is specific to a particular engine
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
+```{r}
+#| layout-nrow: 3
+lm_mod_base %>% parsnip::translate()
+
+lm_mod_glmnet %>% parsnip::translate()
+
+lm_mod_rforest %>% parsnip::translate()
+```
+:::
+
 ## Exercise 6 Bootstrap
 
 Create bootstrap samples for the training dataset. You can leave the parameters set to their defaults
 
-```{r}
-#| eval: false
-set.seed(8740)
-train_resamples <- ___ %>% rsample::bootstraps()
-```
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
 
-::: render-commit-push
-This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you've made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.
+```{r}
+set.seed(8740)
+train_resamples <- rsample::bootstraps(ames_train)
+```
 :::
 
 ## Exercise 7
 
 Create workflows with `workflowsets::workflow_set` using your recipe and models. Show the workflow datastructure, noting the number of columns, and then use `tidy::` to unnest the *info* column and show its contents.
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
 ```{r}
-#| eval: false
+#| layout-nrow: 3
 all_workflows <- 
   workflowsets::workflow_set(
     preproc = list(base = norm_recipe),
     models = list(base = lm_mod_base, glmnet = lm_mod_glmnet, forest = lm_mod_rforest)
   )
+
+all_workflows # four columns
+
+all_workflows %>% tidyr::unnest(info)
 ```
+:::
 
 ## Exercise 8
 
 Use workflowsets::workflow_map to map the default function (`tune::tune_grid()` - look at the help) across the workflows in the workflowset you just created and update the variable `all_workflows` with the result.
 
 ```{r}
-#| eval: false
 all_workflows <- all_workflows %>% 
   workflowsets::workflow_map(
     verbose = TRUE                # enable logging
@@ -172,74 +217,84 @@ The updated variable `all_workflows` contains a nested column named **result**, 
 2.  filter out the rows for the metric rsq
 3.  group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
 ```{r}
-#| eval: false
 all_workflows %>% 
-  dplyr::select(wflow_id,__) %>% 
-  tidyr::unnest(__) %>% 
-  dplyr::select(wflow_id,__) %>% 
-  tidyr::unnest(__) %>% 
-  dplyr::filter(.metric == '___') %>% 
+  # unnest the result column
+  dplyr::select(wflow_id,result) %>% 
+  tidyr::unnest(result) %>% 
+  # unnest the .metrics column
+  tidyr::unnest(.metrics) %>% 
+  # filter out the metric rsq
+  dplyr::filter(.metric == 'rsq') %>% 
+  # group by wflow_id
   dplyr::group_by(wflow_id) %>% 
-  dplyr::arrange(desc(__) ) %>% 
+  # order by .estimate, starting with the largest value
+  dplyr::arrange(desc(.estimate) ) %>% 
+  # select the first row for each group (i.e. highest rsq)
   dplyr::slice(1)
 ```
+:::
 
 ## Exercise 9
 
 Run the code below and compare to your results from exercise 8.
 
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
+
 ```{r}
-#| eval: false
-workflowsets::rank_results(all_workflows, rank_metric = "rsq", select_best = TRUE)
+workflowsets::rank_results(
+  all_workflows
+  , rank_metric = 'rsq'
+  , select_best = TRUE
+)
 ```
+:::
 
 ## Exercise 10
 
-Select the best model per the **rsme** metric using its id.
+Select the best model per the **rsq** metric using its id.
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION:
 
 ```{r}
-#| eval: false
+# extract the best model (per rsq)
 best_model_workflow <- 
   all_workflows %>% 
-  workflowsets::extract_workflow("__")
+  workflowsets::extract_workflow("base_forest")
 ```
 
-Finalize the workflow by setting the parameters for the best model
-
 ```{r}
-#| eval: false
+# finalize the workflow
 best_model_workflow <- 
   best_model_workflow %>% 
   tune::finalize_workflow(
-    tibble::tibble(__ = __, __ = __) # enter the name and value of the best-fit parameters
+    tibble::tibble(trees = 1971, min_n = 2) # enter the name and value of the best-fit parameters
   ) 
 ```
 
-Now compare the fits
-
 ```{r}
-#| eval: false
+#| layout-nrow: 3
+# having trained the model, compare test and training performance
 training_fit <- best_model_workflow %>% 
   fit(data = ames_train)
+training_fit
 
 testing_fit <- best_model_workflow %>% 
   fit(data = ames_test)
+testing_fit
 ```
 
-What is the ration of the OOB prediction errors (MSE): test/train?
-
-## Submission
-
-::: callout-warning
-Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
-
-Remember -- you do **not** have to turn in an \*.html file. I will be pulling your work directly from your repository on the course website.
+The are 0.06821716/0.05747611 - 1 = 0.1868785, or about 19% higher in the test dataset than in the training dataset.What is the ration of the OOB prediction errors (MSE): test/train?
 :::
 
 ## Grading
 
-Total points available: 30 points.
+Total points available: 50 points.
 
 | Component | Points |
 |-----------|--------|

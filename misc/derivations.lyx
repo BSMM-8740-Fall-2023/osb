@@ -907,5 +907,74 @@ x^{*} & =\left\{ \begin{array}{cc}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula $D_{i}=\textbf{1}_{Y_{i}^{B}\le\bar{Y}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+Y_{i} & =\begin{cases}
+Y_{i}^{1} & \text{if}\,D_{i}=1\\
+Y_{i}^{1} & \text{if}\,D_{i}=1
+\end{cases}\\
+ & =Y_{i}^{1}D_{i}+Y_{i}^{0}\left(1-D_{i}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+nb
+\begin_inset Formula 
+\[
+\Delta_{TT_{s}}^{Y}=\frac{1}{\sum_{i=1}^{N}D_{i}}\sum_{i=1}^{N}\left(Y_{i}^{1}-Y_{i}^{0}\right)D_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+as
+\begin_inset Formula 
+\[
+\Delta_{TT}^{Y}=\mathbb{E}\left[\left.Y_{i}^{1}-Y_{i}^{0}\right|D_{i}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Delta_{TT_{s}}^{Y} & =\frac{1}{\sum_{i=1}^{N}D_{i}}\sum_{i=1}^{N}\left(Y_{i}^{1}-Y_{i}^{0}\right)D_{i}\\
+ & =\frac{1}{\sum_{i=1}^{N}D_{i}}\sum_{i=1}^{N}Y_{i}D_{i}-\frac{1}{\sum_{i=1}^{N}D_{i}}\sum_{i=1}^{N}Y_{i}^{0}D_{i}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+hgj
+\begin_inset Formula 
+\begin{align*}
+\Delta_{SB}^{Y} & =\Delta_{WW}^{Y}-\Delta_{TT}^{Y}\\
+ & =\mathbb{E}\left[\left.Y_{i}\right|D_{i}=1\right]-\mathbb{E}\left[\left.Y_{i}\right|D_{i}=0\right]-\mathbb{E}\left[\left.Y_{i}^{1}-Y_{i}^{0}\right|D_{i}=1\right]\\
+ & =\mathbb{E}\left[\left.Y_{i}^{1}\right|D_{i}=1\right]-\mathbb{E}\left[\left.Y_{i}^{0}\right|D_{i}=0\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
