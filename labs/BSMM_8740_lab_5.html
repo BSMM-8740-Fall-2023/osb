@@ -469,27 +469,32 @@ Important
 </section>
 <section id="exercise-3-data-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-data-preprocessing">Exercise 3: Data Preprocessing</h2>
-<p>create a recipe based on the formula <strong>Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold</strong> with the following steps:</p>
+<p>create a recipe based on the formula <strong>Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold</strong> with the following steps :</p>
 <ul>
-<li>transform the variable <code>Sale_Price</code> to <code>log(Sale_Price)</code></li>
-<li>center and scale all predictors</li>
-<li>create dummy variables for all nominal variables</li>
-<li>transform the variable <code>Neighborhood</code> to pool infrequent values (see <code>recipes::step_other</code>)</li>
+<li>transform the outcome variable <code>Sale_Price</code> to <code>log(Sale_Price)</code> (natural log)</li>
+<li>center and scale all numeric predictors</li>
+<li>transform the categorical variable <code>Neighborhood</code> to pool infrequent values (see <code>recipes::step_other</code>)</li>
+<li>create dummy variables for all nominal predictors</li>
 </ul>
 <p>Finally prep the recipe.</p>
+<p>Make sure you consider the order of the operations (hint: <code>step_dummy</code> turns factors into multiply integer (numeric) predictor, so consider when to scale numeric predictors relative to creating dummy predictors.</p>
+<p>You can use broom::tidy() on the recipe to examine whether the prepped data is correct.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>norm_recipe <span class="ot">&lt;-</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">recipe</span>( ___ ) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">prep</span>( ___ )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      .</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      .</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      .</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">prep</span>( ___ )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-4-modeling" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-4-modeling">Exercise 4 Modeling</h2>
 <p>Create three regression models</p>
 <ul>
-<li><p>a base regression model using <code>lm</code></p></li>
-<li><p>a regression model using <code>glmnet</code>; set the model parameters <code>penalty</code> and <code>mixture</code> for tuning</p></li>
-<li><p>a tree model using the <code>ranger</code> engine; set the model parameters <code>min_n</code> and <code>trees</code> for tuning</p></li>
+<li>a base regression model using <code>lm</code></li>
+<li>a regression model using <code>glmnet</code>; set the model parameters <code>penalty</code> and <code>mixture</code> for tuning</li>
+<li>a tree model using the <code>ranger</code> engine; set the model parameters <code>min_n</code> and <code>trees</code> for tuning</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_mod_base <span class="ot">&lt;-</span> </span>
@@ -504,7 +509,7 @@ Important
 </section>
 <section id="exercise-5" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
-<p>Use parsnip::translate() on each model to see the code object that is specific to a particular engine</p>
+<p>Use <code>parsnip::translate()</code> on each model to see the code object that is specific to a particular engine</p>
 </section>
 <section id="exercise-6-bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-6-bootstrap">Exercise 6 Bootstrap</h2>
@@ -519,7 +524,7 @@ Important
 </section>
 <section id="exercise-7" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-7">Exercise 7</h2>
-<p>Create workflows with <code>workflowsets::workflow_set</code> using your recipe and models.</p>
+<p>Create workflows with <code>workflowsets::workflow_set</code> using your recipe and models. Show the workflow datastructure, noting the number of columns, and then use <code>tidy::</code> to unnest the <em>info</em> column and show its contents.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_set</span>(</span>
@@ -530,7 +535,7 @@ Important
 </section>
 <section id="exercise-8" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-8">Exercise 8</h2>
-<p>Map the default function (<code>tune::tune_grid()</code>) across the workflows in the workflowset you just created and update the variable <code>all_workflows</code> with the result</p>
+<p>Use workflowsets::workflow_map to map the default function (<code>tune::tune_grid()</code> - look at the help) across the workflows in the workflowset you just created and update the variable <code>all_workflows</code> with the result.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> all_workflows <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_map</span>(</span>
@@ -541,9 +546,9 @@ Important
 </div>
 <p>The updated variable <code>all_workflows</code> contains a nested column named <strong>result</strong>, and each cell of the column <strong>result</strong> is a tibble containing a nested column named <strong>.metrics</strong>. Write code to</p>
 <ol type="1">
-<li><p>un-nest the metrics in the column .metrics</p></li>
-<li><p>filter out the rows for the metric rmse</p></li>
-<li><p>group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group</p></li>
+<li>un-nest the metrics in the column .metrics</li>
+<li>filter out the rows for the metric rsq</li>
+<li>group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="sc">%&gt;%</span> </span>
@@ -561,7 +566,7 @@ Important
 <h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
 <p>Run the code below and compare to your results from exercise 8.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>workflowsets<span class="sc">::</span><span class="fu">rank_results</span>(all_workflows, <span class="at">rank_metric =</span> <span class="st">"rmse"</span>, <span class="at">select_best =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>workflowsets<span class="sc">::</span><span class="fu">rank_results</span>(all_workflows, <span class="at">rank_metric =</span> <span class="st">"rsq"</span>, <span class="at">select_best =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-10" class="level2">
@@ -603,18 +608,13 @@ Warning
 </div>
 <div class="callout-body-container callout-body">
 <p>Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.</p>
-<p>Remember – you must turn in a PDF file to the Brightspace page before the submission deadline for full credit.</p>
+<p>Remember – you do <strong>not</strong> have to turn in an *.html file. I will be pulling your work directly from your repository on the course website.</p>
 </div>
 </div>
-<p>To submit your assignment:</p>
-<ul>
-<li>Log in to <a href="https://brightspace.uwindsor.ca/d2l/home/144921">Brightspace</a> and select course <a href="https://brightspace.uwindsor.ca/d2l/home/144921" title="BSMM8740-2-R-2023F|Data Analytic Meth. &amp; Algorith">BSMM8740-2-R-2023F|Data Analytic Meth.</a></li>
-<li>Click on the Lab-5 assignment, and submit it.</li>
-</ul>
 </section>
 <section id="grading" class="level2">
 <h2 class="anchored" data-anchor-id="grading">Grading</h2>
-<p>Total points available: 50 points.</p>
+<p>Total points available: 30 points.</p>
 <table class="table">
 <thead>
 <tr class="header">
