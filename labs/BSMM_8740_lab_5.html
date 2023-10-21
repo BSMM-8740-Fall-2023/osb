@@ -407,8 +407,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Go to the course organization at <a href="https://github.com/BSMM-8740-Fall-2023/" title="Course GitHub organization">BSMM-8740-Fall-2023</a> on GitHub. Click on the repository named <strong>BSMM-lab-5</strong>. It contains the starter documents you need to complete the lab.</p></li>
-<li><p>Create a copy of the repository in your own github account and start a new project in RStudio from the repository copy you just created. See the <a href="labs/BSMM_8740_lab_1.html">Lab 1 instructions</a> for details on creating a repository, starting a new R project and configuring git.</p></li>
+<li><p>Log in to <strong>your</strong> github account and then go to the <a href="https://github.com/bsmm-8740-fall-2023">GitHub organization</a> for the course and find the <strong>BSMM-lab-5-[your github username]</strong> repository to complete the lab.</p>
+<p>Create an R project using your <strong>BSMM-lab-5-[your github username]</strong> repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the <code>BSMM-lab-5.qmd</code> file in your repository.</p></li>
+<li><p>When you are done, be sure to save your document, stage, commit and push your work.</p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -425,7 +426,15 @@ Important
 <li>username: <strong>.\daladmin</strong></li>
 <li>password: <strong>Business507!</strong></li>
 </ul>
-<p>Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).</p>
+<p>Remember to (create a PAT and set your git credentials)</p>
+<ul>
+<li>create your PAT using <code>usethis::create_github_token()</code> ,</li>
+<li>store your PAT with <code>gitcreds::gitcreds_set()</code> ,</li>
+<li>set your username and email with
+<ul>
+<li><code>usethis::use_git_config( user.name = ___, user.email = ___)</code></li>
+</ul></li>
+</ul>
 </div>
 </div>
 </section>
@@ -469,7 +478,7 @@ Important
 </section>
 <section id="exercise-3-data-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-data-preprocessing">Exercise 3: Data Preprocessing</h2>
-<p>create a recipe based on the formula <strong>Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold</strong> with the following steps :</p>
+<p>Create a recipe based on the formula <strong>Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold</strong> with the following steps :</p>
 <ul>
 <li>transform the outcome variable <code>Sale_Price</code> to <code>log(Sale_Price)</code> (natural log)</li>
 <li>center and scale all numeric predictors</li>
@@ -490,12 +499,13 @@ Important
 </section>
 <section id="exercise-4-modeling" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-4-modeling">Exercise 4 Modeling</h2>
-<p>Create three regression models</p>
+<p>Create three regression models using the <code>parsnip::</code> package and assign each model to its own variable</p>
 <ul>
 <li>a base regression model using <code>lm</code></li>
 <li>a regression model using <code>glmnet</code>; set the model parameters <code>penalty</code> and <code>mixture</code> for tuning</li>
 <li>a tree model using the <code>ranger</code> engine; set the model parameters <code>min_n</code> and <code>trees</code> for tuning</li>
 </ul>
+<p>Evaluate (print) each model variable to show the type of model, the method of fitting and the tuning arguments, if any.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_mod_base <span class="ot">&lt;-</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  parsnip<span class="sc">::</span><span class="fu">linear_reg</span>( ___ ) <span class="sc">%&gt;%</span> ___</span>
@@ -509,7 +519,7 @@ Important
 </section>
 <section id="exercise-5" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
-<p>Use <code>parsnip::translate()</code> on each model to see the code object that is specific to a particular engine</p>
+<p>Use <code>parsnip::translate()</code> on each model to see the the model template for each method of fitting.</p>
 </section>
 <section id="exercise-6-bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-6-bootstrap">Exercise 6 Bootstrap</h2>
@@ -524,7 +534,7 @@ Important
 </section>
 <section id="exercise-7" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-7">Exercise 7</h2>
-<p>Create workflows with <code>workflowsets::workflow_set</code> using your recipe and models. Show the workflow datastructure, noting the number of columns, and then use <code>tidy::</code> to unnest the <em>info</em> column and show its contents.</p>
+<p>Create workflows with <code>workflowsets::workflow_set</code> using your recipe and models. Show the resulting datastructure, noting the number of columns, and then use <code>tidyr::</code> to unnest the <em>info</em> column and show its contents.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_set</span>(</span>
@@ -535,7 +545,7 @@ Important
 </section>
 <section id="exercise-8" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-8">Exercise 8</h2>
-<p>Use workflowsets::workflow_map to map the default function (<code>tune::tune_grid()</code> - look at the help) across the workflows in the workflowset you just created and update the variable <code>all_workflows</code> with the result.</p>
+<p>Use <code>workflowsets::workflow_map</code> to map the default function (<code>tune::tune_grid()</code> - look at the help for <code>workflowsets::workflow_map</code> ) across the workflows in the workflowset you just created and update the variable <code>all_workflows</code> with the result.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="ot">&lt;-</span> all_workflows <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  workflowsets<span class="sc">::</span><span class="fu">workflow_map</span>(</span>
@@ -548,7 +558,7 @@ Important
 <ol type="1">
 <li>un-nest the metrics in the column .metrics</li>
 <li>filter out the rows for the metric rsq</li>
-<li>group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group</li>
+<li>group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group.</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>all_workflows <span class="sc">%&gt;%</span> </span>
@@ -571,7 +581,7 @@ Important
 </section>
 <section id="exercise-10" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-10">Exercise 10</h2>
-<p>Select the best model per the <strong>rsme</strong> metric using its id.</p>
+<p>Select the best model per the <strong>rsq</strong> metric using its id.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>best_model_workflow <span class="ot">&lt;-</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  all_workflows <span class="sc">%&gt;%</span> </span>
@@ -593,7 +603,7 @@ Important
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>testing_fit <span class="ot">&lt;-</span> best_model_workflow <span class="sc">%&gt;%</span> </span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> ames_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>What is the ration of the OOB prediction errors (MSE): test/train?</p>
+<p>What is the ratio of the OOB prediction errors (MSE): test/train?</p>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>
@@ -607,7 +617,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.</p>
+<p>Before you wrap up the assignment, make sure all documents are saved, staged, committed, and pushed to your repository on the course github site.</p>
 <p>Remember – you do <strong>not</strong> have to turn in an *.html file. I will be pulling your work directly from your repository on the course website.</p>
 </div>
 </div>
