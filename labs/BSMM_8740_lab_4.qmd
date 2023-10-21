@@ -55,7 +55,7 @@ The Boston House Values dataset (usually referred to as the Boston dataset) appe
 This dataset contains the following information for each cocktail:
 
 | variable | description                                                            |
-|--------------------------------|----------------------------------------|
+|-----------------|-------------------------------------------------------|
 | crim     | per capita crime rate by town.                                         |
 | zn       | proportion of residential land zoned for lots over 25,000 sq.ft.       |
 | indus    | proportion of non-retail business acres per town.                      |
@@ -334,7 +334,7 @@ Per this model, what is the most important feature for predicting fuel efficienc
 ## Submission
 
 ::: callout-warning
-Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
+Before you wrap up the assignment, make sure all documents are saved, staged, committed, and pushed to your repository on the course github site.
 
 Remember -- you do **not** have to turn in an \*.html file. I will be pulling your work directly from your repository on the course website.
 :::
