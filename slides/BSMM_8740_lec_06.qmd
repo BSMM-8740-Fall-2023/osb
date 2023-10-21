@@ -37,7 +37,7 @@ theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 
 ## Recap of last week
 
--   Last week we introduced the Tidymodels framework in R
+-   Last time we introduced the Tidymodels framework in R
 
 -   We showed how we can use the Tidymodels framework to create a workflow for data prep, feature engineering, model fitting and model evaluation.
 

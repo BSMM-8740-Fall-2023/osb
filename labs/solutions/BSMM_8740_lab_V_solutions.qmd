@@ -114,11 +114,15 @@ norm_recipe <-
   # estimate the means and standard deviations by prepping the data
   recipes::prep(training = ames_train, retain = TRUE)
 ```
+
+```{r}
+norm_recipe %>% broom::tidy()
+```
 :::
 
 ## Exercise 4 Modeling
 
-Create three regression models
+Create three regression models using the `parsnip::` package and assign each model to its own variable
 
 -   a base regression model using `lm`
 -   a regression model using `glmnet`; set the model parameters `penalty` and `mixture` for tuning
@@ -145,11 +149,18 @@ lm_mod_rforest <-
   parsnip::set_engine("ranger") %>% 
   parsnip::set_mode("regression")
 ```
+
+```{r}
+#| layout-nrow: 3
+lm_mod_base
+lm_mod_glmnet
+lm_mod_rforest
+```
 :::
 
 ## Exercise 5
 
-Use `parsnip::translate()` on each model to see the code object that is specific to a particular engine
+Use `parsnip::translate()` on each model to see the model template for each method of fitting.
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## SOLUTION:
@@ -179,7 +190,7 @@ train_resamples <- rsample::bootstraps(ames_train)
 
 ## Exercise 7
 
-Create workflows with `workflowsets::workflow_set` using your recipe and models. Show the workflow datastructure, noting the number of columns, and then use `tidy::` to unnest the *info* column and show its contents.
+Create workflows with `workflowsets::workflow_set` using your recipe and models. Show the resulting datastructure, noting the number of columns, and then use `tidyr::` to unnest the *info* column and show its contents.
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## SOLUTION:
@@ -200,7 +211,7 @@ all_workflows %>% tidyr::unnest(info)
 
 ## Exercise 8
 
-Use workflowsets::workflow_map to map the default function (`tune::tune_grid()` - look at the help) across the workflows in the workflowset you just created and update the variable `all_workflows` with the result.
+Use `workflowsets::workflow_map` to map the default function (`tune::tune_grid()` - look at the help for `workflowsets::workflow_map` ) across the workflows in the workflowset you just created and update the variable `all_workflows` with the result.
 
 ```{r}
 all_workflows <- all_workflows %>% 
@@ -215,7 +226,7 @@ The updated variable `all_workflows` contains a nested column named **result**, 
 
 1.  un-nest the metrics in the column .metrics
 2.  filter out the rows for the metric rsq
-3.  group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group
+3.  group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group.
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## SOLUTION:
@@ -289,12 +300,16 @@ testing_fit <- best_model_workflow %>%
 testing_fit
 ```
 
-The are 0.06821716/0.05747611 - 1 = 0.1868785, or about 19% higher in the test dataset than in the training dataset.What is the ration of the OOB prediction errors (MSE): test/train?
+::: {.callout-note appearance="simple" icon="false"}
+What is the ratio of the OOB prediction errors (MSE): test/train?
+
+The ratio is 0.06821716 / 0.05747611 - 1 = 0.1868785, or about 19% higher in the test dataset than in the training dataset.
+:::
 :::
 
 ## Grading
 
-Total points available: 50 points.
+Total points available: 30 points.
 
 | Component | Points |
 |-----------|--------|

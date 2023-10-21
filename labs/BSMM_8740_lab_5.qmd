@@ -16,9 +16,11 @@ By the end of the lab you will...
 
 ## Getting started
 
--   Go to the course organization at [BSMM-8740-Fall-2023](https://github.com/BSMM-8740-Fall-2023/ "Course GitHub organization") on GitHub. Click on the repository named **BSMM-lab-5**. It contains the starter documents you need to complete the lab.
+-   Log in to **your** github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-5-\[your github username\]** repository to complete the lab.
 
--   Create a copy of the repository in your own github account and start a new project in RStudio from the repository copy you just created. See the [Lab 1 instructions](labs/BSMM_8740_lab_1.html) for details on creating a repository, starting a new R project and configuring git.
+    Create an R project using your **BSMM-lab-5-\[your github username\]** repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-lab-5.qmd` file in your repository.
+
+-   When you are done, be sure to save your document, stage, commit and push your work.
 
 ::: callout-important
 To access Github from the lab, you will need to make sure you are logged in as follows:
@@ -26,7 +28,12 @@ To access Github from the lab, you will need to make sure you are logged in as f
 -   username: **.\\daladmin**
 -   password: **Business507!**
 
-Follow the the instructions from BSMM-lab-1 to initial your machine (create a PAT and set your git credentials).
+Remember to (create a PAT and set your git credentials)
+
+-   create your PAT using `usethis::create_github_token()` ,
+-   store your PAT with `gitcreds::gitcreds_set()` ,
+-   set your username and email with
+    -   `usethis::use_git_config( user.name = ___, user.email = ___)`
 :::
 
 ## Packages
@@ -78,7 +85,7 @@ ames_test  <- rsample::__
 
 ## Exercise 3: Data Preprocessing
 
-create a recipe based on the formula **Sale_Price \~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold** with the following steps :
+Create a recipe based on the formula **Sale_Price \~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold** with the following steps :
 
 -   transform the outcome variable `Sale_Price` to `log(Sale_Price)` (natural log)
 -   center and scale all numeric predictors
@@ -103,11 +110,13 @@ norm_recipe <-
 
 ## Exercise 4 Modeling
 
-Create three regression models
+Create three regression models using the `parsnip::` package and assign each model to its own variable
 
 -   a base regression model using `lm`
 -   a regression model using `glmnet`; set the model parameters `penalty` and `mixture` for tuning
 -   a tree model using the `ranger` engine; set the model parameters `min_n` and `trees` for tuning
+
+Evaluate (print) each model variable to show the type of model, the method of fitting and the tuning arguments, if any.
 
 ```{r}
 #| eval: false
@@ -123,7 +132,7 @@ lm_mod_rforest <-
 
 ## Exercise 5
 
-Use `parsnip::translate()` on each model to see the code object that is specific to a particular engine
+Use `parsnip::translate()` on each model to see the the model template for each method of fitting.
 
 ## Exercise 6 Bootstrap
 
@@ -141,7 +150,7 @@ This is a good place to render, commit, and push changes to your remote lab repo
 
 ## Exercise 7
 
-Create workflows with `workflowsets::workflow_set` using your recipe and models. Show the workflow datastructure, noting the number of columns, and then use `tidy::` to unnest the *info* column and show its contents.
+Create workflows with `workflowsets::workflow_set` using your recipe and models. Show the resulting datastructure, noting the number of columns, and then use `tidyr::` to unnest the *info* column and show its contents.
 
 ```{r}
 #| eval: false
@@ -154,7 +163,7 @@ all_workflows <-
 
 ## Exercise 8
 
-Use workflowsets::workflow_map to map the default function (`tune::tune_grid()` - look at the help) across the workflows in the workflowset you just created and update the variable `all_workflows` with the result.
+Use `workflowsets::workflow_map` to map the default function (`tune::tune_grid()` - look at the help for `workflowsets::workflow_map` ) across the workflows in the workflowset you just created and update the variable `all_workflows` with the result.
 
 ```{r}
 #| eval: false
@@ -170,7 +179,7 @@ The updated variable `all_workflows` contains a nested column named **result**, 
 
 1.  un-nest the metrics in the column .metrics
 2.  filter out the rows for the metric rsq
-3.  group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group
+3.  group by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group.
 
 ```{r}
 #| eval: false
@@ -196,7 +205,7 @@ workflowsets::rank_results(all_workflows, rank_metric = "rsq", select_best = TRU
 
 ## Exercise 10
 
-Select the best model per the **rsme** metric using its id.
+Select the best model per the **rsq** metric using its id.
 
 ```{r}
 #| eval: false
@@ -227,12 +236,12 @@ testing_fit <- best_model_workflow %>%
   fit(data = ames_test)
 ```
 
-What is the ration of the OOB prediction errors (MSE): test/train?
+What is the ratio of the OOB prediction errors (MSE): test/train?
 
 ## Submission
 
 ::: callout-warning
-Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. We will be checking these to make sure you have been practicing how to commit and push changes.
+Before you wrap up the assignment, make sure all documents are saved, staged, committed, and pushed to your repository on the course github site.
 
 Remember -- you do **not** have to turn in an \*.html file. I will be pulling your work directly from your repository on the course website.
 :::

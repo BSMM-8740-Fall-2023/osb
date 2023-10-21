@@ -146,7 +146,7 @@ From the first equation
 
 $$
 \begin{align*}
-\bar{y}-\hat{\beta}_{0}-\hat{\beta}_{1}\bar{x}_{i} & =0\\
+\bar{y}-\hat{\beta}_{0}-\hat{\beta}_{1}\bar{x} & =0\\
 \bar{y}-\hat{\beta}_{1}\bar{x} & =\hat{\beta}_{0}
 \end{align*}
 $$
