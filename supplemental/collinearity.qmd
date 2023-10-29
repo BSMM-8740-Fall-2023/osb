@@ -65,6 +65,7 @@ We see that an ordinary linear regression gives us results that are close to wha
 Now we do the same regression on similar data (only the noise is different) and take the mean values of the coefficient estimates:
 
 ```{r}
+#| echo: true 
 # create a list with 100 elements,
 # just so we run the regression 100 times
 1:100 %>% as.list() %>% 
@@ -103,6 +104,7 @@ $$
 $$
 
 ```{r}
+#| echo: true 
 #| layout-ncol: 2
 dat1 <- 
   tibble::tibble( 
@@ -121,6 +123,7 @@ lm(y ~ a + b, dat1)
 Sure enough, we have $\frac{\beta_a}{3} + \frac{2\beta_b}{3} \approx 3$. The code below performs the check:
 
 ```{r}
+#| echo: true 
 lm(y ~ a + b, dat1) %>% broom::tidy() %>% dplyr::select(1,2) %>% 
   tidyr::pivot_wider(names_from = term, values_from = estimate) %>% 
   dplyr::mutate(
@@ -131,6 +134,7 @@ lm(y ~ a + b, dat1) %>% broom::tidy() %>% dplyr::select(1,2) %>%
 Note that we have two unknowns, but only one equation, so the problem does not have a unique solution, as seen by the wide variation of estimates in a repeated regression:
 
 ```{r}
+#| echo: true 
 # create a list with 100 elements,
 # just so we run the regression 100 times
 1:100 %>% as.list() %>% 
@@ -162,7 +166,7 @@ Granted this is an extreme case of collinearity, but it illustrates the issue.
 
 How can we mitigate the problem?
 
-### Ridge regression example: 
+### Ridge regression example:
 
 Indeterminancy of the predictor coefficient estimates is a symptom of collinearity, as indicated by the large variance of the estimates.
 
@@ -171,6 +175,7 @@ Ridge regression penalizes large predictor coefficients, and we can use it here 
 For the similar data (same relation between y and x, but different noise) under ridge regression (`glmnet::glmnet` with `alpha`=0):
 
 ```{r}
+#| echo: true 
 #| layout-ncol: 2
 # create the dataset
 dat1 <- 
@@ -196,6 +201,7 @@ Even using the defaults we can see that the coefficients estimated under the $l_
 We can do this with the built-in cross validation of `cv.glmnet::` and `alpha` = 0, as follows:
 
 ```{r}
+#| echo: true 
 #| layout-ncol: 2
 # fit with cv.glmnet (cross validation and a range of penalty parameters)
 fit_cv <- glmnet::cv.glmnet(
