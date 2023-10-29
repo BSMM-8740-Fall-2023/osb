@@ -55,7 +55,7 @@ The Boston House Values dataset (usually referred to as the Boston dataset) appe
 This dataset contains the following information for each cocktail:
 
 | variable | description                                                            |
-|----------|------------------------------------------------------------------------|
+|--------------|----------------------------------------------------------|
 | crim     | per capita crime rate by town.                                         |
 | zn       | proportion of residential land zoned for lots over 25,000 sq.ft.       |
 | indus    | proportion of non-retail business acres per town.                      |
@@ -168,7 +168,7 @@ dat1 <- tibble::tibble(
 
 Which linear model returns the (approximately) correct dependence of demand on price, as given in the data generation process?
 
-## Exercise 5
+### Exercise 5
 
 Now repeat the modeling of exercise, but assuming that the formerly unobservable variables are now observable, and so can be included in the linear regression models.
 
@@ -284,7 +284,7 @@ Finally, pull out the `comb_fe_guide_conventional_fuel` column from the test dat
 
 What is the RMSE for the un-tuned model?
 
-## Exercise 9
+### Exercise 9
 
 In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.
 
@@ -325,7 +325,7 @@ re-run the code from the last exercise and evaluate the fit using one of the bes
 
 Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).
 
-## Exercise 10
+### Exercise 10
 
 Using `xgboost::xgb.importance` rank the importance of each predictor in the model. Finally, take the top 10 predictors by importance and plot them using `xgboost::xgb.plot.importance`.
 
