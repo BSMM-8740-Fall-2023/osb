@@ -370,15 +370,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise 3</a></li>
   <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise 4</a></li>
-  </ul></li>
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a>
-  <ul class="collapse">
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a></li>
   <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6">Exercise 6</a></li>
   <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7">Exercise 7</a></li>
   <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise 8</a></li>
-  </ul></li>
   <li><a href="#exercise-9" id="toc-exercise-9" class="nav-link" data-scroll-target="#exercise-9">Exercise 9</a></li>
   <li><a href="#exercise-10" id="toc-exercise-10" class="nav-link" data-scroll-target="#exercise-10">Exercise 10</a></li>
+  </ul></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
   </ul>
@@ -464,8 +462,8 @@ Important
 <p>This dataset contains the following information for each cocktail:</p>
 <table class="table">
 <colgroup>
-<col style="width: 12%">
-<col style="width: 87%">
+<col style="width: 19%">
+<col style="width: 80%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -609,12 +607,12 @@ Tip
 </div>
 <p>Which linear model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
 </section>
-</section>
-<section id="exercise-5" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
+<section id="exercise-5" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5">Exercise 5</h3>
 <p>Now repeat the modeling of exercise, but assuming that the formerly unobservable variables are now observable, and so can be included in the linear regression models.</p>
 <p>Which model returns the (approximately) correct dependence of demand on price, as given in the data generation process?</p>
 <p>What can you conclude from these two exercises?</p>
+</section>
 <section id="exercise-6" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-6">Exercise 6</h3>
 <p>For the next several exercises, we’ll work with a new dataset. This dataset is taken from an <a href="https://www.fueleconomy.gov/feg/download.shtml">EPA</a> site on fuel economy, in particular the fuel economy dataset for 2023.</p>
@@ -699,9 +697,8 @@ Tip
 <p>Finally, pull out the <code>comb_fe_guide_conventional_fuel</code> column from the test data, assign it to the variable <code>y</code> and then use <code>caret::postResample</code> with arguments <code>yhat</code> and <code>y</code> to evaluate how well the model fits.</p>
 <p>What is the RMSE for the un-tuned model?</p>
 </section>
-</section>
-<section id="exercise-9" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
+<section id="exercise-9" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-9">Exercise 9</h3>
 <p>In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.</p>
 <p>Finally, we select the best parameters by least RMSE. This code will take a while to run</p>
 <div class="cell">
@@ -735,10 +732,11 @@ Tip
 <p>re-run the code from the last exercise and evaluate the fit using one of the best tuning parameters (i.e.&nbsp;when re-running the regression, set <code>max_depth</code> and <code>eta</code> to one pair the best-fit parameters [there may be ties]).</p>
 <p>Is the tuned model better than the un-tuned model? If better, how much has the RMSE improved (in %).</p>
 </section>
-<section id="exercise-10" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-10">Exercise 10</h2>
+<section id="exercise-10" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-10">Exercise 10</h3>
 <p>Using <code>xgboost::xgb.importance</code> rank the importance of each predictor in the model. Finally, take the top 10 predictors by importance and plot them using <code>xgboost::xgb.plot.importance</code>.</p>
 <p>Per this model, what is the most important feature for predicting fuel efficiency?</p>
+</section>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>
