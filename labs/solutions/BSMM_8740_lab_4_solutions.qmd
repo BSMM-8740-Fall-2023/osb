@@ -37,7 +37,7 @@ The Boston House Values dataset (usually referred to as the Boston dataset) appe
 This dataset contains the following information for each cocktail:
 
 | variable | description                                                            |
-|----------|------------------------------------------------------------------------|
+|--------------|----------------------------------------------------------|
 | crim     | per capita crime rate by town.                                         |
 | zn       | proportion of residential land zoned for lots over 25,000 sq.ft.       |
 | indus    | proportion of non-retail business acres per town.                      |
@@ -282,7 +282,7 @@ But in `dat1`, the coefficient of price in the equation for demand is -0.5, yet 
 So here the model doesn't give the answers that the knowledge of the data generation process would lead us to expect. What if we can observe the unobservables?
 :::
 
-## Exercise 5
+### Exercise 5
 
 Now repeat the modeling of exercise, but assuming that the formerly unobservable variables are now observable, and so can be included in the linear regression models.
 
@@ -543,7 +543,7 @@ caret::postResample(yhat, y)
 ```
 :::
 
-## Exercise 9
+### Exercise 9
 
 In this exercise we are going to tune the model using cross validation. First we create a tuning grid for the parameters and then fit the model for all the values in the grid, saving the results.
 
@@ -617,7 +617,7 @@ caret::postResample(yhat, y)
 ```
 :::
 
-## Exercise 10
+### Exercise 10
 
 Using `xgboost::xgb.importance` rank the importance of each predictor in the model. Finally, take the top 10 predictors by importance and plot them using `xgboost::xgb.plot.importance`.
 
