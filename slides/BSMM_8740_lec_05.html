@@ -576,14 +576,14 @@ stats::lm(formula = Sale_Price ~ Longitude + Latitude, data = data)
 
 Coefficients:
 (Intercept)    Longitude     Latitude  
- -132732669      -819626      1336089  </code></pre>
+ -127717482      -808660      1241213  </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12" data-code-line-numbers="2|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> lm_form_fit <span class="sc">%&gt;%</span> parsnip<span class="sc">::</span><span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> stats<span class="sc">::</span><span class="fu">vcov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              (Intercept)    Longitude      Latitude
-(Intercept)  4.782575e+13 362891678106 -329338446959
-Longitude    3.628917e+11   3788482545    -193339070
-Latitude    -3.293384e+11   -193339070    7404289742</code></pre>
+(Intercept)  4.881031e+13 375847687952 -323899597220
+Longitude    3.758477e+11   3973398189     -89647052
+Latitude    -3.238996e+11    -89647052    7505860150</code></pre>
 </div>
 </div>
 </section>
@@ -5351,7 +5351,7 @@ Prediction Class1 Class2
 <section id="tidymodels-performance-evaluation-17" class="slide level2">
 <h2>Tidymodels: performance evaluation</h2>
 <p><strong>Evaluation</strong>:</p>
-<p>The function <strong>tune::fit_resamples</strong> is like parsnip::fit with a resamples argment instead of a data argument:</p>
+<p>The function <strong>tune::fit_resamples</strong> is like parsnip::fit with a resamples argument instead of a data argument:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb60" data-code-line-numbers="2|4|6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="sc">&gt;</span> <span class="co">#</span></span>
 <span id="cb60-2"><a href="#cb60-2"></a><span class="er">&gt;</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(formula,  resamples, ...)</span>
