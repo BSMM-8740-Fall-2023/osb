@@ -919,7 +919,7 @@ This sequence repeats for every resample.
 
 **Evaluation**:
 
-The function **tune::fit_resamples** is like parsnip::fit with a resamples argment instead of a data argument:
+The function **tune::fit_resamples** is like parsnip::fit with a resamples argument instead of a data argument:
 
 ```{r}
 #| echo: true
