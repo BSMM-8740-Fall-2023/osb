@@ -84,6 +84,8 @@ website:
             text: "Week 11"
       - section: "Supplemental notes"
         contents:
+          - href: supplemental/omitted_variables.qmd
+            text: Omitted Variable Bias
           - href: supplemental/collinearity.qmd
             text: Collinearity
           - href: supplemental/slr-derivations.qmd

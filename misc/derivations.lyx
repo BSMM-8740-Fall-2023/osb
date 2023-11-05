@@ -976,5 +976,110 @@ hg
 
 \end_layout
 
+\begin_layout Standard
+Causality
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D\in\left\{ 0,1\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Y_{i}$
+\end_inset
+
+ 
+\begin_inset Formula $Y_{i}^{0},Y_{i}^{1}$
+\end_inset
+
+ nn 
+\begin_inset Formula $Y_{i}=\alpha+\delta D_{i}+\epsilon_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D_{i}\perp Y_{i}^{0},Y_{i}^{1}$
+\end_inset
+
+ __ 
+\begin_inset Formula $\epsilon_{i}=\beta X_{i}+\eta_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\hat{\delta}^{\text{OLS}}=\frac{Cov\left(Y_{i},D_{i}\right)}{\text{Var}\left(D_{i}\right)}=\delta+\gamma\frac{Cov\left(X_{i},D_{i}\right)}{\text{Var}\left(D_{i}\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\sum_{i}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right) & =\sum_{i}\left(x_{i}-\bar{x}\right)y_{i}-\sum_{i}\left(x_{i}-\bar{x}\right)\bar{y}\\
+ & =\sum_{i}\left(x_{i}-\bar{x}\right)y_{i}-\bar{y}\sum_{i}\left(x_{i}-\bar{x}\right)\\
+ & =\sum_{i}\left(x_{i}-\bar{x}\right)y_{i}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\beta_{1}} & =\frac{\text{Cov}\left(x_{i},y_{i}\right)}{\text{Var}\left(x_{i}\right)}\\
+ & =\frac{\sum_{i}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sum_{i}\left(x_{i}-\bar{x}\right)\left(x_{i}-\bar{x}\right)}\\
+ & =\frac{\sum_{i}\left(x_{i}-\bar{x}\right)y_{i}}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+b
+\begin_inset Formula 
+\begin{align*}
+\hat{\beta_{1}} & =\frac{\sum_{i}\left(x_{i}-\bar{x}\right)\left(\beta_{0}+\beta_{1}x_{i}+u_{i}\right)}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}\\
+ & =\frac{\beta_{0}\sum_{i}\left(x_{i}-\bar{x}\right)+\beta_{1}\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}+\sum_{i}\left(x_{i}-\bar{x}\right)u_{i}}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}=\\
+ & =\beta_{1}+\frac{\sum_{i}\left(x_{i}-\bar{x}\right)u_{i}}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+nm
+\begin_inset Formula 
+\begin{align*}
+\hat{\beta_{1}} & =\frac{\sum_{i}\left(x_{i}-\bar{x}\right)\left(\beta_{0}+\beta_{1}x_{i}+z_{i}+u_{i}\right)}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}\\
+ & =\frac{\beta_{0}\sum_{i}\left(x_{i}-\bar{x}\right)+\beta_{1}\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}+\beta_{2}\sum_{i}\left(x_{i}-\bar{x}\right)z_{i}+\sum_{i}\left(x_{i}-\bar{x}\right)u_{i}}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}=\\
+ & =\beta_{1}+\beta_{2}\frac{\sum_{i}\left(x_{i}-\bar{x}\right)z_{i}}{\sum_{i}\left(x_{i}-\bar{x}\right)x_{i}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\check{x}$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
