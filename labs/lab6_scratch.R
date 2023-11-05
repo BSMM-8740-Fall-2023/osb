@@ -243,6 +243,11 @@ data <- dat %>% dplyr::mutate(
 
 data %>% readr::write_csv('data/Telco-Customer-Churn.csv')
 
+data <-
+  readr::read_csv('labs/data/Telco-Customer-Churn.csv', show_col_types = FALSE) %>%
+  dplyr::mutate(churn=as.factor(churn))
+
+
 skimr::skim(data)
 
 data %>%
@@ -261,7 +266,6 @@ default_test  <- rsample::testing(data_split)
 default_recipe <- default_train %>%
   recipes::recipe(formula = churn ~ .) %>%
   recipes::step_normalize(recipes::all_numeric_predictors()) %>%
-  # recipes::step_string2factor(recipes::all_outcomes()) %>%
   recipes::step_dummy(recipes::all_nominal_predictors())
 
 default_recipe %>% recipes::prep(default_train) %>% recipes::bake(default_train)
@@ -287,6 +291,7 @@ training_results <-
 training_results %>% dplyr::glimpse()
 
 auc_roc_tbl <- training_results %>%
+  dplyr::select(churn:.pred_Yes) %>%
   # order prediction probability from high to low
   dplyr::arrange( desc(.pred_Yes) ) %>%
   # make new variable for cumulative % of 'Yes' category
@@ -317,8 +322,50 @@ auc_roc_tbl %>%
       stringr::str_glue("Logistic Regression AUC = {scales::label_number(accuracy = 10^-7)(sum(auc_roc_tbl$auc_inc) )}")
   )
 
+# NEW Nov 3
+auc_roc_tbl <- training_results %>%
+  dplyr::select(churn:.pred_Yes) %>%
+  # order prediction probability from high to low
+  dplyr::arrange( desc(.pred_Yes) ) %>%
+  # make new variable for cumulative % of 'Yes' category
+  dplyr::mutate(
+    # scale to percent (# of all 'Yes' categories)
+    y = ifelse(churn == "Yes", 1/sum(churn == "Yes"),0)
+    # accumulate the values (TRUE POSITIVE RATE)
+    , y = cumsum(y)
+    , x = ifelse(churn == "No", 1/sum(churn == "No"),0)
+    , x = cumsum(x)
+  ) %>%
+  # keep the 'No' category values
+  dplyr::filter(churn == "No") %>%
+  # number rows & scale to % of total; compute incremental areas
+  tibble::rowid_to_column("ID") %>%
+  dplyr::mutate(
+    auc_inc = y / max(ID) # multiply the height by the width
+    , ID = ID / max(ID)   # scale to percent (# of all 'No' categories)
+  )
+
+auc_roc_tbl %>% dplyr::summarize(auc = sum(auc_inc))
+
+auc_roc_tbl %>%
+  ggplot(aes(x=x, y = y)) +
+  geom_line() +
+  geom_abline(slope=1) +
+  coord_fixed() +
+  labs(
+    title = "ROC curve for customer churn prediction"
+    , subtitle =
+      stringr::str_glue("Logistic Regression AUC = {scales::label_number(accuracy = 10^-7)(sum(auc_roc_tbl$auc_inc) )}")
+    , x = "false positive rate"
+    , y = 'true positive rate'
+  ) +
+  theme_bw()
+
 training_results %>%
   yardstick::roc_auc(.pred_No, truth = churn)
+
+training_results %>%
+  yardstick::specificity(estimate=.pred_class, truth = churn)
 
 training_results %>%
   yardstick::accuracy(estimate=.pred_class, truth = churn)
@@ -329,9 +376,46 @@ training_results %>%
 training_results %>%
   yardstick::conf_mat(estimate=.pred_class, truth = churn)
 training_results %>%
+  yardstick::conf_mat(estimate=.pred_class, truth = churn) %>% summary()
+training_results %>%
   vip::vi
+training_results %>%
+  yardstick::j_index(estimate=.pred_class, truth = churn)
 
-training_results %>% yardstick::roc_curve(.pred_No, truth = churn) %>% autoplot()
+# %%%%%%%%%%%%%
+# https://howtolearnmachinelearning.com/articles/roc-machine-learning/
+# see https://probably.tidymodels.org/articles/where-to-use.html
+# https://jmsallan.netlify.app/blog/a-workflow-for-binary-classification-with-tidymodels/
+# %%%%%%%%%%%%%
+
+threshold_data <- training_results %>%
+  dplyr::select(churn:.pred_Yes) %>%
+  probably::threshold_perf(estimate=.pred_Yes, truth = churn, thresholds = seq(0.5, 1, by = 0.0025))
+threshold_data_metrics <- threshold_data %>%
+  dplyr::filter(.threshold %in% c(0.5, 0.6, 0.7, 0.8, .9, 0.95, 0.99))
+
+auc <- training_results %>%
+  yardstick::roc_auc(.pred_No, truth = churn) %>%
+  dplyr::pull(.estimate)
+
+training_results %>%
+  dplyr::arrange( desc(.pred_Yes) ) %>%
+  # dplyr::mutate(churn=as.factor(churn)) %>%
+  dplyr::select(churn:.pred_Yes) %>%
+  # yardstick::roc_curve(.pred_class, truth = churn) %>%
+  yardstick::roc_curve(.pred_Yes, truth = churn) %>%
+  ggplot(aes(x = 1 - specificity, y = sensitivity)) +
+  geom_path() +
+  geom_abline(lty = 3) +
+  coord_equal() +
+  theme_bw()
+  autoplot() +
+  labs(
+    title = "ROC curve for customer churn prediction"
+    , subtitle =
+      stringr::str_glue(
+      "Logistic Regression AUC = {scales::label_number(accuracy = 10^-7)( auc[1] )}")
+  )
 
 # ---
 data %<>%

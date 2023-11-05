@@ -44,7 +44,7 @@ library(magrittr)   # the pipe
 library(tidyverse)  # for data wrangling + visualization
 library(tidymodels) # for modeling
 library(ggplot2)    # for plotting
-# set the efault theme for plotting
+# set the default theme for plotting
 theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
 
