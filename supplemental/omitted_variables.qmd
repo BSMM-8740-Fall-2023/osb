@@ -1,5 +1,5 @@
 ---
-title: "Omited variable bias"
+title: "Omitted variable bias, FWL"
 ---
 
 ```{r opts, include = FALSE}
@@ -183,10 +183,100 @@ lm(
 # partial out unobserved1 (predictor) from demand1 (outcome)
 fit_demand <- lm(demand1 ~ unobserved1, data = dat1)
 
-# regress demand resiuals on price residuals
+# regress demand residuals on price residuals
 lm(
   demand_resid ~ price_resid
   , data = tibble::tibble(demand_resid = fit_demand$residuals, price_resid = fit_price$residuals)
 ) %>% 
   broom::tidy()
 ```
+
+------------------------------------------------------------------------
+
+## Partial Identification
+
+In our linear regression models we include errors (aka noise) in the model of the outcome
+
+$$
+y_i = \beta_0 + \beta_1x_i + u_i
+$$
+
+where each sample $u_i$ is drawn from a Gaussian distributions with zero mean and variance $\sigma^2$.
+
+What if we are also uncertain about $x_i$? In particular what if instead of $x_i$ we can only use $\tilde{x}_i=x_i + w_i$ where
+
+$$
+\text{Cov}\left(w,x\right)=\text{Cov}\left(w,u\right)=\mathbb{E}\left[w\right]=0
+$$
+
+i.e. $\tilde{x}_i$ reflects measurement error in the predictor $x_i$, where the measurement error has zero mean and is independent of $x$ and $u$ (e.g. the measurement error is an independent Gaussian).
+
+In this case $\mathbb{E}\left[\tilde{x}\right]=\mathbb{E}\left[x+w\right]=\mathbb{E}\left[x\right]$ and
+
+$$
+\begin{align*}
+\text{Cov}\left(\tilde{x},y\right) & =\text{Cov}\left(x+w,y\right)=\text{Cov}\left(x,y\right)+\text{Cov}\left(w,y\right)\\
+ & =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,\beta_{0}+\beta_{1}x+u\right)\\
+ & =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,u\right)+\beta_{1}\text{Cov}\left(w,x\right)\\
+ & =\text{Cov}\left(x,y\right)
+\end{align*}
+$$
+
+however $\text{Var}\left(\tilde{x}\right)=\text{Var}\left(x+w\right)\ge\text{Var}\left(x\right)$ so
+
+$$
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)} & =\frac{\text{Cov}\left(x,y\right)}{\text{Var}\left(x\right)+\text{Var}\left(w\right)}\\
+ & =\frac{\text{Cov}\left(x,y\right)/\text{Var}\left(x\right)}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}\\
+ & =\frac{\beta_{1}}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}
+\end{align*}
+$$ and since $\text{Var}\left(w\right)/\text{Var}\left(x\right)$ is non-negative $\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}$ has the same sign as $\beta_1$ and our data gives us a lower bound for $\beta_1$:
+
+$$
+\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|\le\left|\beta_{1}\right|
+$$
+
+If we reverse the regression (regress $\tilde{x}$ on $y$)
+
+$$
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)} & =\frac{\text{Cov}\left(x,y\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}\\
+ & =\frac{\beta_{1}\text{Var}\left(x\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}
+\end{align*}
+$$ and taking the reciprocal:
+
+$$
+\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}=\beta_{1}+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}\text{Var}\left(x\right)}}=\beta_{1}\left[1+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}^{2}\text{Var}\left(x\right)}}\right]
+$$ and the factor in the brackets is greater than 1 and as bofore $\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}$ has the same sign as $\beta_1$ so
+
+$$
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|
+$$
+
+Some terminology:
+
+-   a bound is **sharp** if it cannot be improved (under our assumptions)
+-   a bound is **tight** if it is short enough to be useful in practice
+
+We have **sharp bounds** for $\beta_1$ under measurement error:
+
+$$
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|\ge\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|
+$$ {#eq-bounds}
+
+With respect to how tight the bounds are, let $r$ denote the correlation between $\tilde{x}$ and $y$, then
+
+$$
+\begin{align*}
+r^{2} & =\frac{\text{Cov}\left(\tilde{x},y\right)^{2}}{\text{Var}\left(\tilde{x}\right)\text{Var}\left(y\right)}=\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\times\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)}\\
+r^{2}\times\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)} & =\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}
+\end{align*}
+$$
+
+and the the width of the bounds in @eq-bounds is
+
+$$
+\text{width}=\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}-\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|=\left(1-r^{2}\right)\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|
+$$
+
+So the bounds for $\beta_1$ are tighter when $\tilde{x}$ and $y$ are strongly correlated.
