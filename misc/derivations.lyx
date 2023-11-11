@@ -1078,6 +1078,120 @@ nm
 \begin_inset Formula $\check{x}$
 \end_inset
 
+ 
+\begin_inset Formula $\text{Cov}\left(w,x\right)=\text{Cov}\left(w,x\right)=\mathbb{E}\left[w\right]=0$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbb{E}\left[\tilde{x}\right]=\mathbb{E}\left[w+x\right]=\mathbb{E}\left[x\right]$
+\end_inset
+
+ 
+\begin_inset Formula $\text{Var}\left(\tilde{x}\right)=\text{Var}\left(x+w\right)\ge\text{Var}\left(x\right)$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\text{Cov}\left(\tilde{x},y\right) & =\text{Cov}\left(x+w,y\right)=\text{Cov}\left(x,y\right)+\text{Cov}\left(w,y\right)\\
+ & =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,\beta_{0}+\beta_{1}x+u\right)\\
+ & =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,u\right)+\beta_{1}\text{Cov}\left(w,x\right)\\
+ & =\text{Cov}\left(x,y\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)} & =\frac{\text{Cov}\left(x,y\right)}{\text{Var}\left(x\right)+\text{Var}\left(w\right)}\\
+ & =\frac{\text{Cov}\left(x,y\right)/\text{Var}\left(x\right)}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}\\
+ & =\frac{\beta_{1}}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|\le\left|\beta_{1}\right|
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)} & =\frac{\text{Cov}\left(x,y\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}\\
+ & =\frac{\beta_{1}\text{Var}\left(x\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}=\beta_{1}+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}\text{Var}\left(x\right)}}=\beta_{1}\left[1+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}^{2}\text{Var}\left(x\right)}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\begin_inset Formula 
+\[
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|\ge\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+r^{2} & =\frac{\text{Cov}\left(\tilde{x},y\right)^{2}}{\text{Var}\left(\tilde{x}\right)\text{Var}\left(y\right)}=\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\times\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)}\\
+r^{2}\times\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)} & =\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\text{width}=\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}-\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|=\left(1-r^{2}\right)\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|
+\]
+
+\end_inset
+
 
 \end_layout
 

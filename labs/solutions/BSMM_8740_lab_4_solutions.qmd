@@ -37,7 +37,7 @@ The Boston House Values dataset (usually referred to as the Boston dataset) appe
 This dataset contains the following information for each cocktail:
 
 | variable | description                                                            |
-|----------|------------------------------------------------------------------------|
+|--------------|----------------------------------------------------------|
 | crim     | per capita crime rate by town.                                         |
 | zn       | proportion of residential land zoned for lots over 25,000 sq.ft.       |
 | indus    | proportion of non-retail business acres per town.                      |
@@ -127,11 +127,11 @@ tibble::tibble(lstat = c(5, 10, 15, 20)) %>%
 
 ```{r}
 # Alternatively, and more directly
-tibble::tibble(lstat = c(5, 10, 15)) %>% 
+tibble::tibble(lstat = c(5, 10, 15, 20)) %>% 
   dplyr::bind_cols(
     stats::predict.lm(         
           lm_medv_lstat                
-          , tibble::tibble(lstat = c(5, 10, 15))
+          , tibble::tibble(lstat = c(5, 10, 15, 20))
           , interval = "confidence"   
           )
   )
@@ -139,7 +139,7 @@ tibble::tibble(lstat = c(5, 10, 15)) %>%
 
 ```{r}
 # Or most directly
-tibble::tibble(lstat = c(5, 10, 15)) %>% 
+tibble::tibble(lstat = c(5, 10, 15, 20)) %>% 
   broom::augment(
     lm_medv_lstat, newdata = ., interval = "confidence"
   )
@@ -184,7 +184,7 @@ lm_medv_all <- lm(medv ~ ., data = boston)
 performance::check_collinearity(lm_medv_all)
 ```
 
-The variance inflation factor (VIF) is *medium* (between 5-10) for `rad` and `tax`, suggesting these may be redundant fo predicting the outcome (`medv`).
+The variance inflation factor (VIF) is *moderate* (between 5-10) for `rad` and `tax`, suggesting these may be redundant fo predicting the outcome (`medv`).
 :::
 
 ### Exercise 4
@@ -242,10 +242,6 @@ dat0 %>% ggplot(aes(x=price0,y=demand0)) +
 ```
 
 ```{r}
-
-```
-
-```{r}
 #DAT1
 # fit the model
 fit1 <- lm(demand1 ~ price1, data = dat1)
@@ -275,7 +271,7 @@ est1 %>% dplyr::select(1:2) %>% tibble::add_column(data = 'dat1')
 
 However, now go back and **look at the way the datasets were generated**.
 
-In `dat0`, the coefficient of price in the equation for demand is -1, consistent with the linear fit.
+In `dat0`, the coefficient of price in the equation for demand is -1, **consistent with the linear fit**.
 
 But in `dat1`, the coefficient of price in the equation for demand is -0.5, yet the linear fit estimates the value as close to 1.
 
@@ -487,7 +483,7 @@ cars_23_train %>% dim()
 summary(cars_23_prep)
 ```
 
-There are now 45 columns in the data and 45 predictors in the recipe. This is because the recipe converted the factors to dummy variables.
+There are now **45 columns** in the data and 45 predictors in the recipe. This is because the recipe converted the factors to dummy variables.
 :::
 
 ### Exercise 8
@@ -561,8 +557,8 @@ xgb_test_rmse  <- NULL
 for (j in 1:nrow(hyper_grid)) {
   set.seed(123)
   m_xgb_untuned <- xgboost::xgb.cv(
-    data = cars_23_train %>% dplyr::pull(-comb_fe_guide_conventional_fuel) %>% as.matrix(), 
-    label = cars_23_train %>% dplyr::pull(comb_fe_guide_conventional_fuel) %>% as.matrix(),
+    data = cars_23_train %>% dplyr::select(-comb_fe_guide_conventional_fuel) %>% as.matrix(), 
+    label = cars_23_train %>% dplyr::select(comb_fe_guide_conventional_fuel) %>% as.matrix(),
     nrounds = 1000,
     objective = "reg:squarederror",
     early_stopping_rounds = 3,
@@ -589,8 +585,8 @@ Is the tuned model better than the un-tuned model? If better, how much has the R
 ```{r}
 tuned_xgb <-
   xgboost::xgboost(
-    data = cars_23_test %>% dplyr::select(-comb_fe_guide_conventional_fuel) %>% as.matrix(), 
-    label = cars_23_test %>% dplyr::select(comb_fe_guide_conventional_fuel) %>% as.matrix(),
+    data = cars_23_train %>% dplyr::select(-comb_fe_guide_conventional_fuel) %>% as.matrix(), 
+    label = cars_23_train %>% dplyr::select(comb_fe_guide_conventional_fuel) %>% as.matrix(),
     nrounds = 1000,
     objective = "reg:squarederror",
     early_stopping_rounds = 3,
@@ -600,7 +596,7 @@ tuned_xgb <-
   ) 
 ```
 
-Now the RMSE is 0.131/0.245 - approximately half of the untuned model
+Now the RMSE is 0.2425948/0.2446266 - about 1% better than the untuned model
 
 ```{r}
 yhat <- predict(

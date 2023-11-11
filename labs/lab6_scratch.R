@@ -66,6 +66,26 @@ training_results %>%
 training_results %>%
   yardstick::roc_curve(.pred_No, truth = churn) %>% autoplot()
 
+m_set <-
+  yardstick::metric_set(
+    yardstick::accuracy
+    , yardstick::precision
+    , yardstick::recall
+    , yardstick::f_meas
+    , yardstick::spec
+    , yardstick::sens
+    , yardstick::ppv
+    , yardstick::npv
+)
+training_results %>% m_set(truth = churn, estimate = .pred_class)
+
+m_set_roc <-
+  yardstick::metric_set(
+    yardstick::roc_curve
+    , yardstick::roc_auc
+)
+training_results %>% m_set_roc(truth = churn, estimate = .pred_No)
+
 # testing dataset
 testing_results <-
   broom::augment(lm_fit , default_test)
@@ -81,6 +101,8 @@ testing_results %>%
 
 testing_results %>%
   yardstick::roc_curve(truth = churn, .pred_No) %>% autoplot()
+
+
 
 # Q4 ----
 lm_fit %>% broom::tidy() %>%
@@ -201,6 +223,79 @@ final_fit %>%
   tune::collect_predictions() %>%
   yardstick::roc_curve(.pred_No, truth = churn) %>%
   autoplot()
+
+# Q10 ----
+# https://www.tidymodels.org/learn/statistics/k-means/
+
+set.seed(8740)
+
+# generate data (save?)
+
+centers <- tibble::tibble(
+  cluster = factor(1:3),
+  num_points = c(100, 150, 50),  # number points in each cluster
+  x1 = c(5, 0, -3),              # x1 coordinate of cluster center
+  x2 = c(-1, 1, -2)              # x2 coordinate of cluster center
+)
+
+labelled_points <-
+  centers %>%
+  mutate(
+    x1 = map2(num_points, x1, rnorm),
+    x2 = map2(num_points, x2, rnorm)
+  ) %>%
+  select(-num_points) %>%
+  unnest(cols = c(x1, x2))
+
+labelled_points %>% readr::write_csv('data/lab_6_clusters.csv')
+
+ggplot(labelled_points, aes(x1, x2, color = cluster)) +
+  geom_point(alpha = 0.3)
+
+# clusters
+points <-
+  labelled_points %>%
+  select(-cluster)
+
+kclust <- stats::kmeans(points, centers = 3)
+kclust
+
+broom::augment(kclust, points)
+broom::tidy(kclust)
+broom::glance(kclust)
+
+#
+
+kclusts <-
+  tibble(k = 1:9) %>%
+  mutate(
+    kclust = map(k, ~kmeans(points, .x)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, points)
+  )
+
+clusters <-
+  kclusts %>%
+  tidyr::unnest(cols = c(tidied))
+
+assignments <-
+  kclusts %>%
+  tidyr::unnest(cols = c(augmented))
+
+clusterings <-
+  kclusts %>%
+  tidyr::unnest(cols = c(glanced))
+
+p <- assignments %>% ggplot(aes(x = x1, y = x2)) +
+  geom_point(aes(color = .cluster), alpha = 0.8) +
+  facet_wrap(~ k)
+
+p + geom_point(data = clusters, size = 10, shape = "x")
+
+clusterings %>% ggplot(aes(k, tot.withinss)) +
+  geom_line() +
+  geom_point()
 
 # $$$$$ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
