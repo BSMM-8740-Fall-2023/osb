@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-7-tuning-for-k" id="toc-exercise-7-tuning-for-k" class="nav-link" data-scroll-target="#exercise-7-tuning-for-k">Exercise 7: tuning for k</a></li>
   <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise 8</a></li>
   <li><a href="#exercise-9" id="toc-exercise-9" class="nav-link" data-scroll-target="#exercise-9">Exercise 9</a></li>
-  <li><a href="#exercise-10" id="toc-exercise-10" class="nav-link" data-scroll-target="#exercise-10">Exercise 10</a></li>
+  <li><a href="#exercise-10-clustering" id="toc-exercise-10-clustering" class="nav-link" data-scroll-target="#exercise-10-clustering">Exercise 10: clustering</a></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
   </ul>
@@ -412,6 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
 <p>By the end of the lab you will…</p>
 <ul>
+<li>Be able to build workflows to fit different classification models.</li>
 <li>Be able to build workflows to evaluate different clustering models.</li>
 </ul>
 </section>
@@ -419,8 +420,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
-<li><p>Log in to <strong>your</strong> github account and then go to the <a href="https://github.com/bsmm-8740-fall-2023">GitHub organization</a> for the course and find the <strong>BSMM-lab-5-[your github username]</strong> repository to complete the lab.</p>
-<p>Create an R project using your <strong>BSMM-lab-5-[your github username]</strong> repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the <code>BSMM-lab-5.qmd</code> file in your repository.</p></li>
+<li><p>Log in to <strong>your</strong> github account and then go to the <a href="https://github.com/bsmm-8740-fall-2023">GitHub organization</a> for the course and find the <strong>BSMM-lab-6-[your github username]</strong> repository to complete the lab.</p>
+<p>Create an R project using your <strong>BSMM-lab-6-[your github username]</strong> repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the <code>BSMM-lab-6.qmd</code> file in your repository.</p></li>
 <li><p>When you are done, be sure to save your document, stage, commit and push your work.</p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -466,7 +467,9 @@ Important
 <p>Today we will be using customer churn data.</p>
 <p>In the customer management lifecycle, customer churn refers to a decision made by the customer about ending the business relationship. It is also referred as loss of clients or customers. This dataset contains 20 features related to churn in a telecom context and we will look at how to predict churn and estimate the effect of predictors on the customer churn odds ratio.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/Telco-Customer-Churn.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/Telco-Customer-Churn.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">churn =</span> <span class="fu">as.factor</span>(churn))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-1-eda" class="level2">
@@ -494,15 +497,40 @@ Important
 <li>Create a workflow using the recipe of the last exercise and the model if the last step.</li>
 <li>With the workflow, fit the training data</li>
 <li>Combine the training data and the predictions from step 3 using <code>broom::augment</code> , and assign the result to a variable</li>
-<li>Use the variable from step 4 as the first argument to the functions below. Each function takes the argument <code>truth = churn</code> and the <code>roc_</code> functions take an argument with prediction probabilities (use the column <code>.pred_No</code>). The non-<code>roc_</code> functions take the argument <code>estimate=.pred_class</code>.
+<li>Create a combined metric function using <code>yardstick::metric_set</code> as show in the code below:</li>
+<li>Use the variable from step 4 as the first argument to the function from step 5. The other arguments are <code>truth = churn</code> (from the data) and <code>estimate=.pred_class</code> (from step 4). Make a note of the numerical metrics.</li>
+<li>Use the variable from step 4 as the first argument to the functions listed below, with arguments <code>truth = churn</code> and <code>estimate =``.pred_No</code>.
 <ul>
-<li><code>yardstick::accuracy</code></li>
 <li><code>yardstick::roc_auc</code></li>
-<li><code>yardstick::conf_mat</code>, and</li>
 <li><code>yardstick::roc_curve</code> followed by <code>ggplot2::autoplot()</code>.</li>
 </ul></li>
-<li>make a note of the numerical metrics</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+rank-deficiency
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can ignore this message. It means that there are a lot of predictors.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m_set_fn <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  yardstick<span class="sc">::</span><span class="fu">metric_set</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    yardstick<span class="sc">::</span>accuracy</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>precision</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>recall</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>f_meas</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>spec</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>sens</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>ppv</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    , yardstick<span class="sc">::</span>npv</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="exercise-4-effects" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-4-effects">Exercise 4: effects</h2>
@@ -521,10 +549,10 @@ Important
 <li>Repeat step 4 using the augmented data from step 5.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?parsnip<span class="sc">::</span>nearest_neighbor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?parsnip<span class="sc">::</span>nearest_neighbor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?yardstick<span class="sc">::</span>roc_curve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>?yardstick<span class="sc">::</span>roc_curve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-6-cross-validation" class="level2">
@@ -538,10 +566,10 @@ Important
 <li>Use tune::collect_predictions() on the results from step 2 to plot the roc_auc curve as in exercise 5. Has it changed much from exercise 5?</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>?rsample<span class="sc">::</span>vfold_cv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?rsample<span class="sc">::</span>vfold_cv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>fit_resamples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>fit_resamples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="render-commit-push">
 <p>This is a good place to render, commit, and push changes to your remote lab repo on GitHub. Click the checkbox next to each file in the Git pane to stage the updates you’ve made, write an informative commit message, and push. After you push the changes, the Git pane in RStudio should be empty.</p>
@@ -556,22 +584,22 @@ Important
 <li>Use <code>tune::tune_grid</code> with <code>tune::control_grid(save_pred = TRUE)</code> and <code>yardstick::metric_set(yardstick::accuracy, yardstick::roc_auc)</code> to generate tuning results</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>tune_grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>tune_grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-8" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-8">Exercise 8</h2>
 <p>Use <code>tune::collect_metrics()</code> to collect the metrics from the tuning results in exercise 7 and then plot the metrics as a function of <strong>k</strong> using the code below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(neighbors,mean)) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .metric, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(neighbors,mean)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .metric, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-9" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-9">Exercise 9</h2>
-<p>Use <code>tune::show_best</code> and <code>tune::select_best</code> to find the best <strong>k</strong> for the knn classification model. Then</p>
+<p>Use <code>tune::show_best</code> and <code>tune::select_best</code> with argument <strong>“roc_auc”</strong> to find the best <strong>k</strong> for the knn classification model. Then</p>
 <ol type="1">
 <li>update the workflow using <code>tune::finalize_workflow</code> to set the best k value.</li>
 <li>use <code>tune::last_fit</code> with the updated workflow from step 1, evaluated on the split data from exercise 2 to finalize the fit.</li>
@@ -579,12 +607,70 @@ Important
 <li>use <code>tune::collect_predictions()</code> to get the predictions and plot the <strong>roc_auc</strong> as in the prior exercises</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>finalize_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>?tune<span class="sc">::</span>finalize_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise-10" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-10">Exercise 10</h2>
-<p>Select the best model per the <strong>rsq</strong> metric using its id.</p>
+<section id="exercise-10-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-10-clustering">Exercise 10: clustering</h2>
+<p>Load the data for this exercise as below and plot it, and then create an analysis dataset with the cluster labels removed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read the data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>labelled_points <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/lab_6_clusters.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the clusters</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>labelled_points <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(x1, x2, <span class="at">color =</span> cluster)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># analysis dataset</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  labelled_points <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(?)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You have frequently used <code>broom::augment</code> to combine a model with the data set, and <code>broom::tidy</code> to summarize model components; <code>broom::glance</code> is used to similarly to summarize goodness-of-fit metrics.</p>
+<p>Now perform k-means clustering on the points data for different values of k as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>kclusts <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># number of clusters from 1-9</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate to add columns</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a list-column with the results of the kmeans function (clustering)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">kclust =</span> purrr<span class="sc">::</span><span class="fu">map</span>(k, <span class="sc">~</span>stats<span class="sc">::</span><span class="fu">kmeans</span>(points, .x)),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a list-column with the results broom::tidy applied to the clustering results</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">tidied =</span> purrr<span class="sc">::</span><span class="fu">map</span>(kclust, broom<span class="sc">::</span>tidy),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a list-column with the results broom::glance applied to the clustering results</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">glanced =</span> purrr<span class="sc">::</span><span class="fu">map</span>(kclust, broom<span class="sc">::</span>glance),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a list-column with the results broom::augment applied to the clustering results</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">augmented =</span> purrr<span class="sc">::</span><span class="fu">map</span>(kclust, broom<span class="sc">::</span>augment, points)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(i)</strong> Create 3 variables by <code>tidyr::unnest</code>ing to appropriate columns of <strong>kclusts</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> ?</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>assignments <span class="ot">&lt;-</span> ?</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>clusterings <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(ii)</strong> Use the <strong>assignments</strong> variable to plot the cluster assigments generated by <code>stats::kmeans</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> assignments <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> x2)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> .cluster), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> k) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(iii)</strong> Use the <strong>clusters</strong> variable to add the cluster centers to the plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> clusters, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">shape =</span> <span class="st">"x"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(iv)</strong> Use the <strong>clusterings</strong> variable to plot the total within sum of squares value by number of clusters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>clusterings <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, tot.withinss)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(v)</strong> Using the results of parts (iii) and (iv), <strong>which k</strong> (number of clusters) <strong>gives the best results.</strong></p>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>

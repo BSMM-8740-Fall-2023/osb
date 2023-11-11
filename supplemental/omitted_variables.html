@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BSMM-8740 - Fall 2023 - Omited variable bias</title>
+<title>BSMM-8740 - Fall 2023 - Omitted variable bias, FWL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,10 +100,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="BSMM-8740 - Fall 2023 - Omited variable bias">
+<meta property="og:title" content="BSMM-8740 - Fall 2023 - Omitted variable bias, FWL">
 <meta property="og:description" content="">
 <meta property="og:site-name" content="BSMM-8740 - Fall 2023">
-<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Omited variable bias">
+<meta name="twitter:title" content="BSMM-8740 - Fall 2023 - Omitted variable bias, FWL">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://bsmm-8740-fall-2023.github.io/osb/supplemental/images/twitter-card.png">
 <meta name="twitter:creator" content="@lodette">
@@ -376,6 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation:</a></li>
   <li><a href="#example1" id="toc-example1" class="nav-link" data-scroll-target="#example1">Example1</a></li>
   </ul></li>
+  <li><a href="#partial-identification" id="toc-partial-identification" class="nav-link" data-scroll-target="#partial-identification">Partial Identification</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/bsmm-8740-fall-2023/osb/edit/main/supplemental/omitted_variables.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/bsmm-8740-fall-2023/osb/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -384,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Omited variable bias</h1>
+<h1 class="title">Omitted variable bias, FWL</h1>
 </div>
 
 
@@ -570,7 +571,7 @@ y = \beta_0 + \beta_1x_1 + \beta_1x_2 + u
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># partial out unobserved1 (predictor) from demand1 (outcome)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> fit_demand <span class="ot">&lt;-</span> <span class="fu">lm</span>(demand1 <span class="sc">~</span> unobserved1, <span class="at">data =</span> dat1)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># regress demand resiuals on price residuals</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># regress demand residuals on price residuals</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">lm</span>(</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   demand_resid <span class="sc">~</span> price_resid</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   , <span class="at">data =</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">demand_resid =</span> fit_demand<span class="sc">$</span>residuals, <span class="at">price_resid =</span> fit_price<span class="sc">$</span>residuals)</span>
@@ -584,9 +585,77 @@ y = \beta_0 + \beta_1x_1 + \beta_1x_2 + u
 2 price_resid -4.43e- 1    0.0444 -9.99e+ 0 1.59e-21</code></pre>
 </div>
 </div>
-
-
+<hr>
 </section>
+</section>
+<section id="partial-identification" class="level2">
+<h2 class="anchored" data-anchor-id="partial-identification">Partial Identification</h2>
+<p>In our linear regression models we include errors (aka noise) in the model of the outcome</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1x_i + u_i
+\]</span></p>
+<p>where each sample <span class="math inline">\(u_i\)</span> is drawn from a Gaussian distributions with zero mean and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>What if we are also uncertain about <span class="math inline">\(x_i\)</span>? In particular what if instead of <span class="math inline">\(x_i\)</span> we can only use <span class="math inline">\(\tilde{x}_i=x_i + w_i\)</span> where</p>
+<p><span class="math display">\[
+\text{Cov}\left(w,x\right)=\text{Cov}\left(w,u\right)=\mathbb{E}\left[w\right]=0
+\]</span></p>
+<p>i.e.&nbsp;<span class="math inline">\(\tilde{x}_i\)</span> reflects measurement error in the predictor <span class="math inline">\(x_i\)</span>, where the measurement error has zero mean and is independent of <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span> (e.g.&nbsp;the measurement error is an independent Gaussian).</p>
+<p>In this case <span class="math inline">\(\mathbb{E}\left[\tilde{x}\right]=\mathbb{E}\left[x+w\right]=\mathbb{E}\left[x\right]\)</span> and</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Cov}\left(\tilde{x},y\right) &amp; =\text{Cov}\left(x+w,y\right)=\text{Cov}\left(x,y\right)+\text{Cov}\left(w,y\right)\\
+&amp; =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,\beta_{0}+\beta_{1}x+u\right)\\
+&amp; =\text{Cov}\left(x,y\right)+\text{Cov}\left(w,u\right)+\beta_{1}\text{Cov}\left(w,x\right)\\
+&amp; =\text{Cov}\left(x,y\right)
+\end{align*}
+\]</span></p>
+<p>however <span class="math inline">\(\text{Var}\left(\tilde{x}\right)=\text{Var}\left(x+w\right)\ge\text{Var}\left(x\right)\)</span> so</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)} &amp; =\frac{\text{Cov}\left(x,y\right)}{\text{Var}\left(x\right)+\text{Var}\left(w\right)}\\
+&amp; =\frac{\text{Cov}\left(x,y\right)/\text{Var}\left(x\right)}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}\\
+&amp; =\frac{\beta_{1}}{1+\text{Var}\left(w\right)/\text{Var}\left(x\right)}
+\end{align*}
+\]</span> and since <span class="math inline">\(\text{Var}\left(w\right)/\text{Var}\left(x\right)\)</span> is non-negative <span class="math inline">\(\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\)</span> has the same sign as <span class="math inline">\(\beta_1\)</span> and our data gives us a lower bound for <span class="math inline">\(\beta_1\)</span>:</p>
+<p><span class="math display">\[
+\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|\le\left|\beta_{1}\right|
+\]</span></p>
+<p>If we reverse the regression (regress <span class="math inline">\(\tilde{x}\)</span> on <span class="math inline">\(y\)</span>)</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)} &amp; =\frac{\text{Cov}\left(x,y\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}\\
+&amp; =\frac{\beta_{1}\text{Var}\left(x\right)}{\beta_{1}^{2}\text{Var}\left(x\right)+\text{Var}\left(u\right)}
+\end{align*}
+\]</span> and taking the reciprocal:</p>
+<p><span class="math display">\[
+\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}=\beta_{1}+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}\text{Var}\left(x\right)}}=\beta_{1}\left[1+\frac{\text{Var}\left(u\right)}{\mathbf{\beta_{1}^{2}\text{Var}\left(x\right)}}\right]
+\]</span> and the factor in the brackets is greater than 1 and as bofore <span class="math inline">\(\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\)</span> has the same sign as <span class="math inline">\(\beta_1\)</span> so</p>
+<p><span class="math display">\[
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|
+\]</span></p>
+<p>Some terminology:</p>
+<ul>
+<li>a bound is <strong>sharp</strong> if it cannot be improved (under our assumptions)</li>
+<li>a bound is <strong>tight</strong> if it is short enough to be useful in practice</li>
+</ul>
+<p>We have <strong>sharp bounds</strong> for <span class="math inline">\(\beta_1\)</span> under measurement error:</p>
+<p><span id="eq-bounds"><span class="math display">\[
+\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|\ge\left|\beta_{1}\right|\ge\left|\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|
+\tag{2}\]</span></span></p>
+<p>With respect to how tight the bounds are, let <span class="math inline">\(r\)</span> denote the correlation between <span class="math inline">\(\tilde{x}\)</span> and <span class="math inline">\(y\)</span>, then</p>
+<p><span class="math display">\[
+\begin{align*}
+r^{2} &amp; =\frac{\text{Cov}\left(\tilde{x},y\right)^{2}}{\text{Var}\left(\tilde{x}\right)\text{Var}\left(y\right)}=\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\times\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(y\right)}\\
+r^{2}\times\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)} &amp; =\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}
+\end{align*}
+\]</span></p>
+<p>and the the width of the bounds in <a href="#eq-bounds">Equation&nbsp;2</a> is</p>
+<p><span class="math display">\[
+\text{width}=\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}-\frac{\text{Cov}\left(\tilde{x},y\right)}{\text{Var}\left(\tilde{x}\right)}\right|=\left(1-r^{2}\right)\left|\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)}\right|
+\]</span></p>
+<p>So the bounds for <span class="math inline">\(\beta_1\)</span> are tighter when <span class="math inline">\(\tilde{x}\)</span> and <span class="math inline">\(y\)</span> are strongly correlated.</p>
+
+
 </section>
 
 </main> <!-- /main -->
