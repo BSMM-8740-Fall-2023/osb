@@ -6360,7 +6360,7 @@
     "href": "labs/solutions/BSMM_8740_lab_5_solutions.html#exercise-8",
     "title": "Lab 5 - The Models package",
     "section": "Exercise 8",
-    "text": "Exercise 8\nUse workflowsets::workflow_map to map the default function (tune::tune_grid() - look at the help for workflowsets::workflow_map ) across the workflows in the workflowset you just created and update the variable all_workflows with the result.\n\nall_workflows &lt;- all_workflows %&gt;% \n  workflowsets::workflow_map(\n    verbose = TRUE                # enable logging\n    , resamples = train_resamples # a parameter passed to tune::tune_grid()\n    , grid = 5                    # a parameter passed to tune::tune_grid()\n  )\n\ni   No tuning parameters. `fit_resamples()` will be attempted\n\n\ni 1 of 3 resampling: base_base\n\n\n✔ 1 of 3 resampling: base_base (2.9s)\n\n\ni 2 of 3 tuning:     base_glmnet\n\n\n✔ 2 of 3 tuning:     base_glmnet (8.5s)\n\n\ni 3 of 3 tuning:     base_forest\n\n\n✔ 3 of 3 tuning:     base_forest (2m 9.4s)\n\n\nThe updated variable all_workflows contains a nested column named result, and each cell of the column result is a tibble containing a nested column named .metrics. Write code to\n\nun-nest the metrics in the column .metrics\nfilter out the rows for the metric rsq\ngroup by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group.\n\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\nall_workflows %&gt;% \n  # unnest the result column\n  dplyr::select(wflow_id,result) %&gt;% \n  tidyr::unnest(result) %&gt;% \n  # unnest the .metrics column\n  tidyr::unnest(.metrics) %&gt;% \n  # filter out the metric rsq\n  dplyr::filter(.metric == 'rsq') %&gt;% \n  # group by wflow_id\n  dplyr::group_by(wflow_id) %&gt;% \n  # order by .estimate, starting with the largest value\n  dplyr::arrange(desc(.estimate) ) %&gt;% \n  # select the first row for each group (i.e. highest rsq)\n  dplyr::slice(1)\n\n# A tibble: 3 × 12\n# Groups:   wflow_id [3]\n  wflow_id    splits             id         .metric .estimator .estimate .config\n  &lt;chr&gt;       &lt;list&gt;             &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;  \n1 base_base   &lt;split [2197/798]&gt; Bootstrap… rsq     standard       0.448 Prepro…\n2 base_forest &lt;split [2197/797]&gt; Bootstrap… rsq     standard       0.712 Prepro…\n3 base_glmnet &lt;split [2197/798]&gt; Bootstrap… rsq     standard       0.448 Prepro…\n# ℹ 5 more variables: penalty &lt;dbl&gt;, mixture &lt;dbl&gt;, trees &lt;int&gt;, min_n &lt;int&gt;,\n#   .notes &lt;list&gt;"
+    "text": "Exercise 8\nUse workflowsets::workflow_map to map the default function (tune::tune_grid() - look at the help for workflowsets::workflow_map ) across the workflows in the workflowset you just created and update the variable all_workflows with the result.\n\nall_workflows &lt;- all_workflows %&gt;% \n  workflowsets::workflow_map(\n    verbose = TRUE                # enable logging\n    , resamples = train_resamples # a parameter passed to tune::tune_grid()\n    , grid = 5                    # a parameter passed to tune::tune_grid()\n  )\n\ni   No tuning parameters. `fit_resamples()` will be attempted\n\n\ni 1 of 3 resampling: base_base\n\n\n✔ 1 of 3 resampling: base_base (2.5s)\n\n\ni 2 of 3 tuning:     base_glmnet\n\n\n✔ 2 of 3 tuning:     base_glmnet (7.8s)\n\n\ni 3 of 3 tuning:     base_forest\n\n\n✔ 3 of 3 tuning:     base_forest (1m 58.2s)\n\n\nThe updated variable all_workflows contains a nested column named result, and each cell of the column result is a tibble containing a nested column named .metrics. Write code to\n\nun-nest the metrics in the column .metrics\nfilter out the rows for the metric rsq\ngroup by wflow_id, order the .estimate column from highest to lowest, and pick out the first row of each group.\n\n\n\n\n\n\n\nSOLUTION:\n\n\n\n\nall_workflows %&gt;% \n  # unnest the result column\n  dplyr::select(wflow_id,result) %&gt;% \n  tidyr::unnest(result) %&gt;% \n  # unnest the .metrics column\n  tidyr::unnest(.metrics) %&gt;% \n  # filter out the metric rsq\n  dplyr::filter(.metric == 'rsq') %&gt;% \n  # group by wflow_id\n  dplyr::group_by(wflow_id) %&gt;% \n  # order by .estimate, starting with the largest value\n  dplyr::arrange(desc(.estimate) ) %&gt;% \n  # select the first row for each group (i.e. highest rsq)\n  dplyr::slice(1)\n\n# A tibble: 3 × 12\n# Groups:   wflow_id [3]\n  wflow_id    splits             id         .metric .estimator .estimate .config\n  &lt;chr&gt;       &lt;list&gt;             &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;  \n1 base_base   &lt;split [2197/798]&gt; Bootstrap… rsq     standard       0.448 Prepro…\n2 base_forest &lt;split [2197/797]&gt; Bootstrap… rsq     standard       0.712 Prepro…\n3 base_glmnet &lt;split [2197/798]&gt; Bootstrap… rsq     standard       0.448 Prepro…\n# ℹ 5 more variables: penalty &lt;dbl&gt;, mixture &lt;dbl&gt;, trees &lt;int&gt;, min_n &lt;int&gt;,\n#   .notes &lt;list&gt;"
   },
   {
     "objectID": "labs/solutions/BSMM_8740_lab_5_solutions.html#exercise-9",
@@ -8698,14 +8698,14 @@
     "href": "slides/BSMM_8740_lec_06.html#types-of-classification",
     "title": "Classification & clustering methods",
     "section": "Types of classification",
-    "text": "Types of classification\n\nBinary classification\nMulti-Class Classification (mutually exclusive)\nMulti-Label Classification (not mutually exclusive)\nImbalanced Classification"
+    "text": "Types of classification\n\nBinary classification\nMulti-Class Classification (mutually exclusive)\n\nmulticlass\n\nMulti-Label Classification (not mutually exclusive)\n\nmultilabel\n\nImbalanced Classification\n\nclass imbalance"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#binary-logistic-regression",
     "href": "slides/BSMM_8740_lec_06.html#binary-logistic-regression",
     "title": "Classification & clustering methods",
     "section": "Binary Logistic Regression",
-    "text": "Binary Logistic Regression\nLogistic regression is a Generalized Linear Model where the dependent (categorical) variable \\(y\\) takes values in \\({0,1}\\). This can be interpreted as identifying two classes, and logistic regression provides a prediction for class membership based on a linear combination of the explanatory variables.\nLogistic regression is an example of supervised learning."
+    "text": "Binary Logistic Regression\nLogistic regression is a Generalized Linear Model where the dependent (categorical) variable \\(y\\) takes values in \\(\\{0,1\\}\\). This can be interpreted as identifying two classes, and logistic regression provides a prediction for class membership based on a linear combination of the explanatory variables.\nLogistic regression is an example of supervised learning."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#binary-logistic-regression-1",
@@ -8719,42 +8719,42 @@
     "href": "slides/BSMM_8740_lec_06.html#binary-logistic-regression-2",
     "title": "Classification & clustering methods",
     "section": "Binary Logistic Regression",
+    "text": "Binary Logistic Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\\begin{align*}\n\\pi & =\\frac{1}{1+e^{-\\eta}}\\;\\text{(logistic function)}\\\\\n\\log\\left(\\frac{\\pi}{1-\\pi}\\right) & =\\log\\left(\\frac{\\frac{1}{1+e^{-\\eta}}}{1-\\frac{1}{1+e^{-\\eta}}}\\right)\\\\\n& =\\log\\left(\\frac{\\frac{1}{1+e^{-\\eta}}}{\\frac{e^{-\\eta}}{1+e^{-\\eta}}}\\right)=\\log\\left(e^{\\eta}\\right)=\\eta\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#binary-logistic-regression-3",
+    "href": "slides/BSMM_8740_lec_06.html#binary-logistic-regression-3",
+    "title": "Classification & clustering methods",
+    "section": "Binary Logistic Regression",
     "text": "Binary Logistic Regression\nThe term \\(\\frac{\\pi}{1-\\pi}\\) is called the the odds-ratio. By its definition \\(\\frac{\\pi}{1-\\pi}=e^{\\beta_0+\\beta_1 x_1+\\beta_2 x_2+\\beta_2 x_2\\ldots+\\beta_n x_n}\\)\nSo if \\(x_1\\) changes by one unit (\\(x_1\\rightarrow x_1+1\\)), then the odds ratio changes by \\(e^{\\beta_1}\\)."
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#classifier-metrics",
-    "href": "slides/BSMM_8740_lec_06.html#classifier-metrics",
+    "objectID": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics",
+    "href": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics",
     "title": "Classification & clustering methods",
-    "section": "Classifier metrics",
-    "text": "Classifier metrics\nConfusion matrix\nThe confusion matrix is a 2x2 table summarizing the number of correct predictions of the model:\n\n\n\n\npredict 1\npredict 0\n\n\n\n\ndata =1\ntrue positives (TP)\nfalse negatives (FN)1\n\n\ndata = 0\nfalse positives (FP)2\ntrue negatives (TN)\n\n\n\nType II errorType I error"
+    "section": "Binary Classifier metrics",
+    "text": "Binary Classifier metrics\nConfusion matrix\nThe confusion matrix is a 2x2 table summarizing the number of correct predictions of the model (a function of the decision boundary):\n\n\n\n\npredict 1\npredict 0\n\n\n\n\ndata = 1\ntrue positives (TP)\nfalse negatives (FN)1\n\n\ndata = 0\nfalse positives (FP)2\ntrue negatives (TN)\n\n\n\nType II errorType I error"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#classifier-metrics-1",
-    "href": "slides/BSMM_8740_lec_06.html#classifier-metrics-1",
+    "objectID": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-1",
+    "href": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-1",
     "title": "Classification & clustering methods",
-    "section": "Classifier metrics",
-    "text": "Classifier metrics\nAccuracy\nAccuracy measure the percent of correct predictions:\n\\[\n\\frac{\\text{TP}+\\text{TN}}{\\text{total # observations}}\n\\]\nPrecision\nAccuracy measure the percent of positive predictions that are correct:\n\\[\n\\frac{\\text{TP}}{\\text{TP}+\\text{FP}}\n\\]"
+    "section": "Binary Classifier metrics",
+    "text": "Binary Classifier metrics\nAccuracy\nAccuracy measure the percent of correct predictions:\n\\[\n\\frac{\\text{TP}+\\text{TN}}{\\text{total # observations}}\n\\]\nPrecision\nAccuracy measure the percent of positive predictions that are correct:\n\\[\n\\frac{\\text{TP}}{\\text{TP}+\\text{FP}}\n\\]"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#classifier-metrics-2",
-    "href": "slides/BSMM_8740_lec_06.html#classifier-metrics-2",
+    "objectID": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-2",
+    "href": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-2",
     "title": "Classification & clustering methods",
-    "section": "Classifier metrics",
-    "text": "Classifier metrics\nRecall / Sensitivity\nMeasures the success at predicting the first class\n\\[\n\\frac{\\text{TP}}{\\text{TP}+\\text{FN}}\\qquad\\text{(True Positive Rate - TPR)}\n\\]\nRecall / Specificity\nMeasures the success at predicting the second class\n\\[\n\\frac{\\text{TN}}{\\text{TN}+\\text{FP}}\\qquad\\text{(True Negative Rate - TNR)}\n\\]"
+    "section": "Binary Classifier metrics",
+    "text": "Binary Classifier metrics\nRecall / Sensitivity\nMeasures the success at predicting the first class\n\\[\n\\frac{\\text{TP}}{\\text{TP}+\\text{FN}}\\qquad\\text{(True Positive Rate - TPR)}\n\\]\nRecall / Specificity\nMeasures the success at predicting the second class\n\\[\n\\frac{\\text{TN}}{\\text{TN}+\\text{FP}}\\qquad\\text{(True Negative Rate - TNR)}\n\\]"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#classifier-metrics-3",
-    "href": "slides/BSMM_8740_lec_06.html#classifier-metrics-3",
+    "objectID": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-3",
+    "href": "slides/BSMM_8740_lec_06.html#binary-classifier-metrics-3",
     "title": "Classification & clustering methods",
-    "section": "Classifier metrics",
-    "text": "Classifier metrics\nROC Curves\nConsider plotting the TPR against the FPR (1-TNR) at different classification thresholds. This is the ROC.\n\nthe diagonal (TPR = 1-TNR) describes a process equivalent to tossing a fair coin (i.e. no predictive power)\nour method should have a curve above the diagonal; which shape is better depends on the purpose of our classifier.\n\nSo, how to compute?"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_06.html#classifier-metrics-4",
-    "href": "slides/BSMM_8740_lec_06.html#classifier-metrics-4",
-    "title": "Classification & clustering methods",
-    "section": "Classifier metrics",
-    "text": "Classifier metrics\nThe AUC: the area under the ROC.\nIt turns out the AUC is very easy to compute and gives us the ROC at the same time.\n\nrank order your data by decreasing positive predicted probability\nagainst the cumulative percent of negative observations plot the cumulative percent of positive observations"
+    "section": "Binary Classifier metrics",
+    "text": "Binary Classifier metrics\nROC Curves\nConsider plotting the TPR against the FPR (1-TNR) at different classification thresholds. This is the ROC.\n\nthe diagonal (TPR = 1-TNR) describes a process equivalent to tossing a fair coin (i.e. no predictive power)\nour method should have a curve above the diagonal; which shape is better depends on the purpose of our classifier.\n\nSo, how to compute?"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#example-create-the-workflow",
@@ -8768,42 +8768,14 @@
     "href": "slides/BSMM_8740_lec_06.html#example-fit-the-model-using-the-data",
     "title": "Classification & clustering methods",
     "section": "Example: fit the model using the data",
-    "text": "Example: fit the model using the data\n\n&gt; # fit the model\n&gt; lm_fit &lt;- \n+   default_workflow %&gt;% \n+   parsnip::fit(default_train)\n&gt; \n&gt; # augment the data with the predictions using the model fit\n&gt; training_results &lt;- \n+   broom::augment(lm_fit , default_train)"
+    "text": "Example: fit the model using the data\n\n&gt; # fit the model\n&gt; lm_fit &lt;- \n+   default_workflow %&gt;% \n+   parsnip::fit(default_train)\n&gt; \n&gt; # augment the data with the predictions using the model fit\n&gt; training_results &lt;- \n+   broom::augment(lm_fit , default_train) \n&gt; \n&gt; training_results %&gt;% dplyr::slice_head(n=6)\n\n# A tibble: 6 × 7\n  default student balance income .pred_class .pred_No .pred_Yes\n  &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;          &lt;dbl&gt;     &lt;dbl&gt;\n1 No      No         759. 45774. No             0.998  0.00164 \n2 No      Yes        452. 19923. No             1.00   0.000145\n3 Yes     No        1666. 30070. No             0.770  0.230   \n4 No      No         434. 57146. No             1.00   0.000256\n5 No      No         536. 32994. No             1.00   0.000449\n6 No      No        1252. 32721. No             0.973  0.0269"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#example-compute-the-auc",
     "href": "slides/BSMM_8740_lec_06.html#example-compute-the-auc",
     "title": "Classification & clustering methods",
     "section": "Example: compute the AUC",
-    "text": "Example: compute the AUC\n\n&gt; auc_roc_tbl &lt;- training_results %&gt;% \n+   # order prediction probability from high to low\n+   dplyr::arrange( desc(.pred_Yes) ) %&gt;% \n+   # make new variable for cumulative % of 'Yes' category\n+   dplyr::mutate( \n+     # scale to percent (# of all 'Yes' categories)\n+     y = ifelse(default == \"Yes\", 1/sum(default == \"Yes\"),0)\n+     # accumulate the values\n+     , y = cumsum(y)\n+   ) %&gt;% \n+   # keep the 'No' category values\n+   dplyr::filter(default == \"No\") %&gt;% \n+   # number rows & scale to % of total; compute incremental areas\n+   tibble::rowid_to_column(\"ID\") %&gt;% \n+   dplyr::mutate(\n+     auc_inc = y / max(ID) # multiply the height by the width\n+     , ID = ID / max(ID)   # scale to percent (# of all 'No' categories)\n+   )"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_06.html#example-plot-the-roc",
-    "href": "slides/BSMM_8740_lec_06.html#example-plot-the-roc",
-    "title": "Classification & clustering methods",
-    "section": "Example: plot the ROC",
-    "text": "Example: plot the ROC\n\n\nCode\n&gt; auc_roc_tbl %&gt;% \n+   ggplot(aes(x=ID, y = y)) +\n+   geom_line() +\n+   # xlim(c(0,1)) +\n+   geom_abline(slope=1) + \n+     coord_fixed() +\n+     labs(\n+       title = \"ROC curve for load default prediction\",\n+       subtitle = \n+         stringr::str_glue(\"Logistic Regression AUC = {scales::label_number(accuracy = 10^-7)(sum(auc_roc_tbl$auc_inc) )}\")\n+     )"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_06.html#example-yardstick",
-    "href": "slides/BSMM_8740_lec_06.html#example-yardstick",
-    "title": "Classification & clustering methods",
-    "section": "Example: yardstick",
-    "text": "Example: yardstick\n\n&gt; training_results %&gt;% \n+   yardstick::roc_auc(.pred_No, truth = default)"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_06.html#example-yardstick-1",
-    "href": "slides/BSMM_8740_lec_06.html#example-yardstick-1",
-    "title": "Classification & clustering methods",
-    "section": "Example: yardstick",
-    "text": "Example: yardstick\n\n\nCode\n&gt; training_results %&gt;% yardstick::roc_curve(.pred_No, truth = default) %&gt;% autoplot()"
-  },
-  {
-    "objectID": "slides/BSMM_8740_lec_06.html#other-classification-methods",
-    "href": "slides/BSMM_8740_lec_06.html#other-classification-methods",
-    "title": "Classification & clustering methods",
-    "section": "Other Classification Methods",
-    "text": "Other Classification Methods"
+    "text": "Example: compute the AUC\n\n\n\n&gt; training_results %&gt;% \n+   yardstick::roc_curve(\n+     truth = default\n+     , .pred_No\n+   ) %&gt;% \n+   autoplot() + \n+   theme_bw(base_size = 18) \n\n\n\n\n\n\n\n\n\n\n&gt; training_results %&gt;% \n+    yardstick::roc_auc(\n+      truth = default\n+      , .pred_No\n+     )\n\n# A tibble: 1 × 3\n  .metric .estimator .estimate\n  &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;\n1 roc_auc binary         0.949"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#naive-bayes-classification",
@@ -8852,7 +8824,7 @@
     "href": "slides/BSMM_8740_lec_06.html#naive-bayes-classification-6",
     "title": "Classification & clustering methods",
     "section": "Naive Bayes Classification",
-    "text": "Naive Bayes Classification\n\nAUCROC\n\n\n\n&gt; training_results_nb %&gt;% \n+   yardstick::roc_auc(.pred_No, truth = default)\n\n\n\n\n\nCode\n&gt; training_results_nb %&gt;% yardstick::roc_curve(.pred_No, truth = default) %&gt;% autoplot()"
+    "text": "Naive Bayes Classification\n\nAUCROC\n\n\n\n&gt; training_results_nb %&gt;% \n+   yardstick::roc_auc(.pred_No, truth = default)\n\n# A tibble: 1 × 3\n  .metric .estimator .estimate\n  &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;\n1 roc_auc binary         0.942"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#nearest-neighbour-classification",
@@ -8887,21 +8859,42 @@
     "href": "slides/BSMM_8740_lec_06.html#knn-classification-algorithm",
     "title": "Classification & clustering methods",
     "section": "KNN Classification: algorithm",
-    "text": "KNN Classification: algorithm\n\nChoose the value of K, which is the number of nearest neighbors that will be used to make the prediction.\nCalculate the distance between that point and all the points in the training set.\nSelect the K nearest neighbors based on the distances calculated.\nAssign the label of the majority class to the new data point.\nRepeat steps 2 to 4 for all the data points in the test set."
+    "text": "KNN Classification: algorithm\n\nChoose the value of K, which is the number of nearest neighbors that will be used to make the prediction.\nCalculate the distance between the point you want to classify and all the points in the training set.\nSelect the K nearest neighbors based on the distances calculated.\nAssign the label of the majority class to the new data point.\nRepeat steps 2 to 4 for all the data points in the test set."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#knn-classification-model",
     "href": "slides/BSMM_8740_lec_06.html#knn-classification-model",
     "title": "Classification & clustering methods",
     "section": "KNN Classification: model",
-    "text": "KNN Classification: model\n\n\nCode\n&gt; default_model_knn &lt;- parsnip::nearest_neighbor(neighbors = 4) %&gt;% \n+   parsnip::set_engine(\"kknn\") %&gt;% \n+   parsnip::set_mode(\"classification\")"
+    "text": "KNN Classification: model\nOur classification workflow only differs by the model, e.g.:\n\n&gt; default_model_knn &lt;- parsnip::nearest_neighbor(neighbors = 4) %&gt;% \n+   parsnip::set_engine(\"kknn\") %&gt;% \n+   parsnip::set_mode(\"classification\")\n\n\n\n\n\n\n\nk-NN regression\n\n\nTo use k-NN for a regression problem, calculate the mean or median (or another aggregate measure) of the dependent variable among the k neighbors."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#knn-classification-metrics",
+    "href": "slides/BSMM_8740_lec_06.html#knn-classification-metrics",
+    "title": "Classification & clustering methods",
+    "section": "KNN Classification: metrics",
+    "text": "KNN Classification: metrics\nIn the context of k-Nearest Neighbors (kNN) classification, while the general evaluation metrics like accuracy, precision, recall, F1 score, and others are commonly used, there are no unique metrics that are exclusively specific to kNN. However, there are certain considerations and additional analyses that are particularly relevant when evaluating a kNN model."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#knn-classification-metrics-1",
+    "href": "slides/BSMM_8740_lec_06.html#knn-classification-metrics-1",
+    "title": "Classification & clustering methods",
+    "section": "KNN Classification: metrics",
+    "text": "KNN Classification: metrics\n\n\nChoice of k (Number of Neighbors): The value of k affects the performance of a kNN model. Testing the model with various values of k and evaluating the performance using standard metrics (like accuracy, F1 score) can to select the best k.\nFeature Scaling Sensitivity: kNN is sensitive to the scale of the features because it relies on calculating distances. Evaluate the model’s performance before and after feature scaling (like Min-Max scaling or Z-score normalization)\nCurse of Dimensionality: kNN can perform poorly with high-dimensional data (many features). Evaluating the model’s performance in relation to the number of features (dimensionality) can be important. Dimensionality reduction techniques like PCA might be used with kNN."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#support-vector-machine-classification",
     "href": "slides/BSMM_8740_lec_06.html#support-vector-machine-classification",
     "title": "Classification & clustering methods",
     "section": "Support Vector Machine Classification",
-    "text": "Support Vector Machine Classification\nThe SVM assumes a training set of the form \\((x_1,y_1),\\ldots,(x_n,y_n)\\) where the \\(y_i\\) are either \\(-1\\) or \\(1\\), indicating the class to which each \\(x_i\\) belongs.\nThe SVM algorithm looks to find the maaximum-margin hyperplane that divides the group of points \\(x_i\\) for which \\(y_1=-1\\) from the group for which \\(Y_1=1\\), such that the distance between the hyperplane and the nearest point \\(x_i\\) from either group is maximized"
+    "text": "Support Vector Machine Classification\nThe SVM assumes a training set of the form \\((x_1,y_1),\\ldots,(x_n,y_n)\\) where the \\(y_i\\) are either \\(-1\\) or \\(1\\), indicating the class to which each \\(x_i\\) belongs.\nThe SVM algorithm looks to find the maximum-margin hyperplane that divides the group of points \\(x_i\\) for which \\(y_1=-1\\) from the group for which \\(Y_1=1\\), such that the distance between the hyperplane and the nearest point \\(x_i\\) from either group is maximized."
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification",
+    "text": "SVM Classification\nBasic Concepts\n\n\nSeparating Hyperplane: The core idea of SVM is to find a hyperplane (in two-dimensional space, this would be a line) that best separates the classes in the feature space.\nSupport Vectors: Support vectors are the data points that are closest to the separating hyperplane. These points are critical in defining the position and orientation of the hyperplane.\nMargin: The algorithm aims to maximize the margin, which is the distance between the hyperplane and the nearest points from both classes. A larger margin is considered better as it may lead to lower generalization error of the classifier."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-large-margin",
@@ -8911,29 +8904,29 @@
     "text": "SVM Classification: large margin\nIllustration of SVM large-margin principle"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification",
-    "href": "slides/BSMM_8740_lec_06.html#svm-classification",
-    "title": "Classification & clustering methods",
-    "section": "SVM Classification:",
-    "text": "SVM Classification:\n\n\n\nLet our decision boundary be given by \\(f\\left(x\\right)=w^{\\top}x+w_{0}\\), for a vector \\(w\\) perpendicular to the boundary.\nWe can express any point as \\(x=x_{\\bot}+r\\frac{w}{\\left\\Vert w\\right\\Vert }\\)\nNote that \\(f\\left(x\\right)=\\left(w^{\\top}x_{\\bot}+w_{0}\\right)+r\\left\\Vert w\\right\\Vert\\)"
-  },
-  {
     "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-1",
     "href": "slides/BSMM_8740_lec_06.html#svm-classification-1",
     "title": "Classification & clustering methods",
     "section": "SVM Classification:",
-    "text": "SVM Classification:\n\n\n\nSince \\(f\\left(x_{\\bot}\\right)=w^{\\top}x_{\\bot}+w_{0}=0\\), we have \\(f\\left(x\\right)=r\\left\\Vert w\\right\\Vert\\).\nWe also require \\(f\\left(x_{n}\\right)\\tilde{y}_{n}&gt;0\\)\nTo maximize the distance to the closest point, the objective is \\(\\max_{w,w_{0}}\\min_{n}\\left[\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\right]\\)"
+    "text": "SVM Classification:\n\n\n\nLet our decision boundary be given by \\(f\\left(x\\right)=w^{\\top}x+w_{0}=0\\), for a vector \\(w\\) perpendicular to the boundary1.\nWe can express any point as \\(x=x_{\\bot}+r\\frac{w}{\\left\\Vert w\\right\\Vert }\\)\nNote that \\(f\\left(x\\right)=\\left(w^{\\top}x_{\\bot}+w_{0}\\right)+r\\left\\Vert w\\right\\Vert\\)\n\n\n\n\n\n\n\n\n\nany point \\(x\\) on the red line satisfies \\(w^\\top x+w_0=0\\)"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-2",
     "href": "slides/BSMM_8740_lec_06.html#svm-classification-2",
     "title": "Classification & clustering methods",
     "section": "SVM Classification:",
-    "text": "SVM Classification:\nIt is common to scale the vector \\(w\\) and the offset \\(w_0\\) such that \\(f_n\\hat{y}_n=1\\) for the point nearest the decision boundary, such that \\(f_n\\hat{y}_n\\ge1\\) for all \\(n\\).\nIn addition, since minimizing \\(1/ \\left\\Vert w\\right\\Vert\\) is equivalent to minimizing \\(\\left\\Vert w\\right\\Vert^2\\), we can state the objective as\n\\[\n\\min_{w,w_{0}}\\frac{{1}}{2}\\left\\Vert w\\right\\Vert ^{2}\\quad\\text{s.t.}\\quad\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\ge 1, \\forall n\n\\]"
+    "text": "SVM Classification:\n\n\n\nSince \\(f\\left(x_{\\bot}\\right)=w^{\\top}x_{\\bot}+w_{0}=0\\), we have \\(f\\left(x\\right)=r\\left\\Vert w\\right\\Vert\\).\nWe also require \\(f\\left(x_{n}\\right)\\tilde{y}_{n}&gt;0\\)\nTo maximize the distance to the closest point, the objective is \\(\\max_{w,w_{0}}\\min_{n}\\left[\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\right]\\)"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-3",
     "href": "slides/BSMM_8740_lec_06.html#svm-classification-3",
+    "title": "Classification & clustering methods",
+    "section": "SVM Classification:",
+    "text": "SVM Classification:\nIt is common to scale the vector \\(w\\) and the offset \\(w_0\\) such that \\(f_n\\hat{y}_n=1\\) for the point nearest the decision boundary, such that \\(f_n\\hat{y}_n\\ge1\\) for all \\(n\\).\nIn addition, since minimizing \\(1/ \\left\\Vert w\\right\\Vert\\) is equivalent to minimizing \\(\\left\\Vert w\\right\\Vert^2\\), we can state the objective as\n\\[\n\\min_{w,w_{0}}\\frac{{1}}{2}\\left\\Vert w\\right\\Vert ^{2}\\quad\\text{s.t.}\\quad\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\ge 1, \\forall n\n\\]"
+  },
+  {
+    "objectID": "slides/BSMM_8740_lec_06.html#svm-classification-4",
+    "href": "slides/BSMM_8740_lec_06.html#svm-classification-4",
     "title": "Classification & clustering methods",
     "section": "SVM Classification:",
     "text": "SVM Classification:\n\n\nIf there is no solution to the objective we can add slack variables \\(\\xi_n\\ge0\\) to replace the hard constraints that \\(f_n\\hat{y}_n\\ge1\\) with the soft margin constraints that \\(f_n\\hat{y}_n\\ge1-\\xi_n\\).\nThe new objective is\n\\[\n\\min_{w,w_{0},\\xi}\\frac{{1}}{2}\\left\\Vert w\\right\\Vert ^{2} + C\\sum_n \\xi_n \\\\\n\\text{s.t.}\\xi_n\\ge0, \\quad\\tilde{y}_{n}\\left(w^{\\top}x_{n}+w_{0}\\right)\\ge 1, \\forall n\n\\]"
@@ -8971,7 +8964,7 @@
     "href": "slides/BSMM_8740_lec_06.html#clustering-applications",
     "title": "Classification & clustering methods",
     "section": "Clustering Applications",
-    "text": "Clustering Applications\n\nMarket Segmentation: Cluster analysis is often used in marketing to segment customers into groups based on their buying behavior, demographics, or other characteristics.\nImage Processing: In image processing, cluster analysis is used to group pixels with similar properties together, allowing for the identification of objects and patterns in images.\nBiology and Medicine: Cluster analysis is used in biology and medicine to identify genes associated with specific diseases or to group patients with similar clinical characteristics together.\nSocial Network Analysis: In social network analysis, cluster analysis is used to group individuals with similar social connections and characteristics together, allowing for the identification of subgroups within a larger network.\nAnomaly Detection: Cluster analysis can be used to detect anomalies in data, such as fraudulent financial transactions, unusual patterns in network traffic, or outliers in medical data."
+    "text": "Clustering Applications\n\n\nMarket Segmentation: Cluster analysis is often used in marketing to segment customers into groups based on their buying behavior, demographics, or other characteristics.\nImage Processing: In image processing, cluster analysis is used to group pixels with similar properties together, allowing for the identification of objects and patterns in images.\nBiology and Medicine: Cluster analysis is used in biology and medicine to identify genes associated with specific diseases or to group patients with similar clinical characteristics together.\nSocial Network Analysis: In social network analysis, cluster analysis is used to group individuals with similar social connections and characteristics together, allowing for the identification of subgroups within a larger network.\nAnomaly Detection: Cluster analysis can be used to detect anomalies in data, such as fraudulent financial transactions, unusual patterns in network traffic, or outliers in medical data."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#k-means-clustering",
@@ -8985,7 +8978,7 @@
     "href": "slides/BSMM_8740_lec_06.html#k-means-clustering-1",
     "title": "Classification & clustering methods",
     "section": "K-means Clustering",
-    "text": "K-means Clustering\nIn k-means clustering, observed variables (columns) are considered to be locations on axes in multidimensional space.\nThe basic k-means algorithm has the following steps.\n\npick the number of clusters k\nChoose k random observations in the dataset. These locations in space are declared to be the initial centroids.\nAssign each observation to the nearest centroid.\nCompute the new centroids of each cluster.\nRepeat steps 3 and 4 until the centroids do not change."
+    "text": "K-means Clustering\nIn k-means clustering, observed variables (columns) are considered to be locations on axes in multidimensional space.\nThe basic k-means algorithm has the following steps.\n\npick the number of clusters k\nChoose k observations in the dataset. These locations in space are declared to be the initial centroids.\nAssign each observation to the nearest centroid.\nCompute the new centroids of each cluster.\nRepeat steps 3 and 4 until the centroids do not change."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#k-means-clustering-2",
@@ -9006,21 +8999,21 @@
     "href": "slides/BSMM_8740_lec_06.html#k-means-example",
     "title": "Classification & clustering methods",
     "section": "K-means Example",
-    "text": "K-means Example\n\n\nCode\n&gt; set.seed(8740)\n&gt; \n&gt; centers &lt;- tibble::tibble(\n+   cluster = factor(1:4), \n+   num_points = c(100, 150, 50, 90),  # number points in each cluster\n+   x1 = c(5, 0, -3, -4),              # x1 coordinate of cluster center\n+   x2 = c(-1, 1, -2, 1.5)               # x2 coordinate of cluster center\n+ )\n&gt; \n&gt; labelled_points &lt;- \n+   centers %&gt;%\n+   dplyr::mutate(\n+     x1 = purrr::map2(num_points, x1, rnorm),\n+     x2 = purrr::map2(num_points, x2, rnorm)\n+   ) %&gt;% \n+   dplyr::select(-num_points) %&gt;% \n+   tidyr::unnest(cols = c(x1, x2))\n&gt; \n&gt; ggplot(labelled_points, aes(x1, x2, color = cluster)) +\n+   geom_point(alpha = 0.3)\n\n\n\n\nCode\n&gt; # penguins &lt;- modeldata::penguins\n&gt; # \n&gt; # labelled_points &lt;- penguins %&gt;%\n&gt; #   dplyr::select(bill_length_mm, bill_depth_mm) %&gt;%\n&gt; #   tidyr::drop_na() %&gt;%\n&gt; #   # shuffle rows\n&gt; #   dplyr::slice_sample( n = nrow(penguins) )\n&gt; \n&gt; # create recipe\n&gt; labelled_points_recipe &lt;- labelled_points %&gt;% \n+   recipes::recipe(~ x1 + x2, data = .)\n\n\n\n\nCode\n&gt; labelled_points\n\n\n\n\nCode\n&gt; kmeans_spec &lt;- tidyclust::k_means( num_clusters = 3 )\n\n\n\n\nCode\n&gt; wflow &lt;- workflows::workflow() %&gt;%\n+   workflows::add_model(kmeans_spec) %&gt;%\n+   workflows::add_recipe(labelled_points_recipe)\n&gt; \n&gt; set.seed(8740)\n&gt; labelled_points_resamples &lt;- labelled_points %&gt;% rsample::bootstraps(apparent = TRUE)\n\n\n\n\nCode\n&gt; wflow %&gt;%\n+   parsnip::fit(labelled_points) %&gt;% \n+   broom::tidy()\n\n\n\n&gt; wflow %&gt;%\n+   parsnip::fit(labelled_points) %&gt;% tidyclust::extract_centroids()\n\n\n&gt; # all_workflows &lt;- all_workflows %&gt;% \n&gt; #   workflowsets::workflow_map(\n&gt; #     verbose = TRUE                # enable logging\n&gt; #     , fn = \"tune_cluster\"\n&gt; #     , resamples = labelled_points_resamples # a parameter passed to tune::tune_grid()\n&gt; #   )\n\n\n&gt; # all_workflows %&gt;% \n&gt; #   dplyr::select(wflow_id,result) %&gt;% \n&gt; #   tidyr::unnest(result) %&gt;% \n&gt; #   tidyr::unnest(.metrics) %&gt;% \n&gt; #   dplyr::filter(.metric == 'sse_total') %&gt;% \n&gt; #   dplyr::group_by(wflow_id) %&gt;% \n&gt; #   dplyr::arrange(desc(.estimate) ) %&gt;% \n&gt; #   dplyr::slice(1)\n\n\n&gt; all_workflows &lt;- all_workflows %&gt;% \n+   workflowsets::workflow_map(\n+     verbose = TRUE                # enable logging\n+     , fn = \"tune_cluster\"\n+     , resamples = labelled_points_resamples # a parameter passed to tune::tune_grid()\n+   )\n\n\n&gt; all_workflows %&gt;% workflowsets::rank_results(select_best = TRUE)\n\n\n&gt; all_workflows %&gt;% \n+   dplyr::select(wflow_id,result) %&gt;% \n+   tidyr::unnest(result) %&gt;% \n+   tidyr::unnest(.metrics) %&gt;% \n+   dplyr::filter(.metric == 'sse_within_total') %&gt;% \n+   dplyr::group_by(wflow_id) %&gt;% \n+   dplyr::arrange(desc(.estimate) ) %&gt;% \n+   dplyr::slice(1)\n\n\n&gt; tune_results &lt;-\n+    all_workflows %&gt;% \n+    workflow_map(\n+       fn = \"tune_cluster\"\n+       , resamples = labelled_points_resamples\n+       , grid = dials::grid_regular(dials::num_clusters(), levels = 10)\n+       , metrics = tidyclust::cluster_metric_set(sse_within_total, sse_total, sse_ratio)\n+       , control = tune::control_grid(save_pred = TRUE, extract = identity)\n+    )"
+    "text": "K-means Example\n\n\nCode\n&gt; # create recipe for 2-D clustering\n&gt; cluster_recipe &lt;- data %&gt;% \n+   recipes::recipe(~ x1 + x2, data = .)\n&gt; \n&gt; # specify the workflows\n&gt; all_workflows &lt;- \n+   workflowsets::workflow_set(\n+     preproc = list(base = cluster_recipe),\n+     models = list(tidyclust::k_means( num_clusters = parsnip::tune() ) )\n+   )\n&gt; # create bootstrap samples\n&gt; dat_resamples &lt;- data %&gt;% rsample::bootstraps(apparent = TRUE)\n&gt; \n&gt; tuned_results &lt;-\n+    all_workflows %&gt;% \n+    workflow_map(\n+       fn = \"tune_cluster\"\n+       , resamples = dat_resamples\n+       , grid = dials::grid_regular(dials::num_clusters(), levels = 10)\n+       , metrics = tidyclust::cluster_metric_set(sse_within_total, sse_total, sse_ratio)\n+       , control = tune::control_grid(save_pred = TRUE, extract = identity)\n+    )"
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#hierarchical-clustering",
     "href": "slides/BSMM_8740_lec_06.html#hierarchical-clustering",
     "title": "Classification & clustering methods",
     "section": "Hierarchical Clustering",
-    "text": "Hierarchical Clustering\nHierarchical Clustering, sometimes called Agglomerative Clustering, is a method of unsupervised learning that produces a dendrogram, which can be used to partition observations into clusters."
+    "text": "Hierarchical Clustering\nHierarchical Clustering, sometimes called Agglomerative Clustering, is a method of unsupervised learning that produces a dendrogram, which can be used to partition observations into clusters (see tidyclust)\nFor other clustering algorithms, see\n\n\nDBSCAN (Density-Based Spatial Clustering of Applications with Noise)\nMean Shift Clustering\nSpectral Clustering"
   },
   {
-    "objectID": "slides/BSMM_8740_lec_06.html#tidymodels",
-    "href": "slides/BSMM_8740_lec_06.html#tidymodels",
+    "objectID": "slides/BSMM_8740_lec_06.html#clustering-general-considerations",
+    "href": "slides/BSMM_8740_lec_06.html#clustering-general-considerations",
     "title": "Classification & clustering methods",
-    "section": "Tidymodels",
-    "text": "Tidymodels\nKey Components of Tidymodels\n\nResampling: Efficient methods for handling data splitting, cross-validation, bootstrapping, and more.\nMetrics: A wide range of evaluation metrics to assess model performance and choose the best model."
+    "section": "Clustering: General Considerations",
+    "text": "Clustering: General Considerations\n\nFeature Scaling: Most clustering algorithms benefit from feature scaling.\nChoosing the Right Algorithm: Depends on the size, dimensionality of data, and the nature of the clusters.\nEvaluation: Since clustering is unsupervised, evaluating the results can be subjective and is often based on domain knowledge."
   },
   {
     "objectID": "slides/BSMM_8740_lec_06.html#more",
@@ -9034,7 +9027,7 @@
     "href": "slides/BSMM_8740_lec_06.html#recap",
     "title": "Classification & clustering methods",
     "section": "Recap",
-    "text": "Recap\n\nIn this section we have worked with the tidymodels package to build a workflow that facilitates building and evaluating multiple models.\nCombined with the recipes package we now have a complete data modeling framework.\n\n\n\n\nbsmm-8740-fall-2023.github.io/osb"
+    "text": "Recap\n\nWe have looked at several classification algorithms in the context of tidymodels workflows.\nWe also looked at clustering and several algorithms in the tidyclust package.\n\n\n\n\nbsmm-8740-fall-2023.github.io/osb"
   },
   {
     "objectID": "slides/BSMM_8740_lec_02.html#announcements",
