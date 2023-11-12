@@ -1,5 +1,6 @@
 ---
 title: "Lab 5 - The Models package"
+subtitle: "SOLUTIONS"
 editor: visual
 reference-location: margin
 ---

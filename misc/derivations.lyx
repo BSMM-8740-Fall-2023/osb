@@ -1195,5 +1195,25 @@ r^{2}\times\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)} &
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\pi & =\frac{1}{1+e^{-\eta}}\;\text{(logistic function)}\\
+\log\left(\frac{\pi}{1-\pi}\right) & =\log\left(\frac{\frac{1}{1+e^{-\eta}}}{1-\frac{1}{1+e^{-\eta}}}\right)\\
+ & =\log\left(\frac{\frac{1}{1+e^{-\eta}}}{\frac{e^{-\eta}}{1+e^{-\eta}}}\right)=log\left(e^{\eta}\right)=\eta
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mapsto$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
