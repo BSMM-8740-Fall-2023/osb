@@ -358,7 +358,7 @@ testing <- rsample::testing(splits)
 # preprocess the data
 rec <- training %>% 
   recipes::recipe(performance_index ~ .) %>% 
-  recipes::step_center(recipes::all_numeric_predictors()) %>%
+  recipes::step_normalize(recipes::all_numeric_predictors()) %>%
   recipes::step_dummy(extracurricular_activities)
   
 # prep and bake data, and generate OLR for performance_index

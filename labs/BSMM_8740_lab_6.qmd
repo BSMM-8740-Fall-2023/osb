@@ -1,5 +1,5 @@
 ---
-title: "Lab 6 - The Models package"
+title: "Lab 6 - Classification and clustering"
 editor: visual
 reference-location: margin
 ---

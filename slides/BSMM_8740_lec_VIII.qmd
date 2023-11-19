@@ -35,6 +35,24 @@ require(ggplot2)
 theme_set(theme_bw(base_size = 18) + theme(legend.position = "top"))
 ```
 
+[Applied Causal Analysis in R](https://bookdown.org/paul/applied-causal-analysis/att.html)
+
+[Intro to Causality](https://digitalcausalitylab.github.io/lecture/lecture_1_intro/Lecture_1_intro.html#/introduction-to-causality-4)
+
+[Causal inference in R](https://www.r-causal.org/)
+
+[Statistical tools for causal inference](https://chabefer.github.io/STCI/index.html)
+
+[Causal graphs](https://github.com/NickCH-K/causalgraphs)
+
+[Causal data sets](https://cran.r-project.org/web/packages/causaldata/causaldata.pdf)
+
+[Causality slides](https://github.com/NickCH-K/CausalitySlides/tree/main)
+
+[more slides](https://users.ssc.wisc.edu/~felwert/causality/?page_id=66)
+
+[workshop](https://github.com/r-causal/causal_inference_r_workshop)
+
 ## Recap of last week
 
 -   Last week we introduced the Tidymodels framework in R

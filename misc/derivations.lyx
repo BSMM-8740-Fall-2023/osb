@@ -1209,7 +1209,109 @@ r^{2}\times\frac{\text{Var}\left(y\right)}{\text{Cov}\left(\tilde{x},y\right)} &
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\mapsto$
+\begin_inset Formula $\mapsto\top$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+T_{t} & =1+0.05t\qquad\text{(trend)}\\
+S_{t} & =1.5\cos(t\pi\times0.166)\qquad\text{\text{(seasonality)}}\\
+I_{t} & =0.5I_{t-1}+\epsilon_{t}\qquad\text{(noise)}\sim
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\epsilon_{t}\sim\text{{i.i.d.}}\mathcal{N}\left(0,\sigma_{\epsilon_{t}}^{2}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{E}\left[\epsilon_{t}\right]=\mathbb{E}\left[\left.\epsilon_{t}\right|\epsilon_{t-1},\epsilon_{t-2},\ldots\right]=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{E}\left[\epsilon_{t}\epsilon_{t-j}\right]=\text{cov}\left(\epsilon_{t},\epsilon_{t-j}\right)=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{var}\left(\epsilon_{t}\right)=\text{cov}\left(\epsilon_{t},\epsilon_{t}\right)=\sigma_{\epsilon_{t}}^{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[\left.y_{t}\right|y_{t-1}\right] & =\phi y_{t-1}\\
+\text{var}\left(\left.y_{t}\right|y_{t-1}\right) & =\mathbb{E}\left[\phi y_{t-1}+\epsilon_{t}-\phi y_{t-1}\right]^{2}=\mathbb{E}\left[\epsilon\right]^{2}=\sigma^{2}\\
+\text{cov}\left(\left.y_{t}\right|y_{t-1},\left.y_{t-j}\right|y_{t-j-1}\right) & =0;\;j>1
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[\left.y_{t}\right|y_{t-2}\right] & =\phi^{2}y_{t-2}\\
+\text{var}\left(\left.y_{t}\right|y_{t-2}\right) & =\left(1+\phi^{2}\right)\sigma^{2}\\
+\text{cov}\left(\left.y_{t}\right|y_{t-2},\left.y_{t-j}\right|y_{t-j-2}\right) & =\phi\sigma^{2};\;j=1\\
+ & =0;\;j>1
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[y_{t}\right] & =0\\
+\text{var}\left(y_{t}\right) & =\frac{\sigma^{2}}{1+\phi}\\
+\text{cov}\left(y_{t},y_{t-j}\right) & =\phi^{j}\text{var}\left(y_{t}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}\left[y_{t}\right] & =\bar{y}\\
+\mathbb{E}\left[\left(y_{t}-\bar{y}\right)\left(y_{t-j}-\bar{y}\right)\right] & =\text{cov}\left(y_{t},y_{t-j}\right)
+\end{align*}
+
 \end_inset
 
 
