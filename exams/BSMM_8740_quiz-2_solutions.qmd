@@ -1,0 +1,244 @@
+---
+title: "BSMM-quiz-2"
+subtitle: "SOLUTIONS"
+author: "LLO"
+date: "November 20, 2023"
+editor: visual
+format: html
+self-contained: true
+---
+
+## Overview
+
+Quiz 1 will be released on Monday, November 20, and is designed to be completed in 30 minutes.
+
+The exam will consist of two parts:
+
+1.  **Part 1 - Conceptual:** Simple questions designed to evaluate your familiarity with the written course notes.
+2.  **Part 2 - Applied:** Data analysis in RStudio (like a usual lab, but simpler).
+
+Log in to your github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-8740-quiz-2-\[your github username\]** repository to complete the quiz.
+
+Create an R project using your quiz-2 repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-quiz-2.qmd` file in your repository.
+
+🍀 Good luck! 🍀
+
+## Academic Integrity
+
+By taking this exam, you pledge to that:
+
+-   I will not lie, cheat, or steal in my academic endeavors;
+
+-   I will conduct myself honorably in all my endeavors; and
+
+-   I will act if the Standard is compromised.
+
+## Rules & Notes
+
+-   This is an individual assignment. Everything in your repository is for your eyes only.
+
+-   You may not collaborate or communicate anything about this exam to **anyone** except the instructor. For example, you may not communicate with other students or post/solicit help on the internet, email or via any other method of communication.
+
+-   The exam is open-book, open-note, so you may use any materials from class as you take the exam.
+
+## Submission
+
+-   Your answers should be typed in the document below
+
+-   Make sure you **commit** any changes and [**push**]{.underline} the changes to the course repository before the end of the quiz.
+
+-   Once the quiz has ended, the contents of your repository will be pulled for grading. This will happen only once, so no changes made after the end of the quiz will be recorded.
+
+------------------------------------------------------------------------
+
+# Quiz-2 (part 1 **-** conceptual)
+
+## Q-1
+
+**(1 point)** Suppose you had an energy usage dataset for homes with the following columns:
+
+| Col1 (numeric) | Col2 (string)    | Col3 (numeric) | Col4 (numeric) |
+|----------------|------------------|----------------|----------------|
+| sq_foot        | location_lat_lon | year_built     | kwh_per_year   |
+
+What type of algorithm would you use the predict the kilowatt hours used per year for a newly constructed house?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+-   supervised learning
+:::
+
+## Q-2
+
+**(1 point)** Suppose you had a flight dataset with the following columns:
+
+| Col1 (string)  | Col2 (string) | Col3 (date) | Col4 (string) | Col5 (string) | Col6 (numeric) | Col7 (numeric)     |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| depart_airport | dest_airport  | date        | time_of_day   | airline_code  | fuel_price     | ticket_price_coach |
+
+Based on the dataset, could you train a classification model to classify the cost of a coach ticket as "high," "average," or "low"?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+*Delete the wrong answer(s):*
+
+-   Yes, but we'd first need to convert the numeric values in the `coach_ticket_cost` column to categorical values.
+:::
+
+## Q-3
+
+**(1 point)** What are two examples of classification? Select two answers.
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+*Delete the answers you don't select:*
+
+-   Determine when a heater is on or off based on temperature data
+-   Translate the numbers or letters from a handwritten message to ASCII text
+-   Safety override that automatically shuts off equipment when it is too hot
+:::
+
+## Q-4
+
+**(1 point)** What is the main goal of a clustering algorithm?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+-   To group similar instances based on their features
+:::
+
+## Q-5
+
+**(1 point)** Which algorithm is commonly used for clustering?
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+*Delete the wrong answer(s):*
+
+-   K-Means
+:::
+
+# Quiz-2 (part 2 - applied)
+
+## Q-6
+
+**(1 point)** What does the following R code do?
+
+``` r
+model_spec <- parsnip::logistic_reg() %>% parsnip::set_engine("glm")
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+-   Specifies a logistic regression model using the glm engine
+:::
+
+## Q-7
+
+**(1 point)** What procedure does the following R code perform?
+
+``` r
+parsnip::nearest_neighbor(neighbors = 3) %>% parsnip::set_engine("kknn")
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+-   Specifies a k-nearest neighbors model with 3 neighbors
+:::
+
+## Q-8
+
+**(1 point)** Analyze this `tidymodels` code for classification. What is missing for it to run correctly?
+
+``` r
+model_spec <- 
+  parsnip::rand_forest(trees = 100) %>% 
+  parsnip::set_mode("classification")
+fit <- model_spec %>% 
+  parsnip::fit(Species ~ ., data = train_data)
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+-   Setting the engine for the random forest model
+:::
+
+## Q-9
+
+**(2 points)** Write R code using `tidymodels` to perform a 10-fold cross-validation for a logistic regression model on the `mpg` dataset from the `ggplot2` package. Include data preprocessing steps in the recipe.
+
+::: {.callout-note appearance="simple" icon="false"}
+## SOLUTION :
+
+With the data provided, and given the question, code for a logistic model won't run because:
+
+-   the problem doesn't say which variable is the outcome
+-   there are no binary variables that might be potential outcomes
+
+However, I didn't ask output from a model, just for the code for some target. Nevertheless, many people did discretize one of the variables and use that as the target.
+
+Here is the code with the variable `class` redefined as a discretized version of `mpg`:
+
+```{r}
+#| echo: true
+#| eval: false
+set.seed(8740)
+require(magrittr)
+
+mpg <- ggplot2::mpg
+
+mpg_alt <- mpg %>% 
+  dplyr::mutate(
+    class = 
+      dplyr::case_when(
+        hwy > median(hwy) ~ "high"
+        , TRUE ~ "low"
+      )
+    , class = forcats::as_factor(class)
+  )
+
+
+# Split the data into training and testing sets
+data_split <- rsample::initial_split(mpg_alt, prop = 0.75)
+train_data <- rsample::training(data_split)
+test_data  <- rsample::testing(data_split)
+
+# Create a recipe for preprocessing
+recipe_obj <- recipes::recipe(class ~ ., data = train_data) %>%
+  # recipes::step_other(class, threshold = 0.25) %>% 
+  recipes::step_normalize(all_numeric_predictors()) %>%
+  recipes::step_dummy(all_nominal_predictors())
+
+# Specify the logistic regression model
+model_spec <- parsnip::logistic_reg() %>%
+  parsnip::set_engine("glm")
+
+# Perform 10-fold cross-validation
+cv_results <- 
+  workflows::workflow() %>%
+  # workflows::add_model(model_spec) %>%
+  workflows::add_recipe(recipe_obj) %>%
+  workflows::add_model(model_spec) %>%
+  tune::fit_resamples(rsample::vfold_cv(train_data, v = 10, strata = class))
+
+# Collect and print the results
+results <- tune::collect_metrics(cv_results)
+print(results)
+```
+:::
+
+# Grading (10 pts)
+
+| **Part**                | **Points** |
+|:------------------------|:----------:|
+| **Part 1 - Conceptual** |     5      |
+| **Part 2 - Applied**    |     5      |
+| **Total**               |     10     |
