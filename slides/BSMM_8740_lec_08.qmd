@@ -219,40 +219,8 @@ $$ where $\Delta_{ATE}^{Y}$ is the average treatment effect in the population.
 -   The FPCI states that our causal parameter of interest ($\Delta_{TT}^{Y}$ of the effect of treatment on the treated) is fundamentally unobservable, even when the sample size is infinite.
 -   The FPSI states that, even if we have an estimator $E$ that identifies $\Delta_{TT}^{Y}$ in the population, we cannot observe $E$ because we only have access to a finite sample of the population.
 
-------------------------------------------------------------------------
 
 # Causal Inference in R
-
-## Causal Inference Workflow
-
--   Good causal question
-
--   Good causal analysis
-
--   Three for good decision making
-
--   **description**: EDA, KPIs, distributions
-
-    -   (validity issues: measurement & sampling)
-
--   **prediction**: accuracy, generalizing to new data, train-test splits
-
-    -   (validity issues: rmse, AUC, we know if we are right)
-
--   **causal inference** (impact)
-
-    -   (validity: assumptions, no correctness, predictability)
-        -   requires good casual questions
-
-        -   consideration of causal assumptions,
-
-        -   causal inference
-
--   description, prediction, explanation
-
-    -   stakeholder asks for drivers, prediction,
-
--   answers without a question
 
 ## Causal Inference Workflow
 
@@ -2052,6 +2020,8 @@ options(tipr.verbose = FALSE)
 ```{r}
 #| echo: true
 #| code-fold: true
+#| message: false
+#| warning: false
 #| label: fig-tip-coef-net
 #| fig.width: 6.5
 #| fig.height: 3.8
@@ -2070,20 +2040,14 @@ tipping_points |>
 ```
 :::
 
-## NOTE:
-
-::: callout-caution
-## Re-write
-
-Re write the text below
-:::
 
 ## More
 
--   Read [An Idiot's Guide to Support Vector Machines](https://web.mit.edu/6.034/wwwbob/svm.pdf)
+-   Read [Statistical tools for causal inference](https://chabefer.github.io/STCI/index.html)
+-   Read [Causal inference in R](https://www.r-causal.org/)
 
 ## Recap
 
--   In this section we have worked with the `tidymodels` package to build a workflow that facilitates building and evaluating multiple models.
-
--   Combined with the recipes package we now have a complete data modeling framework.
+-   We introduced the fundamental problems of inference and the biases of some intuitive estimators,
+-   We developed a basic understanding of the tools used to state and then satisfy causality assumptions,
+-   We looked at an example of how econometric methods recover treatment effects.
