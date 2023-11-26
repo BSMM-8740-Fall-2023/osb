@@ -588,9 +588,6 @@ Y_{i}^{0} &amp; \text{if}\,D_{i}=0
 <li>The FPCI states that our causal parameter of interest (<span class="math inline">\(\Delta_{TT}^{Y}\)</span> of the effect of treatment on the treated) is fundamentally unobservable, even when the sample size is infinite.</li>
 <li>The FPSI states that, even if we have an estimator <span class="math inline">\(E\)</span> that identifies <span class="math inline">\(\Delta_{TT}^{Y}\)</span> in the population, we cannot observe <span class="math inline">\(E\)</span> because we only have access to a finite sample of the population.</li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="causal-inference-in-r" class="title-slide slide level1 center">
@@ -598,36 +595,6 @@ Y_{i}^{0} &amp; \text{if}\,D_{i}=0
 
 </section>
 <section id="causal-inference-workflow" class="slide level2">
-<h2>Causal Inference Workflow</h2>
-<ul>
-<li><p>Good causal question</p></li>
-<li><p>Good causal analysis</p></li>
-<li><p>Three for good decision making</p></li>
-<li><p><strong>description</strong>: EDA, KPIs, distributions</p>
-<ul>
-<li>(validity issues: measurement &amp; sampling)</li>
-</ul></li>
-<li><p><strong>prediction</strong>: accuracy, generalizing to new data, train-test splits</p>
-<ul>
-<li>(validity issues: rmse, AUC, we know if we are right)</li>
-</ul></li>
-<li><p><strong>causal inference</strong> (impact)</p>
-<ul>
-<li>(validity: assumptions, no correctness, predictability)
-<ul>
-<li><p>requires good casual questions</p></li>
-<li><p>consideration of causal assumptions,</p></li>
-<li><p>causal inference</p></li>
-</ul></li>
-</ul></li>
-<li><p>description, prediction, explanation</p>
-<ul>
-<li>stakeholder asks for drivers, prediction,</li>
-</ul></li>
-<li><p>answers without a question</p></li>
-</ul>
-</section>
-<section id="causal-inference-workflow-1" class="slide level2">
 <h2>Causal Inference Workflow</h2>
 <ol type="1">
 <li><p>Specify a causal question</p></li>
@@ -646,11 +613,11 @@ Y_{i}^{0} &amp; \text{if}\,D_{i}=0
 <section id="directed-acyclic-graphs-dags" class="slide level2">
 <h2>Directed acyclic graphs (DAGs)</h2>
 
-<img data-src="BSMM_8740_lec_08_files/figure-html/fig-dag-basic-1.png" width="288" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: A causal directed acyclic graph (DAG). DAGs depict causal relationships. In this DAG, the assumption is that <code>x</code> causes <code>y</code>.</p></section>
+<img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-dag-basic-1.png" width="288" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: A causal directed acyclic graph (DAG). DAGs depict causal relationships. In this DAG, the assumption is that <code>x</code> causes <code>y</code>.</p></section>
 <section id="dags-1" class="slide level2">
 <h2>DAGs</h2>
 
-<img data-src="BSMM_8740_lec_08_files/figure-html/fig-dag-path-types-1.png" width="672" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Three types of causal relationships: forks, chains, and colliders. The direction of the arrows and the relationships of interest dictate which type of path a series of variables represents. Forks represent a mutual cause, chains represent direct causes, and colliders represent a mutual descendant.</p></section>
+<img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-dag-path-types-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Three types of causal relationships: forks, chains, and colliders. The direction of the arrows and the relationships of interest dictate which type of path a series of variables represents. Forks represent a mutual cause, chains represent direct causes, and colliders represent a mutual descendant.</p></section>
 <section id="dags-2" class="slide level2">
 <h2>DAGs</h2>
 <div style="font-size: 80%">
@@ -705,7 +672,7 @@ Y_{i}^{0} &amp; \text{if}\,D_{i}=0
 <section id="dags---colliders-2" class="slide level2">
 <h2>DAGs - colliders</h2>
 
-<img data-src="BSMM_8740_lec_08_files/figure-html/fig-collider-time-1.png" width="672" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: A collider relationship over two points in time. At time point one, there is no relationship between <code>x</code> and <code>y</code>. Both cause <code>q</code> by time point two, but this does not change what already happened at time point one.</p></section>
+<img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-collider-time-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: A collider relationship over two points in time. At time point one, there is no relationship between <code>x</code> and <code>y</code>. Both cause <code>q</code> by time point two, but this does not change what already happened at time point one.</p></section>
 <section id="dags---colliders-3" class="slide level2">
 <h2>DAGs - colliders</h2>
 <div style="font-size: 80%">
@@ -834,7 +801,7 @@ prepared -&gt; podcast
 <div class="cell-output-display">
 <div id="fig-dag-podcast" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-dag-podcast-1.png" width="384"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-dag-podcast-1.png" width="384"></p>
 <figcaption>Figure&nbsp;4: Proposed DAG to answer the question: Does listening to a comedy podcast the morning before an exam improve graduate students’ test scores?</figcaption>
 </figure>
 </div>
@@ -869,7 +836,7 @@ prepared -&gt; podcast
 <div class="cell-output-display">
 <div id="fig-paths-podcast" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-paths-podcast-1.png" width="672"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-paths-podcast-1.png" width="960"></p>
 <figcaption>Figure&nbsp;5: <code>ggdag_paths()</code> visualizes open paths in a DAG. There are two open paths in <code>podcast_dag</code>: the fork from <code>mood</code> and the fork from <code>prepared</code>.</figcaption>
 </figure>
 </div>
@@ -969,7 +936,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-podcast-adustment-set" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast-adustment-set-1.png" width="384"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast-adustment-set-1.png" width="384"></p>
 <figcaption>Figure&nbsp;6: A visualization of the minimal adjustment set for the podcast-exam DAG. If this DAG is correct, two variables are required to block the backdoor paths: <code>mood</code> and <code>prepared</code>.</figcaption>
 </figure>
 </div>
@@ -1002,7 +969,7 @@ $open
 </details>
 
 </div>
-<img data-src="BSMM_8740_lec_08_files/figure-html/fig-adustment-set-all-1.png" width="912" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;7: All valid adjustment sets for <code>podcast_dag</code>.</p></section>
+<img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-adustment-set-all-1.png" width="912" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;7: All valid adjustment sets for <code>podcast_dag</code>.</p></section>
 <section id="dags---open-paths-example" class="slide level2">
 <h2>DAGs - open paths: example</h2>
 <div class="cell">
@@ -1077,7 +1044,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-dag-sim" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-dag-sim-1.png" width="672"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-dag-sim-1.png" width="672"></p>
 <figcaption>Figure&nbsp;8: Forest plot of simulated data based on the DAG described in <a href="#/dags---visualization-4">Figure&nbsp;4</a>.</figcaption>
 </figure>
 </div>
@@ -1128,7 +1095,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-podcast_dag2" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag2-1.png" width="480"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag2-1.png" width="480"></p>
 <figcaption>Figure&nbsp;9: An expanded version of <code>podcast_dag</code> that includes two additional variables: <code>skills_course</code>, representing a College Skills Course, and <code>alertness</code>.</figcaption>
 </figure>
 </div>
@@ -1151,12 +1118,10 @@ $open
 </div>
 <div id="tabset-3-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag_paths</span>(podcast_dag2, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">shadow =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb19-2"><a href="#cb19-2"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-podcast_dag2-paths" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag2-paths-1.png" width="1056"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag2-paths-1.png" width="1056"></p>
 <figcaption>Figure&nbsp;10: Three open paths in <code>podcast_dag2</code>. Since there is no effect of <code>podcast</code> on <code>exam</code>, all three are backdoor paths that must be closed to get the correct effect.</figcaption>
 </figure>
 </div>
@@ -1174,19 +1139,17 @@ $open
 <p>We can now block the open paths in several ways - <code>mood</code> and <code>prepared</code> still work, but we’ve got other options now.</p>
 <p>Notably, <code>prepared</code> and <code>alertness</code> could happen at the same time or even after <code>podcast</code>. <code>skills_course</code> and <code>mood</code> still happen before both <code>podcast</code> and <code>exam</code>, so the idea is still the same: the confounding pathway starts before the exposure and outcome.</p>
 <p>The next slide shows the result of executing:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(podcast_dag2, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(podcast_dag2, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dags---more-advanced-confounding-4" class="slide level2">
 <h2>DAGs - more advanced confounding</h2>
 <div style="font-size: 75%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(podcast_dag2, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb21-2"><a href="#cb21-2"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-podcast_dag2-set" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag2-set-1.png" width="1056"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag2-set-1.png" width="1056"></p>
 <figcaption>Figure&nbsp;11: Valid minimal adjustment sets that will close the backdoor paths in <a href="#/dags---more-advanced-confounding-2">Figure&nbsp;10</a>.</figcaption>
 </figure>
 </div>
@@ -1217,39 +1180,39 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>podcast_dag3 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb22-2"><a href="#cb22-2"></a>  podcast <span class="sc">~</span> mood <span class="sc">+</span> humor <span class="sc">+</span> prepared,</span>
-<span id="cb22-3"><a href="#cb22-3"></a>  exam <span class="sc">~</span> mood <span class="sc">+</span> prepared <span class="sc">+</span> showed_up,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>  showed_up <span class="sc">~</span> podcast <span class="sc">+</span> mood <span class="sc">+</span> prepared,</span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(</span>
-<span id="cb22-6"><a href="#cb22-6"></a>    <span class="fu">list</span>(</span>
-<span id="cb22-7"><a href="#cb22-7"></a>      <span class="co"># time point 1</span></span>
-<span id="cb22-8"><a href="#cb22-8"></a>      <span class="fu">c</span>(<span class="st">"prepared"</span>, <span class="st">"humor"</span>, <span class="st">"mood"</span>), </span>
-<span id="cb22-9"><a href="#cb22-9"></a>      <span class="co"># time point 2</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a>      <span class="st">"podcast"</span>,  </span>
-<span id="cb22-11"><a href="#cb22-11"></a>      <span class="st">"showed_up"</span>,  </span>
-<span id="cb22-12"><a href="#cb22-12"></a>      <span class="co"># time point 3</span></span>
-<span id="cb22-13"><a href="#cb22-13"></a>      <span class="st">"exam"</span></span>
-<span id="cb22-14"><a href="#cb22-14"></a>    )</span>
-<span id="cb22-15"><a href="#cb22-15"></a>  ),</span>
-<span id="cb22-16"><a href="#cb22-16"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb22-17"><a href="#cb22-17"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
-<span id="cb22-18"><a href="#cb22-18"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb22-19"><a href="#cb22-19"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb22-20"><a href="#cb22-20"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
-<span id="cb22-21"><a href="#cb22-21"></a>    <span class="at">mood =</span> <span class="st">"mood"</span>,</span>
-<span id="cb22-22"><a href="#cb22-22"></a>    <span class="at">humor =</span> <span class="st">"humor"</span>,</span>
-<span id="cb22-23"><a href="#cb22-23"></a>    <span class="at">prepared =</span> <span class="st">"prepared"</span>,</span>
-<span id="cb22-24"><a href="#cb22-24"></a>    <span class="at">showed_up =</span> <span class="st">"showed up"</span></span>
-<span id="cb22-25"><a href="#cb22-25"></a>  )</span>
-<span id="cb22-26"><a href="#cb22-26"></a>)</span>
-<span id="cb22-27"><a href="#cb22-27"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag3, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb22-28"><a href="#cb22-28"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>podcast_dag3 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  podcast <span class="sc">~</span> mood <span class="sc">+</span> humor <span class="sc">+</span> prepared,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  exam <span class="sc">~</span> mood <span class="sc">+</span> prepared <span class="sc">+</span> showed_up,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>  showed_up <span class="sc">~</span> podcast <span class="sc">+</span> mood <span class="sc">+</span> prepared,</span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(</span>
+<span id="cb20-6"><a href="#cb20-6"></a>    <span class="fu">list</span>(</span>
+<span id="cb20-7"><a href="#cb20-7"></a>      <span class="co"># time point 1</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a>      <span class="fu">c</span>(<span class="st">"prepared"</span>, <span class="st">"humor"</span>, <span class="st">"mood"</span>), </span>
+<span id="cb20-9"><a href="#cb20-9"></a>      <span class="co"># time point 2</span></span>
+<span id="cb20-10"><a href="#cb20-10"></a>      <span class="st">"podcast"</span>,  </span>
+<span id="cb20-11"><a href="#cb20-11"></a>      <span class="st">"showed_up"</span>,  </span>
+<span id="cb20-12"><a href="#cb20-12"></a>      <span class="co"># time point 3</span></span>
+<span id="cb20-13"><a href="#cb20-13"></a>      <span class="st">"exam"</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a>    )</span>
+<span id="cb20-15"><a href="#cb20-15"></a>  ),</span>
+<span id="cb20-16"><a href="#cb20-16"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb20-17"><a href="#cb20-17"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
+<span id="cb20-18"><a href="#cb20-18"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb20-19"><a href="#cb20-19"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb20-20"><a href="#cb20-20"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
+<span id="cb20-21"><a href="#cb20-21"></a>    <span class="at">mood =</span> <span class="st">"mood"</span>,</span>
+<span id="cb20-22"><a href="#cb20-22"></a>    <span class="at">humor =</span> <span class="st">"humor"</span>,</span>
+<span id="cb20-23"><a href="#cb20-23"></a>    <span class="at">prepared =</span> <span class="st">"prepared"</span>,</span>
+<span id="cb20-24"><a href="#cb20-24"></a>    <span class="at">showed_up =</span> <span class="st">"showed up"</span></span>
+<span id="cb20-25"><a href="#cb20-25"></a>  )</span>
+<span id="cb20-26"><a href="#cb20-26"></a>)</span>
+<span id="cb20-27"><a href="#cb20-27"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag3, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb20-28"><a href="#cb20-28"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-podcast_dag3" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag3-1.png" width="672"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag3-1.png" width="672"></p>
 <figcaption>Figure&nbsp;12: Another variant of <code>podcast_dag</code>, this time including the inherent stratification on those who appear for the exam. There is still no direct effect of <code>podcast</code> on <code>exam</code>, but there is an indirect effect via <code>showed_up</code>.</figcaption>
 </figure>
 </div>
@@ -1271,15 +1234,15 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>podcast_dag3 <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"showed_up"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(<span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span> </span>
-<span id="cb23-4"><a href="#cb23-4"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>podcast_dag3 <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"showed_up"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(<span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="#cb21-4"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-podcast_dag3-as" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag3-as-1.png" width="672"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag3-as-1.png" width="672"></p>
 <figcaption>Figure&nbsp;13: The adjustment set for <code>podcast_dag3</code> given that the data are inherently conditioned on showing up to the exam. In this case, there is no way to recover an unbiased estimate of the total effect of <code>podcast</code> on <code>exam</code>.</figcaption>
 </figure>
 </div>
@@ -1293,24 +1256,20 @@ $open
 <div class="column" style="font-size: 60%">
 <p>Sometimes, you can still estimate effects in this situation by changing the estimate you wish to calculate. We can’t calculate the total effect because we are missing the indirect effect, but we can still calculate the direct effect of <code>podcast</code> on <code>exam</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>podcast_dag3 <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"showed_up"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(</span>
-<span id="cb24-4"><a href="#cb24-4"></a>    <span class="at">effect =</span> <span class="st">"direct"</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>    , <span class="at">text =</span> <span class="cn">FALSE</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a>    , <span class="at">use_labels =</span> <span class="st">"label"</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>podcast_dag3 <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"showed_up"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="at">effect =</span> <span class="st">"direct"</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>    , <span class="at">text =</span> <span class="cn">FALSE</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>    , <span class="at">use_labels =</span> <span class="st">"label"</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="font-size: 60%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>podcast_dag3 <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href="#cb25-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"showed_up"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb25-3"><a href="#cb25-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(<span class="at">effect =</span> <span class="st">"direct"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>)  <span class="sc">+</span> </span>
-<span id="cb25-4"><a href="#cb25-4"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-podcast_dag3-direct" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag3-direct-1.png" width="576"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag3-direct-1.png" width="576"></p>
 <figcaption>Figure&nbsp;14: The adjustment set for <code>podcast_dag3</code> when targeting a different effect. There is one minimal adjustment set that we can use to estimate the direct effect of <code>podcast</code> on <code>exam</code>.</figcaption>
 </figure>
 </div>
@@ -1338,7 +1297,7 @@ $open
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>dagitty<span class="sc">::</span><span class="fu">paths</span>( ggdag<span class="sc">::</span><span class="fu">m_bias</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>dagitty<span class="sc">::</span><span class="fu">paths</span>( ggdag<span class="sc">::</span><span class="fu">m_bias</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$paths
 [1] "x &lt;- a -&gt; m &lt;- b -&gt; y"
@@ -1349,13 +1308,10 @@ $open
 </div>
 </div><div class="column" style="font-size: 60%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>ggdag<span class="sc">::</span><span class="fu">m_bias</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>()  <span class="sc">+</span> </span>
-<span id="cb28-3"><a href="#cb28-3"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-m-bias" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-m-bias-1.png" width="384"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-m-bias-1.png" width="384"></p>
 <figcaption>Figure&nbsp;15: A DAG representing M-Bias, a situation where a collider predates the exposure and outcome.</figcaption>
 </figure>
 </div>
@@ -1378,36 +1334,36 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>podcast_dag4 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb29-2"><a href="#cb29-2"></a>  podcast <span class="sc">~</span> u1,</span>
-<span id="cb29-3"><a href="#cb29-3"></a>  exam <span class="sc">~</span> u2,</span>
-<span id="cb29-4"><a href="#cb29-4"></a>  mood <span class="sc">~</span> u1 <span class="sc">+</span> u2,</span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="at">coords =</span> <span class="fu">time_ordered_coords</span>(<span class="fu">list</span>(</span>
-<span id="cb29-6"><a href="#cb29-6"></a>    <span class="fu">c</span>(<span class="st">"u1"</span>, <span class="st">"u2"</span>),</span>
-<span id="cb29-7"><a href="#cb29-7"></a>    <span class="st">"mood"</span>,</span>
-<span id="cb29-8"><a href="#cb29-8"></a>    <span class="st">"podcast"</span>, </span>
-<span id="cb29-9"><a href="#cb29-9"></a>    <span class="st">"exam"</span></span>
-<span id="cb29-10"><a href="#cb29-10"></a>  )),</span>
-<span id="cb29-11"><a href="#cb29-11"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb29-12"><a href="#cb29-12"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
-<span id="cb29-13"><a href="#cb29-13"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb29-14"><a href="#cb29-14"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb29-15"><a href="#cb29-15"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
-<span id="cb29-16"><a href="#cb29-16"></a>    <span class="at">mood =</span> <span class="st">"mood"</span>,</span>
-<span id="cb29-17"><a href="#cb29-17"></a>    <span class="at">u1 =</span> <span class="st">"unmeasured"</span>,</span>
-<span id="cb29-18"><a href="#cb29-18"></a>    <span class="at">u2 =</span> <span class="st">"unmeasured"</span></span>
-<span id="cb29-19"><a href="#cb29-19"></a>  ),</span>
-<span id="cb29-20"><a href="#cb29-20"></a>  <span class="co"># we don't have them measured</span></span>
-<span id="cb29-21"><a href="#cb29-21"></a>  <span class="at">latent =</span> <span class="fu">c</span>(<span class="st">"u1"</span>, <span class="st">"u2"</span>)</span>
-<span id="cb29-22"><a href="#cb29-22"></a>)</span>
-<span id="cb29-23"><a href="#cb29-23"></a></span>
-<span id="cb29-24"><a href="#cb29-24"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag4, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)  <span class="sc">+</span> </span>
-<span id="cb29-25"><a href="#cb29-25"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>podcast_dag4 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  podcast <span class="sc">~</span> u1,</span>
+<span id="cb25-3"><a href="#cb25-3"></a>  exam <span class="sc">~</span> u2,</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  mood <span class="sc">~</span> u1 <span class="sc">+</span> u2,</span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="at">coords =</span> <span class="fu">time_ordered_coords</span>(<span class="fu">list</span>(</span>
+<span id="cb25-6"><a href="#cb25-6"></a>    <span class="fu">c</span>(<span class="st">"u1"</span>, <span class="st">"u2"</span>),</span>
+<span id="cb25-7"><a href="#cb25-7"></a>    <span class="st">"mood"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8"></a>    <span class="st">"podcast"</span>, </span>
+<span id="cb25-9"><a href="#cb25-9"></a>    <span class="st">"exam"</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>  )),</span>
+<span id="cb25-11"><a href="#cb25-11"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb25-12"><a href="#cb25-12"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb25-14"><a href="#cb25-14"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16"></a>    <span class="at">mood =</span> <span class="st">"mood"</span>,</span>
+<span id="cb25-17"><a href="#cb25-17"></a>    <span class="at">u1 =</span> <span class="st">"unmeasured"</span>,</span>
+<span id="cb25-18"><a href="#cb25-18"></a>    <span class="at">u2 =</span> <span class="st">"unmeasured"</span></span>
+<span id="cb25-19"><a href="#cb25-19"></a>  ),</span>
+<span id="cb25-20"><a href="#cb25-20"></a>  <span class="co"># we don't have them measured</span></span>
+<span id="cb25-21"><a href="#cb25-21"></a>  <span class="at">latent =</span> <span class="fu">c</span>(<span class="st">"u1"</span>, <span class="st">"u2"</span>)</span>
+<span id="cb25-22"><a href="#cb25-22"></a>)</span>
+<span id="cb25-23"><a href="#cb25-23"></a></span>
+<span id="cb25-24"><a href="#cb25-24"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag4, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)  <span class="sc">+</span> </span>
+<span id="cb25-25"><a href="#cb25-25"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-podcast_dag4" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag4-1.png" width="528"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag4-1.png" width="528"></p>
 <figcaption>Figure&nbsp;16: A reconfiguration of <a href="#/dags---visualization-4">Figure&nbsp;4</a> where <code>mood</code> is a collider on an M-shaped path.</figcaption>
 </figure>
 </div>
@@ -1424,14 +1380,10 @@ $open
 <p>If we had either <code>u1</code> or <code>u2</code> measured, we could adjust for them to close this path, but we don’t. There is no way to close this open path.</p>
 </div><div class="column" style="font-size: 75%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>podcast_dag4 <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2"></a>  ggdag<span class="sc">::</span><span class="fu">adjust_for</span>(<span class="st">"mood"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag_adjustment_set</span>(<span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)  <span class="sc">+</span> </span>
-<span id="cb30-4"><a href="#cb30-4"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-podcast_dag4-as" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag4-as-1.png" width="528"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag4-as-1.png" width="528"></p>
 <figcaption>Figure&nbsp;17: The adjustment set where <code>mood</code> is a collider. If we control for <code>mood</code> and don’t know about or have the unmeasured causes of <code>mood</code>, we have no means of closing the backdoor path opened by adjusting for a collider.</figcaption>
 </figure>
 </div>
@@ -1451,37 +1403,37 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>podcast_dag5 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb31-2"><a href="#cb31-2"></a>  podcast <span class="sc">~</span> mood <span class="sc">+</span> humor <span class="sc">+</span> prepared,</span>
-<span id="cb31-3"><a href="#cb31-3"></a>  exam <span class="sc">~</span> mood <span class="sc">+</span> prepared <span class="sc">+</span> grader_mood,</span>
-<span id="cb31-4"><a href="#cb31-4"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(</span>
-<span id="cb31-5"><a href="#cb31-5"></a>    <span class="fu">list</span>(</span>
-<span id="cb31-6"><a href="#cb31-6"></a>      <span class="co"># time point 1</span></span>
-<span id="cb31-7"><a href="#cb31-7"></a>      <span class="fu">c</span>(<span class="st">"prepared"</span>, <span class="st">"humor"</span>, <span class="st">"mood"</span>), </span>
-<span id="cb31-8"><a href="#cb31-8"></a>      <span class="co"># time point 2</span></span>
-<span id="cb31-9"><a href="#cb31-9"></a>      <span class="fu">c</span>(<span class="st">"podcast"</span>, <span class="st">"grader_mood"</span>),  </span>
-<span id="cb31-10"><a href="#cb31-10"></a>      <span class="co"># time point 3</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a>      <span class="st">"exam"</span></span>
-<span id="cb31-12"><a href="#cb31-12"></a>    )</span>
-<span id="cb31-13"><a href="#cb31-13"></a>  ),</span>
-<span id="cb31-14"><a href="#cb31-14"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb31-15"><a href="#cb31-15"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
-<span id="cb31-16"><a href="#cb31-16"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb31-17"><a href="#cb31-17"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
-<span id="cb31-18"><a href="#cb31-18"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
-<span id="cb31-19"><a href="#cb31-19"></a>    <span class="at">mood =</span> <span class="st">"student</span><span class="sc">\n</span><span class="st">mood"</span>,</span>
-<span id="cb31-20"><a href="#cb31-20"></a>    <span class="at">humor =</span> <span class="st">"humor"</span>,</span>
-<span id="cb31-21"><a href="#cb31-21"></a>    <span class="at">prepared =</span> <span class="st">"prepared"</span>,</span>
-<span id="cb31-22"><a href="#cb31-22"></a>    <span class="at">grader_mood =</span> <span class="st">"grader</span><span class="sc">\n</span><span class="st">mood"</span></span>
-<span id="cb31-23"><a href="#cb31-23"></a>  )</span>
-<span id="cb31-24"><a href="#cb31-24"></a>)</span>
-<span id="cb31-25"><a href="#cb31-25"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag5, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)  <span class="sc">+</span> </span>
-<span id="cb31-26"><a href="#cb31-26"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>podcast_dag5 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
+<span id="cb26-2"><a href="#cb26-2"></a>  podcast <span class="sc">~</span> mood <span class="sc">+</span> humor <span class="sc">+</span> prepared,</span>
+<span id="cb26-3"><a href="#cb26-3"></a>  exam <span class="sc">~</span> mood <span class="sc">+</span> prepared <span class="sc">+</span> grader_mood,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(</span>
+<span id="cb26-5"><a href="#cb26-5"></a>    <span class="fu">list</span>(</span>
+<span id="cb26-6"><a href="#cb26-6"></a>      <span class="co"># time point 1</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>      <span class="fu">c</span>(<span class="st">"prepared"</span>, <span class="st">"humor"</span>, <span class="st">"mood"</span>), </span>
+<span id="cb26-8"><a href="#cb26-8"></a>      <span class="co"># time point 2</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a>      <span class="fu">c</span>(<span class="st">"podcast"</span>, <span class="st">"grader_mood"</span>),  </span>
+<span id="cb26-10"><a href="#cb26-10"></a>      <span class="co"># time point 3</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a>      <span class="st">"exam"</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a>    )</span>
+<span id="cb26-13"><a href="#cb26-13"></a>  ),</span>
+<span id="cb26-14"><a href="#cb26-14"></a>  <span class="at">exposure =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb26-15"><a href="#cb26-15"></a>  <span class="at">outcome =</span> <span class="st">"exam"</span>,</span>
+<span id="cb26-16"><a href="#cb26-16"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb26-17"><a href="#cb26-17"></a>    <span class="at">podcast =</span> <span class="st">"podcast"</span>,</span>
+<span id="cb26-18"><a href="#cb26-18"></a>    <span class="at">exam =</span> <span class="st">"exam score"</span>,</span>
+<span id="cb26-19"><a href="#cb26-19"></a>    <span class="at">mood =</span> <span class="st">"student</span><span class="sc">\n</span><span class="st">mood"</span>,</span>
+<span id="cb26-20"><a href="#cb26-20"></a>    <span class="at">humor =</span> <span class="st">"humor"</span>,</span>
+<span id="cb26-21"><a href="#cb26-21"></a>    <span class="at">prepared =</span> <span class="st">"prepared"</span>,</span>
+<span id="cb26-22"><a href="#cb26-22"></a>    <span class="at">grader_mood =</span> <span class="st">"grader</span><span class="sc">\n</span><span class="st">mood"</span></span>
+<span id="cb26-23"><a href="#cb26-23"></a>  )</span>
+<span id="cb26-24"><a href="#cb26-24"></a>)</span>
+<span id="cb26-25"><a href="#cb26-25"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(podcast_dag5, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>)  <span class="sc">+</span> </span>
+<span id="cb26-26"><a href="#cb26-26"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-podcast_dag5" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-podcast_dag5-1.png" width="480"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-podcast_dag5-1.png" width="480"></p>
 <figcaption>Figure&nbsp;18: A DAG containing a cause of the exposure that is not the cause of the outcome (<code>humor</code>) and a cause of the outcome that is not a cause of the exposure (<code>grader_mood</code>).</figcaption>
 </figure>
 </div>
@@ -1557,30 +1509,23 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb32-2"><a href="#cb32-2"></a>  ac_use <span class="sc">~</span> global_temp,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>  global_temp <span class="sc">~</span> ac_use,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>  <span class="at">labels =</span> </span>
-<span id="cb32-5"><a href="#cb32-5"></a>    <span class="fu">c</span>(<span class="at">ac_use =</span> <span class="st">"A/C use"</span>, <span class="at">global_temp =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature"</span>)</span>
-<span id="cb32-6"><a href="#cb32-6"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb32-7"><a href="#cb32-7"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>(</span>
-<span id="cb32-8"><a href="#cb32-8"></a>    <span class="at">layout =</span> <span class="st">"circle"</span>, <span class="at">edge_type =</span> <span class="st">"arc"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  ac_use <span class="sc">~</span> global_temp,</span>
+<span id="cb27-3"><a href="#cb27-3"></a>  global_temp <span class="sc">~</span> ac_use,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="at">labels =</span> </span>
+<span id="cb27-5"><a href="#cb27-5"></a>    <span class="fu">c</span>(<span class="at">ac_use =</span> <span class="st">"A/C use"</span>, <span class="at">global_temp =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a href="#cb27-7"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>(</span>
+<span id="cb27-8"><a href="#cb27-8"></a>    <span class="at">layout =</span> <span class="st">"circle"</span>, <span class="at">edge_type =</span> <span class="st">"arc"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div><div class="column" style="font-size: 70%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb33-2"><a href="#cb33-2"></a>  ac_use <span class="sc">~</span> global_temp,</span>
-<span id="cb33-3"><a href="#cb33-3"></a>  global_temp <span class="sc">~</span> ac_use,</span>
-<span id="cb33-4"><a href="#cb33-4"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">ac_use =</span> <span class="st">"A/C use"</span>, <span class="at">global_temp =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature"</span>)</span>
-<span id="cb33-5"><a href="#cb33-5"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb33-6"><a href="#cb33-6"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>(<span class="at">layout =</span> <span class="st">"circle"</span>, <span class="at">edge_type =</span> <span class="st">"arc"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>)  <span class="sc">+</span> </span>
-<span id="cb33-7"><a href="#cb33-7"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-feedback-loop" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-feedback-loop-1.png" width="432"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-feedback-loop-1.png" width="432"></p>
 <figcaption>Figure&nbsp;19: A DAG representing the reciprocal relationship between A/C use and global temperature because of global warming. Feedback loops are useful mental shorthands to describe variables that impact each other over time compactly, but they are not true causal diagrams.</figcaption>
 </figure>
 </div>
@@ -1600,56 +1545,35 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
-<span id="cb34-2"><a href="#cb34-2"></a>  global_temp_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
-<span id="cb34-3"><a href="#cb34-3"></a>  ac_use_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
-<span id="cb34-4"><a href="#cb34-4"></a>  global_temp_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
-<span id="cb34-5"><a href="#cb34-5"></a>  ac_use_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
-<span id="cb34-6"><a href="#cb34-6"></a>  global_temp_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
-<span id="cb34-7"><a href="#cb34-7"></a>  ac_use_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
-<span id="cb34-8"><a href="#cb34-8"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(),</span>
-<span id="cb34-9"><a href="#cb34-9"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb34-10"><a href="#cb34-10"></a>    <span class="at">ac_use_1990 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(1990)"</span>, </span>
-<span id="cb34-11"><a href="#cb34-11"></a>    <span class="at">global_temp_1990 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(1990)"</span>,</span>
-<span id="cb34-12"><a href="#cb34-12"></a>    <span class="at">ac_use_2000 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2000)"</span>, </span>
-<span id="cb34-13"><a href="#cb34-13"></a>    <span class="at">global_temp_2000 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2000)"</span>,</span>
-<span id="cb34-14"><a href="#cb34-14"></a>    <span class="at">ac_use_2010 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2010)"</span>, </span>
-<span id="cb34-15"><a href="#cb34-15"></a>    <span class="at">global_temp_2010 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2010)"</span>,</span>
-<span id="cb34-16"><a href="#cb34-16"></a>    <span class="at">ac_use_2020 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2020)"</span>, </span>
-<span id="cb34-17"><a href="#cb34-17"></a>    <span class="at">global_temp_2020 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2020)"</span></span>
-<span id="cb34-18"><a href="#cb34-18"></a>  )</span>
-<span id="cb34-19"><a href="#cb34-19"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-20"><a href="#cb34-20"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>(<span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span> </span>
-<span id="cb34-21"><a href="#cb34-21"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>ggdag<span class="sc">::</span><span class="fu">dagify</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  global_temp_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  ac_use_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>  global_temp_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>  ac_use_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
+<span id="cb28-6"><a href="#cb28-6"></a>  global_temp_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
+<span id="cb28-7"><a href="#cb28-7"></a>  ac_use_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="at">coords =</span> ggdag<span class="sc">::</span><span class="fu">time_ordered_coords</span>(),</span>
+<span id="cb28-9"><a href="#cb28-9"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb28-10"><a href="#cb28-10"></a>    <span class="at">ac_use_1990 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(1990)"</span>, </span>
+<span id="cb28-11"><a href="#cb28-11"></a>    <span class="at">global_temp_1990 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(1990)"</span>,</span>
+<span id="cb28-12"><a href="#cb28-12"></a>    <span class="at">ac_use_2000 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2000)"</span>, </span>
+<span id="cb28-13"><a href="#cb28-13"></a>    <span class="at">global_temp_2000 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2000)"</span>,</span>
+<span id="cb28-14"><a href="#cb28-14"></a>    <span class="at">ac_use_2010 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2010)"</span>, </span>
+<span id="cb28-15"><a href="#cb28-15"></a>    <span class="at">global_temp_2010 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2010)"</span>,</span>
+<span id="cb28-16"><a href="#cb28-16"></a>    <span class="at">ac_use_2020 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2020)"</span>, </span>
+<span id="cb28-17"><a href="#cb28-17"></a>    <span class="at">global_temp_2020 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2020)"</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a>  )</span>
+<span id="cb28-19"><a href="#cb28-19"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-20"><a href="#cb28-20"></a>  ggdag<span class="sc">::</span><span class="fu">ggdag</span>(<span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span> </span>
+<span id="cb28-21"><a href="#cb28-21"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div><div class="column" style="font-size: 70%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">dagify</span>(</span>
-<span id="cb35-2"><a href="#cb35-2"></a>  global_temp_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  ac_use_2000 <span class="sc">~</span> ac_use_1990 <span class="sc">+</span> global_temp_1990,</span>
-<span id="cb35-4"><a href="#cb35-4"></a>  global_temp_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
-<span id="cb35-5"><a href="#cb35-5"></a>  ac_use_2010 <span class="sc">~</span> ac_use_2000 <span class="sc">+</span> global_temp_2000,</span>
-<span id="cb35-6"><a href="#cb35-6"></a>  global_temp_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
-<span id="cb35-7"><a href="#cb35-7"></a>  ac_use_2020 <span class="sc">~</span> ac_use_2010 <span class="sc">+</span> global_temp_2010,</span>
-<span id="cb35-8"><a href="#cb35-8"></a>  <span class="at">coords =</span> <span class="fu">time_ordered_coords</span>(),</span>
-<span id="cb35-9"><a href="#cb35-9"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb35-10"><a href="#cb35-10"></a>    <span class="at">ac_use_1990 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(1990)"</span>, </span>
-<span id="cb35-11"><a href="#cb35-11"></a>    <span class="at">global_temp_1990 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(1990)"</span>,</span>
-<span id="cb35-12"><a href="#cb35-12"></a>    <span class="at">ac_use_2000 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2000)"</span>, </span>
-<span id="cb35-13"><a href="#cb35-13"></a>    <span class="at">global_temp_2000 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2000)"</span>,</span>
-<span id="cb35-14"><a href="#cb35-14"></a>    <span class="at">ac_use_2010 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2010)"</span>, </span>
-<span id="cb35-15"><a href="#cb35-15"></a>    <span class="at">global_temp_2010 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2010)"</span>,</span>
-<span id="cb35-16"><a href="#cb35-16"></a>    <span class="at">ac_use_2020 =</span> <span class="st">"A/C use</span><span class="sc">\n</span><span class="st">(2020)"</span>, </span>
-<span id="cb35-17"><a href="#cb35-17"></a>    <span class="at">global_temp_2020 =</span> <span class="st">"Global</span><span class="sc">\n</span><span class="st">temperature</span><span class="sc">\n</span><span class="st">(2020)"</span></span>
-<span id="cb35-18"><a href="#cb35-18"></a>  )</span>
-<span id="cb35-19"><a href="#cb35-19"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb35-20"><a href="#cb35-20"></a>  <span class="fu">ggdag</span>(<span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span> </span>
-<span id="cb35-21"><a href="#cb35-21"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-feedforward" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-feedforward-1.png" width="528"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-feedforward-1.png" width="528"></p>
 <figcaption>Figure&nbsp;20: A DAG showing the relationship between A/C use and global temperature over time. The true causal relationship in a feedback loop goes <em>forward</em>.</figcaption>
 </figure>
 </div>
@@ -1716,13 +1640,10 @@ $open
 <div style="font-size: 75%">
 <p>The distribution of malaria risk appears to be quite different by net usage.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>causalworkshop<span class="sc">::</span>net_data <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(malaria_risk, <span class="at">fill =</span> net)) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> .<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-malaria-risk-density" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-malaria-risk-density-1.png" width="720"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-malaria-risk-density-1.png" width="720"></p>
 <figcaption>Figure&nbsp;21: A density plot of malaria risk for those who did and did not use nets. The average risk of malaria is lower for those who use nets.</figcaption>
 </figure>
 </div>
@@ -1737,9 +1658,9 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>causalworkshop<span class="sc">::</span>net_data <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(net) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">malaria_risk =</span> <span class="fu">mean</span>(malaria_risk))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>causalworkshop<span class="sc">::</span>net_data <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(net) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">malaria_risk =</span> <span class="fu">mean</span>(malaria_risk))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
@@ -1753,9 +1674,9 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>causalworkshop<span class="sc">::</span>net_data <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>causalworkshop<span class="sc">::</span>net_data <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
@@ -1783,7 +1704,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-net-data-dag" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-net-data-dag-1.png" width="672"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-net-data-dag-1.png" width="672"></p>
 <figcaption>Figure&nbsp;22: A proposed causal diagram of the effect of bed net use on malaria. This directed acyclic graph (DAG) states our assumption that bed net use causes a reduction in malaria risk. It also says that we assume: malaria risk is impacted by net usage, income, health, temperature, and insecticide resistance; net usage is impacted by income, health, temperature, eligibility for the free net program, and the number of people in a household; eligibility for the free net programs is impacted by income and the number of people in a household; and health is impacted by income.</figcaption>
 </figure>
 </div>
@@ -1798,7 +1719,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-net-data-confounding" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-net-data-confounding-1.png" width="1344"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-net-data-confounding-1.png" width="1344"></p>
 <figcaption>Figure&nbsp;23: In the proposed DAG, there are eight open pathways that contribute to the causal effect seen in the naive regression: the true effect (in green) of net usage on malaria risk and seven other confounding pathways (in orange). The naive estimate is wrong because it is a composite of all these effects.</figcaption>
 </figure>
 </div>
@@ -1823,14 +1744,14 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb41-2"><a href="#cb41-2"></a>  net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="at">data =</span> causalworkshop<span class="sc">::</span>net_data,</span>
-<span id="cb41-4"><a href="#cb41-4"></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
-<span id="cb41-5"><a href="#cb41-5"></a>)</span>
-<span id="cb41-6"><a href="#cb41-6"></a></span>
-<span id="cb41-7"><a href="#cb41-7"></a><span class="co"># the first six propensity scores</span></span>
-<span id="cb41-8"><a href="#cb41-8"></a><span class="fu">head</span>(<span class="fu">predict</span>(propensity_model, <span class="at">type =</span> <span class="st">"response"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb33-2"><a href="#cb33-2"></a>  net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="at">data =</span> causalworkshop<span class="sc">::</span>net_data,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb33-5"><a href="#cb33-5"></a>)</span>
+<span id="cb33-6"><a href="#cb33-6"></a></span>
+<span id="cb33-7"><a href="#cb33-7"></a><span class="co"># the first six propensity scores</span></span>
+<span id="cb33-8"><a href="#cb33-8"></a><span class="fu">head</span>(<span class="fu">predict</span>(propensity_model, <span class="at">type =</span> <span class="st">"response"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     1      2      3      4      5      6 
@@ -1849,15 +1770,15 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>net_data_wts <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>  broom<span class="sc">::</span><span class="fu">augment</span>(<span class="at">newdata =</span> causalworkshop<span class="sc">::</span>net_data, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a>  <span class="co"># .fitted is the value predicted by the model</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a>  <span class="co"># for a given observation</span></span>
-<span id="cb43-5"><a href="#cb43-5"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wts =</span> propensity<span class="sc">::</span><span class="fu">wt_ate</span>(.fitted, net))</span>
-<span id="cb43-6"><a href="#cb43-6"></a></span>
-<span id="cb43-7"><a href="#cb43-7"></a>net_data_wts <span class="sc">|&gt;</span></span>
-<span id="cb43-8"><a href="#cb43-8"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(net, .fitted, wts) <span class="sc">|&gt;</span></span>
-<span id="cb43-9"><a href="#cb43-9"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>net_data_wts <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  broom<span class="sc">::</span><span class="fu">augment</span>(<span class="at">newdata =</span> causalworkshop<span class="sc">::</span>net_data, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="co"># .fitted is the value predicted by the model</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="co"># for a given observation</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wts =</span> propensity<span class="sc">::</span><span class="fu">wt_ate</span>(.fitted, net))</span>
+<span id="cb35-6"><a href="#cb35-6"></a></span>
+<span id="cb35-7"><a href="#cb35-7"></a>net_data_wts <span class="sc">|&gt;</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(net, .fitted, wts) <span class="sc">|&gt;</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 16 × 3
@@ -1901,19 +1822,19 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(halfmoon)</span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
-<span id="cb45-4"><a href="#cb45-4"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> net),</span>
-<span id="cb45-5"><a href="#cb45-5"></a>    <span class="at">bins =</span> <span class="dv">50</span></span>
-<span id="cb45-6"><a href="#cb45-6"></a>  ) <span class="sc">+</span></span>
-<span id="cb45-7"><a href="#cb45-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs) <span class="sc">+</span></span>
-<span id="cb45-8"><a href="#cb45-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"propensity score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">library</span>(halfmoon)</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
+<span id="cb37-4"><a href="#cb37-4"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> net),</span>
+<span id="cb37-5"><a href="#cb37-5"></a>    <span class="at">bins =</span> <span class="dv">50</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"propensity score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mirror-histogram-net-data-unweighted" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-mirror-histogram-net-data-unweighted-1.png" width="960"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-mirror-histogram-net-data-unweighted-1.png" width="960"></p>
 <figcaption>Figure&nbsp;24: A mirrored histogram of the propensity scores of those who used nets (top, blue) versus those who who did not use nets (bottom, orange). The range of propensity scores is similar between groups, with those who used nets slightly to the left of those who didn’t, but the shapes of the distribution are different.</figcaption>
 </figure>
 </div>
@@ -1930,18 +1851,18 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
-<span id="cb46-3"><a href="#cb46-3"></a>    <span class="fu">aes</span>(<span class="at">group =</span> net),</span>
-<span id="cb46-4"><a href="#cb46-4"></a>    <span class="at">bins =</span> <span class="dv">50</span></span>
-<span id="cb46-5"><a href="#cb46-5"></a>  ) <span class="sc">+</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
-<span id="cb46-7"><a href="#cb46-7"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> net, <span class="at">weight =</span> wts),</span>
-<span id="cb46-8"><a href="#cb46-8"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
-<span id="cb46-9"><a href="#cb46-9"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
-<span id="cb46-10"><a href="#cb46-10"></a>  ) <span class="sc">+</span></span>
-<span id="cb46-11"><a href="#cb46-11"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs) <span class="sc">+</span></span>
-<span id="cb46-12"><a href="#cb46-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"propensity score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
+<span id="cb38-3"><a href="#cb38-3"></a>    <span class="fu">aes</span>(<span class="at">group =</span> net),</span>
+<span id="cb38-4"><a href="#cb38-4"></a>    <span class="at">bins =</span> <span class="dv">50</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>  halfmoon<span class="sc">::</span><span class="fu">geom_mirror_histogram</span>(</span>
+<span id="cb38-7"><a href="#cb38-7"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> net, <span class="at">weight =</span> wts),</span>
+<span id="cb38-8"><a href="#cb38-8"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
+<span id="cb38-9"><a href="#cb38-9"></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs) <span class="sc">+</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"propensity score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div><div class="column" style="font-size: 65%">
@@ -1949,7 +1870,7 @@ $open
 <div class="cell-output-display">
 <div id="fig-mirror-histogram-net-data-weighted" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-mirror-histogram-net-data-weighted-1.png" width="960"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-mirror-histogram-net-data-weighted-1.png" width="960"></p>
 <figcaption>Figure&nbsp;25: A mirrored histogram of the propensity scores of those who used nets (top, blue) versus those who who did not use nets (bottom, orange). The shaded region represents the unweighted distribution, and the colored region represents the weighted distributions. The ATE weights up-weight the groups to be similar in range and shape of the distribution of propensity scores.</figcaption>
 </figure>
 </div>
@@ -1966,43 +1887,26 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>plot_df <span class="ot">&lt;-</span> tidysmd<span class="sc">::</span><span class="fu">tidy_smd</span>(</span>
-<span id="cb47-2"><a href="#cb47-2"></a>  net_data_wts,</span>
-<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">c</span>(income, health, temperature),</span>
-<span id="cb47-4"><a href="#cb47-4"></a>  <span class="at">.group =</span> net,</span>
-<span id="cb47-5"><a href="#cb47-5"></a>  <span class="at">.wts =</span> wts</span>
-<span id="cb47-6"><a href="#cb47-6"></a>)</span>
-<span id="cb47-7"><a href="#cb47-7"></a></span>
-<span id="cb47-8"><a href="#cb47-8"></a>plot_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(</span>
-<span id="cb47-9"><a href="#cb47-9"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">abs</span>(smd), <span class="at">y =</span> variable,</span>
-<span id="cb47-10"><a href="#cb47-10"></a>    <span class="at">group =</span> method, <span class="at">color =</span> method</span>
-<span id="cb47-11"><a href="#cb47-11"></a>  )</span>
-<span id="cb47-12"><a href="#cb47-12"></a>) <span class="sc">+</span> tidysmd<span class="sc">::</span><span class="fu">geom_love</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>plot_df <span class="ot">&lt;-</span> tidysmd<span class="sc">::</span><span class="fu">tidy_smd</span>(</span>
+<span id="cb39-2"><a href="#cb39-2"></a>  net_data_wts,</span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">c</span>(income, health, temperature),</span>
+<span id="cb39-4"><a href="#cb39-4"></a>  <span class="at">.group =</span> net,</span>
+<span id="cb39-5"><a href="#cb39-5"></a>  <span class="at">.wts =</span> wts</span>
+<span id="cb39-6"><a href="#cb39-6"></a>)</span>
+<span id="cb39-7"><a href="#cb39-7"></a></span>
+<span id="cb39-8"><a href="#cb39-8"></a>plot_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(</span>
+<span id="cb39-9"><a href="#cb39-9"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">abs</span>(smd), <span class="at">y =</span> variable,</span>
+<span id="cb39-10"><a href="#cb39-10"></a>    <span class="at">group =</span> method, <span class="at">color =</span> method</span>
+<span id="cb39-11"><a href="#cb39-11"></a>  )</span>
+<span id="cb39-12"><a href="#cb39-12"></a>) <span class="sc">+</span> tidysmd<span class="sc">::</span><span class="fu">geom_love</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div><div class="column" style="font-size: 65%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>plot_df <span class="ot">&lt;-</span> tidysmd<span class="sc">::</span><span class="fu">tidy_smd</span>(</span>
-<span id="cb48-2"><a href="#cb48-2"></a>  net_data_wts,</span>
-<span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">c</span>(income, health, temperature),</span>
-<span id="cb48-4"><a href="#cb48-4"></a>  <span class="at">.group =</span> net,</span>
-<span id="cb48-5"><a href="#cb48-5"></a>  <span class="at">.wts =</span> wts</span>
-<span id="cb48-6"><a href="#cb48-6"></a>)</span>
-<span id="cb48-7"><a href="#cb48-7"></a></span>
-<span id="cb48-8"><a href="#cb48-8"></a><span class="fu">ggplot</span>(</span>
-<span id="cb48-9"><a href="#cb48-9"></a>  plot_df,</span>
-<span id="cb48-10"><a href="#cb48-10"></a>  <span class="fu">aes</span>(</span>
-<span id="cb48-11"><a href="#cb48-11"></a>    <span class="at">x =</span> <span class="fu">abs</span>(smd),</span>
-<span id="cb48-12"><a href="#cb48-12"></a>    <span class="at">y =</span> variable,</span>
-<span id="cb48-13"><a href="#cb48-13"></a>    <span class="at">group =</span> method,</span>
-<span id="cb48-14"><a href="#cb48-14"></a>    <span class="at">color =</span> method</span>
-<span id="cb48-15"><a href="#cb48-15"></a>  )</span>
-<span id="cb48-16"><a href="#cb48-16"></a>) <span class="sc">+</span></span>
-<span id="cb48-17"><a href="#cb48-17"></a>  tidysmd<span class="sc">::</span><span class="fu">geom_love</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-love-plot-net-data" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-love-plot-net-data-1.png" width="480"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-love-plot-net-data-1.png" width="480"></p>
 <figcaption>Figure&nbsp;26: A love plot representing the standardized mean differences (SMD) between exposure groups of three confounders: temperature, income, and health. Before weighting, there are considerable differences in the groups. After weighting, the confounders are much more balanced between groups.</figcaption>
 </figure>
 </div>
@@ -2020,24 +1924,21 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>net_data_wts <span class="sc">|&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wts)) <span class="sc">+</span></span>
-<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">geom_density</span>(</span>
-<span id="cb49-4"><a href="#cb49-4"></a>    <span class="at">fill =</span> <span class="st">"#CC79A7"</span></span>
-<span id="cb49-5"><a href="#cb49-5"></a>    , <span class="at">color =</span> <span class="cn">NA</span></span>
-<span id="cb49-6"><a href="#cb49-6"></a>    , <span class="at">alpha =</span> <span class="fl">0.8</span></span>
-<span id="cb49-7"><a href="#cb49-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>net_data_wts <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wts)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">geom_density</span>(</span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="at">fill =</span> <span class="st">"#CC79A7"</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a>    , <span class="at">color =</span> <span class="cn">NA</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>    , <span class="at">alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div><div class="column" style="font-size: 65%">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>net_data_wts <span class="sc">|&gt;</span></span>
-<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wts)) <span class="sc">+</span></span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"#CC79A7"</span>, <span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ate-density-net-data" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-ate-density-net-data-1.png" width="480"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-ate-density-net-data-1.png" width="480"></p>
 <figcaption>Figure&nbsp;27: A density plot of the average treatment effect (ATE) weights. The plot is skewed, with higher values towards 8. This may indicate a problem with the model, but the weights aren’t so extreme to destabilize the variance of the estimate.</figcaption>
 </figure>
 </div>
@@ -2053,9 +1954,9 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>net_data_wts <span class="sc">|&gt;</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
-<span id="cb51-3"><a href="#cb51-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>net_data_wts <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
@@ -2069,15 +1970,15 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>estimates <span class="ot">&lt;-</span> net_data_wts <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a href="#cb53-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb53-4"><a href="#cb53-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb53-5"><a href="#cb53-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(estimate, <span class="fu">starts_with</span>(<span class="st">"conf"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb53-6"><a href="#cb53-6"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
-<span id="cb53-7"><a href="#cb53-7"></a>    dplyr<span class="sc">::</span><span class="fu">across</span>( <span class="fu">everything</span>(), \(x)<span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">1</span>) ) </span>
-<span id="cb53-8"><a href="#cb53-8"></a>  )</span>
-<span id="cb53-9"><a href="#cb53-9"></a>estimates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>estimates <span class="ot">&lt;-</span> net_data_wts <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> _, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(estimate, <span class="fu">starts_with</span>(<span class="st">"conf"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
+<span id="cb43-7"><a href="#cb43-7"></a>    dplyr<span class="sc">::</span><span class="fu">across</span>( <span class="fu">everything</span>(), \(x)<span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">1</span>) ) </span>
+<span id="cb43-8"><a href="#cb43-8"></a>  )</span>
+<span id="cb43-9"><a href="#cb43-9"></a>estimates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
@@ -2105,26 +2006,26 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>fit_ipw <span class="ot">&lt;-</span> <span class="cf">function</span>(split, ...) {</span>
-<span id="cb55-2"><a href="#cb55-2"></a>  <span class="co"># get bootstrapped data sample with `rsample::analysis()`</span></span>
-<span id="cb55-3"><a href="#cb55-3"></a>  .df <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">analysis</span>(split)</span>
-<span id="cb55-4"><a href="#cb55-4"></a></span>
-<span id="cb55-5"><a href="#cb55-5"></a>  <span class="co"># fit propensity score model</span></span>
-<span id="cb55-6"><a href="#cb55-6"></a>  propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb55-7"><a href="#cb55-7"></a>    net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
-<span id="cb55-8"><a href="#cb55-8"></a>    <span class="at">data =</span> .df,</span>
-<span id="cb55-9"><a href="#cb55-9"></a>    <span class="at">family =</span> <span class="fu">binomial</span>()</span>
-<span id="cb55-10"><a href="#cb55-10"></a>  )</span>
-<span id="cb55-11"><a href="#cb55-11"></a></span>
-<span id="cb55-12"><a href="#cb55-12"></a>  <span class="co"># calculate inverse probability weights</span></span>
-<span id="cb55-13"><a href="#cb55-13"></a>  .df <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
-<span id="cb55-14"><a href="#cb55-14"></a>    broom<span class="sc">::</span><span class="fu">augment</span>(<span class="at">type.predict =</span> <span class="st">"response"</span>, <span class="at">data =</span> .df) <span class="sc">|&gt;</span></span>
-<span id="cb55-15"><a href="#cb55-15"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wts =</span> propensity<span class="sc">::</span><span class="fu">wt_ate</span>(.fitted, net))</span>
-<span id="cb55-16"><a href="#cb55-16"></a></span>
-<span id="cb55-17"><a href="#cb55-17"></a>  <span class="co"># fit correctly bootstrapped ipw model</span></span>
-<span id="cb55-18"><a href="#cb55-18"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> .df, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
-<span id="cb55-19"><a href="#cb55-19"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
-<span id="cb55-20"><a href="#cb55-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>fit_ipw <span class="ot">&lt;-</span> <span class="cf">function</span>(split, ...) {</span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="co"># get bootstrapped data sample with `rsample::analysis()`</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>  .df <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">analysis</span>(split)</span>
+<span id="cb45-4"><a href="#cb45-4"></a></span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="co"># fit propensity score model</span></span>
+<span id="cb45-6"><a href="#cb45-6"></a>  propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb45-7"><a href="#cb45-7"></a>    net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
+<span id="cb45-8"><a href="#cb45-8"></a>    <span class="at">data =</span> .df,</span>
+<span id="cb45-9"><a href="#cb45-9"></a>    <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb45-10"><a href="#cb45-10"></a>  )</span>
+<span id="cb45-11"><a href="#cb45-11"></a></span>
+<span id="cb45-12"><a href="#cb45-12"></a>  <span class="co"># calculate inverse probability weights</span></span>
+<span id="cb45-13"><a href="#cb45-13"></a>  .df <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
+<span id="cb45-14"><a href="#cb45-14"></a>    broom<span class="sc">::</span><span class="fu">augment</span>(<span class="at">type.predict =</span> <span class="st">"response"</span>, <span class="at">data =</span> .df) <span class="sc">|&gt;</span></span>
+<span id="cb45-15"><a href="#cb45-15"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wts =</span> propensity<span class="sc">::</span><span class="fu">wt_ate</span>(.fitted, net))</span>
+<span id="cb45-16"><a href="#cb45-16"></a></span>
+<span id="cb45-17"><a href="#cb45-17"></a>  <span class="co"># fit correctly bootstrapped ipw model</span></span>
+<span id="cb45-18"><a href="#cb45-18"></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> .df, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
+<span id="cb45-19"><a href="#cb45-19"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb45-20"><a href="#cb45-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -2136,40 +2037,40 @@ $open
 <div class="cell">
 <details>
 <summary>bootstrap - ipw - estimate</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># create bootstrap samples</span></span>
-<span id="cb56-2"><a href="#cb56-2"></a>bootstrapped_net_data <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">bootstraps</span>(</span>
-<span id="cb56-3"><a href="#cb56-3"></a>  causalworkshop<span class="sc">::</span>net_data,</span>
-<span id="cb56-4"><a href="#cb56-4"></a>  <span class="at">times =</span> <span class="dv">1000</span>,</span>
-<span id="cb56-5"><a href="#cb56-5"></a>  <span class="co"># required to calculate CIs later</span></span>
-<span id="cb56-6"><a href="#cb56-6"></a>  <span class="at">apparent =</span> <span class="cn">TRUE</span></span>
-<span id="cb56-7"><a href="#cb56-7"></a>)</span>
-<span id="cb56-8"><a href="#cb56-8"></a></span>
-<span id="cb56-9"><a href="#cb56-9"></a><span class="co"># create ipw and fit each bootstrap sample</span></span>
-<span id="cb56-10"><a href="#cb56-10"></a>ipw_results <span class="ot">&lt;-</span> bootstrapped_net_data <span class="sc">|&gt;</span></span>
-<span id="cb56-11"><a href="#cb56-11"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb56-12"><a href="#cb56-12"></a>    <span class="at">boot_fits =</span> purrr<span class="sc">::</span><span class="fu">map</span>(splits, fit_ipw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># create bootstrap samples</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>bootstrapped_net_data <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">bootstraps</span>(</span>
+<span id="cb46-3"><a href="#cb46-3"></a>  causalworkshop<span class="sc">::</span>net_data,</span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="at">times =</span> <span class="dv">1000</span>,</span>
+<span id="cb46-5"><a href="#cb46-5"></a>  <span class="co"># required to calculate CIs later</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a>  <span class="at">apparent =</span> <span class="cn">TRUE</span></span>
+<span id="cb46-7"><a href="#cb46-7"></a>)</span>
+<span id="cb46-8"><a href="#cb46-8"></a></span>
+<span id="cb46-9"><a href="#cb46-9"></a><span class="co"># create ipw and fit each bootstrap sample</span></span>
+<span id="cb46-10"><a href="#cb46-10"></a>ipw_results <span class="ot">&lt;-</span> bootstrapped_net_data <span class="sc">|&gt;</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb46-12"><a href="#cb46-12"></a>    <span class="at">boot_fits =</span> purrr<span class="sc">::</span><span class="fu">map</span>(splits, fit_ipw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details>
 <summary>distribution</summary>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>ipw_results <span class="sc">|&gt;</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb57-3"><a href="#cb57-3"></a>    <span class="at">estimate =</span> <span class="fu">map_dbl</span>(</span>
-<span id="cb57-4"><a href="#cb57-4"></a>      boot_fits,</span>
-<span id="cb57-5"><a href="#cb57-5"></a>      <span class="co"># pull the `estimate` for `netTRUE` for each fit</span></span>
-<span id="cb57-6"><a href="#cb57-6"></a>      \(.fit) .fit <span class="sc">|&gt;</span></span>
-<span id="cb57-7"><a href="#cb57-7"></a>        <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-8"><a href="#cb57-8"></a>        <span class="fu">pull</span>(estimate)</span>
-<span id="cb57-9"><a href="#cb57-9"></a>    )</span>
-<span id="cb57-10"><a href="#cb57-10"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb57-11"><a href="#cb57-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate)) <span class="sc">+</span></span>
-<span id="cb57-12"><a href="#cb57-12"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#D55E00FF"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>ipw_results <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb47-3"><a href="#cb47-3"></a>    <span class="at">estimate =</span> <span class="fu">map_dbl</span>(</span>
+<span id="cb47-4"><a href="#cb47-4"></a>      boot_fits,</span>
+<span id="cb47-5"><a href="#cb47-5"></a>      <span class="co"># pull the `estimate` for `netTRUE` for each fit</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a>      \(.fit) .fit <span class="sc">|&gt;</span></span>
+<span id="cb47-7"><a href="#cb47-7"></a>        <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8"></a>        <span class="fu">pull</span>(estimate)</span>
+<span id="cb47-9"><a href="#cb47-9"></a>    )</span>
+<span id="cb47-10"><a href="#cb47-10"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb47-11"><a href="#cb47-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate)) <span class="sc">+</span></span>
+<span id="cb47-12"><a href="#cb47-12"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#D55E00FF"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-bootstrap-estimates-net-data" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-bootstrap-estimates-net-data-1.png" width="576"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-bootstrap-estimates-net-data-1.png" width="576"></p>
 <figcaption>Figure&nbsp;28: “A histogram of 1,000 bootstrapped estimates of the effect of net use on malaria risk. The spread of these estimates accounts for the dependency and uncertainty in the use of IPW weights.”</figcaption>
 </figure>
 </div>
@@ -2184,12 +2085,12 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>boot_estimate <span class="ot">&lt;-</span> ipw_results <span class="sc">|&gt;</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>  <span class="co"># calculate T-statistic-based CIs</span></span>
-<span id="cb58-3"><a href="#cb58-3"></a>  rsample<span class="sc">::</span><span class="fu">int_t</span>(boot_fits) <span class="sc">|&gt;</span></span>
-<span id="cb58-4"><a href="#cb58-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>)</span>
-<span id="cb58-5"><a href="#cb58-5"></a></span>
-<span id="cb58-6"><a href="#cb58-6"></a>boot_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>boot_estimate <span class="ot">&lt;-</span> ipw_results <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="co"># calculate T-statistic-based CIs</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a>  rsample<span class="sc">::</span><span class="fu">int_t</span>(boot_fits) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>)</span>
+<span id="cb48-5"><a href="#cb48-5"></a></span>
+<span id="cb48-6"><a href="#cb48-6"></a>boot_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
@@ -2224,50 +2125,21 @@ $open
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>tipping_points <span class="ot">&lt;-</span> tipr<span class="sc">::</span><span class="fu">tip_coef</span>(boot_estimate<span class="sc">$</span>.upper, <span class="at">exposure_confounder_effect =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>The observed effect (-11.64) WOULD be tipped by 1 unmeasured confounder
-with the following specifications:
-  * estimated difference in scaled means between the unmeasured confounder
-    in the exposed population and unexposed population: 1
-  * estimated relationship between the unmeasured confounder and the outcome: -11.64
-The observed effect (-11.64) WOULD be tipped by 1 unmeasured confounder
-with the following specifications:
-  * estimated difference in scaled means between the unmeasured confounder
-    in the exposed population and unexposed population: 2
-  * estimated relationship between the unmeasured confounder and the outcome: -5.82
-The observed effect (-11.64) WOULD be tipped by 1 unmeasured confounder
-with the following specifications:
-  * estimated difference in scaled means between the unmeasured confounder
-    in the exposed population and unexposed population: 3
-  * estimated relationship between the unmeasured confounder and the outcome: -3.88
-The observed effect (-11.64) WOULD be tipped by 1 unmeasured confounder
-with the following specifications:
-  * estimated difference in scaled means between the unmeasured confounder
-    in the exposed population and unexposed population: 4
-  * estimated relationship between the unmeasured confounder and the outcome: -2.91
-The observed effect (-11.64) WOULD be tipped by 1 unmeasured confounder
-with the following specifications:
-  * estimated difference in scaled means between the unmeasured confounder
-    in the exposed population and unexposed population: 5
-  * estimated relationship between the unmeasured confounder and the outcome: -2.33</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>tipping_points <span class="sc">|&gt;</span></span>
-<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(confounder_outcome_effect, exposure_confounder_effect)) <span class="sc">+</span></span>
-<span id="cb62-3"><a href="#cb62-3"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#009E73"</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb62-4"><a href="#cb62-4"></a>  <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"#009E73"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb62-5"><a href="#cb62-5"></a>  <span class="fu">labs</span>(</span>
-<span id="cb62-6"><a href="#cb62-6"></a>    <span class="at">x =</span> <span class="st">"Confounder-Outcome Effect"</span>,</span>
-<span id="cb62-7"><a href="#cb62-7"></a>    <span class="at">y =</span> <span class="st">"Scaled mean differences in</span><span class="sc">\n</span><span class="st"> confounder between exposure groups"</span></span>
-<span id="cb62-8"><a href="#cb62-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>tipping_points <span class="ot">&lt;-</span> tipr<span class="sc">::</span><span class="fu">tip_coef</span>(boot_estimate<span class="sc">$</span>.upper, <span class="at">exposure_confounder_effect =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a>tipping_points <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(confounder_outcome_effect, exposure_confounder_effect)) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#009E73"</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb50-6"><a href="#cb50-6"></a>  <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"#009E73"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="#cb50-7"></a>  <span class="fu">labs</span>(</span>
+<span id="cb50-8"><a href="#cb50-8"></a>    <span class="at">x =</span> <span class="st">"Confounder-Outcome Effect"</span>,</span>
+<span id="cb50-9"><a href="#cb50-9"></a>    <span class="at">y =</span> <span class="st">"Scaled mean differences in</span><span class="sc">\n</span><span class="st"> confounder between exposure groups"</span></span>
+<span id="cb50-10"><a href="#cb50-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-tip-coef-net" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="BSMM_8740_lec_08_files/figure-html/fig-tip-coef-net-1.png" width="624"></p>
+<p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-tip-coef-net-1.png" width="624"></p>
 <figcaption>Figure&nbsp;29: A tipping point analysis under several confounding scenarios where the unmeasured confounder is a normally-distributed continuous variable. The line represents the strength of confounding necessary to tip the upper confidence interval of the causal effect estimate to 0. The x-axis represents the coefficient of the confounder-outcome relationship adjusted for the exposure and the set of measured confounders. The y-axis represents the scaled mean difference of the confounder between exposure groups.</figcaption>
 </figure>
 </div>
@@ -2275,33 +2147,19 @@ with the following specifications:
 </div>
 </div>
 </section>
-<section id="note-1" class="slide level2">
-<h2>NOTE:</h2>
-<div class="callout callout-caution callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Re-write</strong></p>
-</div>
-<div class="callout-content">
-<p>Re write the text below</p>
-</div>
-</div>
-</div>
-</section>
 <section id="more" class="slide level2">
 <h2>More</h2>
 <ul>
-<li>Read <a href="https://web.mit.edu/6.034/wwwbob/svm.pdf">An Idiot’s Guide to Support Vector Machines</a></li>
+<li>Read <a href="https://chabefer.github.io/STCI/index.html">Statistical tools for causal inference</a></li>
+<li>Read <a href="https://www.r-causal.org/">Causal inference in R</a></li>
 </ul>
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
-<li><p>In this section we have worked with the <code>tidymodels</code> package to build a workflow that facilitates building and evaluating multiple models.</p></li>
-<li><p>Combined with the recipes package we now have a complete data modeling framework.</p></li>
+<li>We introduced the fundamental problems of inference and the biases of some intuitive estimators,</li>
+<li>We developed a basic understanding of the tools used to state and then satisfy causality assumptions,</li>
+<li>We looked at an example of how econometric methods recover treatment effects.</li>
 </ul>
 
 
@@ -2524,6 +2382,44 @@ with the following specifications:
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
