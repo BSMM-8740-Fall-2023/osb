@@ -1317,5 +1317,25 @@ a
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\Delta_{WW}^{Y} & =\mathbb{E}\left[\left.Y_{i}\right|D_{i}=1\right]-\mathbb{E}\left[\left.Y_{i}\right|D_{i}=0\right]\\
+ & =\mathbb{E}\left[Y_{i}\right]-\mathbb{E}\left[Y_{i}\right]\\
+ & =\Delta_{ATE}^{Y}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\bar{X}\sqrt{}$
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

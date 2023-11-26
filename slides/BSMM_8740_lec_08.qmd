@@ -1,6 +1,6 @@
 ---
-title: "Time series methods"
-subtitle: "BSMM8740-2-R-2023F [WEEK - 7]"
+title: "Causality"
+subtitle: "BSMM8740-2-R-2023F [WEEK - 8]"
 author: "L.L. Odette"
 footer:  "[bsmm-8740-fall-2023.github.io/osb](https://bsmm-8740-fall-2023.github.io/osb/)"
 logo: "images/logo.png"
@@ -22,57 +22,36 @@ execute:
   freeze: auto
 ---
 
-```         
-```
-
-[Applied Causal Analysis in R](https://bookdown.org/paul/applied-causal-analysis/att.html)
-
-[Intro to Causality](https://digitalcausalitylab.github.io/lecture/lecture_1_intro/Lecture_1_intro.html#/introduction-to-causality-4)
-
-[Causal inference in R](https://www.r-causal.org/)
-
-[CausInfinR-github](https://github.com/r-causal/causal-inference-in-R/blob/main/chapters/chapter-05.qmd)
-
-[Statistical tools for causal inference](https://chabefer.github.io/STCI/index.html)
-
-[Causal graphs](https://github.com/NickCH-K/causalgraphs)
-
-[Causal data sets](https://cran.r-project.org/web/packages/causaldata/causaldata.pdf)
-
-[Causality slides](https://github.com/NickCH-K/CausalitySlides/tree/main)
-
-[more slides](https://users.ssc.wisc.edu/~felwert/causality/?page_id=66)
-
-[workshop](https://github.com/r-causal/causal_inference_r_workshop)
-
 {{< include 00-setup.qmd >}}
 
 ## Recap of last week
 
--   Last week we introduced the Tidymodels framework in R
+-   Last week we introduced the `modeltime` and `timetk` R packages.
 
--   We showed how we can use the Tidymodels framework to create a workflow for data prep, feature engineering, model fitting and model evaluation.
-
--   Today we look at the using the Tidymodels package to build classification and clustering models.
-
-# Statistical Tools for Causal Inference
+-   We showed how these integrate into the tidymodels workflows for predicting timeseries.
 
 ## This week
 
--   Understanding of the basic language to encode causality,
--   Knowledge of the fundamental problems of inference and the biases of intuitive estimators,
+-   Knowledge of the fundamental problems of inference and the biases of some intuitive estimators,
+-   A basic understanding of the tools used to state and then satisfy causality assumptions,
 -   Understanding of how econometric methods recover treatment effects,
--   Ability to compute these estimators along with an estimate of their precision using the statistical software R.
+-   Ability to use these methods and estimate their precision using R.
 
-## The fundamental problems. of inference
+# Statistical Basis of Causal Inference
 
-When trying to estimate the effect of a program on an outcome, we face two very important and difficult problems: the *Fundamental Problem of Causal Inference* (FPCI) and the *Fundamental Problem of Statistical Inference* (FPSI).
+## The fundamental problems of inference
 
-## Rubin Causal Model (RCM)
+When trying to estimate the effect of a treatment / intervention on an outcome, we face two very difficult problems: the *Fundamental Problem of Causal Inference* (FPCI) and the *Fundamental Problem of Statistical Inference* (FPSI).
+
+In this lecture we'll assume all interventions are binary, e.g. we offer a customer a discount or we don't; we re-brand a branch office or we don't.
+
+## Rubin Causal Model (RCM[^1])
+
+[^1]: The Rubin Causal Model (RCM), also known as the potential outcomes framework, was developed by Donald Rubin in the 1970s and gained prominence in the 1980s.
 
 RCM is made of three distinct building blocks:
 
--   a treatment allocation rule, that decides which unit receives the treatment;
+-   a treatment allocation rule, that decides which unit receives the treatment / intervention;
 -   potential outcomes, that measure how each unit reacts to the treatment;
 -   the switching equation that relates potential outcomes to observed outcomes through the allocation rule.
 
@@ -83,21 +62,11 @@ Treatment allocation is represented by the variable $D_i$, where $D_i=1$ if unit
 The treatment allocation rule is critical:
 
 -   it switches the treatment on or off for each unit, it is going to be at the source of the FPCI.
--   the specific properties of the treatment allocation rule are going to matter for the feasibility and bias of the various methods that we are going to study.
-
-## Treatment allocation rules:
-
-Let $Y_i^B$ denote the outcome variable, with $B$ for *before*
-
-Examples:
-
--   **sharp cutoff**: for threshold level $\bar{Y}$, $D_{i}=\textbf{1}_{Y_{i}^{B}\le\bar{Y}}$
--   **fuzzy cutoff**: for unobserved random variable $V_i$, $D_{i}=\textbf{1}_{Y_{i}^{B}+V_i\le\bar{Y}}$
--   **eligibility and self-selection**: for $E_i$ an eligibility indicator $D_{i}=\textbf{1}_{D_{i}^*{B}*\ge 0}\times E_i$
+-   the specific properties of the treatment allocation rule are going to matter for the feasibility and bias of various effect estimation methods.
 
 ## Potential outcomes
 
-Each unit can be treated or untreated, and so there are two potential uutcomes:
+Each unit can be treated or untreated, and so there are two potential outcomes:
 
 -   $Y_i^1$: the outcome unit $i$ will have if treated
 -   $Y_i^0$: the outcome unit $i$ will have if not treated
@@ -110,7 +79,7 @@ $$
 \begin{align*}
 Y_{i} & =\begin{cases}
 Y_{i}^{1} & \text{if}\,D_{i}=1\\
-Y_{i}^{1} & \text{if}\,D_{i}=1
+Y_{i}^{0} & \text{if}\,D_{i}=0
 \end{cases}\\
  & =Y_{i}^{1}D_{i}+Y_{i}^{0}\left(1-D_{i}\right)
 \end{align*}
@@ -128,11 +97,13 @@ Now we can defined the causal effect:
 
 The unit level treatment effect is defined as $\Delta_i^Y=Y_i^1-Y_i^0$ (which cannot be observed).
 
-Note that the treatment effects can be heterogeneous.
+Note that the treatment effects can be heterogeneous (they can differ by unit).
 
 ## Treatment effects
 
-Average treatment effect on the treated (TT) gives us summary stats on the sample or the population.
+Average treatment effect on the treated (TT[^2]) gives us summary stats on the sample or the population.
+
+[^2]: You'll sometimes see this written as ATT
 
 $$
 \Delta_{TT_{s}}^{Y}=\frac{1}{\sum_{i=1}^{N}D_{i}}\sum_{i=1}^{N}\left(Y_{i}^{1}-Y_{i}^{0}\right)D_{i}
@@ -155,21 +126,15 @@ $$ but $Y_{i}^{0}D_{i}$ is unobserved when $D_i=1$.
 
 ## Intuitive casual estimators
 
-We'll look at two intuitive comparisons are often made in order to estimate causal effects: the with/without comparison (WW) and the before/after comparison (BA).
+Intuitive comparisons are often made in order to estimate causal effects, e.g. the **with/without** comparison (**WW**).
 
-WW compares the average outcomes of the treated units with those of the untreated units BA compares the average outcomes of the treated after taking the treatment to the average outcomes before the treatment.
+**WW** compares the average outcomes of the treated units with those of the untreated units.
 
-## Intuitive casual estimators
-
-We'll look at two intuitive comparisons are often made in order to estimate causal effects: the **with/without** comparison (**WW**) and the **before/after** comparison (**BA**).
-
-**WW** compares the average outcomes of the treated units with those of the untreated units. **BA** compares the average outcomes of the treated *after the treatment* to the average outcomes *before the treatment*.
-
-These comparisons try to proxy for the expected counterfactual outcome in the treated group by using an observed quantity.
+Intuitive comparisons try to proxy for the expected counterfactual outcome in the treated group by using an observed quantity.
 
 ## Intuitive casual estimators
 
-Unfortunately, both of these proxies are generally poor and provide biased estimates of TT.
+Unfortunately, these proxies are generally poor and provide biased estimates of TT.
 
 The reason that these proxies are poor is that the treatment is not the only factor that differentiates the treated group from the groups used to form the proxy. The intuitive comparisons are biased because factors other than the treatment are correlated to its allocation.
 
@@ -231,17 +196,34 @@ This is called the **identification assumption**.
 
 ## Identification assumption
 
-For the identication assumption to hold, it has to be that **all** the determinants of $D_i$ are actually unrelated to $Y_i^0$.
+For the identification assumption to hold, it has to be that **all** the determinants of $D_i$ are actually unrelated to $Y_i^0$.
 
 One way to enforce this assumption is to randomize treatment assignment.
 
 One way to test for the validity of the identification assumption is to compare the values of observed covariates in the treated and untreated group, because differences in covariates an lead to confounding.
 
+## Identification assumption
+
+If the identification assumption holds, and the treatment assignment is (effectively) independent of the outcome, then
+
+$$
+\begin{align*}
+\Delta_{WW}^{Y} & =\mathbb{E}\left[\left.Y_{i}\right|D_{i}=1\right]-\mathbb{E}\left[\left.Y_{i}\right|D_{i}=0\right]\\
+ & =\mathbb{E}\left[Y_{i}\right]-\mathbb{E}\left[Y_{i}\right]\\
+ & =\Delta_{ATE}^{Y}
+\end{align*}
+$$ where $\Delta_{ATE}^{Y}$ is the average treatment effect in the population.
+
+## Fundamental problems
+
+-   The FPCI states that our causal parameter of interest ($\Delta_{TT}^{Y}$ of the effect of treatment on the treated) is fundamentally unobservable, even when the sample size is infinite.
+-   The FPSI states that, even if we have an estimator $E$ that identifies $\Delta_{TT}^{Y}$ in the population, we cannot observe $E$ because we only have access to a finite sample of the population.
+
 ------------------------------------------------------------------------
 
 # Causal Inference in R
 
-## Causal Inference
+## Causal Inference Workflow
 
 -   Good causal question
 
@@ -249,12 +231,17 @@ One way to test for the validity of the identification assumption is to compare 
 
 -   Three for good decision making
 
-    -   description: EDA, KPIs, distributions (validity issues: measurement & sampling)
+-   **description**: EDA, KPIs, distributions
 
-    -   prediction: accuracy, generalizing to new data, train-test splits (validity issues: rmse, AUC, we now if we are right)
+    -   (validity issues: measurement & sampling)
 
-    -   causal inference (impact) (validity: assumptions, no correctness, predictability)
+-   **prediction**: accuracy, generalizing to new data, train-test splits
 
+    -   (validity issues: rmse, AUC, we know if we are right)
+
+-   **causal inference** (impact)
+
+    -   (validity: assumptions, no correctness, predictability)
         -   requires good casual questions
 
         -   consideration of causal assumptions,
@@ -267,7 +254,7 @@ One way to test for the validity of the identification assumption is to compare 
 
 -   answers without a question
 
-## Causal
+## Causal Inference Workflow
 
 1.  Specify a causal question
 
@@ -281,11 +268,9 @@ One way to test for the validity of the identification assumption is to compare 
 
 6.  Conduct sensitivity analysis on the effect estimate
 
-------------------------------------------------------------------------
-
 # DAGS
 
-## directed acyclic graphs (DAGs)
+## Directed acyclic graphs (DAGs)
 
 ```{r}
 #| echo: false
@@ -307,7 +292,7 @@ ggdag::dagify(y ~ x, coords = ggdag::time_ordered_coords(list("x","y"))) |>
 ```{r}
 #| echo: false
 #| label: fig-dag-path-types
-#| fig-cap: "Three types of causal relationships: forks, chains, and colliders. The direction of the arrows and the relationships of interest dictate which type of path a series of variables is. Forks represent a mutual cause, chains represent direct causes, and colliders represent a mutual descendant."
+#| fig-cap: "Three types of causal relationships: forks, chains, and colliders. The direction of the arrows and the relationships of interest dictate which type of path a series of variables represents. Forks represent a mutual cause, chains represent direct causes, and colliders represent a mutual descendant."
 coords <- list(x = c(x = 0, y = 2, q = 1), y = c(x = 0, y = 0, q = 1))
 
 fork <- dagify(
@@ -333,22 +318,22 @@ collider <- dagify(
   coords = coords
 )
 
-dag_flows <- purrr::map(list(fork = fork, chain = chain, collider = collider), tidy_dagitty) |> 
+dag_flows <- purrr::map(list(fork = fork, chain = chain, collider = collider), ggdag::tidy_dagitty) |> 
   purrr::map("data") |> 
   purrr::list_rbind(names_to = "dag") |> 
   dplyr::mutate(dag = factor(dag, levels = c("fork", "chain", "collider")))
 
 dag_flows |> 
   ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges(edge_width = 1) + 
-  geom_dag_point() + 
-  geom_dag_text() + 
+  ggdag::geom_dag_edges(edge_width = 1) + 
+  ggdag::geom_dag_point() + 
+  ggdag::geom_dag_text() + 
   facet_wrap(~ dag) +
-  expand_plot(
+  ggdag::expand_plot(
     expand_x = expansion(c(0.2, 0.2)),
     expand_y = expansion(c(0.2, 0.2))
   ) +
-  theme_dag()
+  ggdag::theme_dag()
 ```
 
 ## DAGs
@@ -358,7 +343,7 @@ Forks represent a common cause of two variables. Here, we're saying that `q` cau
 
 Chains, on the other hand, represent a series of arrows going in the same direction. Here, `q` is called a *mediator*: it is along the causal path from `x` to `y`. In this diagram, the only path from `x` to `y` is mediated through `q`.
 
-Finally, a collider is a path where two arrowheads meet at a variable. Because causality always goes forward in time, this naturally means that the collider variable is caused Dagsby two other variables. Here, we're saying that `x` and `y` both cause `q`.
+Finally, a collider is a path where two arrowheads meet at a variable. Because causality always goes forward in time, this naturally means that the collider variable is caused by two other variables. Here, we're saying that `x` and `y` both cause `q`.
 :::
 
 ## DAGs
@@ -468,21 +453,28 @@ Correctly identifying the causal structure between the exposure and outcome thus
 1.  communicate the assumptions we're making about the relationships between variables and
 2.  identify sources of bias.
 
-Importantly, in doing 2), we are also often able to identify ways to prevent bias based on the assumptions in 1). In the simple case of the three DAGs (@fig-dag-path-types), we know whether or not to control for q depending on the nature of the causal structure. The set or sets of variables we need to adjust for is called the adjustment set. DAGs can help us identify adjustment sets even in complex settings.
+Importantly, in doing 2), we are also often able to identify ways to prevent bias based on the assumptions in 1). In the simple case of the three DAGs (@fig-dag-path-types), we know whether or not to control for q depending on the nature of the causal structure. The set or sets of variables we need to adjust for is called the [**adjustment set**]{.underline}. DAGs can help us identify adjustment sets even in complex settings.
 :::
 
-## DAGs - exchangability
+## DAGs - exchangeability
 
 ::: {style="font-size: 80%"}
-We commonly refer to [**exchangability**]{.underline} as the assumption of no confounding. Actually, this isn't quite right. It's the assumption of no open, non-causal paths. Many times, these are confounding pathways. However, conditioning on a collider can also open paths. Even though these aren't confounders, doing so creates non-exchangeability between the two groups: they are different in a way that matters to the exposure and outcome.
+We commonly refer to [**exchangeability**]{.underline} as the assumption of no confounding. Actually, this isn't quite right. It's the assumption of no open, non-causal paths. Many times, these are confounding pathways. However, conditioning on a collider can also open paths. Even though these aren't confounders, doing so creates non-exchangeability between the two groups: they are different in a way that matters to the exposure and outcome.
 
-Open, non-causal paths are also called backdoor paths. We'll use this terminology often because it captures the idea well: these are any open paths biasing the effect we're interested in estimating.
+Open, non-causal paths are also called [**backdoor paths**]{.underline}. We'll use this terminology often because it captures the idea well: these are any open paths biasing the effect we're interested in estimating.
+:::
+
+## DAGs - exchangeability vs identification
+
+::: {style="font-size: 80%"}
+-   Exchangeability is one of the assumptions that can help in achieving identification. If you can assume exchangeability, then you can often identify the causal effect using the observed data.
+-   Exchangeability is more about the structure of the data and the treatment assignment mechanism, while identification is a broader concept that encompasses the entire process of linking causal models to statistical models and data.
 :::
 
 ## DAGs - visualization
 
 ::: {style="font-size: 80%"}
-To create a DAG object, we'll use `ggdag::dagify()` returns a dagitty object that works with both the `dagitty` and `ggdag` packages.
+To create a DAG object, we'll use `ggdag::dagify()` which returns a dagitty object that works with both the `dagitty` and `ggdag` packages.
 
 The `dagify()` function takes formulas, separated by commas, that specify causes and effects, with the left element of the formula defining the effect and the right all of the factors that cause it. This is just like the type of formula we specify for most regression models in R.
 
@@ -574,7 +566,7 @@ ggdag::ggdag(podcast_dag, use_labels = "label", text = FALSE) +
 ## DAGs - open paths
 
 ::: {style="font-size: 80%"}
-We've specified the DAG for this question and told ggdag what the exposure and outcome of interest are. According to the DAG, there is no direct causal relationship between listening to a podcast and exam scores.
+We've specified the DAG for this question and told `ggdag` what the exposure and outcome of interest are. According to the DAG, there is no direct causal relationship between listening to a podcast and exam scores.
 
 Are there any other open paths? `ggdag_paths()` takes a DAG and visualizes the open paths.
 
@@ -604,7 +596,7 @@ podcast_dag |>
 ## DAGs - open paths
 
 ::: {style="font-size: 75%"}
-Tidy DAGs are not pure data frames, but you can retrieve either the `dataframe` or `dagitty` object to work with them directly using `pull_dag_data()` or `pull_dag()`. `pull_dag()` can be useful when you want to work with dagitty functions:
+DAGs are not pure data frames, but you can retrieve either the `dataframe` or `dagitty` object to work with them directly using `pull_dag_data()` or `pull_dag()`. `pull_dag()` can be useful when you want to work with dagitty functions:
 :::
 
 ::: {.panel-tabset style="font-size: 80%"}
@@ -644,7 +636,7 @@ podcast_dag_tidy |>
 
 ::: columns
 ::: {.column width="20%" style="font-size: 65%"}
-ggdag::ggdag_adjustment_set() visualizes any valid adjustment sets implied by the DAG. Figure 5.11 shows adjusted variables as squares. Any arrows coming out of adjusted variables are removed from the DAG because the path is longer open at that variable.
+`ggdag::ggdag_adjustment_set()` visualizes any valid adjustment sets implied by the DAG. Figure 5.11 shows adjusted variables as squares. Any arrows coming out of adjusted variables are removed from the DAG because the path is longer open at that variable.
 
 ```{r}
 #| echo: true
@@ -722,18 +714,12 @@ sim_data
 
 ## DAGs - open paths: example
 
-::: {style="font-size: 75%"}
-Since we have simulated this data, we know that this is a case where *standard methods will succeed* and, therefore, can estimate the causal effect using a basic linear regression model. @fig-dag-sim shows a forest plot of the simulated data based on our DAG. Notice the model that only included the exposure resulted in a spurious effect (an estimate of -0.1 when we know the truth is 0). In contrast, the model that adjusted for the two variables as suggested by `ggdag_adjustment_set()` is not spurious (much closer to 0).
-:::
-
-## DAGs - open paths: example
-
 ::: {.panel-tabset style="font-size: 80%"}
 ## Note
 
 Since we have simulated this data, we know that this is a case where *standard methods will succeed* and, therefore, can estimate the causal effect using a basic linear regression model.
 
-@fig-dag-sim shows a forest plot of the simulated data based on our DAG. Notice the model that only included the exposure resulted in a spurious effect (an estimate of -0.1 when we know the truth is 0).
+@fig-dag-sim (Estimates tab) shows a forest plot of the simulated data based on our DAG. Notice the model that only included the exposure resulted in a spurious effect (an estimate of -0.1 when we know the truth is 0).
 
 By contrast, the model that adjusted for the two variables as suggested by `ggdag_adjustment_set()` is not spurious (much closer to 0).
 
@@ -811,7 +797,7 @@ dplyr::bind_rows(
 ::: {style="font-size: 70%"}
 In `podcast_dag`, `mood` and `prepared` were *direct* confounders: an arrow was going directly from them to `podcast` and `exam`.
 
-Often, backdoor paths are more complex. For example, let's add two new variables: `alertness` and `skills_course`. `alertness` represents the feeling of alertness from a good mood, thus the arrow from `mood` to `alertness`. `skills_course` represents whether the student took a College Skills Course and learned time management techniques.
+Often, backdoor paths are more complex. For example, let's add two new variables: `alertness` and `skills_course`. `alertness` represents the feeling of alertness from a good mood, thus an arrow from `mood` to `alertness`. `skills_course` represents whether the student took a College Skills Course and learned time management techniques.
 
 Now, `skills_course` is what frees up the time to listen to a podcast as well as being prepared for the exam. `mood` and `prepared` are no longer direct confounders: they are two variables along a more complex backdoor path. Additionally, we've added an arrow going from `humor` to `mood`.
 :::
@@ -1049,7 +1035,7 @@ podcast_dag3 |>
 
 ::: columns
 ::: {.column width="50%" style="font-size: 60%"}
-A particular case of selection bias that you'll often see people talk about is *M-bias*. It's called M-bias because it looks like an M when arranged top to bottom.
+A particular case of selection bias that you'll often see is *M-bias*. It's called M-bias because it looks like an M when arranged top to bottom.
 
 ::: callout-tip
 ggdag has several quick-DAGs for demonstrating basic causal structures, including `confounder_triangle()`, `collider_triangle()`, `m_bias()`, and `butterfly_bias()`.
@@ -1062,13 +1048,6 @@ dagitty::paths( ggdag::m_bias() )
 :::
 
 ::: {.column width="50%" style="font-size: 60%"}
-```{r}
-#| eval: false
-#| echo: true
-ggdag::m_bias() |> 
-  ggdag::ggdag()
-```
-
 ```{r}
 #| label: fig-m-bias
 #| fig-width: 4
@@ -1284,16 +1263,6 @@ The time ordering algorithm in ggdag automates much of this for you, although it
 
 #### Order nodes by time - feedback loops
 
-::: {style="font-size: 70%"}
-We might think about two things that mutually cause each other as happening in a circle, like global warming and A/C use (A/C use increases global warming, which makes it hotter, which increases A/C use, and so on).
-
-It's tempting to visualize that relationship like this:
-:::
-
-## DAGs - Construction
-
-#### Order nodes by time - feedback loops
-
 ::: columns
 ::: {.column width="50%" style="font-size: 70%"}
 We might think about two things that mutually cause each other as happening in a circle, like global warming and A/C use (A/C use increases global warming, which makes it hotter, which increases A/C use, and so on).
@@ -1412,9 +1381,9 @@ dagify(
 #### Use robustness checks
 
 ::: {style="font-size: 65%"}
-Finally, check your DAG for robustness. Correctness verification of your DAG is unlikely, but you can use the implications in your DAG to support it. Some robustness checks:
+Finally, check your DAG for robustness. It is unlikely the correctness of your DAG can be verified, but you can use the implications in your DAG to check the support for it. Some robustness checks:
 
-1.  **DAG-data consistency**. There are many implications of your DAG. Because blocking a path removes statistical dependencies from that path, you can check those assumptions in several places in your DAG.
+1.  **DAG-data consistency**. There are many implications of your DAG. Because blocking a path removes statistical dependencies from that path, you can check those assumptions in several places in your DAG (see `dagitty::impliedConditionalIndependencies`).
 2.  **Alternate adjustment sets**. Adjustment sets should give roughly the same answer because, outside of random and measurement errors, they are all sets that block backdoor paths. If more than one adjustment set seems reasonable, you can use that as a sensitivity analysis by checking multiple models.
 
 The checks should be complementary to your initial DAG, not a way of *replacing* it. If you use more than one adjustment set during your analysis, you should report the results from all of them to avoid overfitting your results to your data.
@@ -1464,7 +1433,7 @@ The distribution of malaria risk appears to be quite different by net usage.
 #| fig-height: 4.5
 #| fig.cap: >
 #|   A density plot of malaria risk for those who did and did not use nets.
-#|   The risk of malaria is lower for those who use nets.
+#|   The average risk of malaria is lower for those who use nets.
 causalworkshop::net_data |>
   ggplot(aes(malaria_risk, fill = net)) +
   geom_density(color = NA, alpha = .8)
@@ -1503,14 +1472,14 @@ causalworkshop::net_data |>
 ```
 :::
 
-## Example: Draw assumptions using a DAG
+## Example: assumptions using a DAG
 
 ::: {style="font-size: 75%"}
 The problem that we face is that other factors may be responsible for the effect we're seeing.
 
 In this example, we'll focus on confounding: a common cause of net usage and malaria will bias the effect we see unless we account for it somehow.
 
-To determine which variables we need to account we'll use use a causal diagram or causal directed acyclic graphs (DAGs), to visualize the assumptions that we're making about the causal relationships between the exposure, outcome, and other variables we think might be related.
+To determine which variables we need to account we'll use use a causal diagram or DAG, to visualize the assumptions that we're making about the causal relationships between the exposure, outcome, and other variables we think might be related.
 
 The proposed DAG for this question is one the next slide.
 :::
@@ -1677,11 +1646,13 @@ mosquito_dag |>
 ::: {style="font-size: 65%"}
 For this DAG, we need to control for three variables: health, income, and temperature. These three variables are a minimal adjustment set, the minimum set (or sets) of variables you need to block all confounding pathways.
 
-We can estimate the causal effect using Regression adjustment: including the minimal set in our regression.
+We could estimate the causal effect using Regression Adjustment: including the minimal set of covariates in our regression.
 
 Instead we'll use a technique called Inverse Probability Weighting (IPW) to control for these variables:
 
-We'll use logistic regression to predict the probability of treatment---the propensity score. Then, we'll calculate inverse probability weights to apply to the linear regression model we fit above. The propensity score model includes the exposure---net use---as the dependent variable and the minimal adjustment set as the independent variables.
+We'll use logistic regression to predict the probability of treatment---the propensity score. Then, we'll calculate inverse probability weights to apply to the linear regression model we fit above.
+
+The propensity score model includes the exposure---net use---as the dependent variable and the minimal adjustment set as the independent variables.
 :::
 
 ## Example: Model our assumptions
@@ -1706,7 +1677,7 @@ We can use propensity scores to control for confounding in various ways. In this
 
 In particular, we'll compute the inverse probability weight for the *average treatment effect* (ATE). The ATE represents a particular causal question: what if *everyone* in the study used bed nets vs. what if *no one* in the study used bed nets?
 
-To calculate the ATE, we'll use the broom and propensity packages. broom's `augment()` function extracts prediction-related information from the model and joins it to the data. propensity's `wt_ate()` function calculates the inverse probability weight given the propensity score and exposure.
+To calculate the ATE, we'll use the `broom` and `propensity` packages. broom's `augment()` function extracts prediction-related information from the model and joins it to the data. propensity's `wt_ate()` function calculates the inverse probability weight given the propensity score and exposure.
 :::
 
 ## Example: Model our assumptions
@@ -1732,7 +1703,7 @@ net_data_wts |>
 ## Example: Model our assumptions
 
 ::: {style="font-size: 65%"}
-`wts` represents the amount each observation will be up-weighted or down-weighted in the outcome model we will soon fit.
+`wts` represents the amount each observation will be up-weighted or down-weighted in the outcome model we will fit.
 
 For instance, the 16th household used a bed net and had a predicted probability of `r round(net_data_wts$.fitted[[16]], digits = 2)`. That's a pretty low probability considering they did, in fact, use a net, so their weight is higher at `r round(net_data_wts$wts[[16]], digits = 2)`. In other words, this household will be up-weighted compared to the naive linear model we fit above.
 
@@ -1822,7 +1793,7 @@ ggplot(net_data_wts, aes(.fitted)) +
 
 ::: columns
 ::: {.column width="50%" style="font-size: 65%"}
-We might also want to know how well-balanced the groups are by each confounder. One way to do this is to calculate the standardized mean differences (SMDs) for each confounder with and without weights. We'll calculate the SMDs with `tidy_smd()` then plot them with `geom_love()`.
+We might also want to know how well-balanced the groups are by each confounder. One way to do this is to calculate the standardized mean differences (SMDs) for each confounder with and without weights. We'll calculate the SMDs with `tidy_smd()` then plot them with `geom_love()` (see [SMD](supplemental/smd.html)).
 
 ```{r}
 #| echo: true
@@ -2055,8 +2026,6 @@ Bed nets do indeed seem to reduce malaria risk in this study.
 ::: {style="font-size: 65%"}
 When conducting a causal analysis, it's a good idea to use sensitivity analyses to test your assumptions. There are many potential sources of bias in any study and many sensitivity analyses to go along with them; we'll focus on the assumption of no confounding.
 
-Let's start with a broad sensitivity analysis and then we'll ask questions about specific unmeasured confounders. 
-
 When we have less information about unmeasured confounders, we can use tipping point analysis to ask how much confounding it would take to tip my estimate to the null. In other words, what would the strength of the unmeasured confounder have to be to explain our results away? The `tipr` package is a toolkit for conducting sensitivity analyses.
 :::
 
@@ -2065,9 +2034,7 @@ When we have less information about unmeasured confounders, we can use tipping p
 ::: {style="font-size: 65%"}
 Assume an unknown, normally-distributed confounder.
 
-The `tip_coef()` function takes an estimate (e.g. the upper or lower bound of the coefficient) and further requires either the 
--   the scaled differences in means of the confounder between exposure groups or 
--   the effect of the confounder on the outcome.
+The `tip_coef()` function takes an estimate (e.g. the upper or lower bound of the coefficient) and further requires either the - the scaled differences in means of the confounder between exposure groups or - the effect of the confounder on the outcome.
 
 For the estimate, we'll use `conf.high`, which is closer to 0 (the null), and ask: how much would the confounder have to affect malaria risk to have an unbiased upper confidence interval of 0?
 
@@ -2101,7 +2068,6 @@ tipping_points |>
     y = "Scaled mean differences in\n confounder between exposure groups"
   )
 ```
-
 :::
 
 ## NOTE:
