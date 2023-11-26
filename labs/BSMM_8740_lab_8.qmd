@@ -221,7 +221,7 @@ ggdag::dagify(
 ```
 :::
 
-## Exercise 3: Causal Modeling 
+## Exercise 3: Causal Modeling
 
 In this guided exercise, we'll attempt to answer a causal question: does quitting smoking make you gain weight? Causal modeling has a special place in the history of smoking research: the studies that demonstrated that smoking causes lung cancer were observational. Thanks to other studies, we also know that, if you're already a smoker, quitting smoking reduces your risk of lung cancer. However, some have observed that former smokers tend to gain weight. Is this the result of quitting smoking, or does something else explain this effect? In the book Causal Inference by Hernán and Robins, the authors analyze this question using several causal inference techniques.
 
@@ -230,6 +230,8 @@ To answer this question, we'll use causal inference methods to examine the relat
 We'll use data from NHEFS to try to estimate the causal effect of quitting smoking on weight game. NHEFS is a longitudinal, observational study that has many of the variables we'll need. Take a look at `causaldata::nhefs_codebook` if you want to know more about the variables in this data set. These data are included in the {causaldata} package. We'll use the `causaldata::nhefs_complete` data set, but we'll remove people who were lost to follow-up.
 
 ```{r}
+#| echo: true
+#| eval: false
 nhefs_complete_uc <- causaldata::nhefs_complete |>
   dplyr::filter(censored == 0)
 nhefs_complete_uc
@@ -238,6 +240,8 @@ nhefs_complete_uc
 Let's look at the distribution of weight gain between the two groups.
 
 ```{r}
+#| echo: true
+#| eval: false
 nhefs_complete_uc |>
   ggplot(aes(wt82_71, fill = factor(qsmk))) + 
   geom_vline(xintercept = 0, color = "grey60", linewidth = 1) +
@@ -254,6 +258,8 @@ nhefs_complete_uc |>
 There's a difference--former smokers do seemed to have gained a bit more weight--but there's also a lot of variation. Let's look at the numeric summaries.
 
 ```{r}
+#| echo: true
+#| eval: false
 # ~2.5 kg gained for quit vs. not quit
 nhefs_complete_uc |>
   dplyr::group_by(qsmk) |>
@@ -271,6 +277,8 @@ To truly answer this question, we need to specify a causal diagram based on doma
 In R, we can visualize and analyze our DAGs with the {ggdag} package. {ggdag} uses {ggplot2} and {ggraph} to visualize diagrams and {dagitty} to analyze them. Let's set up our assumptions. The `dagify()` function takes formulas, much like `lm()` and friends, to express assumptions. We have two basic causal structures: the causes of quitting smoking and the causes of gaining weight. Here, we're assuming that the set of variables here affect both. Additionally, we're adding `qsmk` as a cause of `wt82_71`, which is our causal question; we also identify these as our outcome and exposure. Finally, we'll add some labels so the diagram is easier to understand. The result is a `dagitty` object, and we can transform it to a `tidy_dagitty` data set with `tidy_dagitty()`.
 
 ```{r}
+#| echo: true
+#| eval: false
 # set up DAG
 smk_wt_dag <- ggdag::dagify(
   # specify causes of quitting smoking and weight gain:
@@ -314,6 +322,8 @@ smk_wt_dag
 Let's visualize our assumptions with `ggdag()`.
 
 ```{r}
+#| echo: true
+#| eval: false
 #| message: false
 #| warning: false
 smk_wt_dag |>
@@ -323,6 +333,8 @@ smk_wt_dag |>
 What do we need to control for to estimate an unbiased effect of quitting smoking on weight gain? In many DAGs, there will be many sets of variables--called adjustment sets--that will give us the right effect (assuming our DAG is correct--a big, unverifiable assumption!). `ggdag_adjustment_set()` can help you visualize them. Here, there's only one adjustment set: we need to control for everything! While we're add it, since a {ggdag} plot is just a {ggplot2} plot, let's clean it up a bit, too.
 
 ```{r}
+#| echo: true
+#| eval: false
 smk_wt_dag |>
   ggdag::ggdag_adjustment_set(text = FALSE, use_labels = "label") +
   ggdag::theme_dag() +
@@ -333,6 +345,8 @@ smk_wt_dag |>
 Let's fit a model with these variables. Note that we'll fit all continuous variables with squared terms, as well, to allow them a bit of flexibility.
 
 ```{r}
+#| echo: true
+#| eval: false
 lm(
   wt82_71~ qsmk + sex + 
     race + age + I(age^2) + education + 
@@ -352,6 +366,8 @@ For a simple IPW model, we have two modeling steps. First, we fit a propensity s
 For the propensity score model, we'll use logistic regression (since quitting smoking is a binary variable). The outcome is quitting smoking, and the variables in the model are all those included in our adjustment set. Then, we'll use `augment()` from {broom} (which calls `predict()` on the inside) to calculate our weights using `propensity::wt_ate()` and save it back into our data set.
 
 ```{r}
+#| echo: true
+#| eval: false
 propensity_model <- glm(
   qsmk ~ sex + 
     race + age + I(age^2) + education + 
@@ -375,6 +391,8 @@ nhefs_complete_uc |>
 Let's look at the distribution of the weights.
 
 ```{r}
+#| echo: true
+#| eval: false
 ggplot(nhefs_complete_uc, aes(wts)) +
   geom_histogram(color = "white", fill = "#E69F00", bins = 50) + 
   #  use a log scale for the x axis
@@ -392,6 +410,8 @@ Standardized mean differences (SMD) are a simple measurement of differences that
 We'll use the {halfmoon} package to calculate the SMDs, then visualize them.
 
 ```{r}
+#| echo: true
+#| eval: false
 vars <- c(
   "sex", "race", "age", "education", 
   "smokeintensity", "smokeyrs", 
@@ -417,6 +437,8 @@ These look pretty good! Some variables are better than others, but weighting app
 We can also use halfmoon's `geom_mirror_histogram()` to visualize the impact that the weights are having on our population.
 
 ```{r}
+#| echo: true
+#| eval: false
 nhefs_complete_uc |>
   dplyr::mutate(qsmk = factor(qsmk)) |>
   ggplot(aes(.fitted)) +
@@ -439,6 +461,8 @@ Both groups are being *upweighted* so that their distributions of propensity sco
 We could do more here to analyze our assumptions, but let's move on to our second step: fitting the outcome model weighted by our inverse probabilities. Some researchers call these Marginal Structural Models, in part because the model is marginal; we only need to include our outcome (`wt82_71`) and exposure (`qsmk`). The other variables aren't in the model; they are accounted for with the IPWs!
 
 ```{r}
+#| echo: true
+#| eval: false
 ipw_model <- lm(
   wt82_71 ~ qsmk, 
   data = nhefs_complete_uc, 
@@ -457,6 +481,8 @@ This estimate is pretty similar to what we saw before, if a little smaller. In f
 But we have other problem that we need to address. While we're just using `lm()` to estimate our IPW model, it doesn't properly account for the weights. That means our standard error is too small, which will artificially narrow confidence intervals and artificially shrink p-values. There are many ways to address this, including robust estimators. We'll focus on using the bootstrap via the {rsamples} package in this workshop, but here's one way to do it with robust standard errors:
 
 ```{r}
+#| echo: true
+#| eval: false
 # also see robustbase, survey, gee, and others
 library(estimatr)
 ipw_model_robust <- lm_robust( 
@@ -475,6 +501,8 @@ ipw_estimate_robust
 Now let's try the bootstrap. First, we need to wrap our model in a function so we can call it many times on our bootstrapped data. A function like this might be your instinct; however, it's not quite right.
 
 ```{r}
+#| echo: true
+#| eval: false
 # fit ipw model for a single bootstrap sample
 fit_ipw_not_quite_rightly <- function(split, ...) {
   # get bootstrapped data sample with `rsample::analysis()`
@@ -489,6 +517,8 @@ fit_ipw_not_quite_rightly <- function(split, ...) {
 The problem is that we need to account for the *entire* modeling process, so we need to include the first step of our analysis -- fitting the inverse probability weights.
 
 ```{r}
+#| echo: true
+#| eval: false
 fit_ipw <- function(split, ...) {
   .df <- rsample::analysis(split)
   
@@ -521,6 +551,8 @@ fit_ipw <- function(split, ...) {
 {rsample} makes the rest easy for us: `bootstraps()` resamples our data 1000 times, then we can use `purrr::map()` to apply our function to each resampled set (`splits`). {rsample}'s `int_*()` functions help us get confidence intervals for our estimate.
 
 ```{r}
+#| echo: true
+#| eval: false
 # fit ipw model to bootstrapped samples
 ipw_results <- rsample::bootstraps(causaldata::nhefs_complete, 1000, apparent = TRUE) |>
   dplyr::mutate(results = purrr::map(splits, fit_ipw))
@@ -535,6 +567,8 @@ boot_estimate
 Let's compare to our naive weighted model that just used a single estimate from `lm()`
 
 ```{r}
+#| echo: true
+#| eval: false
 dplyr::bind_rows(
   ipw_estimate |>
     dplyr::select(estimate, conf.low, conf.high) |>
