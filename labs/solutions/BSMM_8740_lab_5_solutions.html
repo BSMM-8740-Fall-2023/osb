@@ -1397,7 +1397,7 @@ SOLUTION:
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># center all predictors</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scals all predictors</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scales all predictors</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transformm the outcome using log-base-e (natural log)</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_log</span>(Sale_Price, <span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
@@ -1649,19 +1649,19 @@ SOLUTION:
 <pre><code>i 1 of 3 resampling: base_base</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 1 of 3 resampling: base_base (2.5s)</code></pre>
+<pre><code>✔ 1 of 3 resampling: base_base (2.7s)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>i 2 of 3 tuning:     base_glmnet</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 2 of 3 tuning:     base_glmnet (7.8s)</code></pre>
+<pre><code>✔ 2 of 3 tuning:     base_glmnet (7.9s)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>i 3 of 3 tuning:     base_forest</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 3 of 3 tuning:     base_forest (1m 58.2s)</code></pre>
+<pre><code>✔ 3 of 3 tuning:     base_forest (2m 12.6s)</code></pre>
 </div>
 </div>
 <p>The updated variable <code>all_workflows</code> contains a nested column named <strong>result</strong>, and each cell of the column <strong>result</strong> is a tibble containing a nested column named <strong>.metrics</strong>. Write code to</p>
