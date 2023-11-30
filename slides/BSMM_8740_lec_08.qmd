@@ -564,9 +564,7 @@ podcast_dag |>
 
 DAGs are not pure data frames, but you can retrieve either the `dataframe` or `dagitty` object to work with them directly using `pull_dag_data()` or `pull_dag()`. `pull_dag()` can be useful when you want to work with dagitty functions:
 
-
-::: {.panel-tabset style="font-size: 80%"}
-
+::: panel-tabset
 ## tidy_daggity
 
 ```{r}
@@ -597,7 +595,6 @@ podcast_dag_tidy |>
   ggdag::pull_dag() |> 
   dagitty::paths()
 ```
-
 :::
 
 ## DAGs - open paths
