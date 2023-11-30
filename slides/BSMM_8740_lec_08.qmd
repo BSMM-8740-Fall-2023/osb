@@ -600,6 +600,47 @@ podcast_dag_tidy |>
 ## DAGs - open paths
 
 ::: columns
+::: {.column width="50%" style="font-size: 65%"}
+DAGs are not pure data frames, but you can retrieve either the `dataframe` or `dagitty` object to work with them directly using `pull_dag_data()` or `pull_dag()`. `pull_dag()` can be useful when you want to work with dagitty functions:
+
+`ggdag::tidy_dagitty()`
+
+```{r}
+#| echo: true
+#| message: false
+podcast_dag_tidy <- podcast_dag |> 
+  ggdag::tidy_dagitty()
+
+podcast_dag_tidy
+```
+:::
+
+::: {.column width="50%" style="font-size: 65%"}
+`ggdag::dag_paths()`
+
+```{r}
+#| echo: true
+#| message: false
+podcast_dag_tidy |> 
+  ggdag::dag_paths() |> 
+  filter(set == 2, path == "open path")
+```
+
+`ggdag::pull_dag()`
+
+```{r}
+#| echo: true
+#| message: false
+podcast_dag_tidy |> 
+  ggdag::pull_dag() |> 
+  dagitty::paths()
+```
+:::
+:::
+
+## DAGs - open paths
+
+::: columns
 ::: {.column width="20%" style="font-size: 65%"}
 `ggdag::ggdag_adjustment_set()` visualizes any valid adjustment sets implied by the DAG. Figure 5.11 shows adjusted variables as squares. Any arrows coming out of adjusted variables are removed from the DAG because the path is longer open at that variable.
 
