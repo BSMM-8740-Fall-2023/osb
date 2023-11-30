@@ -562,11 +562,8 @@ podcast_dag |>
 
 ## DAGs - open paths
 
-::: {style="font-size: 75%"}
-
 DAGs are not pure data frames, but you can retrieve either the `dataframe` or `dagitty` object to work with them directly using `pull_dag_data()` or `pull_dag()`. `pull_dag()` can be useful when you want to work with dagitty functions:
 
-:::
 
 ::: {.panel-tabset style="font-size: 80%"}
 
@@ -606,7 +603,6 @@ podcast_dag_tidy |>
 ## DAGs - open paths
 
 ::: columns
-
 ::: {.column width="20%" style="font-size: 65%"}
 `ggdag::ggdag_adjustment_set()` visualizes any valid adjustment sets implied by the DAG. Figure 5.11 shows adjusted variables as squares. Any arrows coming out of adjusted variables are removed from the DAG because the path is longer open at that variable.
 
@@ -623,7 +619,6 @@ ggdag::ggdag_adjustment_set(
 :::
 
 ::: {.column width="80%" style="font-size: 75%"}
-
 ```{r}
 #| echo: false
 #| message: false
@@ -640,7 +635,6 @@ ggdag::ggdag_adjustment_set(
   use_labels = "label"
 ) + ggdag::theme_dag()
 ```
-
 :::
 :::
 
@@ -689,7 +683,6 @@ sim_data
 ## DAGs - open paths: example
 
 ::: {.panel-tabset style="font-size: 80%"}
-
 ## Note
 
 Since we have simulated this data, we know that this is a case where *standard methods will succeed* and, therefore, can estimate the causal effect using a basic linear regression model.
@@ -765,7 +758,6 @@ dplyr::bind_rows(
     caption = "correct effect size: 0"
   )
 ```
-
 :::
 
 ## DAGs - more advanced confounding
