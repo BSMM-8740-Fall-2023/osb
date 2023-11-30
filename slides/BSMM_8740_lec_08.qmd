@@ -224,15 +224,10 @@ $$ where $\Delta_{ATE}^{Y}$ is the average treatment effect in the population.
 ## Causal Inference Workflow
 
 1.  Specify a causal question
-
 2.  Draw our assumptions using a causal diagram
-
 3.  Model our assumptions
-
 4.  Diagnose our models
-
 5.  Estimate the causal effect
-
 6.  Conduct sensitivity analysis on the effect estimate
 
 ::: callout-important
@@ -735,7 +730,6 @@ dplyr::bind_rows(
 ```
 :::
 :::
-
 
 ## DAGs - more advanced confounding
 
