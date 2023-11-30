@@ -235,6 +235,10 @@ $$ where $\Delta_{ATE}^{Y}$ is the average treatment effect in the population.
 
 6.  Conduct sensitivity analysis on the effect estimate
 
+::: callout-important
+The following material is from [Causal Inference in R](https://www.r-causal.org/) by Barrett, D'Agostino McGowan & Gerke under a MIT + file license.
+:::
+
 # DAGS
 
 ## Directed acyclic graphs (DAGs)
@@ -571,6 +575,7 @@ DAGs are not pure data frames, but you can retrieve either the `dataframe` or `d
 ```{r}
 #| echo: true
 #| message: false
+#| code-fold: true
 podcast_dag_tidy <- podcast_dag |> 
   ggdag::tidy_dagitty()
 
@@ -584,6 +589,7 @@ podcast_dag_tidy
 ```{r}
 #| echo: true
 #| message: false
+#| code-fold: true
 podcast_dag_tidy |> 
   ggdag::dag_paths() |> 
   filter(set == 2, path == "open path")
@@ -594,6 +600,7 @@ podcast_dag_tidy |>
 ```{r}
 #| echo: true
 #| message: false
+#| code-fold: true
 podcast_dag_tidy |> 
   ggdag::pull_dag() |> 
   dagitty::paths()
@@ -683,55 +690,22 @@ sim_data
 
 ## DAGs - open paths: example
 
-::: {.panel-tabset style="font-size: 80%"}
-## Note
-
+::: columns
+::: {.column width="50%" style="font-size: 65%"}
 Since we have simulated this data, we know that this is a case where *standard methods will succeed* and, therefore, can estimate the causal effect using a basic linear regression model.
 
 @fig-dag-sim (Estimates tab) shows a forest plot of the simulated data based on our DAG. Notice the model that only included the exposure resulted in a spurious effect (an estimate of -0.1 when we know the truth is 0).
 
 By contrast, the model that adjusted for the two variables as suggested by `ggdag_adjustment_set()` is not spurious (much closer to 0).
+:::
 
-## Code
-
+::: {.column width="50%" style="font-size: 65%"}
 ```{r}
 #| echo: true
 #| code-fold: true
-#| eval: false
-## Model that does not close backdoor paths
-unadjusted_model <- lm(exam ~ podcast, sim_data) |>
-  broom::tidy(conf.int = TRUE) |>
-  dplyr::filter(term == "podcast") |>
-  dplyr::mutate(formula = "podcast")
-
-## Model that closes backdoor paths
-adjusted_model <- lm(exam ~ podcast + mood + prepared, sim_data) |>
-  broom::tidy(conf.int = TRUE) |>
-  dplyr::filter(term == "podcast") |>
-  dplyr::mutate(formula = "podcast + mood + prepared")
-
-dplyr::bind_rows(
-  unadjusted_model,
-  adjusted_model
-) |>
-  ggplot(aes(x = estimate, y = formula, xmin = conf.low, xmax = conf.high)) +
-  geom_vline(xintercept = 0, linewidth = 1, color = "grey80") +
-  geom_pointrange(fatten = 3, size = 1) +
-  theme_minimal(18) +
-  labs(
-    y = NULL,
-    caption = "correct effect size: 0"
-  )
-```
-
-## Estimates
-
-```{r}
-#| echo: false
-#| code-fold: true
 #| label: fig-dag-sim
 #| fig-width: 7.0
-#| fig-height: 3.5
+#| fig-height: 6
 #| fig-align: center
 #| fig-cap: "Forest plot of simulated data based on the DAG described in @fig-dag-podcast."
 ## Model that does not close backdoor paths
@@ -760,6 +734,8 @@ dplyr::bind_rows(
   )
 ```
 :::
+:::
+
 
 ## DAGs - more advanced confounding
 
