@@ -604,6 +604,19 @@ Y_{i}^{0} &amp; \text{if}\,D_{i}=0
 <li><p>Estimate the causal effect</p></li>
 <li><p>Conduct sensitivity analysis on the effect estimate</p></li>
 </ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>The following material is from <a href="https://www.r-causal.org/">Causal Inference in R</a> by Barrett, D’Agostino McGowan &amp; Gerke under a MIT + file license.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="dags" class="title-slide slide level1 center">
@@ -851,10 +864,13 @@ prepared -&gt; podcast
 <p>DAGs are not pure data frames, but you can retrieve either the <code>dataframe</code> or <code>dagitty</code> object to work with them directly using <code>pull_dag_data()</code> or <code>pull_dag()</code>. <code>pull_dag()</code> can be useful when you want to work with dagitty functions:</p>
 <p><code>ggdag::tidy_dagitty()</code></p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>podcast_dag_tidy <span class="ot">&lt;-</span> podcast_dag <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a href="#cb6-2"></a>  ggdag<span class="sc">::</span><span class="fu">tidy_dagitty</span>()</span>
 <span id="cb6-3"><a href="#cb6-3"></a></span>
 <span id="cb6-4"><a href="#cb6-4"></a>podcast_dag_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A DAG with 5 nodes and 5 edges
 #
@@ -877,9 +893,12 @@ prepared -&gt; podcast
 </div><div class="column" style="font-size: 65%">
 <p><code>ggdag::dag_paths()</code></p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>podcast_dag_tidy <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2"></a>  ggdag<span class="sc">::</span><span class="fu">dag_paths</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(set <span class="sc">==</span> <span class="dv">2</span>, path <span class="sc">==</span> <span class="st">"open path"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A DAG with 3 nodes and 2 edges
 #
@@ -899,9 +918,12 @@ prepared -&gt; podcast
 </div>
 <p><code>ggdag::pull_dag()</code></p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>podcast_dag_tidy <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2"></a>  ggdag<span class="sc">::</span><span class="fu">pull_dag</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb10-3"><a href="#cb10-3"></a>  dagitty<span class="sc">::</span><span class="fu">paths</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>$paths
 [1] "podcast &lt;- mood -&gt; exam"    
@@ -995,16 +1017,13 @@ $open
 </section>
 <section id="dags---open-paths-example-1" class="slide level2">
 <h2>DAGs - open paths: example</h2>
-<div class="panel-tabset" style="font-size: 80%">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Note</a></li><li><a href="#tabset-1-2">Code</a></li><li><a href="#tabset-1-3">Estimates</a></li></ul>
-<div class="tab-content" style="font-size: 80%">
-<div id="tabset-1-1">
+<div class="columns">
+<div class="column" style="font-size: 65%">
 <p>Since we have simulated this data, we know that this is a case where <em>standard methods will succeed</em> and, therefore, can estimate the causal effect using a basic linear regression model.</p>
 <p><a href="#/dags---open-paths-example-1">Figure&nbsp;8</a> (Estimates tab) shows a forest plot of the simulated data based on our DAG. Notice the model that only included the exposure resulted in a spurious effect (an estimate of -0.1 when we know the truth is 0).</p>
 <p>By contrast, the model that adjusted for the two variables as suggested by <code>ggdag_adjustment_set()</code> is not spurious (much closer to 0).</p>
-</div>
-<div id="tabset-1-2">
-<div class="cell">
+</div><div class="column" style="font-size: 65%">
+<div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="do">## Model that does not close backdoor paths</span></span>
@@ -1032,17 +1051,12 @@ $open
 <span id="cb16-23"><a href="#cb16-23"></a>    <span class="at">caption =</span> <span class="st">"correct effect size: 0"</span></span>
 <span id="cb16-24"><a href="#cb16-24"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-</div>
-<div id="tabset-1-3">
-<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-dag-sim" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="BSMM_8740_lec_08_files/figure-revealjs/fig-dag-sim-1.png" width="672"></p>
 <figcaption>Figure&nbsp;8: Forest plot of simulated data based on the DAG described in <a href="#/dags---visualization-4">Figure&nbsp;4</a>.</figcaption>
 </figure>
-</div>
 </div>
 </div>
 </div>
@@ -1103,15 +1117,15 @@ $open
 <div style="font-size: 65%">
 <p>Now there are <em>three</em> backdoor paths we need to close: <code>podcast &lt;- humor -&gt; mood -&gt; alertness -&gt; exam</code>, <code>podcast &lt;- mood -&gt; alertness -&gt; exam</code>, and <code>podcast &lt;- skills_course -&gt; prepared -&gt; exam</code>.</p>
 <div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">code</a></li><li><a href="#tabset-2-2">paths</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">code</a></li><li><a href="#tabset-1-2">paths</a></li></ul>
 <div class="tab-content">
-<div id="tabset-2-1">
+<div id="tabset-1-1">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag_paths</span>(podcast_dag2, <span class="at">use_labels =</span> <span class="st">"label"</span>, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">shadow =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2"></a>  ggdag<span class="sc">::</span><span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-2">
+<div id="tabset-1-2">
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-podcast_dag2-paths" class="quarto-figure quarto-figure-center">
