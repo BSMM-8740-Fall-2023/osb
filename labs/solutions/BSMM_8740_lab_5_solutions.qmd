@@ -104,7 +104,7 @@ norm_recipe <-
   ) %>%
   # center all predictors
   recipes::step_center(all_numeric_predictors()) %>%
-  # scals all predictors
+  # scales all predictors
   recipes::step_scale(all_numeric_predictors()) %>%
   # transformm the outcome using log-base-e (natural log)
   recipes::step_log(Sale_Price, base = exp(1)) %>% 
