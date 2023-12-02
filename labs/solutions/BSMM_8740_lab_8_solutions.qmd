@@ -1,6 +1,9 @@
 ---
 title: "Lab 8 - Causal Inference"
+subtitle: "SOLUTIONS"
 editor: visual
+format: html
+self-contained: true
 reference-location: margin
 ---
 
@@ -14,28 +17,6 @@ By the end of the lab you will...
 
 -   Be able to build DAGs to model causal assumptions and use the causal model to extract implications for answering causal questions.
 -   Be able to build a causal workflow to answer causal questions.
-
-## Getting started
-
--   Log in to **your** github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-lab-7-\[your github username\]** repository to complete the lab.
-
-    Create an R project using your **BSMM-lab-7-\[your github username\]** repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `BSMM-lab-7.qmd` file in your repository.
-
--   When you are done, be sure to: **save** your document, **stage**, **commit** and [**push**]{.underline} your work.
-
-::: callout-important
-To access Github from the lab, you will need to make sure you are logged in as follows:
-
--   username: **.\\daladmin**
--   password: **Business507!**
-
-Remember to (create a PAT and set your git credentials)
-
--   create your PAT using `usethis::create_github_token()` ,
--   store your PAT with `gitcreds::gitcreds_set()` ,
--   set your username and email with
-    -   `usethis::use_git_config( user.name = ___, user.email = ___)`
-:::
 
 ## Packages
 
@@ -62,7 +43,8 @@ Find the open paths from D (treatment) to Y (outcome) in the four DAGs below.
 You can examine the DAGS to identify (this is the recommended first step) and then use the code for the DAGs (in your repo), along with the function `dagitty::paths` to confirm
 
 ```{r}
-#| echo: false
+#| code-fold: true
+#| code-summary: Four example DAGs
 # (1)
 dag_1 <- 
 ggdag::dagify(
@@ -166,16 +148,39 @@ dag_flows |>
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## YOUR ANSWER:
+## SOLUTION:
 
 -   DAG_1
-    -   open paths:
+
+```{r}
+#| echo: true
+# open paths DAG 1: "D -> A -> Y"
+dag_1 %>% dagitty::paths()
+```
+
 -   DAG_2
-    -   open paths:
+
+```{r}
+#| echo: true
+# open paths DAG 2: "D -> E -> Y"
+dag_2 %>% dagitty::paths()
+```
+
 -   DAG_3
-    -   open paths:
+
+```{r}
+#| echo: true
+# open paths DAG 3: "D -> Y" and "D <- B -> Y"
+dag_3 %>% dagitty::paths()
+```
+
 -   DAG_4
-    -   open paths:
+
+```{r}
+#| echo: true
+# open paths DAG 4: "D -> Y" and "D <- B <- C -> Y"
+dag_4 %>% dagitty::paths()
+```
 :::
 
 ## Exercise 2: Building a DAG
@@ -191,30 +196,62 @@ To confirm your understanding of the business, perhaps identify missing data, an
 What data might be missing from dataset provided by the company?
 
 ::: {.callout-note appearance="simple" icon="false"}
-## YOUR ANSWER:
+## SOLUTION:
 
-Data missing if any:
-
-Code to display the DAG
+\(1\) **The DAG:** The description above describes the DAG shown below
 
 ```{r}
-#| eval: false
+#| code-fold: true
+#| code-summary: price-demand DAG
 set.seed(8740)
 ggdag::dagify(
-  demand ~ ?
-  , price ~ ?
-  , c_price ~ ?
-  , wholesale ~ ?
-  , economy ~ ?  
-  , ? ~ ?
+  demand ~ price + economy + c_price
+  , price ~ c_price + wholesale
+  , c_price ~ wholesale
+  , wholesale ~ economy
   , exposure = "price"
   , outcome = "demand"
   , labels = c(
-      demand = "demand",
       price = "price",
       c_price = "c_price",
       economy = "economy",
+      demand = "demand",
       wholesale = "wholesale"
+    )
+) %>%
+  ggdag::ggdag(use_labels = "label", text = FALSE) +
+  ggdag::theme_dag()
+```
+
+\(2\) **The missing data**: There is an [**open**]{.underline} path: **price -\> c_price -\> demand**, and clearly our competitor's price is a confounder of our price effect on demand - but it can be controlled for since we have the competitor price data.
+
+However, there is also an [**open**]{.underline} path: **price -\> wholesale -\> economy -\> demand**, and this needs to be closed if we are to accurately estimate our price effect on demand. We could close this path if we had data on the wholesale prices or on the 'economy,' as controlling for either would close the path, but the latter is unmeasured and even if there were some measure of the 'economy,' the wholesale prices would likely have less measurement error. So both those datasets are missing, but we should ask management for, or otherwise acquire, the wholesale price history.
+
+We might be able to do a bit better too, perhaps by reducing variance by including data on weather, traffic, holidays, etc., expanding our model as follows:
+
+```{r}
+#| code-fold: true
+#| code-summary: revised price-demand DAG
+set.seed(8740)
+ggdag::dagify(
+  demand ~ price + traffic + c_price + economy
+  , traffic ~ economy
+  , demand ~ weather
+  , demand ~ holidays
+  , price ~ c_price + wholesale
+  , c_price ~ wholesale
+  , wholesale ~ economy
+  , exposure = "price"
+  , outcome = "demand"
+  , labels = c(
+      price = "price",
+      c_price = "c_price",
+      economy = "economy",
+      demand = "demand",
+      wholesale = "wholesale",
+      traffic = "traffic",
+      weather = "weather",
+      holidays = "holidays"
     )
 ) %>%
   ggdag::ggdag(use_labels = "label", text = FALSE) +
@@ -224,7 +261,7 @@ ggdag::dagify(
 
 ## Exercise 3: Causal Modeling
 
-In this guided exercise, we'll attempt to answer a causal question: does quitting smoking make you gain weight? Causal modeling has a special place in the history of smoking research: the studies that demonstrated that smoking causes lung cancer were observational. Thanks to other studies, we also know that, if you're already a smoker, quitting smoking reduces your risk of lung cancer. However, some have observed that former smokers tend to gain weight. Is this the result of quitting smoking, or does something else explain this effect? In the book Causal Inference by Hernán and Robins, the authors analyze this question using several causal inference techniques.
+In this guided exercise, we'll attempt to answer a causal question: does quitting smoking make you gain weight? Causal modeling has a special place in the history of smoking research: the studies that demonstrated that smoking causes lung cancer were observational. Thanks to other studies, we also know that, if you're already a smoker, quitting smoking reduces your risk of lung cancer. However, some have observed that former smokers tend to gain weight. Is this the result of quitting smoking, or does something else explain this effect? In the book [Causal Inference](https://www.hsph.harvard.edu/miguel-hernan/wp-content/uploads/sites/1268/2023/10/hernanrobins_WhatIf_30sep23.pdf) by Hernán and Robins, the authors analyze this question using several causal inference techniques.
 
 To answer this question, we'll use causal inference methods to examine the relationship between quitting smoking and gaining weight. First, we'll draw our assumptions with a causal diagram (a directed acyclic graph, or DAG), which will guide our model. Then, we'll use a modeling approach called inverse probability weighting--one of many causal modeling techniques--to estimate the causal effect we're interested in.
 
@@ -232,7 +269,8 @@ We'll use data from NHEFS to try to estimate the causal effect of quitting smoki
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: NHEFS data
 nhefs_complete_uc <- causaldata::nhefs_complete |>
   dplyr::filter(censored == 0)
 nhefs_complete_uc
@@ -242,7 +280,8 @@ Let's look at the distribution of weight gain between the two groups.
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: weight gain distributions
 nhefs_complete_uc |>
   ggplot(aes(wt82_71, fill = factor(qsmk))) + 
   geom_vline(xintercept = 0, color = "grey60", linewidth = 1) +
@@ -260,7 +299,8 @@ There's a difference--former smokers do seemed to have gained a bit more weight-
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: weight gain summaries
 # ~4.5 kg gained for quit vs. not quit
 nhefs_complete_uc |>
   dplyr::group_by(qsmk) |>
@@ -279,7 +319,9 @@ In R, we can visualize and analyze our DAGs with the {ggdag} package. {ggdag} us
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| message: false
+#| code-summary: tidy version of the DAG
 # set up DAG
 smk_wt_dag <- ggdag::dagify(
   # specify causes of quitting smoking and weight gain:
@@ -324,18 +366,20 @@ Let's visualize our assumptions with `ggdag()`.
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: graphic version of the DAG
 #| message: false
 #| warning: false
 smk_wt_dag |>
-  ggdag::ggdag(text = FALSE, use_labels = "label")
+  ggdag::ggdag(text = FALSE, use_labels = "label") + ggdag::theme_dag()
 ```
 
 What do we need to control for to estimate an unbiased effect of quitting smoking on weight gain? In many DAGs, there will be many sets of variables--called adjustment sets--that will give us the right effect (assuming our DAG is correct--a big, unverifiable assumption!). `ggdag_adjustment_set()` can help you visualize them. Here, there's only one adjustment set: we need to control for everything! While we're add it, since a {ggdag} plot is just a {ggplot2} plot, let's clean it up a bit, too.
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: DAG adjustment sets
 smk_wt_dag |>
   ggdag::ggdag_adjustment_set(text = FALSE, use_labels = "label") +
   ggdag::theme_dag() +
@@ -347,7 +391,8 @@ Let's fit a model with these variables. Note that we'll fit all continuous varia
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: fit of data using all variables
 lm(
   wt82_71~ qsmk + sex + 
     race + age + I(age^2) + education + 
@@ -368,7 +413,9 @@ For the propensity score model, we'll use logistic regression (since quitting sm
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| message: false
+#| code-summary: propensity score calculations
 propensity_model <- glm(
   qsmk ~ sex + 
     race + age + I(age^2) + education + 
@@ -393,7 +440,8 @@ Let's look at the distribution of the weights.
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: propensity weight distribution
 ggplot(nhefs_complete_uc, aes(wts)) +
   geom_histogram(color = "white", fill = "#E69F00", bins = 50) + 
   #  use a log scale for the x axis
@@ -402,7 +450,7 @@ ggplot(nhefs_complete_uc, aes(wts)) +
   xlab("Weights")
 ```
 
-It looks a little skewed, particularly that there are some participants with much higher weights. There are a few techniques for dealing with this--trimming weights and stabilizing weights--but we'll keep it simple for now and just use them as is.
+It looks a little skewed, particularly that there are some participants with much higher weights. There are a few techniques for dealing with this -- trimming weights and stabilizing weights -- but we'll keep it simple for now and just use them as is.
 
 The main goal here is to *break* the non-causal associations between quitting smoking and gaining weight--the other paths that might distort our results. In other words, if we succeed, there should be no differences in these variables between our two groups, those who quit smoking and those who didn't. This is where randomized trials shine; you can often assume that there is no baseline differences among potential confounders between your treatment groups (of course, no study is perfect, and there's a whole set of literature on dealing with this problem in randomized trials).
 
@@ -412,7 +460,8 @@ We'll use the {halfmoon} package to calculate the SMDs, then visualize them.
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: Standardized mean differences plot
 vars <- c(
   "sex", "race", "age", "education", 
   "smokeintensity", "smokeyrs", 
@@ -439,7 +488,8 @@ We can also use halfmoon's `geom_mirror_histogram()` to visualize the impact tha
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: Inverse Probability Weight distributions 
 nhefs_complete_uc |>
   dplyr::mutate(qsmk = factor(qsmk)) |>
   ggplot(aes(.fitted)) +
@@ -463,7 +513,8 @@ We could do more here to analyze our assumptions, but let's move on to our secon
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: Fit using inverse probability weights 
 ipw_model <- lm(
   wt82_71 ~ qsmk, 
   data = nhefs_complete_uc, 
@@ -477,16 +528,17 @@ ipw_estimate <- ipw_model |>
 ipw_estimate
 ```
 
-This estimate is pretty similar to what we saw before, if a little smaller. In fact, for simple causal questions, this is often the case: adjusting for confounders directly in your regression model sometimes estimates the same effect as IPWs and other causal techniques. Causal techniques are special, though, in that the use counterfactual modeling, which allows you to deal with many circumstances, such as when you have selection bias or time-dependendent confounding. They also often have variance properties.
+This estimate is pretty similar to what we saw before, if a little smaller. In fact, for simple causal questions, this is often the case: adjusting for confounders directly in your regression model sometimes estimates the same effect as IPWs and other causal techniques. Causal techniques are special, though, in that they use counterfactual modeling, which allows you to deal with many circumstances, such as when you have selection bias or time-dependendent confounding. They also often have variance properties.
 
-But we have other problem that we need to address. While we're just using `lm()` to estimate our IPW model, it doesn't properly account for the weights. That means our standard error is too small, which will artificially narrow confidence intervals and artificially shrink p-values. There are many ways to address this, including robust estimators. We'll focus on using the bootstrap via the {rsamples} package in this workshop, but here's one way to do it with robust standard errors:
+But we have other problem that we need to address. While we're just using `lm()` to estimate our IPW model, it doesn't properly account for the weights. That means our standard error is too small, which will artificially narrow confidence intervals and artificially shrink p-values. There are many ways to address this, including robust estimators. We'll focus on using the bootstrap via the {**rsamples**} package in this lab, but here's one way to do it with robust standard errors:
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: Robust linear fit without bootstrap  
 # also see robustbase, survey, gee, and others
 library(estimatr)
-ipw_model_robust <- lm_robust( 
+ipw_model_robust <- estimatr::lm_robust( 
   wt82_71 ~ qsmk, 
   data = nhefs_complete_uc, 
   weights = wts 
@@ -504,6 +556,8 @@ Now let's try the bootstrap. First, we need to wrap our model in a function so w
 ```{r}
 #| echo: true
 #| eval: false
+#| code-fold: true
+#| code-summary: not quite right function for bootstrapped estimates 
 # fit ipw model for a single bootstrap sample
 fit_ipw_not_quite_rightly <- function(split, ...) {
   # get bootstrapped data sample with `rsample::analysis()`
@@ -519,7 +573,8 @@ The problem is that we need to account for the *entire* modeling process, so we 
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: right function for bootstrapped estimates 
 fit_ipw <- function(split, ...) {
   .df <- rsample::analysis(split)
   
@@ -553,7 +608,8 @@ fit_ipw <- function(split, ...) {
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: fit ipw model to bootstrapped estimates 
 # fit ipw model to bootstrapped samples
 ipw_results <- rsample::bootstraps(causaldata::nhefs_complete, 1000, apparent = TRUE) |>
   dplyr::mutate(results = purrr::map(splits, fit_ipw))
@@ -569,7 +625,8 @@ Let's compare to our naive weighted model that just used a single estimate from 
 
 ```{r}
 #| echo: true
-#| eval: false
+#| code-fold: true
+#| code-summary: comparison of robust and naive weighted models 
 dplyr::bind_rows(
   ipw_estimate |>
     dplyr::select(estimate, conf.low, conf.high) |>
@@ -605,19 +662,20 @@ So, we have a final estimate for our causal effect: on average, a person who qui
 -   What do you think? Is this estimate reliable? Did we do a good job addressing the assumptions we need to make for a causal effect, particularly that there is no confounding? How might you criticize this model, and what would you do differently?
 
 ::: {.callout-note appearance="simple" icon="false"}
-## Your Answer
+## SOLUTION:
 
--   causal workflow steps:
+-   **causal workflow steps**:
+    -   Specify a causal question
+    -   Draw assumptions using a causal diagram
+    -   Model assumptions
+    -   Diagnose models
+    -   Estimate the causal effect
+    -   Conduct sensitivity analysis on the effect estimate
+-   **critique of the results of the exercise**:
 
--   your critique of the results of the exercise
-:::
+We have many confounders in this problem. What if we missed an important one?
 
-## Submission
-
-::: callout-warning
-Before you wrap up the assignment, make sure all documents are saved, staged, committed, and pushed to your repository on the course github site.
-
-Remember -- you do **not** have to turn in an \*.html file. I will be pulling your work directly from your repository on the course website.
+The one step of the workflow that we missed is to conduct a sensitivity analysis and so that should certainly be done before reporting the results of the exercise.
 :::
 
 ## Grading
