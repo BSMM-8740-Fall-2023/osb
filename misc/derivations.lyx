@@ -1331,7 +1331,45 @@ a
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\bar{X}\sqrt{}$
+\begin_inset Formula $\bar{X}\sqrt{}\sim$
+\end_inset
+
+p
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $p\left(\left.y_{i}\right|x_{i},\beta,\sigma^{2}\right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}e^{-\frac{(y_{i}-\beta x_{i})^{2}}{2\sigma^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\theta}_{\text{\text{MLE}}} & =\arg\max_{\theta}\pi\left(\left.V\right|\theta\right)\times\pi\left(\theta\right)\\
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\theta}_{\text{\text{MAP}}} & =\arg\max_{\theta}\pi\left(\left.\theta\right|V\right)\\
+ & =\arg\max_{\theta}\log\pi\left(\left.V\right|\theta\right)+\log\pi\left(\theta\right)\\
+ & =\arg\min_{\theta}-\log\pi\left(\left.V\right|\theta\right)-\log\pi\left(\theta\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\pi\left(\left.\theta\right|V\right)=\pi\left(\left.V\right|\theta\right)\times\pi\left(\theta\right)$
 \end_inset
 
 
